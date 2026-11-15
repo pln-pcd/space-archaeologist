@@ -85,26 +85,14 @@ describe("mission progression", () => {
         act({ type: "match", card: `part:${part.id}`, slot: `job:${part.id}` });
       act({ type: "next" });
     }
-    // v7.5: every find studied, but the Rock Box (fieldDone) still gates the rebuild
+    // v7.7: every find studied (each with its quiz); the Rock Box (fieldDone) gates the badge,
+    // and the mission then goes straight to the badge (no rebuild, discovery or report)
     expect(s.step).toBe(5);
     act({ type: "next" });
     expect(s.step).toBe(5);
     act({ type: "fieldDone" });
     act({ type: "next" });
-    expect(s.step).toBe(8);
-    act({ type: "next" });
-    expect(s.step).toBe(8);
-    act({ type: "assemble" });
-    for (const stage of m.reconstruction.stages)
-      act({ type: "label", stage: stage.id, answer: stage.id });
-    for (const card of m.reconstruction.timeline)
-      act({ type: "timeline", id: card.id });
-    act({ type: "next" });
-    for (const _ of m.discovery) act({ type: "next" });
-    expect(s.step).toBe(10);
-    for (const q of m.challenge)
-      for (const id of q.answer) act({ type: "answer", id });
-    act({ type: "next" });
+    expect(s.step).toBe(11);
     act({ type: "stamp" });
     expect(s.step).toBe(12);
     expect(s.stars).toBe(3);

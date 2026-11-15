@@ -61,6 +61,9 @@ const stepTo = (s: MissionState, step: Step): MissionState => ({
   feedback: "",
   hintLevel: 0,
 });
+// v7.7: after every find (each with its quiz) and the Rock Box game, the mission goes straight to
+// the badge; the rebuild, discovery and report steps are no longer part of the path
+const toBadge = (s: MissionState): MissionState => ({ ...stepTo(s, 11), challengeDone: true });
 /** Pure state machine. UI and input adapters can only send commands through the Intent Bus. */
 export function reduceMission(
   m: MissionDefinition,
@@ -249,12 +252,7 @@ export function reduceMission(
       rewarded: true,
       archive: m.artifacts.map((a) => a.id),
       points: m.rewards.points,
-      stars:
-        s.hints === 0 && s.firstTries === m.challenge.length
-          ? 3
-          : s.hints <= 4 && s.firstTries >= Math.ceil(m.challenge.length / 2)
-            ? 2
-            : 1,
+      stars: s.hints === 0 ? 3 : s.hints <= 4 ? 2 : 1,
     };
   if (c.type !== "next") return s;
   // v7.1 story: 0 = the story film (HyperFrames scene), 1 = the real NASA footage (Armstrong's
@@ -264,7 +262,7 @@ export function reduceMission(
       ? { ...s, storyStage: s.storyStage + 1 }
       : stepTo(s, 5);
   if (s.step === 5 && s.records.length === m.artifacts.length && s.fieldDone)
-    return stepTo(s, 8);
+    return toBadge(s);
   if (
     s.step === 6 &&
     a &&
@@ -281,7 +279,7 @@ export function reduceMission(
       .every((c) => s.evidence[a.id]?.includes(`pair:${c.id}`))
   ) {
     const ns = { ...s, records: add(s.records, a.id) };
-    return stepTo(ns, ns.records.length === m.artifacts.length && ns.fieldDone ? 8 : 5);
+    return ns.records.length === m.artifacts.length && ns.fieldDone ? toBadge(ns) : stepTo(ns, 5);
   }
   if (s.step === 8 && s.reconstructionDone) return stepTo(s, 9);
   if (s.step === 9)

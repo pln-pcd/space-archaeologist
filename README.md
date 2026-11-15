@@ -21,7 +21,7 @@ You are a young Space Archaeologist. Design an explorer, board the ship and pick
 3. For each one you brush away the dust and turn it around. Then you open its parts, each with its
    job and a true fact.
 4. You run a hands-on activity (like a laser ping) and answer a short evidence quiz.
-5. Then you fill the Rock Box, rebuild the lander, file a report nobody can fail, and earn a badge.
+5. When every find is done, you fill the Rock Box with your hands and earn a badge.
 
 **Mission 2, Mars:** keep the rover Opportunity going in Sol Keeper.
 
@@ -51,7 +51,7 @@ The audience is kids aged 7 to 12. Each core feature has a reason:
 
 ## How NASA data is used
 
-- **Every fact is sourced.** 275 fact lines, each linked to one of 46 NASA sources in
+- **Every fact is sourced.** 275 fact lines, each linked to one of 45 NASA sources in
   `apps/web/src/content/sources.json`, checked by `npm run check:facts` (0 problems). The full list
   is in `docs/ACCURACY_REPORT.md`, and the `/dev/facts` page in the game shows each fact with its source.
   - Sources include NSSDCA (the challenge's recommended catalog), NASA Science and NASA.gov mission

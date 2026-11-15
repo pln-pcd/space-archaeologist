@@ -2,7 +2,7 @@
   "chapter": "eagle",
   "backdrop": "moon",
   "questions": [
-    { "id": "q-feel", "format": "pick", "prompt": "Which one could feel footsteps?", "options": [{ "label": "Seismometer", "icon": "seismometer", "correct": true }, { "label": "Reflector", "icon": "reflector" }, { "label": "Flag", "icon": "flag" }], "clue": "It listens to the ground shaking.", "sourceIds": ["F11"] },
+    { "id": "q-feel", "format": "pick", "prompt": "Which one could feel footsteps?", "options": [{ "label": "Seismometer", "icon": "seismometer", "correct": true }, { "label": "Reflector", "icon": "reflector" }, { "label": "Flag", "icon": "flag" }], "clue": "It listens to the ground shaking.", "sourceIds": ["F26"] },
     { "id": "q-reflector", "format": "pick", "prompt": "What do lasers bounce off on the Moon?", "options": [{ "label": "Reflector", "icon": "reflector", "correct": true }, { "label": "Flag", "icon": "flag" }, { "label": "Rocks", "icon": "rock" }], "clue": "It has 100 glass corner cubes.", "sourceIds": ["F10", "F13"] },
     { "id": "q-distance", "format": "number", "prompt": "About how far away is the Moon?", "options": [{ "label": "385 km" }, { "label": "385,000 km", "correct": true }, { "label": "385 million km" }], "clue": "Light takes about 2.5 seconds there and back.", "sourceIds": ["F10"] },
     { "id": "q-drift", "format": "number", "prompt": "How much does the Moon drift away each year?", "options": [{ "label": "About 3.8 cm", "correct": true }, { "label": "3.8 km" }, { "label": "Not at all" }], "clue": "Only a tiny bit each year.", "sourceIds": ["F10"] },

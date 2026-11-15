@@ -1,6 +1,6 @@
 // End-to-end: the v7.6 Moon mission in a real browser (Vite dev server on 5173).
 //   mouse:    title, intro, name, explorer, ship, film, launch, story, all four finds (dig, parts,
-//             activity, evidence quiz), Rock Box, rebuild, report, badge, archive
+//             activity, evidence quiz), Rock Box, badge, archive
 //   keyboard: Tab + Enter (and number keys in the quiz) only, through onboarding and one full find
 // Both runs assert: no console errors, no third-party requests, and no camera use.
 import { test, expect, type Page, type Locator } from "@playwright/test";
@@ -130,27 +130,8 @@ test("Mission 001 completes using the mouse", async ({ page }) => {
     await page.mouse.move(rb.x + rb.width / 2 + (i % 2), rb.y + rb.height / 2);
     await page.waitForTimeout(80);
   }
-  await expect(page.getByRole("button", { name: "Go rebuild the journey", exact: true })).toBeVisible({ timeout: 30_000 });
-  await click("Go rebuild the journey");
-  await step(page, 8);
-  await click("Let's play!");
-  await click("Grab ascent stage");
-  await click("Snap onto descent stage");
-  for (let i = 0; i < moon.reconstruction.stages.length; i++) {
-    const labels: string[] = await page.evaluate(() => JSON.parse(localStorage.getItem("odyssey-missions-v5")!)["moon-001"].labels);
-    const next = moon.reconstruction.stages.find((x: { id: string }) => !labels.includes(x.id));
-    await click(`Assign ${next.id} function`);
-  }
-  for (const c of moon.reconstruction.timeline) await click(`Timeline ${c.id}`);
-  await click("Continue to discovery");
-  await step(page, 9);
-  for (let i = 0; i < moon.discovery.length - 1; i++) await click("Next discovery");
-  await click("Report to Mission Control");
-  await step(page, 10);
-  await click("Let's play!");
-  await click(`Answer ${moon.challenge[0].options.find((o: { id: string }) => o.id !== moon.challenge[0].answer[0]).id}`);
-  for (const q of moon.challenge) for (const a of q.answer) await click(`Answer ${a}`);
-  await click("Return through warp");
+  await expect(page.getByRole("button", { name: "Go get your badge", exact: true })).toBeVisible({ timeout: 30_000 });
+  await click("Go get your badge");
   await step(page, 11);
   await click("Stamp my archaeology passport");
   await step(page, 12);

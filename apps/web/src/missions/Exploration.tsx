@@ -7,7 +7,7 @@ import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
 import * as THREE from "three";
-import { Compass, Radar, Package, Hammer, Search, HelpCircle, X, Award, ScrollText, Play, ArrowUpFromDot, Gem } from "lucide-react";
+import { Compass, Radar, Package, Search, HelpCircle, X, Award, Play, ArrowUpFromDot, Gem } from "lucide-react";
 import { MoonGround, Earth, bootPrintTexture, Puffs } from "../story/ch1/props";
 import { intents, useIntent, useIntentScope, useLastSource } from "../input/bus";
 import { useGloveCam, useInput } from "../input/store";
@@ -520,7 +520,7 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
   );
   const total = mission.artifacts.length;
   const done = state.records.length;
-  // v7.5 mission path: study every find → Rock Box → rebuild → report → badge
+  // v7.7 mission path: study every find (each with its quiz) → Rock Box → badge
   const stage = done < total ? 0 : !state.fieldDone ? 1 : 2;
   const [samples, setSamples] = useState(picked.size);
   const onSample = (n: number) => {
@@ -544,7 +544,7 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
     if (briefing || stage === spokeStage.current) return;
     spokeStage.current = stage;
     if (stage === 1) speak("Amazing! You studied every find. Next game: fill the Rock Box!");
-    if (stage === 2) speak("Rock Box done! Next, let's rebuild Eagle's journey.");
+    if (stage === 2) speak("Rock Box done! Let's go get your badge!");
   }, [stage, briefing]);
   const hands = source === "gesture" || handsMode;
   return (
@@ -592,8 +592,6 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
         {([
           [Search, `Finds ${done}/${total}`],
           [Package, "Rock Box"],
-          [Hammer, "Rebuild"],
-          [ScrollText, "Report"],
           [Award, "Badge"],
         ] as const).map(([Icon, label], i) => (
           <span key={i} className={`ex-step ${i < stage ? "done" : i === stage ? "now" : ""}`} aria-current={i === stage ? "step" : undefined}>
@@ -649,13 +647,13 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
         <div className="ex-near ex-next g-panel" role="dialog" aria-label="Next game">
           <div className="ex-near-row">
             <span className="ex-near-ico" aria-hidden="true">
-              {stage === 1 ? <Package size={24} strokeWidth={2.6} /> : <Hammer size={24} strokeWidth={2.6} />}
+              {stage === 1 ? <Package size={24} strokeWidth={2.6} /> : <Award size={24} strokeWidth={2.6} />}
             </span>
             <div className="ex-near-text">
               <small>{stage === 1 ? "Next game" : "Next step"}</small>
-              <strong>{stage === 1 ? "Fill the Rock Box" : "Rebuild the journey"}</strong>
+              <strong>{stage === 1 ? "Fill the Rock Box" : "Get your badge"}</strong>
             </div>
-            <button type="button" className="g-btn primary big" aria-label={stage === 1 ? "Play Fill the Rock Box" : "Go rebuild the journey"} onClick={() => (cute.jingle(), stage === 1 ? onFieldActivity() : command(mission, { type: "next" }))}>
+            <button type="button" className="g-btn primary big" aria-label={stage === 1 ? "Play Fill the Rock Box" : "Go get your badge"} onClick={() => (cute.jingle(), stage === 1 ? onFieldActivity() : command(mission, { type: "next" }))}>
               <Play size={22} strokeWidth={3} aria-hidden="true" /> {stage === 1 ? "Play" : "Go"}
             </button>
           </div>

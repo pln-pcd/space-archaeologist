@@ -17,13 +17,8 @@ export default function Rewards({
 }) {
   const [points, setPoints] = useState(0),
     [warp, setWarp] = useState(true);
-  const stars =
-    state.hints === 0 && state.firstTries === mission.challenge.length
-      ? 3
-      : state.hints <= 4 &&
-          state.firstTries >= Math.ceil(mission.challenge.length / 2)
-        ? 2
-        : 1;
+  // v7.7: the report quiz is gone, so stars come from how much help the explorer needed
+  const stars = state.hints === 0 ? 3 : state.hints <= 4 ? 2 : 1;
   useEffect(() => {
     play("chime");
     nova.act("jump");
@@ -72,8 +67,7 @@ export default function Rewards({
         <h2>{mission.rewards.badge}</h2>
         <p aria-live="off">{points} discovery points</p>
         <p>
-          {state.records.length} investigations · {state.firstTries} first tries
-          · {state.hints} hints
+          {state.records.length} investigations · {state.hints} hints
         </p>
         <p>Your artifact miniatures are ready for the Space Archive shelf.</p>
         <Button

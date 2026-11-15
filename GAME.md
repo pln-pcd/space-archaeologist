@@ -48,8 +48,6 @@ missions, and an X (or Esc) on every panel.
 |---|---|
 | **Finds 0/4** | Walk around the landing site and study four real objects: the Eagle descent stage, the laser reflector, the moonquake detector (seismometer) and the plaque. Each has a dust dig; then the find sits big in the middle, kids twist and turn it (a fist moves it when the camera is on) and open its glowing parts, each with its job and a true fact; a hands-on activity (test the landing legs, send a laser ping, feel a moonquake, read the message); and an evidence quiz: four answers A to D, picked by holding up 1, 2, 3 or 4 fingers to the camera, or by tapping. |
 | **Rock Box** | Pick up Moon rocks and drop them into the sample box, using your hands on camera or the mouse. |
-| **Rebuild** | Put Eagle's journey back together: which part did what, and in what order. |
-| **Report** | A 5-question mission report quiz. Wrong answers are gentle hints, never a fail. |
 | **Badge** | Earn the **Tranquility Storykeeper** badge, then "Chapter complete!" and back to the ship. |
 
 **Extra fun on the Moon:** collect 8 sparkly Moon samples hidden around the site, and do a floaty
@@ -135,7 +133,7 @@ true teaser fact.
 ## Accuracy
 
 - All story, quiz and Nova text lives in `apps/web/src/content/*.json`.
-- Every fact cites a NASA source in `sources.json`. The full list is in `docs/ACCURACY_REPORT.md`, and
+- Every fact cites a NASA source in `sources.json` (45 sources). The full list is in `docs/ACCURACY_REPORT.md`, and
   `/dev/facts` shows each fact with its source.
 - The game uses no NASA logos, insignia or mission patches, and it is **not endorsed by NASA**.
 

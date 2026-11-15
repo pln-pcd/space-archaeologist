@@ -51,14 +51,6 @@
       "status": "verified"
     },
     {
-      "id": "F11",
-      "title": "Apollo 11 seismometer could detect the astronauts' footsteps",
-      "url": "https://physicsworld.com/?p=81310",
-      "publisher": "Physics World (IOP Publishing)",
-      "retrieved": "2026-11-15",
-      "status": "verified"
-    },
-    {
       "id": "F12",
       "title": "Apollo 11 Passive Seismic Experiment (first seismometer on the Moon; about three weeks of data)",
       "url": "https://science.nasa.gov/resource/apollo-11-seismic-experiment/",
@@ -176,7 +168,7 @@
     },
     {
       "id": "F26",
-      "title": "Apollo 11 Passive Seismic Experiment: stopped responding to commands on 25 Aug 1969 (overheating); about 3 weeks of data",
+      "title": "Apollo 11 Passive Seismic Experiment: stopped responding to commands on 25 Aug 1969 (overheating); about 3 weeks of data; sensitive enough to detect the astronauts' footfalls",
       "url": "https://www.nasa.gov/wp-content/uploads/static/history/alsj/HamishALSEP.html",
       "publisher": "NASA History Office (Apollo Lunar Surface Journal)",
       "status": "verified",
