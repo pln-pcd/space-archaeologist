@@ -38,6 +38,7 @@ import "./ui/settings.css";
 import "./ui/responsive.css";
 import { installJuice } from "./fx/juice";
 import WarpLayer, { warpTo } from "./fx/Warp";
+import Safe from "../ui/Safe";
 import { AVATAR_SAVE_KEY, GAME_TITLE } from "../missions/constants";
 import { useAvatar } from "../missions/avatar";
 import { resetMissions } from "../missions/session";
@@ -180,6 +181,7 @@ export default function OdysseyApp() {
   const Player = mission ? CHAPTER_PLAYERS[mission] : null;
   return (
     <main className="od-app" aria-label={GAME_TITLE}>
+      <Safe key={`${screen}-${mission ?? ""}`} onError={() => setState({ screen: useStore.getState().profile ? "dashboard" : "cover", mission: null })}>
       {screen === "cover" && <Cover onStart={() => go(!useStore.getState().settings.introSeen ? "intro" : profile ? avatar ? "dashboard" : "avatar" : "name", null, ["Blast off!", profile ? "Welcome back, explorer" : "A new explorer joins the crew"])} onSettings={() => setPanel("settings")} onCredits={() => setPanel("credits")} />}
       {(screen === "name" || screen === "intro") && (
         <button type="button" className="g-icon-btn dash-exit" aria-label="Go back" onClick={() => back("cover")}>
@@ -256,6 +258,7 @@ export default function OdysseyApp() {
           <button type="button" onClick={() => go("mission", "opportunity")}>Mars</button>
         </nav>
       )}
+      </Safe>
       <div className={`od-iris ${fade ? "on" : ""}`} aria-hidden="true" />
       <WarpLayer />
       <AudioDirector scene={screen === "mission" ? (mission === "opportunity" ? "mars" : "chapter") : "base"} theme={screen === "cover" || screen === "intro" ? "title" : screen === "archaeologist" ? "explore" : screen === "mission" ? (mission === "opportunity" ? "explore" : null) : "ship"} />

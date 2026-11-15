@@ -20,6 +20,7 @@ import { setMissionContext } from "../odyssey/nova/brain";
 import { useStore } from "../store";
 import Conversation from "../odyssey/nova/Conversation";
 import HandTraining from "../odyssey/hands/HandTraining";
+import Safe from "../ui/Safe";
 import ArtifactInvestigation from "./ArtifactInvestigation";
 import EvidenceBoard from "./EvidenceBoard";
 import Reconstruction from "./Reconstruction";
@@ -252,7 +253,11 @@ export default function MissionApp({ onClose, missionId }: { onClose: (done?: bo
             </button>}
           </div>
         )}
-        {cameraChoice && <HandTraining onClose={() => setCameraChoice(false)} />}
+        {cameraChoice && (
+          <Safe onError={() => setCameraChoice(false)}>
+            <HandTraining onClose={() => setCameraChoice(false)} />
+          </Safe>
+        )}
         <OpenHands onOpen={() => setCameraChoice(true)} />
         {conversation && (
           <Conversation

@@ -72,6 +72,13 @@ function Stage({ step, onNext, cam, onFive }: { step: Step; onNext: () => void; 
   // every tracker frame: where the fingertip is in the picture, and the step's own pose check
   useEffect(() => {
     return gloves.onFeed((f) => {
+      try {
+        feed(f);
+      } catch (e) {
+        console.warn("[hand-training]", e);
+      }
+    });
+    function feed(f: Parameters<Parameters<typeof gloves.onFeed>[0]>[0]) {
       const box = cam.current?.getBoundingClientRect();
       const video = cam.current?.querySelector("video") ?? null;
       const hand = f.frame?.hands[0];
@@ -81,6 +88,7 @@ function Stage({ step, onNext, cam, onFive }: { step: Step; onNext: () => void; 
         hold.current = Math.max(0, hold.current - 2);
         return;
       }
+      if (!hand.landmarks?.[8]) return;
       tip.current = toBox(hand.landmarks[8], box, video);
       const one = f.features.length === 1;
       if (step === "show") {
@@ -113,7 +121,7 @@ function Stage({ step, onNext, cam, onFive }: { step: Step; onNext: () => void; 
           next();
         }
       }
-    });
+    }
   }, [step]); // eslint-disable-line react-hooks/exhaustive-deps
   // pinch on the big star (checked with the real fingertip in the picture)
   useIntent("pinchStart", (e) => {

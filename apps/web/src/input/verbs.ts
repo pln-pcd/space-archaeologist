@@ -101,8 +101,8 @@ export class VerbCore {
     const pr = Math.max(0.2, c.pinchOpen - c.pinchClosed);
     const er = Math.max(0.2, c.openExt - c.fistExt);
     const t = {
-      pinchOn: c.pinchClosed + pr * (0.32 + 0.06 * (s - 1)),
-      pinchOff: c.pinchClosed + pr * (0.48 + 0.06 * (s - 1)),
+      pinchOn: c.pinchClosed + pr * (0.4 + 0.06 * (s - 1)),
+      pinchOff: c.pinchClosed + pr * (0.58 + 0.06 * (s - 1)),
       fistOn: c.fistExt + er * (0.4 + 0.08 * (s - 1)),
       fistOff: c.fistExt + er * 0.6,
       openOn: c.fistExt + er * 0.72,
@@ -232,7 +232,7 @@ export class VerbCore {
       const c = g.conf.step(recentlyOpen ? fistRaw : 0, dt, 0.08, 0.15);
       this.scores.grab = c;
       if (!g.on) {
-        if (pf && c > 0.7 && pf.f.ext4 < th.fistOn + 0.05 && pf.f.ext[1] < 0.45 && pf.f.pointing < 0.4) {
+        if (pf && c > 0.7 && pf.f.ext4 < th.fistOn + 0.05 && pf.f.ext[1] < 0.45 && pf.f.pointing < 0.4 && !this.pinch.on && this.scores.pinch < 0.45 && pf.f.pinch > th.pinchOff) {
           if (!g.since) g.since = t;
           if (t - g.since >= 70) {
             g.on = true;

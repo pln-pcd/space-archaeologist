@@ -28,12 +28,12 @@ class AudioEngine {
     this.starting = (async () => {
       // v8: a "balanced" output buffer and a little more look-ahead, so the music never crackles or
       // stutters while the 3D scenes and the hand tracker keep the main thread busy
-      try {
-        Tone.setContext(new Tone.Context({ latencyHint: "balanced", lookAhead: 0.12 }));
-      } catch {
-        /* keep the default context */
-      }
       await Tone.start();
+      try {
+        Tone.getContext().lookAhead = 0.12;
+      } catch {
+        /* keep the default look-ahead */
+      }
       this.limiter = new Tone.Limiter(-1.5).toDestination();
       // a gain stage that fades: start silent, rise with a ~1 s time constant (bible §14)
       this.fade = new Tone.Gain(0).connect(this.limiter);
@@ -87,9 +87,11 @@ class AudioEngine {
     const s = useStore.getState().settings;
     const v = s.volumes ?? { master: 0.8, music: 0.7, sfx: 0.8, voice: 0.9 };
     // mute fades 0.25 s, unmute 0.5 s
-    const muteT = s.sound === this.wasSound ? 0.1 : s.sound ? 0.5 : 0.25;
-    this.wasSound = s.sound;
-    this.master.volume.rampTo(s.sound ? dB(v.master) : -Infinity, muteT);
+    // a save without the "sound" key (older saves) means sound ON, like everywhere else in the game
+    const on = s.sound !== false;
+    const muteT = on === this.wasSound ? 0.1 : on ? 0.5 : 0.25;
+    this.wasSound = on;
+    this.master.volume.rampTo(on ? dB(v.master) : -Infinity, muteT);
     // music sits at about half under the ambience; a modal ducks both to 40 % (≈ −8 dB) over 1.35 s
     // v7.5: +12 dB (it measured ~-26 dBFS: inaudible on laptop speakers); a gentler duck under voices
     this.buses.music.volume.rampTo(dB(v.music) + 12 - this.duck * 5 + this.modal * dB(0.75), this.modal ? 1.35 : 1.0);
