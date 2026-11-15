@@ -1,0 +1,452 @@
+/* The cover (v4.6 §1): the title is the hero, one big START pill, three small round tools. */
+.od-cover {
+  position: fixed;
+  inset: 0;
+  --od-hero-font: "Lilita One", "Fredoka", sans-serif;
+}
+.od-cover .od-cover-title {
+  position: fixed;
+  left: 50%;
+  top: clamp(44px, 9vh, 120px);
+  translate: -50% 0;
+  z-index: 10;
+  pointer-events: none;
+  font-size: clamp(56px, 7.6vw, 140px);
+}
+.od-cover-title .od-tl {
+  display: inline-block;
+  white-space: nowrap;
+}
+/* two-tone title: sunny "Starship", warm orange "Odyssey" */
+.od-cover-title .od-tl:first-child {
+  color: #ffd23f;
+}
+.od-cover-title .od-tl:last-child {
+  color: #ff9a4a;
+}
+/* the middle: a tagline and three feature stickers */
+.od-cover-mid {
+  position: fixed;
+  left: 50%;
+  top: calc(clamp(44px, 9vh, 120px) + clamp(56px, 7.6vw, 140px) * 1.25);
+  translate: -50% 0;
+  z-index: 9;
+  width: min(860px, calc(100vw - 48px));
+  display: grid;
+  justify-items: center;
+  gap: clamp(14px, 2.4vh, 26px);
+  pointer-events: none;
+}
+.od-tagline {
+  margin: 0;
+  padding: 8px 22px 10px;
+  border-radius: 999px;
+  background: rgba(20, 16, 46, 0.55);
+  color: #ffffff;
+  font: 600 clamp(19px, 1.7vw, 28px) / 1.3 "Fredoka", sans-serif;
+  text-align: center;
+  text-shadow: 0 2px 0 rgba(20, 16, 46, 0.6);
+  max-width: 100%;
+}
+.od-feats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 22px);
+  width: min(780px, 100%);
+}
+.od-feat {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: center;
+  padding: 10px 14px 12px 10px;
+  border: 3px solid #241d48;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 6px 0 #241d48;
+  color: #241d48;
+  rotate: -2deg;
+}
+.od-feat:nth-child(2) {
+  rotate: 1.5deg;
+  translate: 0 8px;
+}
+.od-feat:nth-child(3) {
+  rotate: -1deg;
+}
+.od-feat-icon {
+  grid-row: span 2;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid #241d48;
+  display: grid;
+  place-items: center;
+  color: #241d48;
+}
+.od-feat.sky .od-feat-icon {
+  background: #5bb8ff;
+}
+.od-feat.mint .od-feat-icon {
+  background: #5ed3b0;
+}
+.od-feat.sun .od-feat-icon {
+  background: #ffd23f;
+}
+.od-feat strong {
+  font: 600 clamp(17px, 1.35vw, 22px) / 1.15 "Fredoka", sans-serif;
+  white-space: nowrap;
+}
+.od-feat small {
+  font: 500 clamp(14px, 1.05vw, 17px) / 1.2 "Fredoka", sans-serif;
+  color: #5a5378;
+}
+/* Nova's speech bubble (positioned from the 3D scene) */
+.od-nova-says {
+  position: fixed;
+  z-index: 9;
+  translate: 0 -50%;
+  padding: 10px 18px 12px;
+  border: 3px solid #241d48;
+  border-radius: 20px 20px 20px 6px;
+  max-width: 40vw;
+  background: #ffffff;
+  box-shadow: 0 5px 0 #241d48;
+  font: 600 clamp(17px, 1.4vw, 22px) / 1.2 "Fredoka", sans-serif;
+  color: #241d48;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.6;
+  transform-origin: 0 100%;
+  transition:
+    opacity 0.3s,
+    scale 0.45s var(--spring, ease);
+}
+.od-nova-says[data-show="1"] {
+  opacity: 1;
+  scale: 1;
+}
+.od-cover-tools {
+  position: fixed;
+  top: clamp(20px, 3.4vh, 36px);
+  right: clamp(20px, 2.4vw, 40px);
+  z-index: 20;
+  display: flex;
+  gap: 12px;
+}
+.od-round {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #241D48;
+  background: #FFFFFF;
+  color: #241D48;
+  box-shadow: 0 4px 0 #241D48;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.25s var(--spring, ease);
+}
+.od-round::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+.od-round:hover {
+  transform: translateY(-2px) rotate(-6deg);
+}
+.od-round:active {
+  transform: translateY(3px) scale(0.96);
+  box-shadow: 0 1px 0 #241D48;
+}
+/* START: a big, tactile launch-red pill that sinks when pressed */
+.od-cover .od-start-pill {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(36px, 8vh, 96px);
+  translate: -50% 0;
+  z-index: 10;
+  min-height: 100px;
+  min-width: min(380px, calc(100vw - 48px));
+  padding: 14px 56px 18px 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  border: 4px solid #241D48;
+  border-radius: 999px;
+  background: linear-gradient(#ff7d6b, #ff5a4e 55%, #e8463b);
+  color: #FFFFFF;
+  box-shadow:
+    0 9px 0 #241D48,
+    inset 0 -6px 0 rgba(0, 0, 0, 0.12),
+    inset 0 4px 0 rgba(255, 255, 255, 0.28);
+  font-family: "Lilita One", "Fredoka", sans-serif;
+  font-weight: 400;
+  font-size: clamp(40px, 4vw, 56px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  -webkit-text-stroke: 0.09em #241D48;
+  paint-order: stroke fill;
+  text-shadow: 0 3px 0 #241D48;
+  animation: none;
+  transition:
+    box-shadow 0.12s,
+    translate 0.12s,
+    filter 0.2s;
+}
+.od-cover .od-start-pill svg {
+  color: #FFFFFF;
+  filter: drop-shadow(0 3px 0 #241D48);
+}
+.od-cover .od-start-pill:hover,
+.od-cover .od-start-pill:focus-visible {
+  background: linear-gradient(#ff8c7b, #ff6656 55%, #ee5040);
+  filter: brightness(1.04);
+}
+.od-cover .od-start-pill:active {
+  translate: -50% 7px;
+  box-shadow:
+    0 2px 0 #241D48,
+    inset 0 -3px 0 rgba(0, 0, 0, 0.12),
+    inset 0 4px 0 rgba(255, 255, 255, 0.2);
+}
+.od-cover[data-leaving="1"] .od-cover-title,
+.od-cover[data-leaving="1"] .od-start-pill,
+.od-cover[data-leaving="1"] .od-cover-tools {
+  transition: opacity 0.5s ease;
+  opacity: 0 !important;
+}
+@media (max-aspect-ratio: 1/1) {
+  .od-cover .od-cover-title {
+    top: clamp(96px, 11vh, 120px);
+    font-size: clamp(50px, 15vw, 96px);
+    white-space: normal;
+    line-height: 1.02;
+  }
+  .od-cover-mid {
+    top: calc(clamp(96px, 11vh, 120px) + clamp(50px, 15vw, 96px) * 2.15);
+    width: calc(100vw - 32px);
+    gap: 14px;
+  }
+  .od-tagline {
+    border-radius: 18px;
+    font-size: 18px;
+  }
+  .od-feats {
+    gap: 8px;
+  }
+  .od-feat {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding: 8px 6px 10px;
+    border-radius: 16px;
+  }
+  .od-feat-icon {
+    grid-row: auto;
+    width: 42px;
+    height: 42px;
+  }
+  .od-feat-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .od-feat strong {
+    font-size: 15px;
+  }
+  .od-feat small {
+    display: none;
+  }
+  .od-feat strong {
+    white-space: normal;
+  }
+  .od-nova-says {
+    white-space: normal;
+    max-width: 150px;
+    font-size: 16px;
+  }
+  .od-cover-title .od-tl {
+    display: block;
+  }
+  .od-cover .od-start-pill {
+    bottom: clamp(28px, 6vh, 64px);
+  }
+}
+
+/* ---------- v7: Space Archaeologist cover ---------- */
+.od-cover .od-cover-title {
+  top: clamp(28px, 6vh, 80px);
+  font-size: clamp(52px, 6.4vw, 124px);
+  white-space: nowrap;
+  filter: drop-shadow(0 10px 18px rgba(10, 6, 30, 0.45));
+}
+.od-cover-mid {
+  top: calc(clamp(28px, 6vh, 80px) + clamp(52px, 6.4vw, 124px) * 1.22);
+  gap: 16px;
+}
+.od-tagline {
+  padding: 8px 24px 10px;
+  background: rgba(20, 16, 46, 0.62);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  font-size: clamp(18px, 1.45vw, 24px);
+}
+.od-feats {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: auto;
+}
+.od-feat,
+.od-feat:nth-child(2),
+.od-feat:nth-child(3) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 16px 5px 6px;
+  border-radius: 999px;
+  box-shadow: 0 4px 0 #241d48;
+  rotate: 0deg;
+  translate: 0 0;
+}
+.od-feat-icon {
+  width: 36px;
+  height: 36px;
+  border-width: 2.5px;
+}
+.od-feat strong {
+  font-size: clamp(15px, 1.1vw, 18px);
+}
+.od-cover .od-start-pill {
+  bottom: clamp(40px, 11vh, 120px);
+  min-height: 88px;
+  min-width: min(340px, calc(100vw - 48px));
+  font-size: clamp(36px, 3.4vw, 50px);
+}
+/* Nova's bubble sits above his head, tail pointing down */
+.od-nova-says {
+  translate: -50% -100%;
+  border-radius: 22px;
+  padding: 10px 20px 12px;
+  transform-origin: 50% 100%;
+}
+.od-nova-says::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  translate: -50% 0;
+  width: 22px;
+  height: 14px;
+  background: #241d48;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.od-nova-says::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  translate: -50% 0;
+  width: 14px;
+  height: 9px;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  z-index: 1;
+}
+.od-cover-tools .od-round svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ---------- v7.1: the reference look (purple nebula, glowing planet, gradient title) ---------- */
+.od-cover .od-cover-title {
+  top: clamp(24px, 5vh, 64px);
+  font-size: clamp(64px, 8.6vw, 168px);
+  line-height: 0.92;
+  text-align: center;
+  filter: drop-shadow(0 8px 0 #241d48) drop-shadow(0 18px 30px rgba(20, 6, 50, 0.55));
+}
+.od-cover-title .od-tl {
+  display: block;
+  -webkit-text-stroke: 0.07em #241d48;
+  paint-order: stroke fill;
+  text-shadow: none;
+}
+.od-cover-title .od-tl:first-child {
+  letter-spacing: 0.06em;
+}
+/* the gradient lives on each letter (the letters pop in one by one) */
+.od-cover-title .od-tl:first-child span {
+  color: transparent;
+  background: linear-gradient(180deg, #ffe066 8%, #ff9a4a 55%, #ff5fa2 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 0;
+  padding: 0 0.01em;
+}
+.od-cover-title .od-tl:first-child {
+  -webkit-text-stroke: 0;
+  filter: drop-shadow(3px 0 0 #241d48) drop-shadow(-3px 0 0 #241d48) drop-shadow(0 3px 0 #241d48) drop-shadow(0 -3px 0 #241d48);
+}
+.od-cover-title .od-tl:last-child {
+  color: #ffffff;
+  font-size: 0.62em;
+  letter-spacing: 0.04em;
+}
+.od-cover-mid {
+  top: calc(clamp(24px, 5vh, 64px) + clamp(64px, 8.6vw, 168px) * 1.62);
+}
+.od-tagline {
+  padding: 9px 26px 11px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 24px rgba(20, 6, 50, 0.35);
+  font-size: clamp(18px, 1.5vw, 26px);
+}
+.od-cover .od-start-pill {
+  bottom: clamp(48px, 13vh, 140px);
+  background: linear-gradient(100deg, #ff7a59 0%, #ff4f8b 55%, #c24dff 100%);
+  box-shadow:
+    0 9px 0 #241d48,
+    0 0 0 6px rgba(255, 255, 255, 0.18),
+    0 18px 40px rgba(255, 79, 139, 0.45),
+    inset 0 4px 0 rgba(255, 255, 255, 0.3);
+}
+.od-cover .od-start-pill:hover,
+.od-cover .od-start-pill:focus-visible {
+  background: linear-gradient(100deg, #ff8a6a 0%, #ff5f98 55%, #cf63ff 100%);
+}
+.od-cover .od-round {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+/* v7.2: Nova's bubble sits beside his head (to his right), tail pointing at him */
+.od-cover .od-nova-says {
+  translate: 0 -50%;
+  border-radius: 22px 22px 22px 22px;
+  transform-origin: 0 50%;
+}
+.od-cover .od-nova-says::after {
+  left: -14px;
+  top: 50%;
+  bottom: auto;
+  translate: 0 -50%;
+  width: 14px;
+  height: 22px;
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}
+.od-cover .od-nova-says::before {
+  left: -8px;
+  top: 50%;
+  bottom: auto;
+  translate: 0 -50%;
+  width: 9px;
+  height: 14px;
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}

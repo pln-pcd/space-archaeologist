@@ -1,0 +1,561 @@
+/* MOON EXPLORATION HUD (v7): nothing overlaps. Corners: exit (top-left, mission HUD), Ask Nova +
+   Hands + gear (top-right). Top-centre: the goal chip. Bottom-left: controls. Bottom-right: actions.
+   Bottom-centre: the nearby prompt (between the two). */
+.ex {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-family: "Fredoka", sans-serif;
+}
+.ex canvas {
+  display: block;
+}
+.ex-goal {
+  position: fixed;
+  top: 26px;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 30;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.96);
+}
+.ex-dots {
+  display: inline-flex;
+  gap: 5px;
+  margin-left: 4px;
+}
+.ex-dots i {
+  width: 14px;
+  height: 14px;
+  border: 2.5px solid #241d48;
+  border-radius: 50%;
+  background: #ece8ff;
+}
+.ex-dots i.on {
+  background: #5ed3b0;
+  animation: g-pop 0.4s var(--spring, ease) both;
+}
+.ex-help {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 30;
+  padding: 12px 16px 12px 14px;
+  border-radius: 20px;
+  animation: g-pop 0.35s var(--spring, ease) both;
+}
+.ex-help ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 22px 0 0;
+  display: grid;
+  gap: 7px;
+  font: 600 16px/1 "Fredoka", sans-serif;
+  color: #241d48;
+}
+.ex-help li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.ex-help .g-key {
+  height: 24px;
+  min-width: 24px;
+  font-size: 12px;
+}
+.ex-help-x {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid #241d48;
+  border-radius: 50%;
+  background: #fff;
+  color: #241d48;
+  cursor: pointer;
+}
+.ex-help-open {
+  position: fixed !important;
+  left: 20px;
+  bottom: 24px;
+  z-index: 30;
+}
+.ex-dock {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 30;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+.ex-act {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 2px;
+  width: 84px;
+  height: 84px;
+  border: 3px solid #241d48;
+  border-radius: 24px;
+  box-shadow: 0 5px 0 #241d48;
+  color: #241d48;
+  font: 600 15px/1 "Fredoka", sans-serif;
+  cursor: pointer;
+  transition:
+    transform 0.22s var(--spring, ease),
+    translate 0.08s,
+    box-shadow 0.08s;
+}
+.ex-act::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+.ex-act:hover:not(:disabled) {
+  transform: translateY(-3px) rotate(-3deg);
+}
+.ex-act:active:not(:disabled) {
+  translate: 0 4px;
+  box-shadow: 0 1px 0 #241d48;
+}
+.ex-act:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.ex-act kbd {
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  padding: 2px 6px 3px;
+  border: 2px solid #241d48;
+  border-radius: 7px;
+  background: #fff;
+  font: 700 11px/1 "Fredoka", sans-serif;
+}
+.ex-act.sky {
+  background: linear-gradient(#cfe9ff, #5bb8ff);
+}
+.ex-act.sun {
+  background: linear-gradient(#ffe88f, #ffd23f);
+}
+.ex-act.pink {
+  background: linear-gradient(#ffd3e2, #ff8fb1);
+}
+.ex-act.mint {
+  background: linear-gradient(#c8f7e6, #5ed3b0);
+}
+.ex-act.glow {
+  width: 100px;
+  height: 100px;
+  animation: ex-glow 1.4s ease-in-out infinite;
+}
+@keyframes ex-glow {
+  50% {
+    box-shadow:
+      0 5px 0 #241d48,
+      0 0 0 10px rgba(94, 211, 176, 0.45);
+  }
+}
+.ex-near {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  translate: -50% 0;
+  z-index: 31;
+  width: min(560px, calc(100vw - 560px));
+  min-width: 360px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 10px;
+  animation: ex-rise 0.35s var(--spring, ease) both;
+}
+@keyframes ex-rise {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.92);
+  }
+}
+.ex-near-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ex-near-ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 3px solid #241d48;
+  border-radius: 50%;
+  background: #ffd23f;
+  font: 400 26px/1 "Lilita One", sans-serif;
+  color: #241d48;
+}
+.ex-near-text {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+.ex-near-text small {
+  font: 600 13px/1 "Fredoka", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #7a6fb0;
+}
+.ex-near-text strong {
+  font: 600 20px/1.15 "Fredoka", sans-serif;
+  color: #241d48;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ex-near .g-btn kbd {
+  padding: 2px 6px 3px;
+  border: 2px solid #241d48;
+  border-radius: 6px;
+  background: #fff;
+  font: 700 12px/1 "Fredoka", sans-serif;
+}
+.reduced-motion .ex-act.glow,
+.reduced-motion .ex-near {
+  animation: none;
+}
+.od-app .ex kbd,
+.od-app .ex .g-key {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border: 2px solid #241d48 !important;
+  border-radius: 7px !important;
+  background: #fff !important;
+  box-shadow: 0 2px 0 #241d48 !important;
+  color: #241d48 !important;
+  font: 700 12px/1 "Fredoka", sans-serif !important;
+}
+.od-app .ex .ex-act kbd {
+  position: absolute;
+  top: -11px;
+  right: -10px;
+  height: 22px;
+}
+.ex-brief {
+  position: fixed;
+  left: 50%;
+  top: 92px;
+  translate: -50% 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  width: min(820px, calc(100vw - 48px));
+  padding: 14px 18px;
+  animation: ex-rise 0.4s var(--spring, ease) both;
+  font-family: "Fredoka", sans-serif;
+}
+.ex-brief small {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 12px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7a6fb0;
+}
+.ex-true {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #8ee6c4;
+  color: #241d48;
+  letter-spacing: 0.04em;
+}
+.ex-brief p {
+  margin: 6px 0 0;
+  font: 600 21px/1.3 "Fredoka", sans-serif;
+  color: #241d48;
+}
+.ex-brief-skip {
+  position: absolute;
+  top: -12px;
+  right: 14px;
+  padding: 3px 12px 5px;
+  border: 2.5px solid #241d48;
+  border-radius: 999px;
+  background: #fff;
+  font: 600 13px/1 "Fredoka", sans-serif;
+  color: #241d48;
+  cursor: pointer;
+}
+
+/* ---------- v7.4: the mission briefing is a little film ---------- */
+.ex-cine i {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 34;
+  background: #120d2e;
+  pointer-events: none;
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.ex-cine-top {
+  top: 0;
+  height: 96px;
+  transform: translateY(-100%);
+}
+.ex-cine-bot {
+  bottom: 0;
+  height: 168px;
+  transform: translateY(100%);
+}
+.ex-cine.on i {
+  transform: none;
+}
+.ex.briefing .ex-goal,
+.ex.briefing .ex-help,
+.ex.briefing .ex-help-open,
+.ex.briefing .ex-near,
+.ex.briefing .ex-dock {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+.ex.playing .ex-goal {
+  animation: ex-hud-top 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.ex.playing .ex-dock,
+.ex.playing .ex-help,
+.ex.playing .ex-help-open {
+  animation: ex-hud-up 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+}
+@keyframes ex-hud-top {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+@keyframes ex-hud-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+}
+.ex-cap {
+  position: fixed;
+  inset: 0;
+  z-index: 36;
+  pointer-events: none;
+  font-family: "Fredoka", sans-serif;
+}
+.ex-cap > * {
+  pointer-events: auto;
+}
+.ex-cap-title {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #fff;
+  font: 400 26px/1 "Lilita One", "Fredoka", sans-serif;
+  letter-spacing: 0.04em;
+  text-shadow: 0 3px 0 #2a1f63;
+  animation: ex-cap-in 0.6s 0.35s both;
+}
+.ex-cap-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+.ex-cap-dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  transition: all 0.3s;
+}
+.ex-cap-dots i.done {
+  background: #8ee6c4;
+}
+.ex-cap-dots i.on {
+  width: 26px;
+  border-radius: 6px;
+  background: #ffd23f;
+}
+.ex-cap-skip {
+  position: fixed;
+  right: 248px;
+  top: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font: 600 15px/1 "Fredoka", sans-serif;
+  cursor: pointer;
+  animation: ex-cap-in 0.6s 0.35s both;
+}
+.ex-cap-skip:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+.ex-cap-skip kbd {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  font: 700 11px/1.2 "Fredoka", sans-serif;
+}
+.ex-cap-line {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  translate: -50% 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  width: min(980px, calc(100vw - 64px));
+  min-height: 120px;
+  color: #fff;
+  animation: ex-cap-line 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.ex-cap-line small {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 700 13px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffd23f;
+}
+.ex-cap-line p {
+  margin: 8px 0 0;
+  font: 600 27px/1.28 "Fredoka", sans-serif;
+  color: #fff;
+  text-wrap: balance;
+}
+.ex-cap-line .g-btn.go {
+  animation: ex-go 1.3s ease-in-out infinite;
+}
+@keyframes ex-go {
+  50% {
+    transform: scale(1.06);
+  }
+}
+@keyframes ex-cap-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes ex-cap-line {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+.reduced-motion .ex-cine i {
+  transition: none;
+}
+
+/* ---------- v7.5: the mission path (step by step) + Moon samples ---------- */
+.ex-path {
+  position: fixed;
+  top: 26px;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  border: 3px solid #241d48;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 4px 0 #241d48;
+  font: 600 15px/1 "Fredoka", sans-serif;
+  color: #8a82ad;
+}
+.ex-step {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.ex-step + .ex-step::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  width: 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: #d9d3f2;
+}
+.ex-step.done {
+  color: #2f8f72;
+}
+.ex-step.done svg {
+  color: #5ed3b0;
+}
+.ex-step.now {
+  background: linear-gradient(#fff2a8, #ffd23f);
+  color: #241d48;
+  box-shadow: inset 0 0 0 2.5px #241d48;
+  animation: ex-now 1.6s ease-in-out infinite;
+}
+@keyframes ex-now {
+  50% {
+    transform: scale(1.05);
+  }
+}
+.ex-samples {
+  position: fixed;
+  top: 88px;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 30;
+  height: 34px;
+  padding: 0 12px;
+  font: 600 15px/1 "Fredoka", sans-serif;
+  background: rgba(255, 255, 255, 0.92);
+}
+.ex.briefing .ex-path,
+.ex.briefing .ex-samples {
+  opacity: 0;
+  visibility: hidden;
+}
+.ex.playing .ex-path,
+.ex.playing .ex-samples {
+  animation: ex-hud-top 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.ex-next {
+  animation: ex-next-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.ex-next .g-btn {
+  animation: ex-go 1.3s ease-in-out infinite;
+}
+@keyframes ex-next-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+}
+.reduced-motion .ex-step.now,
+.reduced-motion .ex-next .g-btn {
+  animation: none;
+}

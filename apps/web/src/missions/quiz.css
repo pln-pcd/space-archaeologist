@@ -1,0 +1,322 @@
+/* v7.6 EVIDENCE QUIZ: camera left, question card right, the same size. Game style. */
+.qz {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
+  padding: 96px 32px 24px;
+  overflow: hidden;
+  font-family: "Fredoka", sans-serif;
+  color: #241d48;
+}
+.qz-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+.qz-head small {
+  font: 700 13px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7a6fb0;
+}
+.qz-head h1 {
+  margin: 4px 0 0;
+  font: 400 34px/1.05 "Lilita One", "Fredoka", sans-serif;
+  color: #241d48;
+}
+.qz-dots {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border: 3px solid #241d48;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 4px 0 #241d48;
+}
+.qz-dots li {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ece8ff;
+  font: 700 15px/1 "Fredoka", sans-serif;
+}
+.qz-dots li.now {
+  background: #ffd23f;
+  border: 3px solid #241d48;
+}
+.qz-dots li.done {
+  background: #5ed3b0;
+  border: 3px solid #241d48;
+}
+.qz-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  min-height: 0;
+}
+/* the camera panel */
+.qz-cam {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  border: 4px solid #241d48;
+  border-radius: 28px;
+  box-shadow: 0 6px 0 #241d48;
+  background: #1b1440;
+}
+.qz-cam .live-camera {
+  position: absolute;
+  inset: 0;
+}
+.qz-cam.off {
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 40%, #3a2c86, #1b1440 75%);
+}
+.qz-cam-off {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  color: #fff;
+}
+.qz-cam-off h2 {
+  margin: 4px 0 0;
+  font: 400 34px/1.1 "Lilita One", "Fredoka", sans-serif;
+}
+.qz-cam-off p {
+  margin: 0;
+  font: 500 19px/1.3 "Fredoka", sans-serif;
+  color: #ddd5ff;
+}
+.qz-cam-off small {
+  font: 500 15px/1.3 "Fredoka", sans-serif;
+  color: #c9bfff;
+}
+.qz-live {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #241d48;
+  color: #fff;
+  font: 600 15px/1 "Fredoka", sans-serif;
+}
+.qz-live i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff6b6b;
+}
+/* the finger count the camera sees, with a ring that fills while it is held */
+.qz-count {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 4;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 96px;
+  padding: 10px 0 8px;
+  border: 4px solid #241d48;
+  border-radius: 22px;
+  background: conic-gradient(#8ee6c4 calc(var(--p, 0) * 360deg), #fff 0);
+  box-shadow: 0 5px 0 #241d48;
+}
+.qz-count b {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 3px solid #241d48;
+  background: #ffd23f;
+  font: 400 32px/1 "Lilita One", "Fredoka", sans-serif;
+}
+.qz-count span {
+  font: 700 13px/1 "Fredoka", sans-serif;
+}
+.qz-legend {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.qz-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 3px solid #241d48;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  font: 400 20px/1 "Lilita One", "Fredoka", sans-serif;
+}
+/* little raised fingers */
+.qz-fingers {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 20px;
+}
+.qz-fingers i {
+  width: 5px;
+  height: 9px;
+  border-radius: 3px;
+  background: #cfc8ef;
+}
+.qz-fingers i.up {
+  height: 20px;
+  background: #241d48;
+}
+/* the question card */
+.qz-card {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 12px;
+  min-height: 0;
+  padding: 26px 28px 22px !important;
+  overflow: hidden;
+}
+.qz-kicker {
+  font: 700 13px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7a6fb0;
+}
+.qz-q {
+  margin: 0;
+  font: 400 32px/1.15 "Lilita One", "Fredoka", sans-serif;
+  color: #241d48;
+}
+.qz-choices {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-height: 0;
+}
+.qz-choice {
+  position: relative;
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  min-height: 62px;
+  padding: 8px 18px 8px 10px;
+  border: 4px solid #241d48;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #d8f7ea calc(var(--p, 0) * 100%), #fff 0);
+  box-shadow: 0 5px 0 #241d48;
+  color: #241d48;
+  font: 600 19px/1.25 "Fredoka", sans-serif;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.qz-choice:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.qz-choice b {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 3px solid #241d48;
+  background: #ffd23f;
+  font: 400 26px/1 "Lilita One", "Fredoka", sans-serif;
+}
+.qz-choice.aim {
+  outline: 4px solid #8ee6c4;
+  outline-offset: 2px;
+}
+.qz-choice.right {
+  background: #8ee6c4;
+  animation: qz-yay 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.qz-choice.wrong {
+  opacity: 0.45;
+  box-shadow: none;
+  animation: qz-shake 0.35s ease-in-out;
+}
+.qz-choice.hint {
+  background: #fff6c2;
+  box-shadow: 0 5px 0 #241d48, 0 0 0 6px rgba(255, 210, 63, 0.6);
+}
+.qz-say {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 3px solid #241d48;
+  border-radius: 999px;
+  background: #fff;
+  font: 600 17px/1.2 "Fredoka", sans-serif;
+}
+.qz-say.oops {
+  background: #fff1f1;
+}
+.qz-say.yay {
+  background: #e7fbf3;
+}
+.qz-done {
+  grid-row: 1 / -1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.qz-done svg {
+  color: #ffd23f;
+}
+.qz-done h2 {
+  margin: 0;
+  font: 400 40px/1.05 "Lilita One", "Fredoka", sans-serif;
+}
+.qz-done p {
+  margin: 0;
+  font: 500 19px/1.3 "Fredoka", sans-serif;
+}
+@keyframes qz-shake {
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+@keyframes qz-yay {
+  50% {
+    transform: scale(1.04);
+  }
+}
+.reduced-motion .qz-choice.right,
+.reduced-motion .qz-choice.wrong {
+  animation: none;
+}

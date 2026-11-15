@@ -1,0 +1,453 @@
+{
+  "sources": {
+    "apollo": {
+      "title": "NASA · Apollo 11 landing site",
+      "url": "https://science.nasa.gov/resource/apollo-11-landing-site-from-dawn-to-dusk/",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    "apollo-science": {
+      "title": "NASA · Apollo 11 mission overview",
+      "url": "https://www.nasa.gov/history/apollo-11-mission-overview/",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    "opportunity": {
+      "title": "NASA · Spirit and Opportunity",
+      "url": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    "viking": {
+      "title": "NASA · Viking Project",
+      "url": "https://science.nasa.gov/mission/viking/",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    "pioneer": {
+      "title": "NASA · Pioneer 10",
+      "url": "https://science.nasa.gov/mission/pioneer-10/",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    "voyager": {
+      "title": "NASA · Voyager 1",
+      "url": "https://science.nasa.gov/mission/voyager/voyager-1/",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    "milestone": {
+      "title": "NASA · Where are Voyager 1 and 2 now?",
+      "url": "https://science.nasa.gov/mission/voyager/where-are-voyager-1-and-voyager-2-now/",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    }
+  },
+  "facts": {
+    "eagle-date": {
+      "text": "Eagle landed in the Sea of Tranquility on July 20, 1969.",
+      "source": "apollo"
+    },
+    "eagle-stage": {
+      "text": "The descent stage and astronaut tracks remain visible in images from the Lunar Reconnaissance Orbiter.",
+      "source": "apollo"
+    },
+    "eagle-science": {
+      "text": "The crew collected lunar samples and deployed instruments, including a seismometer and a laser reflector.",
+      "source": "apollo-science"
+    },
+    "opp-mission": {
+      "text": "Opportunity explored rocks on Mars for evidence of past water.",
+      "source": "opportunity"
+    },
+    "opp-water": {
+      "text": "The rovers confirmed that water stood on the surface of ancient Mars.",
+      "source": "opportunity"
+    },
+    "opp-silence": {
+      "text": "Opportunity last communicated on June 10, 2018, during a planet-wide dust storm.",
+      "source": "opportunity"
+    },
+    "viking-date": {
+      "text": "Viking 1 landed at Chryse Planitia on July 20, 1976.",
+      "source": "viking"
+    },
+    "viking-camera": {
+      "text": "Viking 1 returned the first photograph and panorama from the surface of Mars.",
+      "source": "viking"
+    },
+    "viking-end": {
+      "text": "The Viking 1 lander mission ended on November 13, 1982.",
+      "source": "viking"
+    },
+    "pioneer-first": {
+      "text": "Pioneer 10 was the first spacecraft to fly past Jupiter.",
+      "source": "pioneer"
+    },
+    "pioneer-flyby": {
+      "text": "Its closest approach to Jupiter was December 4, 1973, at 02:26 UTC.",
+      "source": "pioneer"
+    },
+    "pioneer-instruments": {
+      "text": "Its instruments studied Jupiter and its intense radiation environment.",
+      "source": "pioneer"
+    },
+    "voyager-boundary": {
+      "text": "Voyager 1 entered interstellar space in August 2012.",
+      "source": "voyager"
+    },
+    "voyager-science": {
+      "text": "Voyager 1 continues to study the environment beyond the heliosphere.",
+      "source": "voyager"
+    },
+    "voyager-lightday": {
+      "text": "NASA projects that Voyager 1 will reach one light-day from Earth on November 18, 2026 at 10:16:07 UTC.",
+      "source": "milestone"
+    },
+    "opp-year": {
+      "text": "Opportunity landed on Mars in 2004.",
+      "source": "opportunity"
+    },
+    "voyager-year": {
+      "text": "Voyager 1 launched in 1977.",
+      "source": "voyager"
+    }
+  },
+  "stories": [
+    {
+      "id": "eagle",
+      "stage": "moon",
+      "title": "The part that stayed",
+      "machine": "Eagle",
+      "subtitle": "A small step. An extraordinary goodbye.",
+      "location": "The Moon",
+      "year": "1969",
+      "yearFact": "eagle-date",
+      "color": "#f4c47c",
+      "type": "lander",
+      "badge": "Moon keeper",
+      "game": "landing",
+      "factIds": [
+        "eagle-date",
+        "eagle-stage",
+        "eagle-science"
+      ],
+      "pages": [
+        {
+          "title": "Is somebody there?",
+          "body": "The dust has settled around my feet. Above me, Earth is a little blue promise. I am the part of Eagle that stayed. Will you listen?",
+          "action": "wake",
+          "choices": [],
+          "factIds": [
+            "eagle-stage"
+          ]
+        },
+        {
+          "title": "I carried a beginning.",
+          "body": "My engine slowed our fall. My wide feet met the dust. When the astronauts climbed down my ladder, they stepped into a place no human had walked before.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "eagle-date"
+          ]
+        },
+        {
+          "title": "Easy does it, explorer.",
+          "body": "A landing is a balance between falling and slowing down. Use short bursts of thrust. Save fuel, watch your speed, and bring our practice lander gently to the surface.",
+          "action": "game",
+          "choices": [],
+          "factIds": []
+        },
+        {
+          "title": "The quiet was full of questions.",
+          "body": "The rocks went home. The instruments stayed to listen and reflect. A mission is more than the moment it lands: it is every question it helps us ask.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "eagle-science"
+          ]
+        },
+        {
+          "title": "Some goodbyes are a beginning.",
+          "body": "My upper half carried the crew back toward home. I kept their footprints company. What would you keep from our journey?",
+          "action": "choice",
+          "choices": [
+            "The courage to try",
+            "The questions we brought home"
+          ],
+          "factIds": [
+            "eagle-stage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "opportunity",
+      "stage": "mars",
+      "title": "A little farther",
+      "machine": "Opportunity",
+      "subtitle": "The rover that kept finding a reason to go.",
+      "location": "Mars",
+      "year": "2004",
+      "yearFact": "opp-year",
+      "color": "#f29c80",
+      "type": "rover",
+      "badge": "Trail finder",
+      "game": "solar",
+      "factIds": [
+        "opp-mission",
+        "opp-water",
+        "opp-silence"
+      ],
+      "pages": [
+        {
+          "title": "Hello, from the red dust.",
+          "body": "My wheels are still now, but there is a whole landscape in my memory. I am Opportunity. Come closer; I have a trail to show you.",
+          "action": "wake",
+          "choices": [],
+          "factIds": [
+            "opp-mission"
+          ]
+        },
+        {
+          "title": "I read the rocks.",
+          "body": "I could not drink a drop of water, but I could look for the story it left in stone. Every outcrop was a page. My cameras and instruments helped people back home read it.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "opp-water"
+          ]
+        },
+        {
+          "title": "A little sunlight, a little farther.",
+          "body": "My solar panels turned sunlight into electricity. Aim the practice panel toward the Sun, then decide whether there is enough energy to drive. Dust makes the same journey harder.",
+          "action": "game",
+          "choices": [],
+          "factIds": []
+        },
+        {
+          "title": "Then the sky grew dark.",
+          "body": "A dust storm hid the sunlight. My messages stopped reaching home. The people listening did not forget the paths I had made or the clues I had sent.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "opp-silence"
+          ]
+        },
+        {
+          "title": "Will you carry my curiosity?",
+          "body": "I went looking for an ancient story in ordinary-looking rocks. What will you look at more closely when you get home?",
+          "action": "choice",
+          "choices": [
+            "A rock under my feet",
+            "The sky above my head"
+          ],
+          "factIds": [
+            "opp-water"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "viking",
+      "stage": "mars-lab",
+      "title": "A postcard from Mars",
+      "machine": "Viking 1",
+      "subtitle": "A whole world, in the first picture.",
+      "location": "Mars",
+      "year": "1976",
+      "yearFact": "viking-date",
+      "color": "#cba5ef",
+      "type": "viking",
+      "badge": "World watcher",
+      "game": "signal",
+      "factIds": [
+        "viking-date",
+        "viking-camera",
+        "viking-end"
+      ],
+      "pages": [
+        {
+          "title": "I remember the horizon.",
+          "body": "The world outside my camera was strange and beautiful. I am Viking. My feet did not need to move for my discoveries to travel.",
+          "action": "wake",
+          "choices": [],
+          "factIds": [
+            "viking-date"
+          ]
+        },
+        {
+          "title": "Let me show you what I saw.",
+          "body": "A picture can turn a distant point of light into a place. Stones, dust, a horizon: I sent a new view across the darkness.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "viking-camera"
+          ]
+        },
+        {
+          "title": "Point me toward home.",
+          "body": "A message needs a listening ear and a carefully aimed antenna. Align our practice dish with Earth. Space is large, so even a perfect signal takes time.",
+          "action": "game",
+          "choices": [],
+          "factIds": []
+        },
+        {
+          "title": "My work became a beginning.",
+          "body": "My mission eventually ended. The pictures and measurements remained for the next explorers to learn from. Even a stationary machine can open a new world.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "viking-end"
+          ]
+        },
+        {
+          "title": "Your postcard, explorer.",
+          "body": "If you could send one message home from a world nobody knew, what would it say?",
+          "action": "choice",
+          "choices": [
+            "There is so much to discover",
+            "Keep asking questions"
+          ],
+          "factIds": [
+            "viking-camera"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pioneer",
+      "stage": "jupiter",
+      "title": "Into the unknown",
+      "machine": "Pioneer 10",
+      "subtitle": "Someone had to go first.",
+      "location": "Jupiter & beyond",
+      "year": "1973",
+      "yearFact": "pioneer-flyby",
+      "color": "#9dcbd2",
+      "type": "probe",
+      "badge": "Path maker",
+      "game": "signal",
+      "factIds": [
+        "pioneer-first",
+        "pioneer-flyby",
+        "pioneer-instruments"
+      ],
+      "pages": [
+        {
+          "title": "The path was not a path yet.",
+          "body": "No wheel tracks. No footprints. Just a distant giant and a question: what would we find if we went closer? I am Pioneer.",
+          "action": "wake",
+          "choices": [],
+          "factIds": [
+            "pioneer-first"
+          ]
+        },
+        {
+          "title": "A giant filled my view.",
+          "body": "Jupiter was more than a bright dot now. I carried instruments into an environment that nobody had measured up close before.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "pioneer-flyby"
+          ]
+        },
+        {
+          "title": "Send a whisper home.",
+          "body": "The farther a spacecraft travels, the more carefully Earth must listen. Aim our practice antenna and send a tiny piece of discovery across a very large distance.",
+          "action": "game",
+          "choices": [],
+          "factIds": []
+        },
+        {
+          "title": "I made the unknown smaller.",
+          "body": "My measurements helped people understand the giant planet and the conditions a future visitor would meet. A brave beginning can become somebody else’s map.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "pioneer-instruments"
+          ]
+        },
+        {
+          "title": "Who goes next?",
+          "body": "Exploration is a relay. One machine makes a path, and the next takes it farther. What would you pass to the next explorer?",
+          "action": "choice",
+          "choices": [
+            "A map of what I learned",
+            "A question I could not answer"
+          ],
+          "factIds": [
+            "pioneer-first"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "voyager",
+      "stage": "interstellar",
+      "title": "A long way from home",
+      "machine": "Voyager 1",
+      "subtitle": "Still traveling. Still telling us something new.",
+      "location": "Interstellar space",
+      "year": "1977",
+      "yearFact": "voyager-year",
+      "color": "#b3b0f7",
+      "type": "voyager",
+      "badge": "Signal keeper",
+      "game": "signal",
+      "factIds": [
+        "voyager-boundary",
+        "voyager-science",
+        "voyager-lightday"
+      ],
+      "pages": [
+        {
+          "title": "I am still here.",
+          "body": "My story is different: I am still an active explorer. My voice has a long way to travel. Let us imagine listening to it together.",
+          "action": "wake",
+          "choices": [],
+          "factIds": [
+            "voyager-science"
+          ]
+        },
+        {
+          "title": "Beyond our Sun’s bubble.",
+          "body": "I crossed a boundary in space. The Sun had not disappeared, but the environment around me had changed. My instruments began listening to a different neighborhood.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "voyager-boundary"
+          ]
+        },
+        {
+          "title": "Patience is part of the mission.",
+          "body": "Aim the antenna, send your message, and imagine waiting while the signal crosses space. Our game speeds up the wait; real light cannot take a shortcut.",
+          "action": "game",
+          "choices": [],
+          "factIds": []
+        },
+        {
+          "title": "A day made of distance.",
+          "body": "A light-day is a distance: how far light travels in a day. The milestone is measured from Earth. Watch the mission clock in your hangar for NASA’s projected moment.",
+          "action": "read",
+          "choices": [],
+          "factIds": [
+            "voyager-lightday"
+          ]
+        },
+        {
+          "title": "Home is still listening.",
+          "body": "You have followed our stories from the dust beneath your feet to the space between stars. Will you keep a little room for wonder?",
+          "action": "choice",
+          "choices": [
+            "I will keep listening",
+            "I will keep exploring"
+          ],
+          "factIds": [
+            "voyager-science"
+          ]
+        }
+      ]
+    }
+  ]
+}

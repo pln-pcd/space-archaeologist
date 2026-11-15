@@ -1,0 +1,339 @@
+/* ===================================================================== */
+/* "Quiet Afternoon" stacked-paper UI theme (bible §12). Imported last.   */
+/* Warm cream cards on a darker offset shadow card, tilted square paper   */
+/* buttons, Stylish for titles/labels/buttons, contrast-fixed greys       */
+/* (headings #5d5a57 ≈ 6.2:1, body #6b665e ≈ 5.1:1 on #f9f2e4). Kid sizes */
+/* kept: ≥ 64 px visible, ≥ 96 px hit area.                              */
+/* ===================================================================== */
+:root {
+  --paper-page: #fffdf8;
+  --paper: #ffffff;
+  --paper-shadow: #bab3a5;
+  --paper-toast: #fff6e3;
+  --paper-toast-shadow: #b5a997;
+  --paper-head: #5d5a57;
+  --paper-body: #6b665e;
+  --paper-deco: #8d8981;
+  --paper-btn: #f9efdc;
+  --paper-btn-shadow: #716c66;
+  --paper-font: "Stylish", "Stylish", sans-serif;
+  --paper-ease: cubic-bezier(0.5, 0, 0.1, 1);
+}
+html.easy-read {
+  --paper-font: "Lexend", sans-serif;
+}
+html.reading-font {
+  --paper-font: "OpenDyslexic", "Lexend", sans-serif;
+}
+
+/* ---------- stacked paper cards ---------- */
+.station-panel,
+.discover-card,
+.results-card,
+.sealed-card,
+.exit-card,
+.secret-card,
+.clue-card,
+.catch-q,
+.subtitle,
+.quest-card,
+.quest-badge,
+.sm-card,
+.boarding-pass,
+.grown-panel,
+.academy .bubble,
+.academy-demo .action-prompt,
+.game-toast,
+.paper-toast,
+.glove-cam,
+.glove-cam-pill,
+.first-steps,
+.ch-title,
+.ch-home {
+  background: var(--paper) !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  box-shadow: 9px 9px 0 var(--paper-shadow) !important;
+  color: var(--paper-body) !important;
+}
+.sm-card::after {
+  display: none !important;
+}
+/* modals pop in slowly: the shadow card first, then the light card, then the words */
+.station-panel,
+.discover-card,
+.results-card,
+.sealed-card,
+.exit-card,
+.secret-card {
+  animation: paper-pop 2s var(--paper-ease) 0.15s both !important;
+}
+.station-panel > *,
+.discover-card > *,
+.results-card > *,
+.sealed-card > *,
+.exit-card > *,
+.secret-card > * {
+  animation: paper-text 0.75s ease 0.6s both;
+}
+@keyframes paper-pop {
+  0% {
+    scale: 0.001;
+    box-shadow: 0 0 0 var(--paper-shadow);
+  }
+  40% {
+    box-shadow: 9px 9px 0 var(--paper-shadow);
+  }
+  100% {
+    scale: 1;
+  }
+}
+@keyframes paper-text {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- type ---------- */
+.station-panel h2,
+.station-panel h3,
+.discover-card small,
+.results-card h2,
+.sealed-card h2,
+.exit-card h2,
+.secret-card strong,
+.sm-card h2,
+.subtitle p,
+.academy .bubble,
+.boarding-pass h2,
+.paper-toast p,
+.ch-title strong,
+.ap-label {
+  font-family: var(--paper-font) !important;
+  letter-spacing: -0.03em;
+  color: var(--paper-head) !important;
+  -webkit-text-stroke: 0 !important;
+  text-shadow: none !important;
+}
+.station-panel h2 {
+  font-size: 44px !important;
+  line-height: 1 !important;
+}
+.subtitle p {
+  font-size: max(28px, 1em) !important;
+  line-height: 1.12 !important;
+}
+.ch-title small {
+  color: var(--paper-body) !important;
+  font-family: "Lexend", sans-serif !important;
+  letter-spacing: 0.12em;
+}
+/* long reading text stays Lexend (easy to read) */
+
+/* ---------- paper buttons ---------- */
+.chunky,
+.first-steps button {
+  background: var(--paper-btn) !important;
+  color: var(--paper-head) !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  box-shadow: 2px 2px 0 var(--paper-btn-shadow) !important;
+  font-family: var(--paper-font) !important;
+  letter-spacing: -0.03em;
+  transition: transform 0.2s var(--paper-ease) !important;
+}
+.chunky {
+  font-size: max(26px, 1em) !important;
+}
+.chunky.gold {
+  background: #f3dfae !important;
+}
+.chunky:hover {
+  transform: translateY(-2px) !important;
+}
+.chunky:active {
+  transform: translateY(2px) !important;
+  box-shadow: 1px 1px 0 var(--paper-btn-shadow) !important;
+}
+:focus-visible {
+  outline: 3px solid #5d5a57 !important;
+  outline-offset: 4px !important;
+}
+
+/* ---------- tilted square buttons (close, nav, small actions) ---------- */
+.tilt-btn,
+.glove-cam header button {
+  position: relative;
+  width: 64px !important;
+  height: 64px !important;
+  display: grid !important;
+  place-items: center;
+  padding: 0;
+  background: var(--paper-btn) !important;
+  color: var(--paper-btn-shadow) !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  box-shadow: 2px 2px 0 var(--paper-btn-shadow) !important;
+  transform: rotate(10deg);
+  cursor: pointer;
+  transition: transform 0.2s var(--paper-ease), box-shadow 0.2s;
+}
+.tilt-btn > *,
+.glove-cam header button > * {
+  transform: rotate(-10deg);
+}
+/* a 96 px hit area around every 64 px button */
+.tilt-btn::after {
+  content: "";
+  position: absolute;
+  inset: -16px;
+}
+.tilt-btn:hover {
+  transform: rotate(10deg) translateY(-2px);
+}
+.tilt-btn:active {
+  transform: rotate(10deg) translateY(2px);
+  box-shadow: 1px 1px 0 var(--paper-btn-shadow) !important;
+}
+.tilt-btn.small,
+.glove-cam header button {
+  width: 48px !important;
+  height: 48px !important;
+}
+.tilt-btn > span {
+  display: grid;
+  place-items: center;
+  font: 400 26px/1 var(--paper-font);
+}
+
+/* ---------- corner nav (top-right) + curiosity counter ---------- */
+@keyframes count-tick {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+}
+/* the Star Menu opens beside the corner nav */
+.sm-card.compact {
+  top: 35px !important;
+  right: 130px !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform-origin: 100% 0 !important;
+}
+@media (max-width: 1200px) {
+  .sm-card.compact {
+    top: 20px !important;
+    right: 110px !important;
+  }
+}
+
+/* ---------- bottom toast (curiosities) ---------- */
+.paper-toast {
+  position: relative;
+  padding: 20px 76px 20px 26px;
+  background: var(--paper-toast) !important;
+  box-shadow: 9px 9px 0 var(--paper-toast-shadow) !important;
+  pointer-events: auto;
+  animation: paper-pop 2s var(--paper-ease) both;
+}
+.paper-toast > * {
+  animation: paper-text 0.75s ease 1.5s both;
+}
+.paper-toast p {
+  margin: 6px 0 4px;
+  font-size: 30px !important;
+  line-height: 1.08;
+}
+.paper-toast .tilt-btn {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  animation: none;
+}
+
+/* ---------- action prompt + badges as tilted paper tags ---------- */
+.action-prompt {
+  background: var(--paper-toast) !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  box-shadow: 4px 4px 0 var(--paper-toast-shadow) !important;
+  rotate: -1.5deg;
+  color: var(--paper-head) !important;
+}
+.action-prompt .ap-label {
+  font-size: 26px !important;
+}
+.action-prompt .ap-hand {
+  background: var(--paper-btn) !important;
+  border: 0 !important;
+  box-shadow: 2px 2px 0 var(--paper-btn-shadow) !important;
+}
+.od-badge {
+  border: 0 !important;
+  border-radius: 4px !important;
+  box-shadow: 2px 2px 0 var(--paper-btn-shadow) !important;
+  rotate: -3deg;
+  font-family: var(--paper-font) !important;
+  letter-spacing: -0.02em;
+}
+.od-badge.true {
+  background: #dcefe3 !important;
+  color: #33503f !important;
+}
+.od-badge.imagine {
+  background: #f4dcea !important;
+  color: #63394f !important;
+}
+
+/* ---------- links: a little dash that shrinks on hover ---------- */
+.link::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 2px;
+  margin: 0 7px 4px 0;
+  border-radius: 2px;
+  background: currentColor;
+  vertical-align: middle;
+  transition: transform 0.4s var(--paper-ease);
+  transform-origin: left center;
+}
+.link:hover::before {
+  transform: scaleX(0.65);
+}
+
+/* ---------- full-screen overlays (picker, camera permission, Glove Academy) on cream paper ---------- */
+.odyssey-overlay {
+  background: var(--paper-page) !important;
+  color: var(--paper-body) !important;
+}
+.odyssey-overlay h1,
+.odyssey-overlay h2 {
+  font-family: var(--paper-font) !important;
+  color: var(--paper-head) !important;
+  -webkit-text-stroke: 0 !important;
+  text-shadow: none !important;
+  letter-spacing: -0.03em;
+}
+.odyssey-overlay p,
+.consent-line {
+  color: var(--paper-body) !important;
+}
+.academy-stage {
+  border-color: #cfc6b4 !important;
+  background: #f6eedd !important;
+}
+.academy-dots li {
+  border-color: var(--paper-btn-shadow) !important;
+}
+.sm-card.compact h2 {
+  font-size: 34px !important;
+}
+.quest-badge {
+  box-shadow: 6px 6px 0 var(--paper-shadow) !important;
+}
+.passport {
+  border-color: #d8cdb8 !important;
+}
+/* the counter sits on a small paper tag so it reads on any background (≥ 4.5:1) */

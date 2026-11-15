@@ -1,0 +1,519 @@
+1
+00:00:00,410 --> 00:00:03,003
+In 1969, Apollo 11 landed on the
+
+2
+00:00:03,023 --> 00:00:05,697
+Moon. Part of its lander is still
+
+3
+00:00:05,717 --> 00:00:06,942
+up there today.
+
+4
+00:00:07,562 --> 00:00:09,456
+We're a team from the Philippines,
+
+5
+00:00:09,476 --> 00:00:11,278
+and this is Space Archaeologist.
+
+6
+00:00:15,498 --> 00:00:17,574
+Our challenge is called Abandoned but not
+
+7
+00:00:17,594 --> 00:00:18,105
+Forgotten.
+
+8
+00:00:18,675 --> 00:00:21,655
+Since the 1960s, NASA has left machines
+
+9
+00:00:21,675 --> 00:00:23,521
+on the Moon and on Mars.
+
+10
+00:00:24,041 --> 00:00:27,029
+A laser reflector that scientists still bounce
+
+11
+00:00:27,049 --> 00:00:29,318
+light off today. A rover that drove
+
+12
+00:00:29,338 --> 00:00:31,235
+more than a marathon on Mars.
+
+13
+00:00:31,755 --> 00:00:34,155
+But the challenge notes that kids mostly
+
+14
+00:00:34,175 --> 00:00:35,849
+hear about today's missions.
+
+15
+00:00:35,869 --> 00:00:38,209
+The old machines live in dense websites
+
+16
+00:00:38,229 --> 00:00:39,076
+and textbooks.
+
+17
+00:00:39,596 --> 00:00:41,757
+We believe kids learn best by doing.
+
+18
+00:00:41,777 --> 00:00:43,636
+So we asked: what if kids could
+
+19
+00:00:43,656 --> 00:00:45,595
+dig these stories up themselves?
+
+20
+00:00:49,465 --> 00:00:52,471
+Space Archaeologist is a free browser game.
+
+21
+00:00:52,491 --> 00:00:54,512
+Kids aged 7 to 12 explore the
+
+22
+00:00:54,532 --> 00:00:56,905
+real machines left on the Moon and
+
+23
+00:00:56,925 --> 00:00:59,389
+Mars, and learn their true stories.
+
+24
+00:00:59,909 --> 00:01:01,328
+You design an explorer,
+
+25
+00:01:01,348 --> 00:01:03,517
+board the ship, and pick a mission.
+
+26
+00:01:03,537 --> 00:01:05,082
+Then come real NASA film,
+
+27
+00:01:05,102 --> 00:01:06,646
+a launch, digs and games,
+
+28
+00:01:06,666 --> 00:01:08,105
+and a badge at the end.
+
+29
+00:01:08,625 --> 00:01:10,506
+And Nova, a friendly AI guide,
+
+30
+00:01:10,526 --> 00:01:12,554
+answers questions the whole way.
+
+31
+00:01:16,524 --> 00:01:17,604
+Here's the real game,
+
+32
+00:01:17,624 --> 00:01:19,301
+recorded from the current build.
+
+33
+00:01:19,741 --> 00:01:21,921
+Press start. Nova gives a short tour.
+
+34
+00:01:21,941 --> 00:01:24,439
+Type a nickname, and design your explorer.
+
+35
+00:01:25,909 --> 00:01:26,736
+This is the ship.
+
+36
+00:01:26,756 --> 00:01:28,302
+Two missions are ready to play.
+
+37
+00:01:28,772 --> 00:01:31,411
+Mission one opens with real Apollo 11
+
+38
+00:01:31,431 --> 00:01:32,509
+film from NASA.
+
+39
+00:01:32,979 --> 00:01:34,280
+Then you pull the lever.
+
+40
+00:01:34,300 --> 00:01:35,546
+The Saturn V lifts off,
+
+41
+00:01:35,566 --> 00:01:36,887
+and you fly to the Moon.
+
+42
+00:01:37,357 --> 00:01:38,951
+On the Moon, the path at the
+
+43
+00:01:38,971 --> 00:01:40,162
+top shows every step.
+
+44
+00:01:40,182 --> 00:01:42,545
+Walk around, scan, and follow the glints.
+
+45
+00:01:43,015 --> 00:01:44,715
+Every find starts with a dig.
+
+46
+00:01:44,735 --> 00:01:45,921
+Brush the dust away.
+
+47
+00:01:46,391 --> 00:01:47,492
+Then turn it around,
+
+48
+00:01:47,512 --> 00:01:49,342
+and open its glowing parts to see
+
+49
+00:01:49,362 --> 00:01:50,427
+what each one does.
+
+50
+00:01:51,847 --> 00:01:53,553
+This is the laser reflector.
+
+51
+00:01:53,573 --> 00:01:54,662
+Send a laser ping,
+
+52
+00:01:54,682 --> 00:01:56,512
+and watch the light come back.
+
+53
+00:01:56,532 --> 00:01:58,443
+Scientists still do this today.
+
+54
+00:01:59,863 --> 00:02:01,506
+Then comes a quick quiz.
+
+55
+00:02:01,526 --> 00:02:02,685
+Hold up one, two,
+
+56
+00:02:02,705 --> 00:02:05,041
+three or four fingers to answer A,
+
+57
+00:02:05,061 --> 00:02:05,755
+B, C or D.
+
+58
+00:02:07,175 --> 00:02:08,295
+In the Rock Box,
+
+59
+00:02:08,315 --> 00:02:10,719
+you catch Moon rocks with your own
+
+60
+00:02:10,739 --> 00:02:13,571
+hands. Apollo 11 brought home about 21.5
+
+61
+00:02:13,591 --> 00:02:14,304
+kilograms.
+
+62
+00:02:15,724 --> 00:02:16,989
+Next, rebuild the lander,
+
+63
+00:02:17,009 --> 00:02:18,757
+and put its journey back in order.
+
+64
+00:02:20,177 --> 00:02:22,419
+The mission report is a quiz nobody
+
+65
+00:02:22,439 --> 00:02:24,745
+fails. A wrong answer just becomes a
+
+66
+00:02:24,765 --> 00:02:25,088
+hint.
+
+67
+00:02:26,508 --> 00:02:27,522
+Then you earn a badge,
+
+68
+00:02:27,542 --> 00:02:28,859
+and the chapter is complete.
+
+69
+00:02:29,329 --> 00:02:31,885
+On Mars, you keep the rover Opportunity
+
+70
+00:02:31,905 --> 00:02:34,131
+going. Wipe the dust off its solar
+
+71
+00:02:34,151 --> 00:02:36,707
+panels, just like the real Martian wind
+
+72
+00:02:36,727 --> 00:02:36,991
+did.
+
+73
+00:02:37,461 --> 00:02:39,453
+And any time, kids can simply ask
+
+74
+00:02:39,473 --> 00:02:40,388
+Nova, out loud.
+
+75
+00:02:42,288 --> 00:02:43,920
+Player: Nova, how far away is the
+
+76
+00:02:43,940 --> 00:02:44,191
+Moon?
+
+77
+00:02:44,911 --> 00:02:47,070
+The game turns the question into text
+
+78
+00:02:47,090 --> 00:02:48,425
+right on this computer.
+
+79
+00:02:48,445 --> 00:02:50,035
+Then Nova checks her facts.
+
+80
+00:02:51,888 --> 00:02:52,978
+Nova: Ooh, great question!
+
+81
+00:02:56,988 --> 00:03:00,307
+The Moon is about 385,000 kilometres away
+
+82
+00:03:00,327 --> 00:03:00,978
+from us.
+
+83
+00:03:01,348 --> 00:03:02,958
+Did you know it even drifts a
+
+84
+00:03:02,978 --> 00:03:05,338
+little bit further away every single year?
+
+85
+00:03:06,508 --> 00:03:08,283
+Every feature is there for a reason.
+
+86
+00:03:10,008 --> 00:03:11,995
+Kids ask lots of questions.
+
+87
+00:03:12,015 --> 00:03:14,224
+Nova answers by voice or text,
+
+88
+00:03:14,244 --> 00:03:15,859
+stays on space topics,
+
+89
+00:03:15,879 --> 00:03:18,332
+and uses facts with real sources.
+
+90
+00:03:18,802 --> 00:03:20,746
+Moving your real hands to scan,
+
+91
+00:03:20,766 --> 00:03:23,027
+grab and ping makes learning active.
+
+92
+00:03:23,047 --> 00:03:24,611
+And it's optional. Mouse,
+
+93
+00:03:24,631 --> 00:03:26,849
+keyboard and touch work everywhere.
+
+94
+00:03:27,319 --> 00:03:29,092
+And every story is read aloud,
+
+95
+00:03:29,112 --> 00:03:31,483
+with captions, so younger kids and early
+
+96
+00:03:31,503 --> 00:03:32,997
+readers can follow along.
+
+97
+00:03:33,467 --> 00:03:35,595
+It's all built on NASA data.
+
+98
+00:03:35,615 --> 00:03:38,050
+275 facts, each linked to one of
+
+99
+00:03:38,070 --> 00:03:40,735
+46 NASA sources, and checked by our
+
+100
+00:03:40,755 --> 00:03:41,599
+fact tests.
+
+101
+00:03:42,069 --> 00:03:44,296
+Nova can even check live NASA feeds:
+
+102
+00:03:44,316 --> 00:03:46,169
+asteroids passing Earth today,
+
+103
+00:03:46,189 --> 00:03:48,623
+space weather, and the weather on Mars.
+
+104
+00:03:49,093 --> 00:03:50,827
+It's built for kids' safety.
+
+105
+00:03:50,847 --> 00:03:53,520
+No accounts. Camera and voice are processed
+
+106
+00:03:53,540 --> 00:03:56,089
+on the computer. And grown-ups can switch
+
+107
+00:03:56,109 --> 00:03:56,798
+the AI off.
+
+108
+00:03:57,268 --> 00:03:58,749
+Captions are always on.
+
+109
+00:03:58,769 --> 00:04:01,293
+There's calm motion, an easy-read font,
+
+110
+00:04:01,313 --> 00:04:02,664
+and no camera needed.
+
+111
+00:04:02,684 --> 00:04:05,404
+Even offline, Nova answers from the game's
+
+112
+00:04:05,424 --> 00:04:06,403
+own fact sheet.
+
+113
+00:04:10,273 --> 00:04:12,163
+Space Archaeologist is free,
+
+114
+00:04:12,183 --> 00:04:14,141
+and it runs in a web browser.
+
+115
+00:04:14,161 --> 00:04:16,207
+No downloads, and no accounts.
+
+116
+00:04:16,677 --> 00:04:19,063
+It's designed so a 7-year-old can finish
+
+117
+00:04:19,083 --> 00:04:21,228
+it, and older kids still chase three
+
+118
+00:04:21,248 --> 00:04:21,609
+stars.
+
+119
+00:04:22,079 --> 00:04:24,286
+Our goal: every kid walks away knowing
+
+120
+00:04:24,306 --> 00:04:25,517
+what was left behind,
+
+121
+00:04:25,537 --> 00:04:27,861
+why it stayed, and that scientists still
+
+122
+00:04:27,881 --> 00:04:28,291
+use it.
+
+123
+00:04:28,761 --> 00:04:30,822
+Three more missions are planned:
+
+124
+00:04:30,842 --> 00:04:32,187
+Viking 1, Pioneer 10,
+
+125
+00:04:32,207 --> 00:04:33,117
+and Voyager 1.
+
+126
+00:04:33,587 --> 00:04:36,728
+Space Archaeologist turns the machines NASA left
+
+127
+00:04:36,748 --> 00:04:38,901
+behind into a game kids can play,
+
+128
+00:04:38,921 --> 00:04:41,357
+so their stories are never forgotten.
+
+129
+00:04:42,577 --> 00:04:43,647
+Play it free, right now,
+
+130
+00:04:43,667 --> 00:04:44,394
+in your browser.

@@ -1,0 +1,119 @@
+<template>
+<style>
+@font-face { font-family: "Lilita One"; src: url("assets/fonts/lilita-one-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+.k-bg { position: absolute; inset: 0; background: radial-gradient(1200px 700px at 30% 20%, #2A1B66, #160E3A 70%); }
+.k-stars { position: absolute; inset: 0; background-image:
+  radial-gradient(2px 2px at 120px 160px, #fff8 50%, transparent 51%), radial-gradient(2px 2px at 1720px 120px, #fff9 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 420px 940px, #fff7 50%, transparent 51%), radial-gradient(2px 2px at 1500px 980px, #fff8 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 980px 60px, #fff6 50%, transparent 51%), radial-gradient(2px 2px at 60px 620px, #fff7 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 1860px 560px, #fff7 50%, transparent 51%), radial-gradient(2.5px 2.5px at 760px 1030px, #fff6 50%, transparent 51%); }
+.k-planet { position: absolute; border-radius: 50%; border: 5px solid #241D48; }
+.k-screen { position: absolute; left: 160px; top: 104px; width: 1600px; height: 900px; border-radius: 28px;
+  border: 6px solid #241D48; box-shadow: 0 10px 0 #241D48, 0 0 0 10px rgba(201,184,255,.18); overflow: hidden; background: #0d0826; }
+.k-zoom { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.k-zoom video, .k-zoom img.k-full { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; }
+.k-cursor { position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -6px 0 0 -10px; }
+.k-card { background: #FFFFFF; border: 6px solid #241D48; border-radius: 34px; box-shadow: 0 12px 0 #241D48; color: #241D48; }
+.k-kicker { font: 700 26px/1 "Fredoka"; letter-spacing: .16em; text-transform: uppercase; color: #7A6FB0; }
+.k-title { font: 400 116px/1 "Lilita One"; color: #241D48; letter-spacing: .01em; }
+.k-q { font: 600 42px/1.2 "Fredoka"; color: #4b4380; }
+.k-line { font: 400 84px/1.05 "Lilita One"; color: #fff; text-shadow: 0 6px 0 #241D48; -webkit-text-stroke: 3px #241D48; paint-order: stroke fill; }
+.k-line.ink { color: #241D48; text-shadow: none; -webkit-text-stroke: 0; }
+.k-hi { color: #FFD23F; }
+.k-bubble { position: absolute; background: #fff; border: 5px solid #241D48; border-radius: 26px; box-shadow: 0 7px 0 #241D48; padding: 16px 26px; font: 600 34px/1.2 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-bubble small { display: block; font: 700 18px/1 "Fredoka"; letter-spacing: .14em; text-transform: uppercase; color: #7A6FB0; margin-bottom: 6px; }
+.k-chip { display: inline-flex; align-items: center; gap: 12px; padding: 10px 22px 10px 16px; border-radius: 999px; border: 4px solid #241D48; background: #fff; box-shadow: 0 5px 0 #241D48; font: 600 30px/1 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-chip svg { width: 34px; height: 34px; }
+.k-chip.sun { background: #FFD23F; } .k-chip.mint { background: #8EE6C4; } .k-chip.lilac { background: #C9B8FF; } .k-chip.sky { background: #7CC8FF; } .k-chip.coral { background: #FF6B6B; color: #fff; }
+.k-credit { position: absolute; left: 160px; bottom: 26px; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.35); font: 500 19px/1.2 "Fredoka"; color: #fff; white-space: nowrap; }
+.k-label { position: absolute; padding: 10px 20px; border-radius: 14px; background: #241D48; color: #fff; font: 600 28px/1.2 "Fredoka"; white-space: nowrap; border: 3px solid #fff; }
+.k-tag-hole { position: absolute; width: 46px; height: 46px; border-radius: 50%; border: 6px solid #241D48; background: #160E3A; }
+.k-dust { position: absolute; inset: 0; border-radius: 30px;
+  background: radial-gradient(3px 3px at 20% 30%, #b9a98f 50%, transparent 52%) 0 0/38px 34px, radial-gradient(2px 2px at 60% 70%, #cbbda0 50%, transparent 52%) 0 0/29px 31px, linear-gradient(135deg, #d8c9ad, #c4b393);
+  -webkit-mask-image: linear-gradient(100deg, #000 0 42%, rgba(0,0,0,.6) 50%, transparent 58%); -webkit-mask-size: 300% 100%; -webkit-mask-repeat: no-repeat; -webkit-mask-position: 0% 0; }
+.k-ring { position: absolute; border-radius: 50%; border: 8px solid #8EE6C4; box-shadow: 0 0 0 6px #241D48 inset, 0 0 0 6px #241D48; }
+.k-stat { font: 400 150px/0.9 "Lilita One"; color: #FFD23F; -webkit-text-stroke: 5px #241D48; paint-order: stroke fill; text-shadow: 0 9px 0 #241D48; }
+
+#root { position: absolute; inset: 0; overflow: hidden; }
+</style>
+<div id="root" data-composition-id="p6" data-width="1920" data-height="1080">
+  <div class="k-bg"></div><div class="k-stars"></div>
+  <div class="k-planet" style="left:-90px;top:640px;width:260px;height:260px;background:#C9B8FF;opacity:.35"></div>
+  <div class="k-planet" style="left:1780px;top:70px;width:200px;height:200px;background:#FF6B6B;opacity:.3"></div>
+  <div id="p6-screen" class="k-screen"><div id="p6-zoom" class="k-zoom">
+    <video id="p6-v1" class="clip" src="assets/footage/onboarding.mp4" muted playsinline data-start="3.4" data-duration="6.455" data-media-start="25.8" data-playback-rate="0.5143299767622" data-track-index="1" style="z-index:11"></video>
+    <video id="p6-v2" class="clip" src="assets/footage/onboarding.mp4" muted playsinline data-start="9.855" data-duration="5.402" data-media-start="15.5" data-playback-rate="0.8" data-track-index="1" style="z-index:16"></video>
+    <video id="p6-v3" class="clip" src="assets/footage/onboarding.mp4" muted playsinline data-start="21.939" data-duration="4.826" data-media-start="25.2" data-playback-rate="0.5" data-track-index="1" style="z-index:21"></video>
+    <div id="p6-cur" class="k-cursor" style="z-index:500;opacity:0"><svg viewBox="0 0 64 64"><path d="M10 6 L10 50 L22 39 L30 58 L39 54 L31 36 L48 36 Z" fill="#fff" stroke="#241D48" stroke-width="5" stroke-linejoin="round"/></svg></div>
+  </div></div>
+  <div id="p6-o11" class="clip" data-start="0" data-duration="3.35" data-layout-allow-overlap style="position:absolute;inset:0;z-index:11"><div id="p6-o11-in" style="position:absolute;inset:0"><div class="k-card" style="position:absolute;left:330px;top:250px;width:1260px;height:560px;padding:70px 90px 0 150px;overflow:hidden">
+          <i class="k-tag-hole" style="left:48px;top:62px"></i>
+          <div class="k-kicker">Field report 06 of 06</div>
+          <div class="k-title" style="margin-top:22px">Impact</div>
+          <div class="k-q" style="margin-top:28px;max-width:900px">Who does it help, and why will it last?</div>
+          <div id="p6-o11-dust" class="k-dust"></div></div>
+          <div id="p6-o11-ring" class="k-ring" style="left:960px;top:540px;width:2600px;height:2600px;margin:-1300px 0 0 -1300px;opacity:0"></div></div></div>
+  <div id="p6-v1-dim" class="clip" data-start="3.4" data-duration="6.455" data-layout-ignore style="position:absolute;inset:0;z-index:12;background:rgba(22,14,58,0.5)"></div>
+  <div id="p6-o15" class="clip" data-start="3.8" data-duration="6.005"  style="position:absolute;z-index:15;left:0;right:0;top:450px"><div id="p6-o15-in"><div style="text-align:center;white-space:nowrap"><span id="p6-o15-c0" style="display:inline-block;margin:0 10px"><span class="k-chip sun" style="font-size:44px;padding:16px 30px 16px 22px"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>Free</span></span><span id="p6-o15-c1" style="display:inline-block;margin:0 10px"><span class="k-chip " style="font-size:44px;padding:16px 30px 16px 22px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Any web browser</span></span><span id="p6-o15-c2" style="display:inline-block;margin:0 10px"><span class="k-chip " style="font-size:44px;padding:16px 30px 16px 22px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No downloads</span></span><span id="p6-o15-c3" style="display:inline-block;margin:0 10px"><span class="k-chip " style="font-size:44px;padding:16px 30px 16px 22px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M3 3l18 18"/></svg>No accounts</span></span></div></div></div>
+  <div id="p6-o16" class="clip" data-start="6.4" data-duration="3.405"  style="position:absolute;z-index:16;left:0;right:0;top:616px"><div id="p6-o16-in"><div style="text-align:center;white-space:nowrap"><span id="p6-o16-c0" style="display:inline-block;margin:0 10px"><span class="k-chip mint" style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v14a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v14a2 2 0 0 1 2-2h8z"/></svg>One link to share with a class</span></span></div></div></div>
+  <div id="p6-v2-dim" class="clip" data-start="9.855" data-duration="5.402" data-layout-ignore style="position:absolute;inset:0;z-index:17;background:rgba(22,14,58,0.6)"></div>
+  <div id="p6-o20" class="clip" data-start="10.155" data-duration="5.052" data-layout-allow-overflow style="position:absolute;z-index:20;left:0;right:0;top:420px"><div id="p6-o20-in"><div class="k-line" style="text-align:center"><div id="p6-o20-l0" style=""><span class="k-hi">Built for ages 7 to 12</span></div></div></div></div>
+  <div id="p6-o21" class="clip" data-start="15.657" data-duration="6.232" data-layout-allow-overlap style="position:absolute;z-index:21;inset:0"><div id="p6-o21-in"><div class="k-kicker" style="position:absolute;left:0;right:0;top:220px;text-align:center;color:#fff;font-size:30px">What kids walk away with</div><div id="p6-o21-t0" class="k-card" style="position:absolute;left:170px;top:330px;width:500px;height:360px;padding:40px 36px;text-align:center">
+          <div style="width:96px;height:96px;margin:0 auto;border-radius:50%;border:6px solid #241D48;background:#FFD23F;font:400 56px/84px 'Lilita One'">1</div>
+          <div style="font:400 50px/1.1 'Lilita One';margin-top:34px">What was left behind</div></div><div id="p6-o21-t1" class="k-card" style="position:absolute;left:710px;top:330px;width:500px;height:360px;padding:40px 36px;text-align:center">
+          <div style="width:96px;height:96px;margin:0 auto;border-radius:50%;border:6px solid #241D48;background:#8EE6C4;font:400 56px/84px 'Lilita One'">2</div>
+          <div style="font:400 50px/1.1 'Lilita One';margin-top:34px">Why it stayed</div></div><div id="p6-o21-t2" class="k-card" style="position:absolute;left:1250px;top:330px;width:500px;height:360px;padding:40px 36px;text-align:center">
+          <div style="width:96px;height:96px;margin:0 auto;border-radius:50%;border:6px solid #241D48;background:#C9B8FF;font:400 56px/84px 'Lilita One'">3</div>
+          <div style="font:400 50px/1.1 'Lilita One';margin-top:34px">Science still uses it</div></div></div></div>
+  <div id="p6-o24" class="clip" data-start="23.539" data-duration="3.176"  style="position:absolute;z-index:24;left:0;right:0;top:802px"><div id="p6-o24-in"><div style="text-align:center;white-space:nowrap"><span id="p6-o24-c0" style="display:inline-block;margin:0 10px"><span class="k-chip " style="">Viking 1</span></span><span id="p6-o24-c1" style="display:inline-block;margin:0 10px"><span class="k-chip " style="">Pioneer 10</span></span><span id="p6-o24-c2" style="display:inline-block;margin:0 10px"><span class="k-chip " style="">Voyager 1</span></span></div></div></div>
+  <div id="p6-o25" class="clip" data-start="26.765" data-duration="8.539" data-layout-allow-overflow style="position:absolute;z-index:25;left:0;right:0;top:330px"><div id="p6-o25-in"><div class="k-line" style="text-align:center"><div id="p6-o25-l0" style="font-size:68px;">Machines NASA left behind,</div><div id="p6-o25-l1" style="font-size:68px;">turned into a game kids can play,</div><div id="p6-o25-l2" style="font-size:68px;"><span class="k-hi">so their stories are never forgotten.</span></div></div></div></div>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.set("#p6-zoom", { x: 0, y: 0, scale: 0.833 }, 0);
+  tl.set("#p6-screen", { opacity: 0 }, 0);
+  tl.fromTo("#p6-o11-in", { opacity: 0, y: 40, rotation: -2 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "back.out(1.4)" }, 0);
+  tl.fromTo("#p6-o11-dust", { xPercent: 0, skewX: 0, opacity: 1 }, { xPercent: 108, skewX: -12, opacity: 0.2, duration: 0.6, ease: "power2.inOut" }, 0.15);
+  tl.fromTo("#p6-o11-ring", { scale: 0.015, opacity: 0.9 }, { scale: 1, opacity: 0, duration: 0.6, ease: "power2.out" }, 2.8);
+  tl.to("#p6-o11-in", { opacity: 0, y: -60, duration: 0.3, ease: "power3.in" }, 3);
+  tl.set("#p6-screen", { opacity: 1 }, 3.4);
+  tl.set("#p6-zoom", {"x":0,"y":0,"scale":0.833}, 3.4);
+  tl.to("#p6-zoom", { ...{"x":-96,"y":-35.333,"scale":0.933}, duration: 6, ease: "sine.inOut" }, 3.5);
+  tl.set("#p6-cur", { opacity: 0 }, 9.855);
+  tl.fromTo("#p6-o15-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 3.8);
+  tl.fromTo("#p6-o15-c1", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 4.35);
+  tl.fromTo("#p6-o15-c2", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 4.9);
+  tl.fromTo("#p6-o15-c3", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 5.45);
+  tl.to("#p6-o15-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 9.605);
+  tl.fromTo("#p6-o16-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 6.4);
+  tl.to("#p6-o16-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 9.605);
+  tl.set("#p6-screen", { opacity: 1 }, 9.855);
+  tl.set("#p6-zoom", {"x":0,"y":0,"scale":0.833}, 9.855);
+  tl.set("#p6-cur", { opacity: 0 }, 15.257);
+  tl.fromTo("#p6-o20-l0", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 10.155);
+  tl.to("#p6-o20-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 15.007);
+  tl.set("#p6-screen", { opacity: 0 }, 15.257);
+  tl.fromTo("#p6-o21-in", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 15.657);
+  tl.fromTo("#p6-o21-t0", { opacity: 0, y: 60, rotation: -1 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "back.out(1.5)" }, 15.657);
+  tl.fromTo("#p6-o21-t1", { opacity: 0, y: 60, rotation: 0 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "back.out(1.5)" }, 16.957);
+  tl.fromTo("#p6-o21-t2", { opacity: 0, y: 60, rotation: 1 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "back.out(1.5)" }, 18.257);
+  tl.to("#p6-o21-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 21.689);
+  tl.set("#p6-screen", { opacity: 1 }, 21.939);
+  tl.set("#p6-zoom", {"x":0,"y":0,"scale":0.833}, 21.939);
+  tl.to("#p6-zoom", { ...{"x":-360,"y":-9.167,"scale":1.208}, duration: 0.9, ease: "power2.inOut" }, 23.139);
+  tl.set("#p6-cur", { opacity: 0 }, 26.765);
+  tl.fromTo("#p6-o24-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 23.539);
+  tl.fromTo("#p6-o24-c1", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 24.039);
+  tl.fromTo("#p6-o24-c2", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 24.539);
+  tl.to("#p6-o24-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 26.515);
+  tl.set("#p6-screen", { opacity: 0 }, 26.765);
+  tl.fromTo("#p6-o25-l0", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 26.765);
+  tl.fromTo("#p6-o25-l1", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 27.265);
+  tl.fromTo("#p6-o25-l2", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 27.765);
+  tl.to("#p6-o25-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 35.104);
+  window.__timelines["p6"] = tl;
+</script>
+</template>

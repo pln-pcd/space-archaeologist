@@ -1,0 +1,233 @@
+{
+  "chapter": "opportunity",
+  "backdrop": "mars",
+  "questions": [
+    {
+      "id": "q-water",
+      "format": "pick",
+      "prompt": "Blueberries are a clue that Mars once had…",
+      "options": [
+        {
+          "label": "Water",
+          "icon": "water",
+          "correct": true
+        },
+        {
+          "label": "Trees",
+          "icon": "tree"
+        },
+        {
+          "label": "Snowmen",
+          "icon": "snow"
+        }
+      ],
+      "clue": "They formed in rock soaked with groundwater.",
+      "sourceIds": [
+        "F14"
+      ]
+    },
+    {
+      "id": "q-plan",
+      "format": "number",
+      "prompt": "How long was Opportunity planned to work?",
+      "options": [
+        {
+          "label": "90 days",
+          "correct": true
+        },
+        {
+          "label": "90 years"
+        },
+        {
+          "label": "9 minutes"
+        }
+      ],
+      "clue": "It worked about 60 times longer than planned.",
+      "sourceIds": [
+        "F5"
+      ]
+    },
+    {
+      "id": "q-real",
+      "format": "number",
+      "prompt": "How long did it really explore?",
+      "options": [
+        {
+          "label": "Almost 15 years",
+          "correct": true
+        },
+        {
+          "label": "One week"
+        },
+        {
+          "label": "100 years"
+        }
+      ],
+      "clue": "It landed in 2004 and called home until 2018.",
+      "sourceIds": [
+        "F4"
+      ]
+    },
+    {
+      "id": "q-clean",
+      "format": "pick",
+      "prompt": "What cleaned its solar panels?",
+      "options": [
+        {
+          "label": "Wind",
+          "icon": "wind",
+          "correct": true
+        },
+        {
+          "label": "Rain",
+          "icon": "rain"
+        },
+        {
+          "label": "Astronauts",
+          "icon": "astronaut"
+        }
+      ],
+      "clue": "Passing gusts blew the dust away.",
+      "sourceIds": [
+        "F15"
+      ]
+    },
+    {
+      "id": "q-stop",
+      "format": "pick",
+      "prompt": "What stopped Opportunity in 2018?",
+      "options": [
+        {
+          "label": "Dust storm",
+          "icon": "storm",
+          "correct": true
+        },
+        {
+          "label": "Flat tyre",
+          "icon": "wheel"
+        },
+        {
+          "label": "Big snow",
+          "icon": "snow"
+        }
+      ],
+      "clue": "Dust covered the whole planet and hid the Sun.",
+      "sourceIds": [
+        "F5"
+      ]
+    },
+    {
+      "id": "q-far",
+      "format": "number",
+      "prompt": "How far did Opportunity drive?",
+      "options": [
+        {
+          "label": "Over a marathon",
+          "correct": true
+        },
+        {
+          "label": "1 km"
+        },
+        {
+          "label": "1,000 km"
+        }
+      ],
+      "clue": "45.16 km in all.",
+      "sourceIds": [
+        "F4"
+      ]
+    },
+    {
+      "id": "q-sunset",
+      "format": "pick",
+      "prompt": "What colour glows round a Mars sunset?",
+      "options": [
+        {
+          "label": "Blue",
+          "icon": "blue",
+          "correct": true
+        },
+        {
+          "label": "Green",
+          "icon": "green"
+        },
+        {
+          "label": "Pink",
+          "icon": "pink"
+        }
+      ],
+      "clue": "Mars dust scatters blue light forward.",
+      "sourceIds": [
+        "F16"
+      ]
+    },
+    {
+      "id": "q-land",
+      "format": "pick",
+      "prompt": "Where did Opportunity land?",
+      "options": [
+        {
+          "label": "Small crater",
+          "icon": "crater",
+          "correct": true
+        },
+        {
+          "label": "Tall mountain",
+          "icon": "mountain"
+        },
+        {
+          "label": "Ocean",
+          "icon": "ocean"
+        }
+      ],
+      "clue": "Scientists called it a hole-in-one.",
+      "sourceIds": [
+        "F14",
+        "F17"
+      ]
+    },
+    {
+      "id": "q-truth",
+      "format": "trueImagine",
+      "prompt": "True story or imagine?",
+      "options": [
+        {
+          "label": "Opportunity landed in a small crater",
+          "correct": true
+        },
+        {
+          "label": "Opportunity waved at me",
+          "correct": false
+        }
+      ],
+      "clue": "Rovers waving is our make-believe.",
+      "sourceIds": [
+        "F14"
+      ]
+    },
+    {
+      "id": "q-order",
+      "format": "order",
+      "prompt": "Put Opportunity's story in order.",
+      "options": [
+        {
+          "label": "Bounce and land",
+          "order": 0
+        },
+        {
+          "label": "Find blueberries",
+          "order": 1
+        },
+        {
+          "label": "Dust storm",
+          "order": 2
+        }
+      ],
+      "clue": "It landed in 2004. The storm came in 2018.",
+      "sourceIds": [
+        "F4",
+        "F14"
+      ]
+    }
+  ]
+}

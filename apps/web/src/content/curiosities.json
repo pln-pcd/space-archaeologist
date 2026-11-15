@@ -1,0 +1,15 @@
+{
+  "curiosities": [
+    { "id": "base-moon-drift", "world": "base", "at": [5.6, 4.8], "type": "fact", "sourceIds": ["F10"], "text": "The Moon drifts away from Earth about 3.8 cm every year." },
+    { "id": "base-moon-weight", "world": "base", "at": [-4.6, -6.6], "type": "fact", "sourceIds": ["F19"], "text": "On the Moon, you would weigh about one sixth as much." },
+    { "id": "base-voyager", "world": "base", "at": [3.6, 9.6], "type": "fact", "sourceIds": ["F1"], "text": "Voyager 1 reaches one light-day from Earth on 18 November 2026." },
+    { "id": "base-mars-moons", "world": "base", "at": [6.6, -5.4], "type": "fact", "sourceIds": ["F20"], "text": "Mars has two little moons, called Phobos and Deimos." },
+    { "id": "base-pioneer", "world": "base", "at": [2.2, -20.8], "type": "fact", "sourceIds": ["F8"], "text": "Pioneer 10 was the first spacecraft through the asteroid belt." },
+    { "id": "moon-place", "world": "eagle", "at": [-5.2, 6.4], "type": "fact", "sourceIds": ["F27"], "text": "Eagle landed near 0.67 degrees north, 23.47 degrees east." },
+    { "id": "moon-footprint", "world": "eagle", "at": [-3.0, 4.2], "type": "fact", "sourceIds": ["F25"], "text": "No wind here, so footprints can stay for a very long time." },
+    { "id": "moon-seismometer", "world": "eagle", "at": [-1.2, 3.6], "type": "fact", "sourceIds": ["F26"], "text": "The seismometer sent about three weeks of moonquake data." },
+    { "id": "mars-crater", "world": "opportunity", "at": [-4.1, 5.5], "type": "fact", "sourceIds": ["F22"], "text": "Opportunity landed in Eagle crater, only about 22 metres wide." },
+    { "id": "mars-speed", "world": "opportunity", "at": [-1.2, 3.3], "type": "fact", "sourceIds": ["F24"], "text": "Opportunity's top speed on flat ground was 5 cm a second." },
+    { "id": "mars-sol", "world": "opportunity", "at": [2.6, 2.4], "type": "fact", "sourceIds": ["F20"], "text": "A day on Mars lasts about 24 hours and 40 minutes." }
+  ]
+}

@@ -1,0 +1,532 @@
+{
+ "_about": "Single source for the demo video narration: TTS (say), burned-in captions and the .srt (caption), SCRIPT.md (facts, rubric). 'say' may spell numbers for the voice; 'caption' is what is shown. Fact IDs refer to apps/web/src/content/sources.json; CH = the official challenge page (https://www.spaceappschallenge.org/2026/challenges/nasas-discarded-equipment-storytelling/); DR = design reasoning (a team choice, not a factual claim); BUILD = verified in the current build (docs/DECISIONS.md inventory).",
+ "lines": [
+  {
+   "id": "n01",
+   "part": 1,
+   "say": "In 1969, Apollo 11 landed on the Moon. Part of its lander is still up there today.",
+   "caption": "In 1969, Apollo 11 landed on the Moon. Part of its lander is still up there today.",
+   "facts": [
+    "F32",
+    "F28"
+   ],
+   "rubric": [
+    "Presentation",
+    "Relevance"
+   ]
+  },
+  {
+   "id": "n02",
+   "part": 1,
+   "say": "We're a team from the Philippines, and this is Space Archaeologist.",
+   "caption": "We're a team from the Philippines, and this is Space Archaeologist.",
+   "facts": [],
+   "rubric": [
+    "Presentation"
+   ]
+  },
+  {
+   "id": "n03",
+   "part": 2,
+   "say": "Our challenge is called Abandoned but not Forgotten.",
+   "caption": "Our challenge is called Abandoned but not Forgotten.",
+   "facts": [
+    "CH"
+   ],
+   "rubric": [
+    "Relevance"
+   ]
+  },
+  {
+   "id": "n04",
+   "part": 2,
+   "say": "Since the 1960s, NASA has left machines on the Moon and on Mars.",
+   "caption": "Since the 1960s, NASA has left machines on the Moon and on Mars.",
+   "facts": [
+    "CH",
+    "F28",
+    "F5"
+   ],
+   "rubric": [
+    "Relevance"
+   ]
+  },
+  {
+   "id": "n05",
+   "part": 2,
+   "say": "A laser reflector that scientists still bounce light off today. A rover that drove more than a marathon on Mars.",
+   "caption": "A laser reflector that scientists still bounce light off today. A rover that drove more than a marathon on Mars.",
+   "facts": [
+    "F10",
+    "F4"
+   ],
+   "rubric": [
+    "Relevance",
+    "Impact"
+   ]
+  },
+  {
+   "id": "n06",
+   "part": 2,
+   "say": "But the challenge notes that kids mostly hear about today's missions. The old machines live in dense websites and textbooks.",
+   "caption": "But the challenge notes that kids mostly hear about today's missions. The old machines live in dense websites and textbooks.",
+   "facts": [
+    "CH"
+   ],
+   "rubric": [
+    "Impact",
+    "Relevance"
+   ]
+  },
+  {
+   "id": "n07",
+   "part": 2,
+   "say": "We believe kids learn best by doing. So we asked: what if kids could dig these stories up themselves?",
+   "caption": "We believe kids learn best by doing. So we asked: what if kids could dig these stories up themselves?",
+   "facts": [
+    "DR"
+   ],
+   "rubric": [
+    "Impact",
+    "Creativity"
+   ]
+  },
+  {
+   "id": "n08",
+   "part": 3,
+   "say": "Space Archaeologist is a free browser game. Kids aged seven to twelve explore the real machines left on the Moon and Mars, and learn their true stories.",
+   "caption": "Space Archaeologist is a free browser game. Kids aged 7 to 12 explore the real machines left on the Moon and Mars, and learn their true stories.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Creativity",
+    "Relevance"
+   ]
+  },
+  {
+   "id": "n09",
+   "part": 3,
+   "say": "You design an explorer, board the ship, and pick a mission. Then come real NASA film, a launch, digs and games, and a badge at the end.",
+   "caption": "You design an explorer, board the ship, and pick a mission. Then come real NASA film, a launch, digs and games, and a badge at the end.",
+   "facts": [
+    "BUILD",
+    "F35"
+   ],
+   "rubric": [
+    "Creativity"
+   ]
+  },
+  {
+   "id": "n10",
+   "part": 3,
+   "say": "And Nova, a friendly AI guide, answers questions the whole way.",
+   "caption": "And Nova, a friendly AI guide, answers questions the whole way.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Creativity"
+   ]
+  },
+  {
+   "id": "n11",
+   "part": 4,
+   "say": "Here's the real game, recorded from the current build.",
+   "caption": "Here's the real game, recorded from the current build.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n12",
+   "part": 4,
+   "say": "Press start. Nova gives a short tour. Type a nickname, and design your explorer.",
+   "caption": "Press start. Nova gives a short tour. Type a nickname, and design your explorer.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n13",
+   "part": 4,
+   "say": "This is the ship. Two missions are ready to play.",
+   "caption": "This is the ship. Two missions are ready to play.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n14",
+   "part": 4,
+   "say": "Mission one opens with real Apollo 11 film from NASA.",
+   "caption": "Mission one opens with real Apollo 11 film from NASA.",
+   "facts": [
+    "F35"
+   ],
+   "rubric": [
+    "Relevance"
+   ]
+  },
+  {
+   "id": "n15",
+   "part": 4,
+   "say": "Then you pull the lever. The Saturn V lifts off, and you fly to the Moon.",
+   "caption": "Then you pull the lever. The Saturn V lifts off, and you fly to the Moon.",
+   "facts": [
+    "F30"
+   ],
+   "rubric": [
+    "Creativity",
+    "Validity"
+   ]
+  },
+  {
+   "id": "n16",
+   "part": 4,
+   "say": "On the Moon, the path at the top shows every step. Walk around, scan, and follow the glints.",
+   "caption": "On the Moon, the path at the top shows every step. Walk around, scan, and follow the glints.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n17",
+   "part": 4,
+   "say": "Every find starts with a dig. Brush the dust away.",
+   "caption": "Every find starts with a dig. Brush the dust away.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Creativity"
+   ]
+  },
+  {
+   "id": "n18",
+   "part": 4,
+   "say": "Then turn it around, and open its glowing parts to see what each one does.",
+   "caption": "Then turn it around, and open its glowing parts to see what each one does.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n19",
+   "part": 4,
+   "say": "This is the laser reflector. Send a laser ping, and watch the light come back. Scientists still do this today.",
+   "caption": "This is the laser reflector. Send a laser ping, and watch the light come back. Scientists still do this today.",
+   "facts": [
+    "F10",
+    "F13"
+   ],
+   "rubric": [
+    "Relevance",
+    "Validity"
+   ]
+  },
+  {
+   "id": "n20",
+   "part": 4,
+   "say": "Then comes a quick quiz. Hold up one, two, three or four fingers to answer A, B, C or D.",
+   "caption": "Then comes a quick quiz. Hold up one, two, three or four fingers to answer A, B, C or D.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Creativity",
+    "Validity"
+   ]
+  },
+  {
+   "id": "n21",
+   "part": 4,
+   "say": "In the Rock Box, you catch Moon rocks with your own hands. Apollo 11 brought home about twenty one and a half kilograms.",
+   "caption": "In the Rock Box, you catch Moon rocks with your own hands. Apollo 11 brought home about 21.5 kilograms.",
+   "facts": [
+    "F31"
+   ],
+   "rubric": [
+    "Creativity",
+    "Relevance"
+   ]
+  },
+  {
+   "id": "n22",
+   "part": 4,
+   "say": "Next, rebuild the lander, and put its journey back in order.",
+   "caption": "Next, rebuild the lander, and put its journey back in order.",
+   "facts": [
+    "F28",
+    "F30"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n23",
+   "part": 4,
+   "say": "The mission report is a quiz nobody fails. A wrong answer just becomes a hint.",
+   "caption": "The mission report is a quiz nobody fails. A wrong answer just becomes a hint.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity",
+    "Impact"
+   ]
+  },
+  {
+   "id": "n24",
+   "part": 4,
+   "say": "Then you earn a badge, and the chapter is complete.",
+   "caption": "Then you earn a badge, and the chapter is complete.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n25",
+   "part": 4,
+   "say": "On Mars, you keep the rover Opportunity going. Wipe the dust off its solar panels, just like the real Martian wind did.",
+   "caption": "On Mars, you keep the rover Opportunity going. Wipe the dust off its solar panels, just like the real Martian wind did.",
+   "facts": [
+    "F15",
+    "F5"
+   ],
+   "rubric": [
+    "Relevance",
+    "Creativity"
+   ]
+  },
+  {
+   "id": "n26",
+   "part": 4,
+   "say": "And any time, kids can simply ask Nova, out loud.",
+   "caption": "And any time, kids can simply ask Nova, out loud.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n26b",
+   "part": 4,
+   "say": "The game turns the question into text right on this computer. Then Nova checks her facts.",
+   "caption": "The game turns the question into text right on this computer. Then Nova checks her facts.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n27",
+   "part": 5,
+   "say": "Every feature is there for a reason.",
+   "caption": "Every feature is there for a reason.",
+   "facts": [
+    "DR"
+   ],
+   "rubric": [
+    "Presentation"
+   ]
+  },
+  {
+   "id": "n28",
+   "part": 5,
+   "say": "Kids ask lots of questions. Nova answers by voice or text, stays on space topics, and uses facts with real sources.",
+   "caption": "Kids ask lots of questions. Nova answers by voice or text, stays on space topics, and uses facts with real sources.",
+   "facts": [
+    "DR",
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity",
+    "Impact"
+   ]
+  },
+  {
+   "id": "n29",
+   "part": 5,
+   "say": "Moving your real hands to scan, grab and ping makes learning active. And it's optional. Mouse, keyboard and touch work everywhere.",
+   "caption": "Moving your real hands to scan, grab and ping makes learning active. And it's optional. Mouse, keyboard and touch work everywhere.",
+   "facts": [
+    "DR",
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity",
+    "Creativity"
+   ]
+  },
+  {
+   "id": "n30",
+   "part": 5,
+   "say": "And every story is read aloud, with captions, so younger kids and early readers can follow along.",
+   "caption": "And every story is read aloud, with captions, so younger kids and early readers can follow along.",
+   "facts": [
+    "DR",
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity",
+    "Impact"
+   ]
+  },
+  {
+   "id": "n31",
+   "part": 5,
+   "say": "It's all built on NASA data. Two hundred seventy five facts, each linked to one of forty six NASA sources, and checked by our fact tests.",
+   "caption": "It's all built on NASA data. 275 facts, each linked to one of 46 NASA sources, and checked by our fact tests.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Relevance",
+    "Validity"
+   ]
+  },
+  {
+   "id": "n32",
+   "part": 5,
+   "say": "Nova can even check live NASA feeds: asteroids passing Earth today, space weather, and the weather on Mars.",
+   "caption": "Nova can even check live NASA feeds: asteroids passing Earth today, space weather, and the weather on Mars.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Relevance"
+   ]
+  },
+  {
+   "id": "n33",
+   "part": 5,
+   "say": "It's built for kids' safety. No accounts. Camera and voice are processed on the computer. And grown-ups can switch the AI off.",
+   "caption": "It's built for kids' safety. No accounts. Camera and voice are processed on the computer. And grown-ups can switch the AI off.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n34",
+   "part": 5,
+   "say": "Captions are always on. There's calm motion, an easy-read font, and no camera needed. Even offline, Nova answers from the game's own fact sheet.",
+   "caption": "Captions are always on. There's calm motion, an easy-read font, and no camera needed. Even offline, Nova answers from the game's own fact sheet.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Validity"
+   ]
+  },
+  {
+   "id": "n35",
+   "part": 6,
+   "say": "Space Archaeologist is free, and it runs in a web browser. No downloads, and no accounts.",
+   "caption": "Space Archaeologist is free, and it runs in a web browser. No downloads, and no accounts.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Impact"
+   ]
+  },
+  {
+   "id": "n36",
+   "part": 6,
+   "say": "It's designed so a seven year old can finish it, and older kids still chase three stars.",
+   "caption": "It's designed so a 7-year-old can finish it, and older kids still chase three stars.",
+   "facts": [
+    "DR"
+   ],
+   "rubric": [
+    "Impact"
+   ]
+  },
+  {
+   "id": "n37",
+   "part": 6,
+   "say": "Our goal: every kid walks away knowing what was left behind, why it stayed, and that scientists still use it.",
+   "caption": "Our goal: every kid walks away knowing what was left behind, why it stayed, and that scientists still use it.",
+   "facts": [
+    "DR",
+    "F28",
+    "F10"
+   ],
+   "rubric": [
+    "Impact"
+   ]
+  },
+  {
+   "id": "n38",
+   "part": 6,
+   "say": "Three more missions are planned: Viking 1, Pioneer 10, and Voyager 1.",
+   "caption": "Three more missions are planned: Viking 1, Pioneer 10, and Voyager 1.",
+   "facts": [
+    "F6",
+    "F8",
+    "F1"
+   ],
+   "rubric": [
+    "Impact"
+   ]
+  },
+  {
+   "id": "n39",
+   "part": 6,
+   "say": "Space Archaeologist turns the machines NASA left behind into a game kids can play, so their stories are never forgotten.",
+   "caption": "Space Archaeologist turns the machines NASA left behind into a game kids can play, so their stories are never forgotten.",
+   "facts": [
+    "DR"
+   ],
+   "rubric": [
+    "Presentation",
+    "Impact"
+   ]
+  },
+  {
+   "id": "n40",
+   "part": 7,
+   "say": "Play it free, right now, in your browser.",
+   "caption": "Play it free, right now, in your browser.",
+   "facts": [
+    "BUILD"
+   ],
+   "rubric": [
+    "Presentation"
+   ]
+  }
+ ],
+ "kid": {
+  "id": "k01",
+  "say": "Nova, how far away is the Moon?",
+  "caption": "Nova, how far away is the Moon?",
+  "note": "A player's question voiced by a neutral adult text-to-speech voice for this recording (Space Apps rules: no voices or likenesses of anyone under 18). Labelled on screen; the game's real speech-to-text hears it."
+ }
+}

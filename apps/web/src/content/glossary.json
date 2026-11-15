@@ -1,0 +1,94 @@
+{
+  "terms": {
+    "air": {
+      "word": "air",
+      "kid": "What we breathe. The Moon has none, so sound can't travel there.",
+      "sourceIds": [
+        "F25"
+      ]
+    },
+    "seismometer": {
+      "word": "seismometer",
+      "kid": "A machine that feels the ground shake.",
+      "sourceIds": [
+        "F11"
+      ]
+    },
+    "reflector": {
+      "word": "reflector",
+      "kid": "Glass cubes that bounce light straight back.",
+      "sourceIds": [
+        "F13"
+      ]
+    },
+    "descent stage": {
+      "word": "descent stage",
+      "kid": "Eagle's bottom half, the part that stayed.",
+      "sourceIds": [
+        "F28"
+      ]
+    },
+    "laser": {
+      "word": "laser",
+      "kid": "A very thin, very bright beam of light."
+    },
+    "crater": {
+      "word": "crater",
+      "kid": "A round hole made when a space rock hits the ground."
+    },
+    "blueberries": {
+      "word": "blueberries",
+      "kid": "Tiny iron-rich balls on Mars, not real fruit.",
+      "sourceIds": [
+        "F14"
+      ]
+    },
+    "solar panels": {
+      "word": "solar panels",
+      "kid": "Flat wings that turn sunlight into power.",
+      "sourceIds": [
+        "F15"
+      ]
+    },
+    "dust storm": {
+      "word": "dust storm",
+      "kid": "Wind lifting so much dust that it hides the Sun.",
+      "sourceIds": [
+        "F5"
+      ]
+    },
+    "lunar module": {
+      "word": "lunar module",
+      "kid": "The small spacecraft that landed on the Moon. This one was named Eagle.",
+      "sourceIds": [
+        "F30"
+      ]
+    },
+    "solar wind": {
+      "word": "solar wind",
+      "kid": "A stream of tiny bits blowing out from the Sun.",
+      "sourceIds": [
+        "F30"
+      ]
+    },
+    "moonquake": {
+      "word": "moonquake",
+      "kid": "A shake of the Moon's ground, like an earthquake.",
+      "sourceIds": [
+        "F12"
+      ]
+    }
+  },
+  "neverSay": [
+    "battery is low",
+    "getting dark",
+    "still holds the driving record",
+    "still holds the record",
+    "wind on the moon",
+    "seconds of fuel",
+    "seismometer still works",
+    "fingernails",
+    "real gold",
+    "sound on the moon"
+  ]
+}

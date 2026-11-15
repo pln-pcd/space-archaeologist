@@ -1,0 +1,93 @@
+/*
+ * Homeward UI motion language (2D): toy-like, squashy, springy.
+ * Buttons squash on press and spring back, panels slide in with a small overshoot, icons wiggle
+ * on hover, cards have chunky rounded corners and a bottom "lip". Reduced motion keeps fades only.
+ */
+:root {
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* squash on press, spring back */
+
+/* icons wiggle on hover */
+@keyframes hw-wiggle {
+  20% {
+    transform: rotate(-12deg) scale(1.1);
+  }
+  45% {
+    transform: rotate(9deg) scale(1.08);
+  }
+  70% {
+    transform: rotate(-4deg);
+  }
+}
+
+/* toy cards: chunky corners and a bottom lip */
+.station-panel {
+  border-radius: 26px !important;
+  border-width: 2px !important;
+  box-shadow:
+    0 8px 0 #212629,
+    0 36px 90px #0a0c0d8c !important;
+}
+
+/* reward pops */
+@keyframes hw-pop {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* the hand cursor: a little glowing glove with a pulsing ring */
+@keyframes hw-ring {
+  from {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* high contrast: bolder text and outlines, no blur */
+
+/* quality picker */
+
+/* reduced motion: keep short fades, drop bounce and wiggle */
+@keyframes hw-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* mission mini-games share the same springy feedback */
+@keyframes hw-cheer {
+  30% {
+    transform: scale(1.04, 0.95);
+  }
+  60% {
+    transform: scale(0.98, 1.03);
+  }
+}
+@keyframes hw-shake {
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+@keyframes hw-stretch {
+  to {
+    transform: scale(0.96, 1.05);
+  }
+}

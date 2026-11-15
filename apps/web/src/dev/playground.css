@@ -1,0 +1,129 @@
+.playground {
+  min-height: 100vh;
+  padding: 24px 380px 40px 28px;
+  background: radial-gradient(ellipse at 40% 0%, #485359, #282d30 70%);
+  color: #f1f0ee;
+  font: 400 18px/1.4 "Lexend", sans-serif;
+}
+.playground h1 {
+  margin: 0;
+  font: 400 40px/1.1 "Stylish", sans-serif;
+}
+.playground header p {
+  margin: 6px 0 14px;
+  color: #d5dadd;
+}
+.pg-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pg-status {
+  font-size: 15px;
+  color: #d5dadd;
+}
+.pg-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+.pg-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 12px;
+  border-radius: 24px;
+  border: 4px solid #343029;
+  background: #374044;
+  box-shadow: 0 6px 0 #181b1d;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.pg-tile.lit {
+  background: #aba395;
+  color: #343029;
+  transform: translateY(-4px) scale(1.03);
+}
+.pg-tile h2 {
+  margin: 4px 0 0;
+  font: 400 22px/1.1 "Stylish", sans-serif;
+}
+.pg-fallback {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.8;
+  text-align: center;
+}
+.pg-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+  margin: 4px 0 0;
+}
+.pg-counts span {
+  font-size: 12px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: #ffffff14;
+}
+.pg-counts span.has {
+  background: #b6aea1;
+  color: #343029;
+  font-weight: 400;
+}
+.pg-tile small {
+  font-size: 13px;
+}
+.pg-log {
+  margin-top: 20px;
+  font: 14px/1.5 ui-monospace, Consolas, monospace;
+  color: #aba395;
+}
+.pg-tile.solo {
+  outline: 5px solid #b6aea1;
+}
+.pg-tile-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.pg-tile-actions button {
+  font: 400 14px/1 "Lexend", sans-serif;
+  padding: 6px 12px;
+  border-radius: 99px;
+  border: 2px solid #343029;
+  background: #f1f0ee;
+  color: #343029;
+  cursor: pointer;
+}
+.audio-lab {
+  padding-right: 28px;
+}
+.lab-group {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.lab-group h2 {
+  width: 100%;
+  margin: 0;
+  font: 400 26px/1.1 "Stylish", sans-serif;
+  color: #aba395;
+}
+.lab-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+.lab-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

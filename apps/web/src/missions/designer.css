@@ -1,0 +1,284 @@
+/* THE EXPLORER DESIGNER (v7): one screen, no scrolling. Stage left, parts panel right. */
+.dz {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(460px, 0.95fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px 28px;
+  padding: 20px 96px 26px 28px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 28% 62%, rgba(255, 255, 255, 0.55), transparent 42%),
+    radial-gradient(ellipse at 85% 10%, #ffd9ec 0%, transparent 45%),
+    linear-gradient(160deg, #a9d8ff 0%, #c9b8ff 55%, #ffc9e2 100%);
+  font-family: "Fredoka", sans-serif;
+  color: #241d48;
+}
+.dz * {
+  box-sizing: border-box;
+}
+.dz-sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.dz-sky i {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  opacity: 0.7;
+  animation: dz-twinkle 3.2s ease-in-out infinite;
+}
+@keyframes dz-twinkle {
+  50% {
+    opacity: 0.2;
+    transform: scale(0.6) rotate(20deg);
+  }
+}
+.dz-top {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  z-index: 2;
+  min-height: 56px;
+}
+.dz-stage {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+}
+.dz-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  cursor: grab;
+  touch-action: none;
+}
+.dz-canvas:active {
+  cursor: grabbing;
+}
+.dz-canvas canvas {
+  outline: none;
+}
+.dz-plate {
+  display: grid;
+  justify-items: center;
+  margin-top: -18px;
+  padding: 8px 26px 10px;
+  border: 3px solid #241d48;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 5px 0 #241d48;
+  rotate: -1.5deg;
+}
+.dz-name {
+  font: 400 26px/1.05 "Lilita One", "Fredoka", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.dz-plate small {
+  font: 600 14px/1.1 "Fredoka", sans-serif;
+  color: #6d5fc0;
+}
+.dz-helmet {
+  position: absolute !important;
+  top: 6px;
+  right: 6px;
+}
+.dz-helmet > span {
+  opacity: 1 !important;
+}
+.dz-hint {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  translate: -50% 0;
+  margin: 0;
+  padding: 4px 12px 5px;
+  border-radius: 999px;
+  background: rgba(36, 29, 72, 0.55);
+  color: #fff;
+  font: 600 14px/1 "Fredoka", sans-serif;
+  pointer-events: none;
+}
+.dz-panel {
+  position: relative;
+  z-index: 2;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 18px 20px 20px;
+  align-self: stretch;
+  max-height: 100%;
+}
+.dz-tabs {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+.dz-tab {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 9px 2px 8px;
+  border: 3px solid #241d48;
+  border-radius: 16px;
+  background: #f3efff;
+  color: #241d48;
+  box-shadow: 0 3px 0 #241d48;
+  font: 600 14px/1 "Fredoka", sans-serif;
+  cursor: pointer;
+  transition:
+    transform 0.2s var(--spring, ease),
+    background 0.15s;
+}
+.dz-tab:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.dz-tab[aria-pressed="true"] {
+  background: linear-gradient(#ffe88f, #ffd23f);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #241d48;
+}
+.dz-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: max-content;
+  gap: 14px 12px;
+  min-height: 0;
+  align-content: start;
+}
+.dz-tile {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+  align-items: center;
+  min-height: 0;
+  max-height: 168px;
+  aspect-ratio: 1 / 1.08;
+  padding: 6px 4px 8px;
+  border: 3px solid #241d48;
+  border-radius: 20px;
+  background: radial-gradient(circle at 50% 40%, #ffffff, var(--tile-bg, #ece6ff));
+  box-shadow: 0 4px 0 #241d48;
+  color: #241d48;
+  cursor: pointer;
+  transition:
+    transform 0.22s var(--spring, ease),
+    box-shadow 0.1s;
+}
+.dz-tile:hover:not(:disabled) {
+  transform: translateY(-3px) rotate(-1.5deg);
+}
+.dz-tile:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #241d48;
+}
+.dz-tile[aria-checked="true"] {
+  background: radial-gradient(circle at 50% 40%, #fffbe6, #ffe68a);
+  box-shadow:
+    0 4px 0 #241d48,
+    0 0 0 4px #fff,
+    0 0 0 7px #ffb21f;
+}
+.dz-thumb {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+.dz-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 0 rgba(36, 29, 72, 0.18));
+  animation: dz-in 0.3s var(--spring, ease) both;
+}
+@keyframes dz-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+.dz-spin {
+  width: 26px;
+  height: 26px;
+  border: 4px solid #d4cbff;
+  border-top-color: #7f6ee0;
+  border-radius: 50%;
+  animation: dz-rot 0.8s linear infinite;
+}
+@keyframes dz-rot {
+  to {
+    rotate: 360deg;
+  }
+}
+.dz-none {
+  font-size: 40px;
+  color: #b0a8d0;
+}
+.dz-label {
+  font: 600 15px/1.1 "Fredoka", sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.dz-check {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #241d48;
+  border-radius: 50%;
+  background: #5ed3b0;
+  color: #241d48;
+  animation: dz-in 0.3s var(--spring, ease) both;
+}
+.dz-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+}
+.dz-yay {
+  position: fixed;
+  left: 30%;
+  top: 42%;
+  translate: -50% -50%;
+  z-index: 10;
+  padding: 12px 28px 16px;
+  font: 400 44px/1 "Lilita One", "Fredoka", sans-serif;
+  color: #fff;
+  -webkit-text-stroke: 8px #241d48;
+  paint-order: stroke fill;
+  text-shadow: 0 6px 0 #241d48;
+  animation: g-pop 0.45s var(--spring, ease) both;
+  pointer-events: none;
+}
+@media (max-height: 700px) {
+  .dz-tile {
+    max-height: 130px;
+  }
+  .dz-tab span {
+    display: none;
+  }
+}
+.reduced-motion .dz-sky i,
+.reduced-motion .dz-spin {
+  animation: none;
+}

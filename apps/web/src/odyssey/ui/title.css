@@ -1,0 +1,52 @@
+/* The hero title (v4.6 §1): cream fill, warm-dark outline drawn under the fill (paint-order), a chunky
+   offset shadow plus a soft glow, and a springy letter bounce on load. */
+.od-hero-title {
+  margin: 0;
+  font-family: var(--od-hero-font, "Lilita One", "Fredoka", sans-serif);
+  font-weight: 400;
+  font-size: clamp(48px, 7.4vw, 124px);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  -webkit-text-stroke: 0.16em #241D48;
+  paint-order: stroke fill;
+  text-shadow:
+    0 0.07em 0 #241D48,
+    0 0.12em 0.18em rgba(10, 6, 30, 0.55);
+  text-align: center;
+  white-space: nowrap;
+}
+.od-hero-title span {
+  display: inline-block;
+  animation: od-letter 720ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes od-letter {
+  0% {
+    transform: translateY(0.5em) scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-0.08em) scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+.reduced-motion .od-hero-title span {
+  animation: od-fade-in 300ms ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .od-hero-title span {
+    animation: od-fade-in 300ms ease both;
+  }
+}
+@keyframes od-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

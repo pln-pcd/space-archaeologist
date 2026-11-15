@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "dt": 0.05,
+  "lunarGravity": 1.62,
+  "earthGravity": 9.80665,
+  "initialAltitude": 100,
+  "initialVelocity": -8,
+  "initialFuel": 100,
+  "dryMass": 1000,
+  "thrust": 4500,
+  "fuelBurnPerSecond": 3,
+  "safeLandingSpeed": 3,
+  "solarPeak": 100,
+  "driveCost": 24,
+  "lightSpeedKmS": 299792.458,
+  "voyagerMilestone": "2026-11-18T10:16:07Z",
+  "sources": {
+    "lunarGravity": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+    "lightSpeedKmS": "https://physics.nist.gov/cgi-bin/cuu/Value?c",
+    "voyagerMilestone": "https://science.nasa.gov/mission/voyager/where-are-voyager-1-and-voyager-2-now/"
+  },
+  "note": "Thrust, mass, fuel, starting conditions and solar/drive budgets are deliberately simplified educational game parameters, not Apollo or rover engineering specifications.",
+  "sourceRecords": {
+    "lunarGravity": {
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    "lightSpeedKmS": {
+      "url": "https://physics.nist.gov/cgi-bin/cuu/Value?c",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    "voyagerMilestone": {
+      "url": "https://science.nasa.gov/mission/voyager/where-are-voyager-1-and-voyager-2-now/",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    }
+  }
+}

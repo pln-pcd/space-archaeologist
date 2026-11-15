@@ -1,0 +1,114 @@
+/* v7.5: the one-card "how to play" that opens every game */
+.howto-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(20, 12, 50, 0.55);
+  animation: howto-fade 0.3s ease-out both;
+}
+.howto {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: min(760px, 100%);
+  padding: 26px 30px 24px;
+  text-align: center;
+  font-family: "Fredoka", sans-serif;
+  color: #241d48;
+  animation: howto-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.howto-kicker {
+  font: 700 13px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7a6fb0;
+}
+.howto h2 {
+  margin: 0;
+  font: 400 40px/1.05 "Lilita One", "Fredoka", sans-serif;
+  letter-spacing: 0.01em;
+}
+.howto-goal {
+  margin: 0 0 6px;
+  max-width: 34ch;
+  font: 600 20px/1.3 "Fredoka", sans-serif;
+  color: #4b4380;
+}
+.howto-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  margin: 6px 0 10px;
+  padding: 0;
+  list-style: none;
+}
+.howto-steps li {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 6px;
+  padding: 16px 12px 14px;
+  border: 3px solid #241d48;
+  border-radius: 20px;
+  background: linear-gradient(#ffffff, #f1edff);
+  box-shadow: 0 4px 0 #241d48;
+  font: 600 16px/1.25 "Fredoka", sans-serif;
+  animation: howto-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.howto-n {
+  position: absolute;
+  top: -12px;
+  left: -10px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 3px solid #241d48;
+  border-radius: 50%;
+  background: #ffd23f;
+  font: 400 15px/1 "Lilita One", "Fredoka", sans-serif;
+}
+.howto-ico {
+  font-size: 40px;
+  line-height: 1;
+}
+.howto-go {
+  min-width: 220px;
+  gap: 8px;
+}
+@keyframes howto-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes howto-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(14px);
+  }
+}
+.reduced-motion .howto,
+.reduced-motion .howto-steps li {
+  animation: none;
+}
+html body .howto-scrim .howto h2 {
+  font: 400 40px/1.05 "Lilita One", "Fredoka", sans-serif;
+  color: #241d48;
+}
+html body .howto-scrim .howto p.howto-goal {
+  font: 600 20px/1.3 "Fredoka", sans-serif;
+  color: #4b4380;
+}
+html body .howto-scrim .howto-kicker {
+  font: 700 13px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+html body .howto-scrim .howto-steps li {
+  font: 600 16px/1.25 "Fredoka", sans-serif;
+}

@@ -1,0 +1,17 @@
+/*
+ * Performance rules for the live 3D game (imported last by App).
+ * A backdrop blur over a WebGL canvas has to be re-rendered every single frame, which costs a lot on
+ * integrated GPUs (the laptops this game is for). In the game every surface is solid "sticker"
+ * colour instead; the look stays, the lag goes.
+ */
+body.game-mode *,
+body.game-mode *::before,
+body.game-mode *::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* the browser window is the game window: never scroll the page, never cut the world */
+body.game-mode {
+  overflow: hidden;
+}

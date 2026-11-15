@@ -1,0 +1,30 @@
+[
+  {
+    "file": "plaque.jpg",
+    "url": "https://assets.science.nasa.gov/content/dam/science/psd/lunar-science/2023/09/127_apollo11_plaque_1200.jpg",
+    "credit": "NASA",
+    "sha256": "0f7031080fad4428827c6dfbd11e7e74e05af28354e3add0afb6f60f34fd7a30",
+    "retrieved": "2026-11-15"
+  },
+  {
+    "file": "seismometer.jpg",
+    "url": "https://assets.science.nasa.gov/content/dam/science/psd/lunar-science/2023/09/AS11-40-5948HR.jpg",
+    "credit": "NASA",
+    "sha256": "fcbbbb498fd9cd560fb743befd21a24a3736a7fc68d4d233ccb23f85b536e410",
+    "retrieved": "2026-11-15"
+  },
+  {
+    "file": "reflector.jpg",
+    "url": "https://images-assets.nasa.gov/image/6900957/6900957~medium.jpg",
+    "credit": "NASA",
+    "sha256": "00ce785c34f973c735a687c400cc84b82707d707172ad817343c48bbd31f39df",
+    "retrieved": "2026-11-15"
+  },
+  {
+    "file": "descent.jpg",
+    "url": "https://assets.science.nasa.gov/content/dam/science/psd/lunar-science/2023/08/detail_as11-40-5927_orig.jpg",
+    "credit": "NASA",
+    "sha256": "350a838186fe1810b2abfcf295039b2e90a9934ed5b0904d9181af456e606b3a",
+    "retrieved": "2026-11-15"
+  }
+]

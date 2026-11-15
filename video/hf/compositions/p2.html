@@ -1,0 +1,151 @@
+<template>
+<style>
+@font-face { font-family: "Lilita One"; src: url("assets/fonts/lilita-one-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+.k-bg { position: absolute; inset: 0; background: radial-gradient(1200px 700px at 30% 20%, #2A1B66, #160E3A 70%); }
+.k-stars { position: absolute; inset: 0; background-image:
+  radial-gradient(2px 2px at 120px 160px, #fff8 50%, transparent 51%), radial-gradient(2px 2px at 1720px 120px, #fff9 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 420px 940px, #fff7 50%, transparent 51%), radial-gradient(2px 2px at 1500px 980px, #fff8 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 980px 60px, #fff6 50%, transparent 51%), radial-gradient(2px 2px at 60px 620px, #fff7 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 1860px 560px, #fff7 50%, transparent 51%), radial-gradient(2.5px 2.5px at 760px 1030px, #fff6 50%, transparent 51%); }
+.k-planet { position: absolute; border-radius: 50%; border: 5px solid #241D48; }
+.k-screen { position: absolute; left: 160px; top: 104px; width: 1600px; height: 900px; border-radius: 28px;
+  border: 6px solid #241D48; box-shadow: 0 10px 0 #241D48, 0 0 0 10px rgba(201,184,255,.18); overflow: hidden; background: #0d0826; }
+.k-zoom { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.k-zoom video, .k-zoom img.k-full { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; }
+.k-cursor { position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -6px 0 0 -10px; }
+.k-card { background: #FFFFFF; border: 6px solid #241D48; border-radius: 34px; box-shadow: 0 12px 0 #241D48; color: #241D48; }
+.k-kicker { font: 700 26px/1 "Fredoka"; letter-spacing: .16em; text-transform: uppercase; color: #7A6FB0; }
+.k-title { font: 400 116px/1 "Lilita One"; color: #241D48; letter-spacing: .01em; }
+.k-q { font: 600 42px/1.2 "Fredoka"; color: #4b4380; }
+.k-line { font: 400 84px/1.05 "Lilita One"; color: #fff; text-shadow: 0 6px 0 #241D48; -webkit-text-stroke: 3px #241D48; paint-order: stroke fill; }
+.k-line.ink { color: #241D48; text-shadow: none; -webkit-text-stroke: 0; }
+.k-hi { color: #FFD23F; }
+.k-bubble { position: absolute; background: #fff; border: 5px solid #241D48; border-radius: 26px; box-shadow: 0 7px 0 #241D48; padding: 16px 26px; font: 600 34px/1.2 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-bubble small { display: block; font: 700 18px/1 "Fredoka"; letter-spacing: .14em; text-transform: uppercase; color: #7A6FB0; margin-bottom: 6px; }
+.k-chip { display: inline-flex; align-items: center; gap: 12px; padding: 10px 22px 10px 16px; border-radius: 999px; border: 4px solid #241D48; background: #fff; box-shadow: 0 5px 0 #241D48; font: 600 30px/1 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-chip svg { width: 34px; height: 34px; }
+.k-chip.sun { background: #FFD23F; } .k-chip.mint { background: #8EE6C4; } .k-chip.lilac { background: #C9B8FF; } .k-chip.sky { background: #7CC8FF; } .k-chip.coral { background: #FF6B6B; color: #fff; }
+.k-credit { position: absolute; left: 160px; bottom: 26px; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.35); font: 500 19px/1.2 "Fredoka"; color: #fff; white-space: nowrap; }
+.k-label { position: absolute; padding: 10px 20px; border-radius: 14px; background: #241D48; color: #fff; font: 600 28px/1.2 "Fredoka"; white-space: nowrap; border: 3px solid #fff; }
+.k-tag-hole { position: absolute; width: 46px; height: 46px; border-radius: 50%; border: 6px solid #241D48; background: #160E3A; }
+.k-dust { position: absolute; inset: 0; border-radius: 30px;
+  background: radial-gradient(3px 3px at 20% 30%, #b9a98f 50%, transparent 52%) 0 0/38px 34px, radial-gradient(2px 2px at 60% 70%, #cbbda0 50%, transparent 52%) 0 0/29px 31px, linear-gradient(135deg, #d8c9ad, #c4b393);
+  -webkit-mask-image: linear-gradient(100deg, #000 0 42%, rgba(0,0,0,.6) 50%, transparent 58%); -webkit-mask-size: 300% 100%; -webkit-mask-repeat: no-repeat; -webkit-mask-position: 0% 0; }
+.k-ring { position: absolute; border-radius: 50%; border: 8px solid #8EE6C4; box-shadow: 0 0 0 6px #241D48 inset, 0 0 0 6px #241D48; }
+.k-stat { font: 400 150px/0.9 "Lilita One"; color: #FFD23F; -webkit-text-stroke: 5px #241D48; paint-order: stroke fill; text-shadow: 0 9px 0 #241D48; }
+
+#root { position: absolute; inset: 0; overflow: hidden; }
+</style>
+<div id="root" data-composition-id="p2" data-width="1920" data-height="1080">
+  <div class="k-bg"></div><div class="k-stars"></div>
+  <div class="k-planet" style="left:-90px;top:640px;width:260px;height:260px;background:#C9B8FF;opacity:.35"></div>
+  <div class="k-planet" style="left:1780px;top:70px;width:200px;height:200px;background:#FF6B6B;opacity:.3"></div>
+  <div id="p2-screen" class="k-screen"><div id="p2-zoom" class="k-zoom">
+    <video id="p2-v1" class="clip" src="assets/footage/mission1.mp4" muted playsinline data-start="6.627" data-duration="2.6" data-media-start="46.9" data-playback-rate="1" data-track-index="1" style="z-index:12"></video>
+    <video id="p2-v2" class="clip" src="assets/footage/marsrover.mp4" muted playsinline data-start="9.227" data-duration="2.767" data-media-start="0.6" data-playback-rate="1" data-track-index="1" style="z-index:13"></video>
+    <video id="p2-v3" class="clip" src="assets/footage/dig2.mp4" muted playsinline data-start="27.548" data-duration="6.469" data-media-start="3.833" data-playback-rate="1.2" data-track-index="1" style="z-index:25"></video>
+    <div id="p2-cur" class="k-cursor" style="z-index:500;opacity:0"><svg viewBox="0 0 64 64"><path d="M10 6 L10 50 L22 39 L30 58 L39 54 L31 36 L48 36 Z" fill="#fff" stroke="#241D48" stroke-width="5" stroke-linejoin="round"/></svg></div>
+  </div></div>
+  <div id="p2-o11" class="clip" data-start="0" data-duration="3.35" data-layout-allow-overlap style="position:absolute;inset:0;z-index:11"><div id="p2-o11-in" style="position:absolute;inset:0"><div class="k-card" style="position:absolute;left:330px;top:250px;width:1260px;height:560px;padding:70px 90px 0 150px;overflow:hidden">
+          <i class="k-tag-hole" style="left:48px;top:62px"></i>
+          <div class="k-kicker">Field report 02 of 06</div>
+          <div class="k-title" style="margin-top:22px">The problem</div>
+          <div class="k-q" style="margin-top:28px;max-width:900px">Why do these machines need new storytellers?</div>
+          <div id="p2-o11-dust" class="k-dust"></div></div>
+          <div id="p2-o11-ring" class="k-ring" style="left:960px;top:540px;width:2600px;height:2600px;margin:-1300px 0 0 -1300px;opacity:0"></div></div></div>
+  <div id="p2-o12" class="clip" data-start="3.4" data-duration="3.177" data-layout-allow-overlap style="position:absolute;z-index:12;inset:0"><div id="p2-o12-in"><div class="k-card" style="position:absolute;left:260px;top:270px;width:1400px;padding:60px 80px;text-align:center">
+          <div class="k-kicker">Our challenge · NASA Space Apps Challenge 2026</div>
+          <div style="font:400 104px/1.02 'Lilita One';color:#241D48;margin-top:26px">Abandoned but not Forgotten</div>
+          <div class="k-q" style="margin-top:26px;font-size:36px">Storytelling about NASA's Discarded Equipment on the Moon and Mars</div></div></div></div>
+  <div id="p2-o16" class="clip" data-start="6.927" data-duration="2.2"  style="position:absolute;z-index:16;left:210px;top:160px"><div id="p2-o16-in"><div class="k-label">Moon · Apollo 11 lander, 1969</div></div></div>
+  <div id="p2-o18" class="clip" data-start="9.377" data-duration="2.567"  style="position:absolute;z-index:18;left:210px;top:160px"><div id="p2-o18-in"><div class="k-label">Mars · Opportunity rover, 2004 to 2018</div></div></div>
+  <div id="p2-o19" class="clip" data-start="12.143" data-duration="7.513"  style="position:absolute;z-index:19;left:260px;top:210px"><div id="p2-o19-in"><div style="background:#fff;border:6px solid #241D48;box-shadow:0 10px 0 #241D48;padding:14px 14px 0;transform:rotate(-2deg)">
+          <img src="assets/img/reflector.jpg" style="display:block;width:640px;height:422px;object-fit:cover" />
+          <div style="font:500 24px/1.3 'Fredoka';color:#241D48;padding:12px 4px 14px">Aldrin carries Apollo 11's science experiments · Photo: NASA</div></div></div></div>
+  <div id="p2-o20" class="clip" data-start="13.593" data-duration="6.063"  style="position:absolute;z-index:20;left:0;right:0;top:806px"><div id="p2-o20-in"><div style="text-align:center;white-space:nowrap"><span id="p2-o20-c0" style="display:inline-block;margin:0 10px"><span class="k-chip mint" style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Still used by scientists</span></span></div></div></div>
+  <div id="p2-o21" class="clip" data-start="14.893" data-duration="4.763"  style="position:absolute;z-index:21;left:1020px;top:230px"><div id="p2-o21-in"><div style="background:#fff;border:6px solid #241D48;box-shadow:0 10px 0 #241D48;padding:14px 14px 0;transform:rotate(2deg)">
+          <img src="assets/img/descent.jpg" style="display:block;width:640px;height:422px;object-fit:cover" />
+          <div style="font:500 24px/1.3 'Fredoka';color:#241D48;padding:12px 4px 14px">Eagle on the Moon, 1969 · Photo: NASA</div></div></div></div>
+  <div id="p2-o22" class="clip" data-start="15.593" data-duration="4.063"  style="position:absolute;z-index:22;left:0;right:0;top:826px"><div id="p2-o22-in"><div style="text-align:center;white-space:nowrap"><span id="p2-o22-c0" style="display:inline-block;margin:0 10px"><span class="k-chip sun" style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/></svg>Opportunity drove 45 km on Mars</span></span></div></div></div>
+  <div id="p2-o23" class="clip" data-start="19.907" data-duration="7.591" data-layout-allow-overflow style="position:absolute;z-index:23;left:0;right:0;top:300px"><div id="p2-o23-in"><div class="k-line" style="text-align:center"><div id="p2-o23-l0" style="">Kids hear about</div><div id="p2-o23-l1" style="">today's missions.</div></div></div></div>
+  <div id="p2-o24" class="clip" data-start="23.007" data-duration="4.491" data-layout-allow-overflow style="position:absolute;z-index:24;left:0;right:0;top:600px"><div id="p2-o24-in"><div class="k-line" style="text-align:center"><div id="p2-o24-l0" style="">The old machines?</div><div id="p2-o24-l1" style=""><span class="k-hi">Dense websites. Textbooks.</span></div></div></div></div>
+  <div id="p2-o25" class="clip" data-start="20.507" data-duration="6.991"  style="position:absolute;z-index:25;left:0;right:0;top:802px"><div id="p2-o25-in"><div style="text-align:center;white-space:nowrap"><span id="p2-o25-c0" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v14a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v14a2 2 0 0 1 2-2h8z"/></svg>From the challenge brief</span></span></div></div></div>
+  <div id="p2-v3-dim" class="clip" data-start="27.548" data-duration="6.469" data-layout-ignore style="position:absolute;inset:0;z-index:26;background:rgba(22,14,58,0.5)"></div>
+  <div id="p2-o29" class="clip" data-start="29.948" data-duration="4.019" data-layout-allow-overflow style="position:absolute;z-index:29;left:0;right:0;top:470px"><div id="p2-o29-in"><div class="k-line" style="text-align:center"><div id="p2-o29-l0" style="">What if kids could</div><div id="p2-o29-l1" style=""><span class="k-hi">dig the stories up?</span></div></div></div></div>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.set("#p2-zoom", { x: 0, y: 0, scale: 0.833 }, 0);
+  tl.set("#p2-screen", { opacity: 0 }, 0);
+  tl.fromTo("#p2-o11-in", { opacity: 0, y: 40, rotation: -2 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "back.out(1.4)" }, 0);
+  tl.fromTo("#p2-o11-dust", { xPercent: 0, skewX: 0, opacity: 1 }, { xPercent: 108, skewX: -12, opacity: 0.2, duration: 0.6, ease: "power2.inOut" }, 0.15);
+  tl.fromTo("#p2-o11-ring", { scale: 0.015, opacity: 0.9 }, { scale: 1, opacity: 0, duration: 0.6, ease: "power2.out" }, 2.8);
+  tl.to("#p2-o11-in", { opacity: 0, y: -60, duration: 0.3, ease: "power3.in" }, 3);
+  tl.set("#p2-screen", { opacity: 0 }, 3.4);
+  tl.fromTo("#p2-o12-in", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 3.4);
+  tl.to("#p2-o12-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 6.377);
+  tl.set("#p2-screen", { opacity: 1 }, 6.627);
+  tl.set("#p2-zoom", {"x":0,"y":0,"scale":0.833}, 6.627);
+  tl.set("#p2-cur", { opacity: 0 }, 9.227);
+  tl.set("#p2-zoom", {"x":-240,"y":-91.667,"scale":1.083}, 9.227);
+  tl.set("#p2-cur", { opacity: 0 }, 11.994);
+  tl.fromTo("#p2-o16-in", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 6.927);
+  tl.fromTo("#p2-o18-in", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 9.377);
+  tl.set("#p2-screen", { opacity: 0 }, 11.993);
+  tl.fromTo("#p2-o19-in", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 12.143);
+  tl.to("#p2-o19-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 19.456);
+  tl.fromTo("#p2-o20-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 13.593);
+  tl.to("#p2-o20-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 19.456);
+  tl.fromTo("#p2-o21-in", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 14.893);
+  tl.to("#p2-o21-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 19.456);
+  tl.fromTo("#p2-o22-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 15.593);
+  tl.to("#p2-o22-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 19.456);
+  tl.set("#p2-screen", { opacity: 0 }, 19.707);
+  tl.fromTo("#p2-o23-l0", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 19.907);
+  tl.fromTo("#p2-o23-l1", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 20.407);
+  tl.to("#p2-o23-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 27.298);
+  tl.fromTo("#p2-o24-l0", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 23.007);
+  tl.fromTo("#p2-o24-l1", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 23.507);
+  tl.to("#p2-o24-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 27.298);
+  tl.fromTo("#p2-o25-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 20.507);
+  tl.to("#p2-o25-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 27.298);
+  tl.set("#p2-screen", { opacity: 1 }, 27.548);
+  tl.set("#p2-zoom", {"x":0,"y":0,"scale":0.833}, 27.548);
+  tl.set("#p2-cur", { x: 503, y: 540, opacity: 1, scale: 0.82 }, 27.548);
+  tl.set("#p2-cur", { x: 72, y: 562, opacity: 1, scale: 0.82 }, 27.615);
+  tl.set("#p2-cur", { x: 718, y: 594, opacity: 1, scale: 0.82 }, 27.681);
+  tl.set("#p2-cur", { x: 1148, y: 616, opacity: 1, scale: 0.82 }, 27.748);
+  tl.set("#p2-cur", { x: 1794, y: 649, opacity: 1, scale: 0.82 }, 27.815);
+  tl.set("#p2-cur", { x: 1471, y: 671, opacity: 1, scale: 0.82 }, 27.881);
+  tl.set("#p2-cur", { x: 1041, y: 693, opacity: 1, scale: 0.82 }, 27.948);
+  tl.set("#p2-cur", { x: 395, y: 726, opacity: 1, scale: 0.82 }, 28.015);
+  tl.set("#p2-cur", { x: 180, y: 748, opacity: 1, scale: 0.82 }, 28.081);
+  tl.set("#p2-cur", { x: 825, y: 781, opacity: 1, scale: 0.82 }, 28.148);
+  tl.set("#p2-cur", { x: 1256, y: 803, opacity: 1, scale: 0.82 }, 28.215);
+  tl.set("#p2-cur", { x: 1687, y: 825, opacity: 1, scale: 0.82 }, 28.281);
+  tl.set("#p2-cur", { x: 1364, y: 858, opacity: 1, scale: 0.82 }, 28.348);
+  tl.set("#p2-cur", { x: 933, y: 880, opacity: 1, scale: 0.82 }, 28.415);
+  tl.set("#p2-cur", { x: 287, y: 913, opacity: 1, scale: 0.82 }, 28.481);
+  tl.set("#p2-cur", { opacity: 0 }, 28.548);
+  tl.set("#p2-cur", { x: 77, y: 925, opacity: 1, scale: 1 }, 32.148);
+  tl.set("#p2-cur", { x: 111, y: 933, opacity: 1, scale: 1 }, 32.215);
+  tl.set("#p2-cur", { x: 205, y: 954, opacity: 1, scale: 1 }, 32.281);
+  tl.set("#p2-cur", { x: 418, y: 1001, opacity: 1, scale: 1 }, 32.348);
+  tl.set("#p2-cur", { x: 479, y: 1014, opacity: 1, scale: 1 }, 32.415);
+  tl.set("#p2-cur", { x: 495, y: 1018, opacity: 1, scale: 1 }, 32.481);
+  tl.set("#p2-cur", { x: 502, y: 1018, opacity: 1, scale: 1 }, 33.681);
+  tl.set("#p2-cur", { x: 527, y: 1018, opacity: 1, scale: 1 }, 33.748);
+  tl.set("#p2-cur", { x: 615, y: 1018, opacity: 1, scale: 1 }, 33.815);
+  tl.set("#p2-cur", { x: 654, y: 1018, opacity: 1, scale: 1 }, 33.881);
+  tl.set("#p2-cur", { x: 669, y: 1018, opacity: 1, scale: 1 }, 33.948);
+  tl.set("#p2-cur", { x: 671, y: 1018, opacity: 1, scale: 0.82 }, 34.015);
+  tl.set("#p2-cur", { opacity: 0 }, 34.017);
+  tl.fromTo("#p2-o29-l0", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 29.948);
+  tl.fromTo("#p2-o29-l1", { opacity: 0, filter: "blur(8px)", y: 18 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.32, ease: "power3.out" }, 30.448);
+  tl.to("#p2-o29-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 33.767);
+  window.__timelines["p2"] = tl;
+</script>
+</template>

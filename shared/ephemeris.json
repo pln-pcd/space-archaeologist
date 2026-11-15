@@ -1,0 +1,121 @@
+{
+  "retrieved": "2026-11-10",
+  "status": "verified",
+  "origin": "Earth center (500@399)",
+  "units": {
+    "distance": "km",
+    "radialVelocity": "km/s",
+    "downlinkLightTime": "minutes"
+  },
+  "note": "Cached Horizons observer ephemerides, not live telemetry. Range divided by c is a geometric approximation to downlink time.",
+  "targets": {
+    "mars": {
+      "name": "Mars",
+      "source": "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27499%27&CENTER=%27500%40399%27&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&START_TIME=%272026-11-10%27&STOP_TIME=%272026-11-11%27&STEP_SIZE=%276h%27&QUANTITIES=%2720%2C21%27&RANGE_UNITS=KM&CSV_FORMAT=YES",
+      "samples": [
+        {
+          "at": "2026-11-10T00:00:00+00:00",
+          "distanceKm": 203177229.65,
+          "radialVelocityKmS": -14.5404819,
+          "downlinkMinutes": 11.29543813
+        },
+        {
+          "at": "2026-11-10T06:00:00+00:00",
+          "distanceKm": 202863045.47,
+          "radialVelocityKmS": -14.5521217,
+          "downlinkMinutes": 11.27797137
+        },
+        {
+          "at": "2026-11-10T12:00:00+00:00",
+          "distanceKm": 202548611.2,
+          "radialVelocityKmS": -14.5636402,
+          "downlinkMinutes": 11.2604907
+        },
+        {
+          "at": "2026-11-10T18:00:00+00:00",
+          "distanceKm": 202233929.44,
+          "radialVelocityKmS": -14.5750375,
+          "downlinkMinutes": 11.24299628
+        },
+        {
+          "at": "2026-11-11T00:00:00+00:00",
+          "distanceKm": 201919002.81,
+          "radialVelocityKmS": -14.5863134,
+          "downlinkMinutes": 11.22548825
+        }
+      ]
+    },
+    "jupiter": {
+      "name": "Jupiter",
+      "source": "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27599%27&CENTER=%27500%40399%27&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&START_TIME=%272026-11-10%27&STOP_TIME=%272026-11-11%27&STEP_SIZE=%276h%27&QUANTITIES=%2720%2C21%27&RANGE_UNITS=KM&CSV_FORMAT=YES",
+      "samples": [
+        {
+          "at": "2026-11-10T00:00:00+00:00",
+          "distanceKm": 802046597.44,
+          "radialVelocityKmS": -26.9689918,
+          "downlinkMinutes": 44.58899126
+        },
+        {
+          "at": "2026-11-10T06:00:00+00:00",
+          "distanceKm": 801463902.18,
+          "radialVelocityKmS": -26.9847263,
+          "downlinkMinutes": 44.55659689
+        },
+        {
+          "at": "2026-11-10T12:00:00+00:00",
+          "distanceKm": 800880873.43,
+          "radialVelocityKmS": -26.9997816,
+          "downlinkMinutes": 44.52418398
+        },
+        {
+          "at": "2026-11-10T18:00:00+00:00",
+          "distanceKm": 800297530.56,
+          "radialVelocityKmS": -27.0137826,
+          "downlinkMinutes": 44.49175361
+        },
+        {
+          "at": "2026-11-11T00:00:00+00:00",
+          "distanceKm": 799713896.41,
+          "radialVelocityKmS": -27.0268034,
+          "downlinkMinutes": 44.45930705
+        }
+      ]
+    },
+    "voyager": {
+      "name": "Voyager 1",
+      "source": "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27-31%27&CENTER=%27500%40399%27&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&START_TIME=%272026-11-10%27&STOP_TIME=%272026-11-11%27&STEP_SIZE=%276h%27&QUANTITIES=%2720%2C21%27&RANGE_UNITS=KM&CSV_FORMAT=YES",
+      "samples": [
+        {
+          "at": "2026-11-10T00:00:00+00:00",
+          "distanceKm": 25880911625.0,
+          "radialVelocityKmS": 28.6642589,
+          "downlinkMinutes": 1438.82381152
+        },
+        {
+          "at": "2026-11-10T06:00:00+00:00",
+          "distanceKm": 25881529733.0,
+          "radialVelocityKmS": 28.5711213,
+          "downlinkMinutes": 1438.85817462
+        },
+        {
+          "at": "2026-11-10T12:00:00+00:00",
+          "distanceKm": 25882145826.0,
+          "radialVelocityKmS": 28.4777397,
+          "downlinkMinutes": 1438.89242573
+        },
+        {
+          "at": "2026-11-10T18:00:00+00:00",
+          "distanceKm": 25882759900.0,
+          "radialVelocityKmS": 28.3841173,
+          "downlinkMinutes": 1438.92656456
+        },
+        {
+          "at": "2026-11-11T00:00:00+00:00",
+          "distanceKm": 25883371950.0,
+          "radialVelocityKmS": 28.290257,
+          "downlinkMinutes": 1438.96059084
+        }
+      ]
+    }
+  }
+}

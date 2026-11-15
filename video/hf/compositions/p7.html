@@ -1,0 +1,74 @@
+<template>
+<style>
+@font-face { font-family: "Lilita One"; src: url("assets/fonts/lilita-one-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+.k-bg { position: absolute; inset: 0; background: radial-gradient(1200px 700px at 30% 20%, #2A1B66, #160E3A 70%); }
+.k-stars { position: absolute; inset: 0; background-image:
+  radial-gradient(2px 2px at 120px 160px, #fff8 50%, transparent 51%), radial-gradient(2px 2px at 1720px 120px, #fff9 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 420px 940px, #fff7 50%, transparent 51%), radial-gradient(2px 2px at 1500px 980px, #fff8 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 980px 60px, #fff6 50%, transparent 51%), radial-gradient(2px 2px at 60px 620px, #fff7 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 1860px 560px, #fff7 50%, transparent 51%), radial-gradient(2.5px 2.5px at 760px 1030px, #fff6 50%, transparent 51%); }
+.k-planet { position: absolute; border-radius: 50%; border: 5px solid #241D48; }
+.k-screen { position: absolute; left: 160px; top: 104px; width: 1600px; height: 900px; border-radius: 28px;
+  border: 6px solid #241D48; box-shadow: 0 10px 0 #241D48, 0 0 0 10px rgba(201,184,255,.18); overflow: hidden; background: #0d0826; }
+.k-zoom { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.k-zoom video, .k-zoom img.k-full { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; }
+.k-cursor { position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -6px 0 0 -10px; }
+.k-card { background: #FFFFFF; border: 6px solid #241D48; border-radius: 34px; box-shadow: 0 12px 0 #241D48; color: #241D48; }
+.k-kicker { font: 700 26px/1 "Fredoka"; letter-spacing: .16em; text-transform: uppercase; color: #7A6FB0; }
+.k-title { font: 400 116px/1 "Lilita One"; color: #241D48; letter-spacing: .01em; }
+.k-q { font: 600 42px/1.2 "Fredoka"; color: #4b4380; }
+.k-line { font: 400 84px/1.05 "Lilita One"; color: #fff; text-shadow: 0 6px 0 #241D48; -webkit-text-stroke: 3px #241D48; paint-order: stroke fill; }
+.k-line.ink { color: #241D48; text-shadow: none; -webkit-text-stroke: 0; }
+.k-hi { color: #FFD23F; }
+.k-bubble { position: absolute; background: #fff; border: 5px solid #241D48; border-radius: 26px; box-shadow: 0 7px 0 #241D48; padding: 16px 26px; font: 600 34px/1.2 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-bubble small { display: block; font: 700 18px/1 "Fredoka"; letter-spacing: .14em; text-transform: uppercase; color: #7A6FB0; margin-bottom: 6px; }
+.k-chip { display: inline-flex; align-items: center; gap: 12px; padding: 10px 22px 10px 16px; border-radius: 999px; border: 4px solid #241D48; background: #fff; box-shadow: 0 5px 0 #241D48; font: 600 30px/1 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-chip svg { width: 34px; height: 34px; }
+.k-chip.sun { background: #FFD23F; } .k-chip.mint { background: #8EE6C4; } .k-chip.lilac { background: #C9B8FF; } .k-chip.sky { background: #7CC8FF; } .k-chip.coral { background: #FF6B6B; color: #fff; }
+.k-credit { position: absolute; left: 160px; bottom: 26px; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.35); font: 500 19px/1.2 "Fredoka"; color: #fff; white-space: nowrap; }
+.k-label { position: absolute; padding: 10px 20px; border-radius: 14px; background: #241D48; color: #fff; font: 600 28px/1.2 "Fredoka"; white-space: nowrap; border: 3px solid #fff; }
+.k-tag-hole { position: absolute; width: 46px; height: 46px; border-radius: 50%; border: 6px solid #241D48; background: #160E3A; }
+.k-dust { position: absolute; inset: 0; border-radius: 30px;
+  background: radial-gradient(3px 3px at 20% 30%, #b9a98f 50%, transparent 52%) 0 0/38px 34px, radial-gradient(2px 2px at 60% 70%, #cbbda0 50%, transparent 52%) 0 0/29px 31px, linear-gradient(135deg, #d8c9ad, #c4b393);
+  -webkit-mask-image: linear-gradient(100deg, #000 0 42%, rgba(0,0,0,.6) 50%, transparent 58%); -webkit-mask-size: 300% 100%; -webkit-mask-repeat: no-repeat; -webkit-mask-position: 0% 0; }
+.k-ring { position: absolute; border-radius: 50%; border: 8px solid #8EE6C4; box-shadow: 0 0 0 6px #241D48 inset, 0 0 0 6px #241D48; }
+.k-stat { font: 400 150px/0.9 "Lilita One"; color: #FFD23F; -webkit-text-stroke: 5px #241D48; paint-order: stroke fill; text-shadow: 0 9px 0 #241D48; }
+
+#root { position: absolute; inset: 0; overflow: hidden; }
+</style>
+<div id="root" data-composition-id="p7" data-width="1920" data-height="1080">
+  <div class="k-bg"></div><div class="k-stars"></div>
+  <div class="k-planet" style="left:-90px;top:640px;width:260px;height:260px;background:#C9B8FF;opacity:.35"></div>
+  <div class="k-planet" style="left:1780px;top:70px;width:200px;height:200px;background:#FF6B6B;opacity:.3"></div>
+  <div id="p7-screen" class="k-screen"><div id="p7-zoom" class="k-zoom">
+    
+    <div id="p7-cur" class="k-cursor" style="z-index:500;opacity:0"><svg viewBox="0 0 64 64"><path d="M10 6 L10 50 L22 39 L30 58 L39 54 L31 36 L48 36 Z" fill="#fff" stroke="#241D48" stroke-width="5" stroke-linejoin="round"/></svg></div>
+  </div></div>
+  <div id="p7-o11" class="clip" data-start="0" data-duration="8.887" data-layout-allow-overlap style="position:absolute;z-index:11;inset:0"><div id="p7-o11-in">
+          <div style="position:absolute;left:0;right:0;top:120px;text-align:center">
+            <div id="p7-o11-t1" style="font:400 150px/0.95 'Lilita One';color:#FF6B6B;-webkit-text-stroke:6px #241D48;paint-order:stroke fill;text-shadow:0 9px 0 #241D48">Space</div>
+            <div id="p7-o11-t2" style="font:400 120px/1 'Lilita One';color:#fff;-webkit-text-stroke:6px #241D48;paint-order:stroke fill;text-shadow:0 9px 0 #241D48">Archaeologist</div>
+          </div>
+          <div id="p7-o11-play" style="position:absolute;left:0;right:0;top:470px;text-align:center"><span class="k-chip sun" style="font-size:42px;padding:16px 34px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/></svg>Play free: space-archaeologist.vercel.app</span></div>
+          <div id="p7-o11-repo" style="position:absolute;left:0;right:0;top:575px;text-align:center"><span class="k-chip" style="font-size:30px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v14a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v14a2 2 0 0 1 2-2h8z"/></svg>Code: github.com/pln-pcd/space-archaeologist</span></div>
+          <div id="p7-o11-team" style="position:absolute;left:0;right:0;top:670px;text-align:center">
+            <div style="font:400 40px/1 'Lilita One';color:#FFD23F">Team [TEAM NAME] · Philippines</div>
+            <div style="display:grid;grid-template-columns:repeat(3,auto);justify-content:center;gap:2px 46px;margin-top:16px"><div id="p7-o11-m0" style="font:600 28px/1.5 'Fredoka';color:#fff">Natasha Nicole E. Remoto (Team Owner)</div><div id="p7-o11-m1" style="font:600 28px/1.5 'Fredoka';color:#fff">Paulina C. Dela Cruz</div><div id="p7-o11-m2" style="font:600 28px/1.5 'Fredoka';color:#fff">Ella Mae Dolon</div><div id="p7-o11-m3" style="font:600 28px/1.5 'Fredoka';color:#fff">Jason Michael J. Lorente</div><div id="p7-o11-m4" style="font:600 28px/1.5 'Fredoka';color:#fff">Earl Clester Barde</div><div id="p7-o11-m5" style="font:600 28px/1.5 'Fredoka';color:#fff">Jana Melissa Regondola</div></div></div>
+          <div id="p7-o11-legal" style="position:absolute;left:0;right:0;top:948px;text-align:center;font:500 22px/1.4 'Fredoka';color:#d9d2ff">NASA Space Apps Challenge 2026 · Not endorsed by NASA · NASA footage and photos courtesy of NASA</div></div></div>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.set("#p7-zoom", { x: 0, y: 0, scale: 0.833 }, 0);
+  tl.set("#p7-screen", { opacity: 0 }, 0);
+  tl.fromTo("#p7-o11-t1", { opacity: 0, y: -80, scale: 0.6 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 0);
+  tl.fromTo("#p7-o11-t2", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, 0.25);
+  tl.fromTo("#p7-o11-play", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 0.9);
+  tl.fromTo("#p7-o11-repo", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 1.3);
+  tl.fromTo("#p7-o11-team", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.7);
+  tl.fromTo("#p7-o11-legal", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 2.2);
+  window.__timelines["p7"] = tl;
+</script>
+</template>

@@ -1,0 +1,284 @@
+/*
+ * CUTE POLISH v2 · §D text boxes (bible §22). Loaded last; wins over master/mistwood card styles.
+ * Every card: solid cream #FFF8EC, 3 px #3A2A24 outline, 20 px corners, a cute 5 px offset shadow,
+ * a whisper of paper grain (≤ 3 %), Lexend 500 body text #2E2622 (14:1), no transparency, no blur.
+ * The legacy look (?style=legacy) is untouched.
+ */
+:root {
+  --cute-card: #ffffff;
+  --cute-ink: #241d48;
+  --cute-line: #241d48;
+  --cute-shadow: 0 6px 0 #241d48;
+  --cute-focus: #4a7fa8;
+  --cute-apricot: #e8a07a;
+  --cute-teal: #6faaa3;
+  --cute-rose: #e0939f;
+  --cute-butter: #ffd23f;
+  --cute-peri: #8f98d4;
+  --cute-leaf: #82b26e;
+  --cute-sky: #7fb3d9;
+  --cute-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.16 0 0 0 0 0.14 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  --cute-pad: 28px;
+}
+@media (max-width: 700px) {
+  :root {
+    --cute-pad: 24px;
+  }
+}
+
+/* ---------------- the card ---------------- */
+html:not(.style-legacy) body :is(
+    .paper-card,
+    .station-panel,
+    .subtitle,
+    .results-card,
+    .discover-card,
+    .sealed-card,
+    .exit-card,
+    .secret-card,
+    .clue-card,
+    .catch-q,
+    .quest-card,
+    .sm-card,
+    .grown-panel,
+    .game-toast,
+    .paper-toast,
+    .first-steps,
+    .ch-title,
+    .dlg-card,
+    .film-panel,
+    .passport-desk-panel,
+    .ch1-fact,
+    .op-card,
+    .op-title,
+    .explorer-confirm,
+    .boarding-pass
+  ) {
+  background-color: var(--cute-card) !important;
+  background-image: var(--cute-grain) !important;
+  color: var(--cute-ink) !important;
+  border: 3px solid var(--cute-line) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--cute-shadow) !important;
+  opacity: 1;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none;
+}
+html:not(.style-legacy) body :is(.paper-card, .station-panel, .results-card, .op-card, .op-title, .subtitle, .ch1-fact) {
+  padding: var(--cute-pad) !important;
+}
+/* everything inside a card reads dark on cream (buttons and tags style themselves below) */
+html:not(.style-legacy) body :is(.paper-card, .station-panel, .subtitle, .results-card, .op-card, .op-title, .ch1-fact, .explorer-confirm, .sm-card, .quest-card, .first-steps, .ch-title, .catch-q, .discover-card)
+  :is(h1, h2, h3, h4, p, li, small, strong, b, span, label, dt, dd, div):not(.chunky *):not(.tilt-btn *):not(.badge *):not(.od-badge *):not(.dlg-speaker *):not(.dlg-tag *) {
+  color: var(--cute-ink) !important;
+  text-shadow: none !important;
+}
+
+/* ---------------- titles: the title font, ≥ 36 px, dark ---------------- */
+html:not(.style-legacy) body :is(.paper-card, .station-panel, .results-card, .op-card, .op-title, .ch-title) :is(h1, h2) {
+  font-size: max(36px, 1em) !important;
+  line-height: 1.15 !important;
+  color: var(--cute-line) !important;
+}
+
+/* ---------------- body text: Lexend 500, ≥ 28 px, 1.45, never shrunk ---------------- */
+html:not(.style-legacy) body :is(.dlg-text, .sub-text, .ch1-fact p, .results-card > p, .ch1-results-line, .op-kidtext p, .ch1-summary li, .catch-q p) {
+  font-family: "Lexend", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: max(28px, 1em) !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0.01em !important;
+  font-style: normal !important;
+  text-transform: none !important;
+  color: var(--cute-ink) !important;
+  max-width: 45ch;
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  display: block !important;
+}
+html:not(.style-legacy) body :is(.paper-card, .station-panel, .op-card, .results-card) :is(p, li):not(.dlg-text):not(.sub-text) {
+  font-family: "Lexend", sans-serif !important;
+  font-weight: 500;
+  font-size: max(22px, 1em);
+  line-height: 1.45;
+}
+/* small labels and hints: still Lexend, ≥ 20 px */
+html:not(.style-legacy) body :is(.paper-card, .station-panel, .op-card, .results-card, .first-steps, .sm-card) small {
+  font-family: "Lexend", sans-serif !important;
+  font-size: max(20px, 1em) !important;
+  color: #4a3e38 !important;
+}
+
+/* ---------------- speaker name: a pill tab on the card's top-left edge ---------------- */
+html:not(.style-legacy) body .dialogue,
+html:not(.style-legacy) body .subtitle {
+  position: relative;
+}
+html:not(.style-legacy) body [data-speaker="nova"] {
+  --speaker: var(--cute-peri);
+}
+html:not(.style-legacy) body [data-speaker="narrator"] {
+  --speaker: var(--cute-butter);
+}
+html:not(.style-legacy) body [data-speaker="nasa"] {
+  --speaker: var(--cute-sky);
+}
+html:not(.style-legacy) body [data-speaker="seeker"] {
+  --speaker: var(--cute-apricot);
+}
+/* the True story / Imagine tag sits on the top edge, to the right of the speaker */
+html:not(.style-legacy) body :is(.subtitle.dialogue, .dlg-card) {
+  padding-top: 34px !important;
+}
+
+/* ---------------- tags, buttons, choices: one outlined family ---------------- */
+html:not(.style-legacy) body :is(.badge, .od-badge, .badge-true, .badge-imagine) {
+  background: var(--cute-card) !important;
+  color: var(--cute-ink) !important;
+  border: 3px solid var(--cute-line) !important;
+  border-radius: 999px !important;
+  font-family: "Lexend", sans-serif !important;
+  font-weight: 500;
+  font-size: 18px !important;
+  padding: 1px 12px !important;
+  transform: none !important;
+  rotate: 0deg !important;
+  box-shadow: none !important;
+}
+html:not(.style-legacy) body :is(.badge.true, .od-badge.true, .badge-true) {
+  background: #bcdda0 !important;
+}
+html:not(.style-legacy) body :is(.badge.imagine, .od-badge.imagine, .badge-imagine) {
+  background: #c3c9ee !important;
+}
+html:not(.style-legacy) body :is(.chunky, .tilt-btn, .primary-btn, .btn-primary, .enter-button, .op-choices .chunky) {
+  background: var(--cute-card) !important;
+  color: var(--cute-ink) !important;
+  border: 3px solid var(--cute-line) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 4px 0 rgba(58, 42, 36, 0.3) !important;
+  font-family: "Lexend", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: max(24px, 1em) !important;
+  text-transform: none !important;
+  letter-spacing: 0.01em !important;
+  min-height: 56px;
+  transform: none !important;
+  rotate: 0deg !important;
+  transition: translate 0.15s ease, box-shadow 0.15s ease, background 0.2s ease !important;
+}
+html:not(.style-legacy) body :is(.chunky, .tilt-btn) * {
+  color: inherit !important;
+}
+html:not(.style-legacy) body :is(.chunky.primary, .enter-button, .primary-btn, .btn-primary) {
+  background: var(--cute-leaf) !important;
+  color: var(--cute-ink) !important;
+}
+html:not(.style-legacy) body .chunky.gold {
+  background: var(--cute-butter) !important;
+}
+html:not(.style-legacy) body :is(.chunky, .tilt-btn, .primary-btn, .enter-button):is(:hover, :focus-visible):not(:disabled) {
+  background: inherit;
+  translate: 0 -2px;
+  box-shadow: 0 6px 0 rgba(58, 42, 36, 0.3) !important;
+  color: var(--cute-ink) !important;
+}
+html:not(.style-legacy) body :is(.chunky, .tilt-btn, .primary-btn, .enter-button):is(:hover):not(:disabled) {
+  filter: brightness(1.04);
+}
+html:not(.style-legacy) body :is(button, a, input, [tabindex]):focus-visible {
+  outline: 3px solid var(--cute-focus) !important;
+  outline-offset: 3px !important;
+}
+html:not(.style-legacy) body :is(.chunky, .tilt-btn):disabled {
+  opacity: 0.55 !important;
+}
+html:not(.style-legacy) body .tilt-btn > span {
+  color: var(--cute-ink) !important;
+}
+
+/* text inputs */
+html:not(.style-legacy) body :is(.op-input, input[type="text"]) {
+  background: #fffdf8 !important;
+  color: var(--cute-ink) !important;
+  border: 3px solid var(--cute-line) !important;
+  border-radius: 14px !important;
+  font-family: "Lexend", sans-serif !important;
+  font-weight: 500;
+}
+
+/* in-world slates: their own solid outlined backing */
+html:not(.style-legacy) body :is(.count-screen, .seis-screen, .cam-on) {
+  border: 3px solid var(--cute-line) !important;
+  border-radius: 14px !important;
+}
+
+/* the intro HUD rules written for the blue panels: back to dark on cream */
+html:not(.style-legacy) body .opening .station-panel * {
+  text-shadow: none !important;
+}
+
+/* easy-read: 10 % bigger body text, a little more letter spacing (font stays Lexend) */
+html.easy-read:not(.style-legacy) body :is(.dlg-text, .sub-text, .ch1-fact p, .results-card > p, .op-kidtext p) {
+  font-size: max(31px, 1.1em) !important;
+  letter-spacing: 0.04em !important;
+}
+html.reading-font:not(.style-legacy) body :is(.dlg-text, .sub-text, .ch1-fact p, .results-card > p) {
+  font-family: "OpenDyslexic", sans-serif !important;
+}
+
+/* (v4.6) the second full-screen multiply grain was removed: blend layers over WebGL flashed black on some GPUs */
+
+/* ---------------- HUD bits that used to sit straight on the 3D view ---------------- */
+html:not(.style-legacy) body :is(.mistwood-keycaps, .quest-badge, .quest-tag, .mistwood-moodbar, .mood-bar) {
+  background-color: var(--cute-card) !important;
+  background-image: var(--cute-grain) !important;
+  color: var(--cute-ink) !important;
+  border: 3px solid var(--cute-line) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--cute-shadow) !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+html:not(.style-legacy) body :is(.quest-badge, .quest-tag) {
+  padding: 8px 16px !important;
+}
+html:not(.style-legacy) body :is(.quest-badge, .quest-tag) :is(small, span) {
+  color: var(--cute-ink) !important;
+  opacity: 1 !important;
+  font-family: "Lexend", sans-serif !important;
+}
+html:not(.style-legacy) body :is(.quest-badge, .quest-tag) span {
+  font-size: 22px !important;
+}
+html:not(.style-legacy) body .first-steps :is(span, p, b, strong, kbd, em) {
+  font-family: "Lexend", sans-serif !important;
+  font-size: 20px !important;
+  color: var(--cute-ink) !important;
+  opacity: 1 !important;
+}
+
+/* the one-time "how to move" tip sits in the bottom-right corner, never over the player */
+html:not(.style-legacy) body .first-steps {
+  left: auto !important;
+  right: 16px !important;
+  bottom: 16px !important;
+  translate: none !important;
+  max-width: min(560px, calc(100vw - 32px)) !important;
+}
+html:not(.style-legacy) body .first-steps * {
+  font-size: 20px !important;
+}
+/* curiosity toasts and the loader tip: same card, readable source line */
+html:not(.style-legacy) body :is(.paper-toast, .curiosity-toast, .pt-card) {
+  background-color: var(--cute-card) !important;
+  border: 3px solid var(--cute-line) !important;
+  border-radius: 20px !important;
+}
+html:not(.style-legacy) body :is(.pt-source, .boot-tip small, .loader-tip small) {
+  color: #4a3e38 !important;
+  font-size: 20px !important;
+  opacity: 1 !important;
+}

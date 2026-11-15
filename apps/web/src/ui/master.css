@@ -1,0 +1,731 @@
+/* ===================================================================== */
+/* MASTER RESTYLE "Quiet Afternoon in Space" (bible §6B, §12).            */
+/* Imported last (after paper.css). One type system for the whole game:   */
+/*   Stylish 400       UI + story (−0.03 em, sentence case)               */
+/*   IBM Plex Mono     in-world technical text only (.mono)               */
+/*   Lexend 400        Easy-read toggle                                   */
+/*   OpenDyslexic      reading-font toggle                                */
+/* No weights above 400 (Plex Mono 500 allowed), no text-shadow, no       */
+/* outlined/gradient text, no ALL CAPS in the UI.                         */
+/* ===================================================================== */
+:root {
+  /* type */
+  --body: "Stylish", sans-serif;
+  --od-head: "Stylish", sans-serif;
+  --od-body: "Stylish", sans-serif;
+  --paper-font: "Stylish", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* palette (bible §6 table: shadow / mid / light) */
+  --bone-0: #8e8a82;
+  --bone-1: #c9c2b4;
+  --bone-2: #ece6da;
+  --grey-0: #5c5a57;
+  --grey-1: #85817a;
+  --grey-2: #a9a49a;
+  --sand-0: #7a7468;
+  --sand-1: #b3a792;
+  --sand-2: #d8cdb8;
+  --slate-0: #3b464c;
+  --slate-1: #55646b;
+  --slate-2: #7e9097;
+  --graphite-0: #3a3836;
+  --graphite-1: #57534f;
+  --graphite-2: #6f6b66;
+  --blue-0: #4a5866;
+  --blue-1: #6d8295;
+  --blue-2: #8fa3b5;
+  --brass-0: #6e6046;
+  --brass-1: #a8936a;
+  --brass-2: #cdb98e;
+  --sage-0: #4f684e;
+  --sage-1: #6a8c70;
+  --sage-2: #82ad8c;
+  --lamp: #ffe9c7;
+  --screen-bg: #2f3a3f;
+  --screen-ink: #cfe6d8;
+  --led-sage: #6a8c70;
+  --led-terra: #b5674a;
+
+  /* UI roles */
+  --paper: #ffffff;
+  --paper-shadow: #bab3a5;
+  --paper-toast: #fff6e3;
+  --paper-toast-shadow: #b5a997;
+  --paper-head: #5d5a57;
+  --paper-body: #6b665e;
+  --paper-btn: #f9efdc;
+  --paper-btn-shadow: #716c66;
+  --btn-ink: #3b3936;
+  --primary: #4f6d60;
+  --primary-ink: #fbf6ec;
+  --primary-shadow: #2f3a3f;
+  --action: #9a5639;
+  --action-ink: #fbf6ec;
+  --action-shadow: #5c3322;
+  --focus: #5d5a57;
+  --tag-true-bg: #e3e8e9;
+  --tag-true-ink: #3b464c;
+  --tag-imagine-bg: #efe6d3;
+  --tag-imagine-ink: #5c4f37;
+}
+html.easy-read {
+  --body: "Lexend", sans-serif;
+  --od-head: "Lexend", sans-serif;
+  --od-body: "Lexend", sans-serif;
+  --paper-font: "Lexend", sans-serif;
+}
+html.reading-font {
+  --paper-font: "OpenDyslexic", "Lexend", sans-serif;
+}
+
+/* ---------- one family, one weight, sentence case ---------- */
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--paper-font);
+}
+html:not(.easy-read):not(.reading-font) body,
+html:not(.easy-read):not(.reading-font) button,
+html:not(.easy-read):not(.reading-font) input {
+  letter-spacing: -0.03em;
+}
+body {
+  line-height: 1.15;
+  color: var(--paper-body);
+}
+/* .od-free opts a subtree out of these legacy resets (v4.6 design system: titles, pills, stickers) */
+:where(*:not(.od-free, .od-free *)),
+:where(*:not(.od-free, .od-free *))::before,
+:where(*:not(.od-free, .od-free *))::after {
+  font-weight: 400 !important;
+  font-style: normal;
+  text-shadow: none !important;
+  text-transform: none !important;
+  -webkit-text-stroke: 0 !important;
+}
+/* gradient-clipped text renders as plain ink */
+:where(h1, h2, h3, h4, strong, b, span, p, em) {
+  -webkit-text-fill-color: currentColor;
+}
+/* zero specificity so deliberate exceptions (Logbook, grown-ups notes: Lexend) still win */
+:where(html:not(.easy-read):not(.reading-font)) :where(*:not(.mono, .mono *, svg, svg *, code, .od-free, .od-free *)) {
+  font-family: var(--paper-font) !important;
+}
+:where(html.easy-read) :where(*:not(.mono, .mono *, code, .od-free, .od-free *)) {
+  font-family: "Lexend", sans-serif !important;
+}
+
+/* in-world technical lettering (console readouts, plaques, stencils):
+   Plex Mono 400/500, +0.1 em, ALL CAPS allowed only here */
+.mono,
+.mono * {
+  font-family: var(--mono) !important;
+  letter-spacing: 0.1em !important;
+}
+.mono.caps,
+.mono .caps {
+  text-transform: uppercase !important;
+}
+.mono.w500,
+.mono .w500 {
+  font-weight: 500 !important;
+}
+
+/* focus ring: 3 px warm grey */
+:focus-visible {
+  outline: 3px solid var(--focus) !important;
+  outline-offset: 3px;
+}
+
+/* ===================================================================== */
+/* Legacy colour variables mapped to master neutrals (doubled :root wins  */
+/* over the lazily loaded sheets that define them).                       */
+/* ===================================================================== */
+:root:root {
+  --od-night: #3a3836;
+  --od-plum: #57534f;
+  --od-plum-2: #6f6b66;
+  --od-lavender: #85817a;
+  --od-lilac: #e3dccd;
+  --od-cream: #f9f2e4;
+  --od-gold: #f9efdc;
+  --od-gold-deep: #a8936a;
+  --od-mint: #e3e8e9;
+  --od-teal: #4f6d60;
+  --od-coral: #9a5639;
+  --od-ink: #5d5a57;
+  --od-head: "Stylish", sans-serif;
+  --od-body: "Stylish", sans-serif;
+  --ink: #3b3936;
+  --muted: #6b665e;
+  --subtle: #85817a;
+  --line: #bab3a533;
+  --lilac: #a9a49a;
+  --peach: #d8cdb8;
+}
+html.easy-read:root {
+  --od-head: "Lexend", sans-serif;
+  --od-body: "Lexend", sans-serif;
+}
+html,
+body {
+  background: #1b2230;
+}
+
+/* ===================================================================== */
+/* Stacked paper cards: a light card over a shadow card translated 9 px    */
+/* and rotated 0.8 deg, radius 5. Both are pseudo-elements so the shadow  */
+/* card can rotate; the element itself is transparent.                    */
+/* ===================================================================== */
+.station-panel,
+.discover-card,
+.results-card,
+.sealed-card,
+.exit-card,
+.secret-card,
+.clue-card,
+.catch-q,
+.subtitle,
+.quest-card,
+.quest-badge,
+.sm-card,
+.boarding-pass,
+.grown-panel,
+.academy .bubble,
+.game-toast,
+.paper-toast,
+.first-steps,
+.ch-title,
+.ch-home,
+.paper-card {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  isolation: isolate;
+  color: var(--paper-body) !important;
+}
+.station-panel::before,
+.discover-card::before,
+.results-card::before,
+.sealed-card::before,
+.exit-card::before,
+.secret-card::before,
+.clue-card::before,
+.catch-q::before,
+.subtitle::before,
+.quest-card::before,
+.quest-badge::before,
+.sm-card::before,
+.boarding-pass::before,
+.grown-panel::before,
+.academy .bubble::before,
+.game-toast::before,
+.paper-toast::before,
+.first-steps::before,
+.ch-title::before,
+.ch-home::before,
+.paper-card::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -2 !important;
+  border-radius: 5px !important;
+  background: var(--paper-shadow) !important;
+  transform: translate(9px, 9px) rotate(0.8deg) !important;
+  pointer-events: none;
+  border: 0 !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+.station-panel::after,
+.discover-card::after,
+.results-card::after,
+.sealed-card::after,
+.exit-card::after,
+.secret-card::after,
+.clue-card::after,
+.catch-q::after,
+.subtitle::after,
+.quest-card::after,
+.quest-badge::after,
+.sm-card::after,
+.boarding-pass::after,
+.grown-panel::after,
+.academy .bubble::after,
+.game-toast::after,
+.paper-toast::after,
+.first-steps::after,
+.ch-title::after,
+.ch-home::after,
+.paper-card::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  border-radius: 5px !important;
+  background: var(--paper) !important;
+  pointer-events: none;
+  border: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  animation: none !important;
+}
+.paper-toast::before,
+.game-toast::before {
+  background: var(--paper-toast-shadow) !important;
+}
+.paper-toast::after,
+.game-toast::after {
+  background: var(--paper-toast) !important;
+}
+/* cards that are static get a containing block for the two layers (the rest are already
+   absolute or fixed; never override their layout) */
+.academy .bubble,
+.paper-card {
+  position: relative;
+}
+/* pop: 2 s with the master ease; words fade in afterwards */
+@keyframes paper-pop {
+  0% {
+    scale: 0.001;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+/* ===================================================================== */
+/* Buttons: sentence case, neutral / sage primary / terracotta action     */
+/* ===================================================================== */
+.chunky,
+.first-steps button {
+  background: var(--paper-btn) !important;
+  color: var(--btn-ink) !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  box-shadow: 2px 2px 0 var(--paper-btn-shadow) !important;
+}
+.chunky.gold,
+.chunky.primary,
+.tilt-btn.primary {
+  background: var(--primary) !important;
+  color: var(--primary-ink) !important;
+  box-shadow: 2px 2px 0 var(--primary-shadow) !important;
+}
+.chunky.action {
+  background: var(--action) !important;
+  color: var(--action-ink) !important;
+  box-shadow: 2px 2px 0 var(--action-shadow) !important;
+}
+.chunky.quiet {
+  background: var(--paper-btn) !important;
+}
+.chunky {
+  font-size: 26px !important;
+}
+.tilt-btn {
+  color: var(--btn-ink) !important;
+}
+.tilt-btn.primary {
+  width: auto !important;
+  min-width: 120px;
+  height: 64px !important;
+  padding: 0 26px !important;
+  transform: rotate(-2deg) !important;
+}
+.tilt-btn.primary > * {
+  transform: none !important;
+  color: var(--primary-ink) !important;
+}
+
+/* ===================================================================== */
+/* Tags: "True story" / "Imagine"                                          */
+/* ===================================================================== */
+.od-badge {
+  display: inline-flex !important;
+  align-items: center;
+  padding: 4px 10px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+  font-size: 20px !important;
+  line-height: 1.05 !important;
+  box-shadow: 1px 1px 0 #716c66 !important;
+}
+.od-badge.true {
+  background: var(--tag-true-bg) !important;
+  color: var(--tag-true-ink) !important;
+}
+.od-badge.imagine {
+  background: var(--tag-imagine-bg) !important;
+  color: var(--tag-imagine-ink) !important;
+}
+.od-badge svg {
+  display: none;
+}
+.od-source {
+  background: var(--paper-toast) !important;
+  color: var(--paper-body) !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  box-shadow: 4px 4px 0 var(--paper-toast-shadow) !important;
+  font-size: 22px !important;
+  line-height: 1.15 !important;
+  padding: 12px 16px !important;
+}
+
+/* ===================================================================== */
+/* Dialogue box                                                            */
+/* ===================================================================== */
+.subtitle.dialogue {
+  display: block !important;
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 30px 88px 30px 40px !important;
+  animation: dlg-in 0.6s var(--paper-ease) both !important;
+}
+@keyframes dlg-in {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+@keyframes dlg-line {
+  from {
+    opacity: 0;
+  }
+}
+.gloss-word {
+  all: unset;
+  cursor: help;
+  border-bottom: 2px dotted #a9a49a;
+}
+
+/* ===================================================================== */
+/* Action prompt: paper tag tilted -1 deg                                 */
+/* ===================================================================== */
+.action-prompt {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 14px !important;
+  padding: 10px 22px 10px 12px !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  background: var(--paper) !important;
+  box-shadow: 2px 2px 0 #716c66 !important;
+  rotate: -1deg !important;
+  color: var(--paper-head) !important;
+  animation: ap-in 0.3s ease both;
+}
+@keyframes ap-in {
+  from {
+    opacity: 0;
+  }
+}
+.action-prompt .ap-hand {
+  position: relative;
+  width: 60px !important;
+  height: 60px !important;
+  display: grid;
+  place-items: center;
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.action-prompt .ap-ring {
+  position: absolute;
+  inset: 0;
+  rotate: -90deg;
+}
+.action-prompt .ap-ring-fill {
+  fill: none;
+  stroke: var(--led-terra);
+  stroke-width: 2;
+}
+.action-prompt .ap-text {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+}
+.action-prompt .ap-glyphs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #bab3a5;
+  font-size: 22px !important;
+  color: #85817a;
+}
+.action-prompt .ap-glyphs > span.on,
+.action-prompt .ap-glyphs kbd.on {
+  color: var(--paper-head);
+}
+.action-prompt .ap-glyphs i {
+  font-style: normal;
+  color: #a9a49a;
+}
+kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  border: 1.5px solid currentColor !important;
+  border-radius: 3px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-family: var(--mono) !important;
+  font-size: 15px !important;
+  letter-spacing: 0.04em !important;
+  color: inherit;
+}
+.action-prompt .ap-label {
+  font-size: 26px !important;
+  color: var(--paper-head) !important;
+  white-space: nowrap;
+}
+
+/* ===================================================================== */
+/* Toast, counter, quest card                                              */
+/* ===================================================================== */
+.paper-toast {
+  padding: 24px 80px 24px 30px !important;
+}
+.paper-toast p {
+  font-size: 30px !important;
+  line-height: 1.12 !important;
+  color: var(--paper-head) !important;
+  margin: 4px 0 8px;
+}
+.quest-card {
+  padding: 22px 26px !important;
+  gap: 18px !important;
+}
+
+/* ===================================================================== */
+/* Corner nav                                                              */
+/* ===================================================================== */
+
+/* ===================================================================== */
+/* Modal type sizes                                                        */
+/* ===================================================================== */
+.station-panel h2,
+.results-card h2,
+.sealed-card h2,
+.exit-card h2,
+.sm-card h2 {
+  font-size: 45px !important;
+  line-height: 1.05 !important;
+  color: var(--paper-head) !important;
+}
+.results-card p,
+.sealed-card p,
+.exit-card p,
+.discover-card p {
+  font-size: 30px;
+  line-height: 1.15;
+  color: var(--paper-body);
+}
+/* long reading text: the Logbook uses Lexend 20 / 1.5 */
+
+/* ===================================================================== */
+/* Remove sticker / toy decoration                                          */
+/* ===================================================================== */
+
+/* chapters: the curiosity toast sits top-right, clear of the dialogue box and the targets */
+/* kickers: sentence case Stylish, no tracking */
+.ch-title small {
+  font-family: var(--paper-font) !important;
+  letter-spacing: 0 !important;
+  font-size: 20px !important;
+}
+/* story targets: small cream marks, no halo (bible §1: no glow) */
+
+/* ===================================================================== */
+/* Landing + boarding pass (MASTER): painted space, one paper card        */
+/* ===================================================================== */
+.boarding-pass::before {
+  transform: translate(10px, 10px) rotate(1deg) !important;
+}
+.link {
+  background: var(--paper-btn) !important;
+  color: var(--btn-ink) !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  box-shadow: 2px 2px 0 var(--paper-btn-shadow) !important;
+  padding: 10px 16px !important;
+  font-size: 22px !important;
+}
+.boarding-pass {
+  padding: 40px 50px !important;
+}
+.boarding-pass h2 {
+  font-size: 45px !important;
+  color: var(--paper-head) !important;
+  line-height: 1.05;
+}
+.grown-panel {
+  padding: 40px 50px !important;
+}
+.grown-panel p {
+  font-family: "Lexend", sans-serif !important;
+  font-size: 20px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+}
+
+/* landing links: plain paper buttons (no leading dash) */
+.link::before {
+  content: none !important;
+  display: none !important;
+}
+/* boarding pass: neutral header with a thin rule; fits a 1366 x 640 window */
+.boarding-pass {
+  top: 50% !important;
+  translate: 0 -50%;
+  max-height: calc(100dvh - 72px) !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+/* ===================================================================== */
+/* Settings rows: 1 px rules, labels 26, square tilted switches (sage on) */
+/* ===================================================================== */
+.grownups-note {
+  font-family: "Lexend", sans-serif !important;
+  font-size: 20px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: var(--paper-body) !important;
+}
+/* the station panel scrolls, so its shadow card is a plain offset (rotation would be clipped) */
+.station-panel {
+  background: var(--paper) !important;
+  box-shadow: 9px 9px 0 var(--paper-shadow) !important;
+}
+.station-panel.station-panel::before,
+.station-panel.station-panel::after {
+  display: none !important;
+}
+
+/* boot loader: #6B665E title and one sourced tip */
+
+/* ===================================================================== */
+/* Memory Catch: cream discs with slate text, a cream ring core, a sage    */
+/* ring for right, a terracotta ring + clue card for wrong. No glow.      */
+/* ===================================================================== */
+.catch .orb {
+  border: 0 !important;
+  background: #f9f2e4 !important;
+  box-shadow: 3px 3px 0 #716c66 !important;
+  animation: none !important;
+}
+.catch .orb.held {
+  box-shadow: 6px 6px 0 #716c66 !important;
+}
+.catch .orb.hint {
+  outline: 3px solid #b5674a;
+  outline-offset: 4px;
+}
+.catch .core {
+  background: none !important;
+  border: 2px solid #f3e9d6;
+  box-shadow: none !important;
+  filter: none !important;
+}
+.catch .core.slot {
+  border: 2px dashed #f3e9d6;
+}
+.catch .core.slot.next {
+  border-style: solid;
+  border-color: #6a8c70;
+}
+.catch-q {
+  padding: 22px 28px !important;
+  gap: 14px !important;
+}
+.catch-q p,
+.catch-q strong,
+.catch-q h2 {
+  font-size: 34px !important;
+  line-height: 1.1 !important;
+  color: #5d5a57 !important;
+}
+/* right answer: a sage ring opens once where the piece landed */
+/* wrong answer: terracotta edge on the clue card */
+.clue-card {
+  border-left: 0 !important;
+}
+.clue-card::after {
+  box-shadow: inset 4px 0 0 #b5674a !important;
+}
+.clue-card p {
+  font-size: 28px !important;
+  color: #5d5a57 !important;
+}
+
+/* Glove Academy step card */
+.academy-step {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 24px 30px !important;
+  margin-bottom: 18px;
+}
+.academy-step small {
+  font-size: 20px;
+  color: var(--paper-body);
+}
+.academy-step strong {
+  font-size: 30px;
+  color: var(--paper-head);
+}
+.academy .bubble {
+  font-size: 28px !important;
+  line-height: 1.15 !important;
+  color: var(--paper-head) !important;
+  padding: 22px 26px !important;
+}
+.academy-dots li {
+  background: #d8cdb8 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.academy-dots li.done {
+  background: #6a8c70 !important;
+}
+.academy-dots li.now {
+  background: #5d5a57 !important;
+}
+
+/* the tilted Continue button hangs below the card, clear of the second line */
+.subtitle.dialogue {
+  margin-bottom: 30px;
+}
+
+/* How to play (Nova's guide): paper colours, line-drawn Nova */
+/* Star Menu: line icons without round bubbles; Exit is a neutral button */
+
+/* Passport: a bone photo with a line portrait, paper tabs and a stars tag (no thick pills) */
+
+/* narrow windows: the whole line stays readable (no two-line clamp), 28 px minimum */
+@media (max-width: 600px) {
+  .subtitle.dialogue {
+    padding: 26px 24px 34px 24px !important;
+  }
+}
+
+/* keyboard station list (shown when it has focus): paper buttons at a readable size */
+
+/* settings shortcut cards: readable sub-lines */
+
+/* a curiosity toast never drifts over an open card or menu */

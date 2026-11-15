@@ -1,0 +1,309 @@
+<template>
+<style>
+@font-face { font-family: "Lilita One"; src: url("assets/fonts/lilita-one-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+.k-bg { position: absolute; inset: 0; background: radial-gradient(1200px 700px at 30% 20%, #2A1B66, #160E3A 70%); }
+.k-stars { position: absolute; inset: 0; background-image:
+  radial-gradient(2px 2px at 120px 160px, #fff8 50%, transparent 51%), radial-gradient(2px 2px at 1720px 120px, #fff9 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 420px 940px, #fff7 50%, transparent 51%), radial-gradient(2px 2px at 1500px 980px, #fff8 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 980px 60px, #fff6 50%, transparent 51%), radial-gradient(2px 2px at 60px 620px, #fff7 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 1860px 560px, #fff7 50%, transparent 51%), radial-gradient(2.5px 2.5px at 760px 1030px, #fff6 50%, transparent 51%); }
+.k-planet { position: absolute; border-radius: 50%; border: 5px solid #241D48; }
+.k-screen { position: absolute; left: 160px; top: 104px; width: 1600px; height: 900px; border-radius: 28px;
+  border: 6px solid #241D48; box-shadow: 0 10px 0 #241D48, 0 0 0 10px rgba(201,184,255,.18); overflow: hidden; background: #0d0826; }
+.k-zoom { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.k-zoom video, .k-zoom img.k-full { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; }
+.k-cursor { position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -6px 0 0 -10px; }
+.k-card { background: #FFFFFF; border: 6px solid #241D48; border-radius: 34px; box-shadow: 0 12px 0 #241D48; color: #241D48; }
+.k-kicker { font: 700 26px/1 "Fredoka"; letter-spacing: .16em; text-transform: uppercase; color: #7A6FB0; }
+.k-title { font: 400 116px/1 "Lilita One"; color: #241D48; letter-spacing: .01em; }
+.k-q { font: 600 42px/1.2 "Fredoka"; color: #4b4380; }
+.k-line { font: 400 84px/1.05 "Lilita One"; color: #fff; text-shadow: 0 6px 0 #241D48; -webkit-text-stroke: 3px #241D48; paint-order: stroke fill; }
+.k-line.ink { color: #241D48; text-shadow: none; -webkit-text-stroke: 0; }
+.k-hi { color: #FFD23F; }
+.k-bubble { position: absolute; background: #fff; border: 5px solid #241D48; border-radius: 26px; box-shadow: 0 7px 0 #241D48; padding: 16px 26px; font: 600 34px/1.2 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-bubble small { display: block; font: 700 18px/1 "Fredoka"; letter-spacing: .14em; text-transform: uppercase; color: #7A6FB0; margin-bottom: 6px; }
+.k-chip { display: inline-flex; align-items: center; gap: 12px; padding: 10px 22px 10px 16px; border-radius: 999px; border: 4px solid #241D48; background: #fff; box-shadow: 0 5px 0 #241D48; font: 600 30px/1 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-chip svg { width: 34px; height: 34px; }
+.k-chip.sun { background: #FFD23F; } .k-chip.mint { background: #8EE6C4; } .k-chip.lilac { background: #C9B8FF; } .k-chip.sky { background: #7CC8FF; } .k-chip.coral { background: #FF6B6B; color: #fff; }
+.k-credit { position: absolute; left: 160px; bottom: 26px; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.35); font: 500 19px/1.2 "Fredoka"; color: #fff; white-space: nowrap; }
+.k-label { position: absolute; padding: 10px 20px; border-radius: 14px; background: #241D48; color: #fff; font: 600 28px/1.2 "Fredoka"; white-space: nowrap; border: 3px solid #fff; }
+.k-tag-hole { position: absolute; width: 46px; height: 46px; border-radius: 50%; border: 6px solid #241D48; background: #160E3A; }
+.k-dust { position: absolute; inset: 0; border-radius: 30px;
+  background: radial-gradient(3px 3px at 20% 30%, #b9a98f 50%, transparent 52%) 0 0/38px 34px, radial-gradient(2px 2px at 60% 70%, #cbbda0 50%, transparent 52%) 0 0/29px 31px, linear-gradient(135deg, #d8c9ad, #c4b393);
+  -webkit-mask-image: linear-gradient(100deg, #000 0 42%, rgba(0,0,0,.6) 50%, transparent 58%); -webkit-mask-size: 300% 100%; -webkit-mask-repeat: no-repeat; -webkit-mask-position: 0% 0; }
+.k-ring { position: absolute; border-radius: 50%; border: 8px solid #8EE6C4; box-shadow: 0 0 0 6px #241D48 inset, 0 0 0 6px #241D48; }
+.k-stat { font: 400 150px/0.9 "Lilita One"; color: #FFD23F; -webkit-text-stroke: 5px #241D48; paint-order: stroke fill; text-shadow: 0 9px 0 #241D48; }
+
+#root { position: absolute; inset: 0; }
+.cap { display: inline-block; max-width: 1400px; padding: 12px 30px 14px; border-radius: 22px; background: rgba(255,255,255,.96); border: 4px solid #241D48; box-shadow: 0 6px 0 #241D48; font: 600 40px/1.25 "Fredoka"; color: #241D48; }
+</style>
+<div id="root" data-composition-id="caps" data-width="1920" data-height="1080" data-layout-allow-caption-zone>
+  <div id="cg0" class="clip" data-start="0.41" data-duration="2.593" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg0-in" class="cap">In 1969, Apollo 11 landed on the</span></div>
+  <div id="cg1" class="clip" data-start="3.023" data-duration="2.674" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg1-in" class="cap">Moon. Part of its lander is still</span></div>
+  <div id="cg2" class="clip" data-start="5.717" data-duration="1.225" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg2-in" class="cap">up there today.</span></div>
+  <div id="cg3" class="clip" data-start="7.562" data-duration="1.894" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg3-in" class="cap">We're a team from the Philippines,</span></div>
+  <div id="cg4" class="clip" data-start="9.476" data-duration="1.802" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg4-in" class="cap">and this is Space Archaeologist.</span></div>
+  <div id="cg5" class="clip" data-start="15.498" data-duration="2.076" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg5-in" class="cap">Our challenge is called Abandoned but not</span></div>
+  <div id="cg6" class="clip" data-start="17.594" data-duration="0.511" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg6-in" class="cap">Forgotten.</span></div>
+  <div id="cg7" class="clip" data-start="18.675" data-duration="2.98" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg7-in" class="cap">Since the 1960s, NASA has left machines</span></div>
+  <div id="cg8" class="clip" data-start="21.675" data-duration="1.846" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg8-in" class="cap">on the Moon and on Mars.</span></div>
+  <div id="cg9" class="clip" data-start="24.041" data-duration="2.988" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg9-in" class="cap">A laser reflector that scientists still bounce</span></div>
+  <div id="cg10" class="clip" data-start="27.049" data-duration="2.269" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg10-in" class="cap">light off today. A rover that drove</span></div>
+  <div id="cg11" class="clip" data-start="29.338" data-duration="1.897" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg11-in" class="cap">more than a marathon on Mars.</span></div>
+  <div id="cg12" class="clip" data-start="31.755" data-duration="2.4" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg12-in" class="cap">But the challenge notes that kids mostly</span></div>
+  <div id="cg13" class="clip" data-start="34.175" data-duration="1.674" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg13-in" class="cap">hear about today's missions.</span></div>
+  <div id="cg14" class="clip" data-start="35.869" data-duration="2.34" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg14-in" class="cap">The old machines live in dense websites</span></div>
+  <div id="cg15" class="clip" data-start="38.229" data-duration="0.847" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg15-in" class="cap">and textbooks.</span></div>
+  <div id="cg16" class="clip" data-start="39.596" data-duration="2.161" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg16-in" class="cap">We believe kids learn best by doing.</span></div>
+  <div id="cg17" class="clip" data-start="41.777" data-duration="1.859" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg17-in" class="cap">So we asked: what if kids could</span></div>
+  <div id="cg18" class="clip" data-start="43.656" data-duration="1.939" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg18-in" class="cap">dig these stories up themselves?</span></div>
+  <div id="cg19" class="clip" data-start="49.465" data-duration="3.006" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg19-in" class="cap">Space Archaeologist is a free browser game.</span></div>
+  <div id="cg20" class="clip" data-start="52.491" data-duration="2.021" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg20-in" class="cap">Kids aged 7 to 12 explore the</span></div>
+  <div id="cg21" class="clip" data-start="54.532" data-duration="2.373" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg21-in" class="cap">real machines left on the Moon and</span></div>
+  <div id="cg22" class="clip" data-start="56.925" data-duration="2.464" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg22-in" class="cap">Mars, and learn their true stories.</span></div>
+  <div id="cg23" class="clip" data-start="59.909" data-duration="1.419" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg23-in" class="cap">You design an explorer,</span></div>
+  <div id="cg24" class="clip" data-start="61.348" data-duration="2.169" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg24-in" class="cap">board the ship, and pick a mission.</span></div>
+  <div id="cg25" class="clip" data-start="63.537" data-duration="1.545" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg25-in" class="cap">Then come real NASA film,</span></div>
+  <div id="cg26" class="clip" data-start="65.102" data-duration="1.544" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg26-in" class="cap">a launch, digs and games,</span></div>
+  <div id="cg27" class="clip" data-start="66.666" data-duration="1.439" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg27-in" class="cap">and a badge at the end.</span></div>
+  <div id="cg28" class="clip" data-start="68.625" data-duration="1.881" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg28-in" class="cap">And Nova, a friendly AI guide,</span></div>
+  <div id="cg29" class="clip" data-start="70.526" data-duration="2.028" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg29-in" class="cap">answers questions the whole way.</span></div>
+  <div id="cg30" class="clip" data-start="76.524" data-duration="1.08" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg30-in" class="cap">Here's the real game,</span></div>
+  <div id="cg31" class="clip" data-start="77.624" data-duration="1.677" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg31-in" class="cap">recorded from the current build.</span></div>
+  <div id="cg32" class="clip" data-start="79.741" data-duration="2.18" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg32-in" class="cap">Press start. Nova gives a short tour.</span></div>
+  <div id="cg33" class="clip" data-start="81.941" data-duration="2.498" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg33-in" class="cap">Type a nickname, and design your explorer.</span></div>
+  <div id="cg34" class="clip" data-start="85.909" data-duration="0.827" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg34-in" class="cap">This is the ship.</span></div>
+  <div id="cg35" class="clip" data-start="86.756" data-duration="1.546" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg35-in" class="cap">Two missions are ready to play.</span></div>
+  <div id="cg36" class="clip" data-start="88.772" data-duration="2.639" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg36-in" class="cap">Mission one opens with real Apollo 11</span></div>
+  <div id="cg37" class="clip" data-start="91.431" data-duration="1.078" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg37-in" class="cap">film from NASA.</span></div>
+  <div id="cg38" class="clip" data-start="92.979" data-duration="1.301" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg38-in" class="cap">Then you pull the lever.</span></div>
+  <div id="cg39" class="clip" data-start="94.3" data-duration="1.246" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg39-in" class="cap">The Saturn V lifts off,</span></div>
+  <div id="cg40" class="clip" data-start="95.566" data-duration="1.321" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg40-in" class="cap">and you fly to the Moon.</span></div>
+  <div id="cg41" class="clip" data-start="97.357" data-duration="1.594" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg41-in" class="cap">On the Moon, the path at the</span></div>
+  <div id="cg42" class="clip" data-start="98.971" data-duration="1.191" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg42-in" class="cap">top shows every step.</span></div>
+  <div id="cg43" class="clip" data-start="100.182" data-duration="2.363" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg43-in" class="cap">Walk around, scan, and follow the glints.</span></div>
+  <div id="cg44" class="clip" data-start="103.015" data-duration="1.7" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg44-in" class="cap">Every find starts with a dig.</span></div>
+  <div id="cg45" class="clip" data-start="104.735" data-duration="1.186" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg45-in" class="cap">Brush the dust away.</span></div>
+  <div id="cg46" class="clip" data-start="106.391" data-duration="1.101" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg46-in" class="cap">Then turn it around,</span></div>
+  <div id="cg47" class="clip" data-start="107.512" data-duration="1.83" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg47-in" class="cap">and open its glowing parts to see</span></div>
+  <div id="cg48" class="clip" data-start="109.362" data-duration="1.065" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg48-in" class="cap">what each one does.</span></div>
+  <div id="cg49" class="clip" data-start="111.847" data-duration="1.706" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg49-in" class="cap">This is the laser reflector.</span></div>
+  <div id="cg50" class="clip" data-start="113.573" data-duration="1.089" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg50-in" class="cap">Send a laser ping,</span></div>
+  <div id="cg51" class="clip" data-start="114.682" data-duration="1.83" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg51-in" class="cap">and watch the light come back.</span></div>
+  <div id="cg52" class="clip" data-start="116.532" data-duration="1.911" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg52-in" class="cap">Scientists still do this today.</span></div>
+  <div id="cg53" class="clip" data-start="119.863" data-duration="1.643" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg53-in" class="cap">Then comes a quick quiz.</span></div>
+  <div id="cg54" class="clip" data-start="121.526" data-duration="1.159" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg54-in" class="cap">Hold up one, two,</span></div>
+  <div id="cg55" class="clip" data-start="122.705" data-duration="2.336" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg55-in" class="cap">three or four fingers to answer A,</span></div>
+  <div id="cg56" class="clip" data-start="125.061" data-duration="0.694" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg56-in" class="cap">B, C or D.</span></div>
+  <div id="cg57" class="clip" data-start="127.175" data-duration="1.12" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg57-in" class="cap">In the Rock Box,</span></div>
+  <div id="cg58" class="clip" data-start="128.315" data-duration="2.404" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg58-in" class="cap">you catch Moon rocks with your own</span></div>
+  <div id="cg59" class="clip" data-start="130.739" data-duration="2.832" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg59-in" class="cap">hands. Apollo 11 brought home about 21.5</span></div>
+  <div id="cg60" class="clip" data-start="133.591" data-duration="0.713" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg60-in" class="cap">kilograms.</span></div>
+  <div id="cg61" class="clip" data-start="135.724" data-duration="1.265" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg61-in" class="cap">Next, rebuild the lander,</span></div>
+  <div id="cg62" class="clip" data-start="137.009" data-duration="1.748" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg62-in" class="cap">and put its journey back in order.</span></div>
+  <div id="cg63" class="clip" data-start="140.177" data-duration="2.242" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg63-in" class="cap">The mission report is a quiz nobody</span></div>
+  <div id="cg64" class="clip" data-start="142.439" data-duration="2.306" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg64-in" class="cap">fails. A wrong answer just becomes a</span></div>
+  <div id="cg65" class="clip" data-start="144.765" data-duration="0.323" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg65-in" class="cap">hint.</span></div>
+  <div id="cg66" class="clip" data-start="146.508" data-duration="1.014" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg66-in" class="cap">Then you earn a badge,</span></div>
+  <div id="cg67" class="clip" data-start="147.542" data-duration="1.317" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg67-in" class="cap">and the chapter is complete.</span></div>
+  <div id="cg68" class="clip" data-start="149.329" data-duration="2.556" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg68-in" class="cap">On Mars, you keep the rover Opportunity</span></div>
+  <div id="cg69" class="clip" data-start="151.905" data-duration="2.226" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg69-in" class="cap">going. Wipe the dust off its solar</span></div>
+  <div id="cg70" class="clip" data-start="154.151" data-duration="2.556" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg70-in" class="cap">panels, just like the real Martian wind</span></div>
+  <div id="cg71" class="clip" data-start="156.727" data-duration="0.264" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg71-in" class="cap">did.</span></div>
+  <div id="cg72" class="clip" data-start="157.461" data-duration="1.992" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg72-in" class="cap">And any time, kids can simply ask</span></div>
+  <div id="cg73" class="clip" data-start="159.473" data-duration="0.915" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg73-in" class="cap">Nova, out loud.</span></div>
+  <div id="cg74" class="clip" data-start="162.288" data-duration="1.632" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg74-in" class="cap">Player: Nova, how far away is the</span></div>
+  <div id="cg75" class="clip" data-start="163.94" data-duration="0.251" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg75-in" class="cap">Moon?</span></div>
+  <div id="cg76" class="clip" data-start="164.911" data-duration="2.159" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg76-in" class="cap">The game turns the question into text</span></div>
+  <div id="cg77" class="clip" data-start="167.09" data-duration="1.335" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg77-in" class="cap">right on this computer.</span></div>
+  <div id="cg78" class="clip" data-start="168.445" data-duration="1.59" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg78-in" class="cap">Then Nova checks her facts.</span></div>
+  <div id="cg79" class="clip" data-start="171.888" data-duration="1.09" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg79-in" class="cap">Nova: Ooh, great question!</span></div>
+  <div id="cg80" class="clip" data-start="176.988" data-duration="3.319" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg80-in" class="cap">The Moon is about 385,000 kilometres away</span></div>
+  <div id="cg81" class="clip" data-start="180.327" data-duration="0.651" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg81-in" class="cap">from us.</span></div>
+  <div id="cg82" class="clip" data-start="181.348" data-duration="1.61" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg82-in" class="cap">Did you know it even drifts a</span></div>
+  <div id="cg83" class="clip" data-start="182.978" data-duration="2.36" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg83-in" class="cap">little bit further away every single year?</span></div>
+  <div id="cg84" class="clip" data-start="186.508" data-duration="1.775" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg84-in" class="cap">Every feature is there for a reason.</span></div>
+  <div id="cg85" class="clip" data-start="190.008" data-duration="1.987" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg85-in" class="cap">Kids ask lots of questions.</span></div>
+  <div id="cg86" class="clip" data-start="192.015" data-duration="2.209" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg86-in" class="cap">Nova answers by voice or text,</span></div>
+  <div id="cg87" class="clip" data-start="194.244" data-duration="1.615" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg87-in" class="cap">stays on space topics,</span></div>
+  <div id="cg88" class="clip" data-start="195.879" data-duration="2.453" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg88-in" class="cap">and uses facts with real sources.</span></div>
+  <div id="cg89" class="clip" data-start="198.802" data-duration="1.944" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg89-in" class="cap">Moving your real hands to scan,</span></div>
+  <div id="cg90" class="clip" data-start="200.766" data-duration="2.261" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg90-in" class="cap">grab and ping makes learning active.</span></div>
+  <div id="cg91" class="clip" data-start="203.047" data-duration="1.564" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg91-in" class="cap">And it's optional. Mouse,</span></div>
+  <div id="cg92" class="clip" data-start="204.631" data-duration="2.218" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg92-in" class="cap">keyboard and touch work everywhere.</span></div>
+  <div id="cg93" class="clip" data-start="207.319" data-duration="1.773" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg93-in" class="cap">And every story is read aloud,</span></div>
+  <div id="cg94" class="clip" data-start="209.112" data-duration="2.371" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg94-in" class="cap">with captions, so younger kids and early</span></div>
+  <div id="cg95" class="clip" data-start="211.503" data-duration="1.494" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg95-in" class="cap">readers can follow along.</span></div>
+  <div id="cg96" class="clip" data-start="213.467" data-duration="2.128" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg96-in" class="cap">It's all built on NASA data.</span></div>
+  <div id="cg97" class="clip" data-start="215.615" data-duration="2.435" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg97-in" class="cap">275 facts, each linked to one of</span></div>
+  <div id="cg98" class="clip" data-start="218.07" data-duration="2.665" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg98-in" class="cap">46 NASA sources, and checked by our</span></div>
+  <div id="cg99" class="clip" data-start="220.755" data-duration="0.844" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg99-in" class="cap">fact tests.</span></div>
+  <div id="cg100" class="clip" data-start="222.069" data-duration="2.227" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg100-in" class="cap">Nova can even check live NASA feeds:</span></div>
+  <div id="cg101" class="clip" data-start="224.316" data-duration="1.853" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg101-in" class="cap">asteroids passing Earth today,</span></div>
+  <div id="cg102" class="clip" data-start="226.189" data-duration="2.434" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg102-in" class="cap">space weather, and the weather on Mars.</span></div>
+  <div id="cg103" class="clip" data-start="229.093" data-duration="1.734" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg103-in" class="cap">It's built for kids' safety.</span></div>
+  <div id="cg104" class="clip" data-start="230.847" data-duration="2.673" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg104-in" class="cap">No accounts. Camera and voice are processed</span></div>
+  <div id="cg105" class="clip" data-start="233.54" data-duration="2.549" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg105-in" class="cap">on the computer. And grown-ups can switch</span></div>
+  <div id="cg106" class="clip" data-start="236.109" data-duration="0.689" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg106-in" class="cap">the AI off.</span></div>
+  <div id="cg107" class="clip" data-start="237.268" data-duration="1.481" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg107-in" class="cap">Captions are always on.</span></div>
+  <div id="cg108" class="clip" data-start="238.769" data-duration="2.524" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg108-in" class="cap">There's calm motion, an easy-read font,</span></div>
+  <div id="cg109" class="clip" data-start="241.313" data-duration="1.351" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg109-in" class="cap">and no camera needed.</span></div>
+  <div id="cg110" class="clip" data-start="242.684" data-duration="2.72" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg110-in" class="cap">Even offline, Nova answers from the game's</span></div>
+  <div id="cg111" class="clip" data-start="245.424" data-duration="0.979" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg111-in" class="cap">own fact sheet.</span></div>
+  <div id="cg112" class="clip" data-start="250.273" data-duration="1.89" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg112-in" class="cap">Space Archaeologist is free,</span></div>
+  <div id="cg113" class="clip" data-start="252.183" data-duration="1.958" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg113-in" class="cap">and it runs in a web browser.</span></div>
+  <div id="cg114" class="clip" data-start="254.161" data-duration="2.046" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg114-in" class="cap">No downloads, and no accounts.</span></div>
+  <div id="cg115" class="clip" data-start="256.677" data-duration="2.386" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg115-in" class="cap">It's designed so a 7-year-old can finish</span></div>
+  <div id="cg116" class="clip" data-start="259.083" data-duration="2.145" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg116-in" class="cap">it, and older kids still chase three</span></div>
+  <div id="cg117" class="clip" data-start="261.248" data-duration="0.361" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg117-in" class="cap">stars.</span></div>
+  <div id="cg118" class="clip" data-start="262.079" data-duration="2.207" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg118-in" class="cap">Our goal: every kid walks away knowing</span></div>
+  <div id="cg119" class="clip" data-start="264.306" data-duration="1.211" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg119-in" class="cap">what was left behind,</span></div>
+  <div id="cg120" class="clip" data-start="265.537" data-duration="2.324" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg120-in" class="cap">why it stayed, and that scientists still</span></div>
+  <div id="cg121" class="clip" data-start="267.881" data-duration="0.41" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg121-in" class="cap">use it.</span></div>
+  <div id="cg122" class="clip" data-start="268.761" data-duration="2.061" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg122-in" class="cap">Three more missions are planned:</span></div>
+  <div id="cg123" class="clip" data-start="270.842" data-duration="1.345" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg123-in" class="cap">Viking 1, Pioneer 10,</span></div>
+  <div id="cg124" class="clip" data-start="272.207" data-duration="0.91" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg124-in" class="cap">and Voyager 1.</span></div>
+  <div id="cg125" class="clip" data-start="273.587" data-duration="3.141" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg125-in" class="cap">Space Archaeologist turns the machines NASA left</span></div>
+  <div id="cg126" class="clip" data-start="276.748" data-duration="2.153" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg126-in" class="cap">behind into a game kids can play,</span></div>
+  <div id="cg127" class="clip" data-start="278.921" data-duration="2.436" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg127-in" class="cap">so their stories are never forgotten.</span></div>
+  <div id="cg128" class="clip" data-start="282.577" data-duration="1.07" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg128-in" class="cap">Play it free, right now,</span></div>
+  <div id="cg129" class="clip" data-start="283.667" data-duration="0.727" style="position:absolute;left:0;right:0;bottom:118px;text-align:center"><span id="cg129-in" class="cap">in your browser.</span></div>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#cg0-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 0.41); tl.to("#cg0-in", { opacity: 0, duration: 0.08 }, 2.923);
+  tl.fromTo("#cg1-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 3.023); tl.to("#cg1-in", { opacity: 0, duration: 0.08 }, 5.617);
+  tl.fromTo("#cg2-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 5.717); tl.to("#cg2-in", { opacity: 0, duration: 0.08 }, 6.862);
+  tl.fromTo("#cg3-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 7.562); tl.to("#cg3-in", { opacity: 0, duration: 0.08 }, 9.376);
+  tl.fromTo("#cg4-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 9.476); tl.to("#cg4-in", { opacity: 0, duration: 0.08 }, 11.198);
+  tl.fromTo("#cg5-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 15.498); tl.to("#cg5-in", { opacity: 0, duration: 0.08 }, 17.494);
+  tl.fromTo("#cg6-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 17.594); tl.to("#cg6-in", { opacity: 0, duration: 0.08 }, 18.025);
+  tl.fromTo("#cg7-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 18.675); tl.to("#cg7-in", { opacity: 0, duration: 0.08 }, 21.575);
+  tl.fromTo("#cg8-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 21.675); tl.to("#cg8-in", { opacity: 0, duration: 0.08 }, 23.441);
+  tl.fromTo("#cg9-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 24.041); tl.to("#cg9-in", { opacity: 0, duration: 0.08 }, 26.949);
+  tl.fromTo("#cg10-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 27.049); tl.to("#cg10-in", { opacity: 0, duration: 0.08 }, 29.238);
+  tl.fromTo("#cg11-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 29.338); tl.to("#cg11-in", { opacity: 0, duration: 0.08 }, 31.155);
+  tl.fromTo("#cg12-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 31.755); tl.to("#cg12-in", { opacity: 0, duration: 0.08 }, 34.075);
+  tl.fromTo("#cg13-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 34.175); tl.to("#cg13-in", { opacity: 0, duration: 0.08 }, 35.769);
+  tl.fromTo("#cg14-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 35.869); tl.to("#cg14-in", { opacity: 0, duration: 0.08 }, 38.129);
+  tl.fromTo("#cg15-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 38.229); tl.to("#cg15-in", { opacity: 0, duration: 0.08 }, 38.996);
+  tl.fromTo("#cg16-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 39.596); tl.to("#cg16-in", { opacity: 0, duration: 0.08 }, 41.677);
+  tl.fromTo("#cg17-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 41.777); tl.to("#cg17-in", { opacity: 0, duration: 0.08 }, 43.556);
+  tl.fromTo("#cg18-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 43.656); tl.to("#cg18-in", { opacity: 0, duration: 0.08 }, 45.515);
+  tl.fromTo("#cg19-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 49.465); tl.to("#cg19-in", { opacity: 0, duration: 0.08 }, 52.391);
+  tl.fromTo("#cg20-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 52.491); tl.to("#cg20-in", { opacity: 0, duration: 0.08 }, 54.432);
+  tl.fromTo("#cg21-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 54.532); tl.to("#cg21-in", { opacity: 0, duration: 0.08 }, 56.825);
+  tl.fromTo("#cg22-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 56.925); tl.to("#cg22-in", { opacity: 0, duration: 0.08 }, 59.309);
+  tl.fromTo("#cg23-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 59.909); tl.to("#cg23-in", { opacity: 0, duration: 0.08 }, 61.248);
+  tl.fromTo("#cg24-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 61.348); tl.to("#cg24-in", { opacity: 0, duration: 0.08 }, 63.437);
+  tl.fromTo("#cg25-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 63.537); tl.to("#cg25-in", { opacity: 0, duration: 0.08 }, 65.002);
+  tl.fromTo("#cg26-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 65.102); tl.to("#cg26-in", { opacity: 0, duration: 0.08 }, 66.566);
+  tl.fromTo("#cg27-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 66.666); tl.to("#cg27-in", { opacity: 0, duration: 0.08 }, 68.025);
+  tl.fromTo("#cg28-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 68.625); tl.to("#cg28-in", { opacity: 0, duration: 0.08 }, 70.426);
+  tl.fromTo("#cg29-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 70.526); tl.to("#cg29-in", { opacity: 0, duration: 0.08 }, 72.474);
+  tl.fromTo("#cg30-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 76.524); tl.to("#cg30-in", { opacity: 0, duration: 0.08 }, 77.524);
+  tl.fromTo("#cg31-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 77.624); tl.to("#cg31-in", { opacity: 0, duration: 0.08 }, 79.221);
+  tl.fromTo("#cg32-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 79.741); tl.to("#cg32-in", { opacity: 0, duration: 0.08 }, 81.841);
+  tl.fromTo("#cg33-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 81.941); tl.to("#cg33-in", { opacity: 0, duration: 0.08 }, 84.359);
+  tl.fromTo("#cg34-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 85.909); tl.to("#cg34-in", { opacity: 0, duration: 0.08 }, 86.656);
+  tl.fromTo("#cg35-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 86.756); tl.to("#cg35-in", { opacity: 0, duration: 0.08 }, 88.222);
+  tl.fromTo("#cg36-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 88.772); tl.to("#cg36-in", { opacity: 0, duration: 0.08 }, 91.331);
+  tl.fromTo("#cg37-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 91.431); tl.to("#cg37-in", { opacity: 0, duration: 0.08 }, 92.429);
+  tl.fromTo("#cg38-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 92.979); tl.to("#cg38-in", { opacity: 0, duration: 0.08 }, 94.2);
+  tl.fromTo("#cg39-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 94.3); tl.to("#cg39-in", { opacity: 0, duration: 0.08 }, 95.466);
+  tl.fromTo("#cg40-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 95.566); tl.to("#cg40-in", { opacity: 0, duration: 0.08 }, 96.807);
+  tl.fromTo("#cg41-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 97.357); tl.to("#cg41-in", { opacity: 0, duration: 0.08 }, 98.871);
+  tl.fromTo("#cg42-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 98.971); tl.to("#cg42-in", { opacity: 0, duration: 0.08 }, 100.082);
+  tl.fromTo("#cg43-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 100.182); tl.to("#cg43-in", { opacity: 0, duration: 0.08 }, 102.465);
+  tl.fromTo("#cg44-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 103.015); tl.to("#cg44-in", { opacity: 0, duration: 0.08 }, 104.635);
+  tl.fromTo("#cg45-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 104.735); tl.to("#cg45-in", { opacity: 0, duration: 0.08 }, 105.841);
+  tl.fromTo("#cg46-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 106.391); tl.to("#cg46-in", { opacity: 0, duration: 0.08 }, 107.412);
+  tl.fromTo("#cg47-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 107.512); tl.to("#cg47-in", { opacity: 0, duration: 0.08 }, 109.262);
+  tl.fromTo("#cg48-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 109.362); tl.to("#cg48-in", { opacity: 0, duration: 0.08 }, 110.347);
+  tl.fromTo("#cg49-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 111.847); tl.to("#cg49-in", { opacity: 0, duration: 0.08 }, 113.473);
+  tl.fromTo("#cg50-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 113.573); tl.to("#cg50-in", { opacity: 0, duration: 0.08 }, 114.582);
+  tl.fromTo("#cg51-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 114.682); tl.to("#cg51-in", { opacity: 0, duration: 0.08 }, 116.432);
+  tl.fromTo("#cg52-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 116.532); tl.to("#cg52-in", { opacity: 0, duration: 0.08 }, 118.363);
+  tl.fromTo("#cg53-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 119.863); tl.to("#cg53-in", { opacity: 0, duration: 0.08 }, 121.426);
+  tl.fromTo("#cg54-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 121.526); tl.to("#cg54-in", { opacity: 0, duration: 0.08 }, 122.605);
+  tl.fromTo("#cg55-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 122.705); tl.to("#cg55-in", { opacity: 0, duration: 0.08 }, 124.961);
+  tl.fromTo("#cg56-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 125.061); tl.to("#cg56-in", { opacity: 0, duration: 0.08 }, 125.675);
+  tl.fromTo("#cg57-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 127.175); tl.to("#cg57-in", { opacity: 0, duration: 0.08 }, 128.215);
+  tl.fromTo("#cg58-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 128.315); tl.to("#cg58-in", { opacity: 0, duration: 0.08 }, 130.639);
+  tl.fromTo("#cg59-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 130.739); tl.to("#cg59-in", { opacity: 0, duration: 0.08 }, 133.491);
+  tl.fromTo("#cg60-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 133.591); tl.to("#cg60-in", { opacity: 0, duration: 0.08 }, 134.224);
+  tl.fromTo("#cg61-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 135.724); tl.to("#cg61-in", { opacity: 0, duration: 0.08 }, 136.909);
+  tl.fromTo("#cg62-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 137.009); tl.to("#cg62-in", { opacity: 0, duration: 0.08 }, 138.677);
+  tl.fromTo("#cg63-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 140.177); tl.to("#cg63-in", { opacity: 0, duration: 0.08 }, 142.339);
+  tl.fromTo("#cg64-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 142.439); tl.to("#cg64-in", { opacity: 0, duration: 0.08 }, 144.665);
+  tl.fromTo("#cg65-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 144.765); tl.to("#cg65-in", { opacity: 0, duration: 0.08 }, 145.008);
+  tl.fromTo("#cg66-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 146.508); tl.to("#cg66-in", { opacity: 0, duration: 0.08 }, 147.442);
+  tl.fromTo("#cg67-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 147.542); tl.to("#cg67-in", { opacity: 0, duration: 0.08 }, 148.779);
+  tl.fromTo("#cg68-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 149.329); tl.to("#cg68-in", { opacity: 0, duration: 0.08 }, 151.805);
+  tl.fromTo("#cg69-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 151.905); tl.to("#cg69-in", { opacity: 0, duration: 0.08 }, 154.051);
+  tl.fromTo("#cg70-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 154.151); tl.to("#cg70-in", { opacity: 0, duration: 0.08 }, 156.627);
+  tl.fromTo("#cg71-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 156.727); tl.to("#cg71-in", { opacity: 0, duration: 0.08 }, 156.911);
+  tl.fromTo("#cg72-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 157.461); tl.to("#cg72-in", { opacity: 0, duration: 0.08 }, 159.373);
+  tl.fromTo("#cg73-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 159.473); tl.to("#cg73-in", { opacity: 0, duration: 0.08 }, 160.308);
+  tl.fromTo("#cg74-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 162.288); tl.to("#cg74-in", { opacity: 0, duration: 0.08 }, 163.84);
+  tl.fromTo("#cg75-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 163.94); tl.to("#cg75-in", { opacity: 0, duration: 0.08 }, 164.111);
+  tl.fromTo("#cg76-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 164.911); tl.to("#cg76-in", { opacity: 0, duration: 0.08 }, 166.99);
+  tl.fromTo("#cg77-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 167.09); tl.to("#cg77-in", { opacity: 0, duration: 0.08 }, 168.345);
+  tl.fromTo("#cg78-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 168.445); tl.to("#cg78-in", { opacity: 0, duration: 0.08 }, 169.955);
+  tl.fromTo("#cg79-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 171.888); tl.to("#cg79-in", { opacity: 0, duration: 0.08 }, 172.898);
+  tl.fromTo("#cg80-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 176.988); tl.to("#cg80-in", { opacity: 0, duration: 0.08 }, 180.227);
+  tl.fromTo("#cg81-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 180.327); tl.to("#cg81-in", { opacity: 0, duration: 0.08 }, 180.898);
+  tl.fromTo("#cg82-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 181.348); tl.to("#cg82-in", { opacity: 0, duration: 0.08 }, 182.878);
+  tl.fromTo("#cg83-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 182.978); tl.to("#cg83-in", { opacity: 0, duration: 0.08 }, 185.258);
+  tl.fromTo("#cg84-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 186.508); tl.to("#cg84-in", { opacity: 0, duration: 0.08 }, 188.203);
+  tl.fromTo("#cg85-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 190.008); tl.to("#cg85-in", { opacity: 0, duration: 0.08 }, 191.915);
+  tl.fromTo("#cg86-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 192.015); tl.to("#cg86-in", { opacity: 0, duration: 0.08 }, 194.144);
+  tl.fromTo("#cg87-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 194.244); tl.to("#cg87-in", { opacity: 0, duration: 0.08 }, 195.779);
+  tl.fromTo("#cg88-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 195.879); tl.to("#cg88-in", { opacity: 0, duration: 0.08 }, 198.252);
+  tl.fromTo("#cg89-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 198.802); tl.to("#cg89-in", { opacity: 0, duration: 0.08 }, 200.666);
+  tl.fromTo("#cg90-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 200.766); tl.to("#cg90-in", { opacity: 0, duration: 0.08 }, 202.947);
+  tl.fromTo("#cg91-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 203.047); tl.to("#cg91-in", { opacity: 0, duration: 0.08 }, 204.531);
+  tl.fromTo("#cg92-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 204.631); tl.to("#cg92-in", { opacity: 0, duration: 0.08 }, 206.769);
+  tl.fromTo("#cg93-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 207.319); tl.to("#cg93-in", { opacity: 0, duration: 0.08 }, 209.012);
+  tl.fromTo("#cg94-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 209.112); tl.to("#cg94-in", { opacity: 0, duration: 0.08 }, 211.403);
+  tl.fromTo("#cg95-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 211.503); tl.to("#cg95-in", { opacity: 0, duration: 0.08 }, 212.917);
+  tl.fromTo("#cg96-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 213.467); tl.to("#cg96-in", { opacity: 0, duration: 0.08 }, 215.515);
+  tl.fromTo("#cg97-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 215.615); tl.to("#cg97-in", { opacity: 0, duration: 0.08 }, 217.97);
+  tl.fromTo("#cg98-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 218.07); tl.to("#cg98-in", { opacity: 0, duration: 0.08 }, 220.655);
+  tl.fromTo("#cg99-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 220.755); tl.to("#cg99-in", { opacity: 0, duration: 0.08 }, 221.519);
+  tl.fromTo("#cg100-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 222.069); tl.to("#cg100-in", { opacity: 0, duration: 0.08 }, 224.216);
+  tl.fromTo("#cg101-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 224.316); tl.to("#cg101-in", { opacity: 0, duration: 0.08 }, 226.089);
+  tl.fromTo("#cg102-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 226.189); tl.to("#cg102-in", { opacity: 0, duration: 0.08 }, 228.543);
+  tl.fromTo("#cg103-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 229.093); tl.to("#cg103-in", { opacity: 0, duration: 0.08 }, 230.747);
+  tl.fromTo("#cg104-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 230.847); tl.to("#cg104-in", { opacity: 0, duration: 0.08 }, 233.44);
+  tl.fromTo("#cg105-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 233.54); tl.to("#cg105-in", { opacity: 0, duration: 0.08 }, 236.009);
+  tl.fromTo("#cg106-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 236.109); tl.to("#cg106-in", { opacity: 0, duration: 0.08 }, 236.718);
+  tl.fromTo("#cg107-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 237.268); tl.to("#cg107-in", { opacity: 0, duration: 0.08 }, 238.669);
+  tl.fromTo("#cg108-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 238.769); tl.to("#cg108-in", { opacity: 0, duration: 0.08 }, 241.213);
+  tl.fromTo("#cg109-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 241.313); tl.to("#cg109-in", { opacity: 0, duration: 0.08 }, 242.584);
+  tl.fromTo("#cg110-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 242.684); tl.to("#cg110-in", { opacity: 0, duration: 0.08 }, 245.324);
+  tl.fromTo("#cg111-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 245.424); tl.to("#cg111-in", { opacity: 0, duration: 0.08 }, 246.323);
+  tl.fromTo("#cg112-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 250.273); tl.to("#cg112-in", { opacity: 0, duration: 0.08 }, 252.083);
+  tl.fromTo("#cg113-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 252.183); tl.to("#cg113-in", { opacity: 0, duration: 0.08 }, 254.061);
+  tl.fromTo("#cg114-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 254.161); tl.to("#cg114-in", { opacity: 0, duration: 0.08 }, 256.127);
+  tl.fromTo("#cg115-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 256.677); tl.to("#cg115-in", { opacity: 0, duration: 0.08 }, 258.983);
+  tl.fromTo("#cg116-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 259.083); tl.to("#cg116-in", { opacity: 0, duration: 0.08 }, 261.148);
+  tl.fromTo("#cg117-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 261.248); tl.to("#cg117-in", { opacity: 0, duration: 0.08 }, 261.529);
+  tl.fromTo("#cg118-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 262.079); tl.to("#cg118-in", { opacity: 0, duration: 0.08 }, 264.206);
+  tl.fromTo("#cg119-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 264.306); tl.to("#cg119-in", { opacity: 0, duration: 0.08 }, 265.437);
+  tl.fromTo("#cg120-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 265.537); tl.to("#cg120-in", { opacity: 0, duration: 0.08 }, 267.781);
+  tl.fromTo("#cg121-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 267.881); tl.to("#cg121-in", { opacity: 0, duration: 0.08 }, 268.211);
+  tl.fromTo("#cg122-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 268.761); tl.to("#cg122-in", { opacity: 0, duration: 0.08 }, 270.742);
+  tl.fromTo("#cg123-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 270.842); tl.to("#cg123-in", { opacity: 0, duration: 0.08 }, 272.107);
+  tl.fromTo("#cg124-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 272.207); tl.to("#cg124-in", { opacity: 0, duration: 0.08 }, 273.037);
+  tl.fromTo("#cg125-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 273.587); tl.to("#cg125-in", { opacity: 0, duration: 0.08 }, 276.648);
+  tl.fromTo("#cg126-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 276.748); tl.to("#cg126-in", { opacity: 0, duration: 0.08 }, 278.821);
+  tl.fromTo("#cg127-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 278.921); tl.to("#cg127-in", { opacity: 0, duration: 0.08 }, 281.277);
+  tl.fromTo("#cg128-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 282.577); tl.to("#cg128-in", { opacity: 0, duration: 0.08 }, 283.567);
+  tl.fromTo("#cg129-in", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 283.667); tl.to("#cg129-in", { opacity: 0, duration: 0.08 }, 284.314);
+  window.__timelines["caps"] = tl;
+</script>
+</template>

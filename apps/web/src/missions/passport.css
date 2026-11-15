@@ -1,0 +1,371 @@
+/* EXPLORER PASSPORT (v7.2): profile card, streak card, ring binders. Fits 1366x768, no scrolling. */
+.pp {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+  grid-template-rows: none !important;
+  gap: 18px;
+  width: min(1120px, calc(100vw - 48px)) !important;
+  max-height: calc(100vh - 40px);
+  padding: 22px;
+  overflow: visible !important;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 210, 63, 0.18), transparent 40%),
+    linear-gradient(#f6f2ff, #ece6ff) !important;
+  font-family: "Fredoka", sans-serif;
+  color: #241d48;
+}
+.pp * {
+  box-sizing: border-box;
+}
+.pp-x {
+  position: absolute !important;
+  top: -16px;
+  right: -16px;
+  z-index: 3;
+}
+.pp-left,
+.pp-right {
+  min-height: 0;
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.pp-card {
+  position: relative;
+  border: 3px solid #241d48;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 5px 0 #241d48;
+}
+.pp-clip {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  translate: -50% 0;
+  width: 90px;
+  height: 26px;
+  border: 3px solid #241d48;
+  border-radius: 10px;
+  background: linear-gradient(#ffd98a, #e8a94a);
+  box-shadow: 0 3px 0 #241d48;
+}
+.pp-top {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  padding: 22px 18px 12px;
+}
+.pp-photo {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 3px solid #241d48;
+  border-radius: 22px;
+  background: radial-gradient(circle at 50% 35%, #fff6e0, #ffe0a8);
+  overflow: hidden;
+}
+.pp-photo img {
+  width: 112%;
+  height: 112%;
+  object-fit: contain;
+  margin-top: 10%;
+}
+.pp-who h2 {
+  margin: 4px 0 2px;
+  font: 400 34px/1 "Lilita One", "Fredoka", sans-serif !important;
+}
+.pp-who p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 10px;
+  font: 500 15px/1.2 "Fredoka", sans-serif;
+  color: #7a6fb0;
+}
+.pp-who small {
+  display: block;
+  font: 700 12px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.12em;
+  color: #a39ac8;
+}
+.pp-id {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: 700 22px/1.1 "Fredoka", sans-serif;
+  letter-spacing: 0.06em;
+  color: #e09a2a;
+  cursor: pointer;
+}
+.pp-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 0 12px;
+  padding: 6px;
+  border-radius: 18px;
+  background: #f3efff;
+}
+.pp-tabs button {
+  height: 40px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  font: 700 14px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a39ac8;
+  cursor: pointer;
+}
+.pp-tabs button[aria-selected="true"] {
+  background: #fff;
+  color: #241d48;
+  box-shadow: 0 2px 0 #241d48;
+  border: 2px solid #241d48;
+}
+.pp-tab {
+  min-height: 118px;
+  padding: 12px 16px 16px;
+}
+.pp-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.pp-facts li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 12px;
+  border-radius: 12px;
+  background: #faf8ff;
+  font: 500 15px/1.2 "Fredoka", sans-serif;
+}
+.pp-facts b {
+  font-weight: 700;
+  color: #7a6fb0;
+}
+.pp-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.pp-stats div {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 10px 4px;
+  border: 2.5px solid #241d48;
+  border-radius: 16px;
+  background: #fffbea;
+}
+.pp-stats b {
+  font: 400 26px/1 "Lilita One", sans-serif;
+}
+.pp-stats small {
+  font: 600 12px/1 "Fredoka", sans-serif;
+  color: #6d6596;
+}
+.pp-look {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+}
+.pp-look p {
+  margin: 0;
+  font: 500 16px/1.3 "Fredoka", sans-serif;
+}
+.pp-streak {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+}
+.pp-streak h3 {
+  margin: 0;
+  font: 600 20px/1.1 "Fredoka", sans-serif;
+}
+.pp-streak h3 b {
+  font: 400 34px/1 "Lilita One", sans-serif;
+}
+.pp-streak p {
+  margin: 2px 0 0;
+  font: 500 15px/1.2 "Fredoka", sans-serif;
+  color: #6d6596;
+}
+.pp-sun {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  background: #ffd23f;
+  color: #e8463b;
+  clip-path: polygon(50% 0, 61% 14%, 79% 10%, 82% 28%, 98% 36%, 89% 52%, 98% 67%, 81% 74%, 79% 92%, 61% 87%, 50% 100%, 39% 87%, 21% 92%, 19% 74%, 2% 67%, 11% 52%, 2% 36%, 18% 28%, 21% 10%, 39% 14%);
+}
+/* ring binders */
+.pp-binder {
+  position: relative;
+  padding: 18px 14px 12px;
+  border: 3px solid #241d48;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 5px 0 #241d48;
+}
+.pp-rings {
+  position: absolute;
+  top: -13px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 30px;
+}
+.pp-rings i {
+  width: 16px;
+  height: 30px;
+  border: 3px solid #241d48;
+  border-radius: 8px;
+  background: linear-gradient(#ffd98a, #d99a3a);
+}
+.pp-binder.sky .pp-rings i {
+  background: linear-gradient(#cfe9ff, #5bb8ff);
+}
+.pp-binder.pink .pp-rings i {
+  background: linear-gradient(#ffd3e2, #ff8fb1);
+}
+.pp-binder header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.pp-binder h3 {
+  flex: 1;
+  margin: 0;
+  font: 400 22px/1 "Lilita One", "Fredoka", sans-serif;
+}
+.pp-binder header small {
+  padding: 3px 10px 4px;
+  border-radius: 999px;
+  background: #f3efff;
+  font: 700 13px/1 "Fredoka", sans-serif;
+}
+.pp-binder-ico {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 2.5px solid #241d48;
+  border-radius: 10px;
+  background: #fff4c2;
+}
+.pp-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+}
+.pp-slot {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 16px;
+  background: #f3efff;
+  text-align: center;
+}
+.pp-slot img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 2.5px solid #241d48;
+  border-radius: 12px;
+}
+.pp-q {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 2.5px dashed #c9bff0;
+  border-radius: 12px;
+  font: 400 30px/1 "Lilita One", sans-serif;
+  color: #b9b0e0;
+}
+.pp-slot small {
+  font: 600 12px/1.15 "Fredoka", sans-serif;
+  color: #6d6596;
+}
+.pp-slot.got small {
+  color: #241d48;
+}
+.pp-slot.badge {
+  min-height: 0;
+}
+.pp-medal {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #e6e0fb;
+  color: #a39ac8;
+}
+.pp-slot.got .pp-medal {
+  background: radial-gradient(circle at 40% 35%, #fff3b0, #ffc93c);
+  border: 2.5px solid #241d48;
+  color: #241d48;
+}
+.pp-planet {
+  width: 46px;
+  height: 46px;
+  border: 2.5px solid #241d48;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff, #b8b3c8);
+}
+.pp-planet.opportunity {
+  background: radial-gradient(circle at 35% 30%, #ffb08a, #c24f2e);
+}
+.pp-planet.viking {
+  background: radial-gradient(circle at 35% 30%, #9fe9ff, #3a7fd6);
+  opacity: 0.55;
+}
+.pp-slot.mission.got {
+  background: #d6f7ea;
+}
+@media (max-height: 760px) {
+  .pp-binder:nth-child(3) .pp-slots {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .pp-slot img,
+  .pp-q {
+    aspect-ratio: 16 / 9;
+  }
+  .pp-slot.badge .pp-medal {
+    width: 36px;
+    height: 36px;
+  }
+}
+html body .pp-slot.badge {
+  border: 0 !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+  background: #f3efff !important;
+  padding: 8px 4px !important;
+}
+html body .pp-slot.badge.got {
+  background: #fff4c2 !important;
+}
+.pp-binder.sun .pp-slots {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.pp-binder.sun .pp-slot small {
+  font-size: 11px;
+}

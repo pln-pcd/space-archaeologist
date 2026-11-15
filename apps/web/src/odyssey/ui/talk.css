@@ -1,0 +1,867 @@
+/* Dashboard, Nova's dialogue, the conversation, onboarding and the tutorial (v4.6 §2–§5), on the kit. */
+
+/* ---------- dashboard layout ---------- */
+.od-dash {
+  position: fixed;
+  inset: 0;
+  --ask: 112px;
+  --edge: clamp(20px, 2.4vw, 36px);
+}
+.od-freeze {
+  position: fixed;
+  inset: -16px;
+  width: calc(100% + 32px);
+  height: calc(100% + 32px);
+  object-fit: cover;
+  filter: blur(8px) brightness(0.6) saturate(0.85);
+  z-index: 1;
+  animation: k-fade 0.4s ease both;
+}
+.od-wall-zone {
+  position: fixed;
+  pointer-events: none;
+}
+.od-nova-hit {
+  position: fixed;
+  z-index: 5;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 40px;
+  cursor: pointer;
+}
+.od-nova-hit:disabled {
+  cursor: default;
+}
+.od-nova-hit:focus-visible {
+  outline: 4px dashed var(--c-sky);
+  outline-offset: -4px;
+}
+
+/* the "tap Nova" hint: a speech bubble and a bobbing pointing hand at Nova's left */
+.od-tap-hint {
+  position: absolute;
+  right: calc(100% - 12px);
+  top: 18%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  pointer-events: none;
+}
+.od-tap-bubble {
+  padding: 8px 16px 10px;
+  border: var(--line);
+  border-radius: 18px 18px 4px 18px;
+  background: var(--c-paper);
+  box-shadow: var(--sh-chunky-sm);
+  font-family: var(--f-title);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--c-line);
+  white-space: nowrap;
+  animation: k-pop 0.5s var(--spring) both;
+}
+.od-tap-hand {
+  rotate: 120deg;
+  margin-right: 10px;
+  animation: od-poke 1s ease-in-out infinite;
+}
+@keyframes od-poke {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 12px 6px;
+  }
+}
+
+/* mission labels: cream stickers projected under the tokens */
+.od-labels {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+.od-icon-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: auto;
+  min-width: 112px;
+  padding: 6px 14px 8px;
+  border: var(--line);
+  border-radius: 16px;
+  background: var(--c-paper);
+  background-image: var(--grain);
+  box-shadow: var(--sh-chunky-sm);
+  color: var(--c-ink);
+  text-align: center;
+  cursor: pointer;
+  display: grid;
+  gap: 0;
+  transition:
+    box-shadow 0.15s,
+    background-color 0.2s;
+}
+.od-icon-label::after {
+  content: "";
+  position: absolute;
+  inset: -12px -6px;
+}
+.od-icon-label strong {
+  font-family: var(--f-title);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.15;
+  color: var(--c-line);
+}
+.od-icon-label small {
+  font-family: var(--f-body);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+  color: var(--c-ink-soft);
+}
+.od-icon-label .short {
+  display: none;
+}
+.od-icon-label.sealed {
+  background-color: #ece8ff;
+}
+.od-icon-label.hot,
+.od-icon-label:focus-visible {
+  background-color: #fff3c4;
+  box-shadow: 0 7px 0 var(--c-line);
+}
+.od-icon-label:active {
+  box-shadow: 0 1px 0 var(--c-line);
+}
+.od-icon-label.glow {
+  animation: od-glow 1.4s ease-in-out infinite;
+}
+@keyframes od-glow {
+  50% {
+    box-shadow:
+      var(--sh-chunky-sm),
+      0 0 0 8px rgba(255, 210, 63, 0.7);
+  }
+}
+.od-done {
+  position: absolute;
+  top: -14px;
+  right: -12px;
+  padding: 1px 8px 2px;
+  border: 2.5px solid var(--c-line);
+  border-radius: 10px;
+  background: var(--c-butter);
+  font: 700 16px var(--f-title);
+  color: var(--c-line);
+  rotate: 8deg;
+}
+
+/* Nova's dialogue: bottom centre, with room for Ask Nova on the right */
+.od-dash-talk {
+  position: fixed;
+  left: 50%;
+  bottom: var(--edge);
+  translate: -50% 0;
+  width: min(880px, calc(100vw - 2 * (var(--ask) + var(--edge) + 12px)));
+  z-index: 20;
+}
+.od-checkin .od-talk {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  translate: -50% 0;
+  width: min(880px, calc(100vw - 32px));
+  z-index: 20;
+}
+.od-talk {
+  display: grid;
+  gap: var(--sp-3);
+}
+.od-talk .k-chat.kid {
+  justify-self: end;
+}
+.od-nova-card {
+  padding: var(--sp-6) var(--sp-5) var(--sp-4);
+}
+.k-karaoke span {
+  border-radius: 8px;
+  transition: background 0.15s;
+  box-decoration-break: clone;
+}
+.k-karaoke span.now {
+  background: #ffe27a;
+  box-shadow: 0 0 0 3px #ffe27a;
+}
+.k-karaoke span:not(.said):not(.now) {
+  color: #9b95b8;
+}
+.k-page {
+  margin-left: 8px;
+  font: 700 16px var(--f-title);
+  color: var(--c-ink-soft);
+}
+.k-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+}
+.k-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-3);
+  flex: 1 1 auto;
+}
+.k-replay {
+  margin-left: auto;
+}
+.k-ask-row {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  margin-top: var(--sp-3);
+}
+.k-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 60px;
+  padding: 8px 18px;
+  border: var(--line);
+  border-radius: var(--r-md);
+  background: #fff;
+  font: 700 var(--fs-body) var(--f-body);
+  color: var(--c-ink);
+}
+.k-input::placeholder {
+  color: #8a7a72;
+}
+.k-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 1.4em;
+}
+.k-dots i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--c-denim);
+  animation: k-dot 1s ease-in-out infinite;
+}
+.k-dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.k-dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes k-dot {
+  50% {
+    translate: 0 -7px;
+    opacity: 0.5;
+  }
+}
+
+/* the mic: a round sky button; rings pulse with the voice level while listening */
+.k-mic {
+  position: relative;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: var(--line);
+  background: linear-gradient(#bfe2ff, var(--c-sky));
+  box-shadow: var(--sh-chunky-sm);
+  color: var(--c-line);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: translate 0.1s, box-shadow 0.1s;
+}
+.k-mic::after {
+  content: "";
+  position: absolute;
+  inset: -16px;
+}
+.k-mic:active {
+  translate: 0 4px;
+  box-shadow: 0 0 0 var(--c-line);
+}
+.k-mic.big {
+  width: 112px;
+  height: 112px;
+}
+.k-mic.listening {
+  background: linear-gradient(#ff9d8f, #ff5a4e);
+  color: var(--c-paper);
+}
+.k-mic.loading,
+.k-mic.working {
+  opacity: 0.75;
+}
+.k-mic-rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.k-mic-rings i {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 90, 78, 0.6);
+  opacity: 0;
+}
+.k-mic.listening .k-mic-rings i {
+  animation: k-ring 1.4s ease-out infinite;
+  scale: calc(1 + var(--lvl, 0) * 0.25);
+}
+.k-mic.listening .k-mic-rings i:nth-child(2) {
+  animation-delay: 0.7s;
+}
+@keyframes k-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+/* the round Ask Nova button (bottom right) */
+.od-ask {
+  position: fixed;
+  right: var(--edge);
+  bottom: var(--edge);
+  z-index: 21;
+  width: var(--ask);
+  height: var(--ask);
+  border-radius: 50%;
+  border: 3.5px solid var(--c-line);
+  background: linear-gradient(#bfe2ff, var(--c-sky));
+  box-shadow: var(--sh-chunky);
+  color: var(--c-line);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 2px;
+  cursor: pointer;
+  font: 700 19px var(--f-title);
+  transition:
+    translate 0.1s,
+    box-shadow 0.1s,
+    opacity 0.2s;
+}
+.od-ask:hover {
+  animation: k-wiggle 0.5s ease;
+}
+.od-ask:active {
+  translate: 0 5px;
+  box-shadow: 0 1px 0 var(--c-line);
+}
+.od-ask[data-wait="1"] {
+  opacity: 0.55;
+  cursor: default;
+}
+.od-ask.pulse {
+  animation: od-glow-round 1.4s ease-in-out infinite;
+}
+@keyframes od-glow-round {
+  50% {
+    box-shadow:
+      var(--sh-chunky),
+      0 0 0 12px rgba(91, 184, 255, 0.5);
+  }
+}
+
+.od-confirm {
+  max-width: min(640px, calc(100vw - 32px));
+}
+
+/* phones (portrait): Ask Nova sits above the dialogue's right edge */
+.od-dash.portrait {
+  --ask: 88px;
+  --edge: 16px;
+}
+.od-dash.portrait .od-dash-talk {
+  left: var(--edge);
+  right: var(--edge);
+  translate: none;
+  width: auto;
+}
+.od-dash.portrait .od-ask {
+  bottom: calc(var(--talk-h, 180px) + var(--edge) + 16px);
+  font-size: 15px;
+}
+.od-dash.portrait .od-icon-label {
+  min-width: 58px;
+  padding: 4px 6px 6px;
+  border-radius: 12px;
+}
+.od-dash.portrait .od-icon-label .full {
+  display: none;
+}
+.od-dash.portrait .od-icon-label .short {
+  display: inline;
+}
+.od-dash.portrait .od-icon-label strong {
+  font-size: 20px;
+}
+.od-dash.portrait .od-icon-label small {
+  font-size: 15px;
+}
+.od-dash.portrait .od-tap-bubble {
+  font-size: 18px;
+}
+@media (max-width: 1100px) and (min-aspect-ratio: 4/5) {
+  .od-icon-label {
+    min-width: 92px;
+    padding: 5px 10px 7px;
+  }
+  .od-icon-label strong {
+    font-size: 19px;
+  }
+  .od-icon-label small {
+    font-size: 16px;
+  }
+}
+
+/* ---------- onboarding cards ---------- */
+.od-onboard {
+  z-index: 80;
+}
+.ob-card {
+  width: min(680px, calc(100vw - 32px));
+  padding: var(--sp-5) var(--sp-5) var(--sp-5);
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-3);
+}
+.ob-card h2 {
+  margin: 0;
+}
+.ob-card p {
+  margin: 0;
+  max-width: 36ch;
+}
+.ob-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+  width: 100%;
+  margin-top: var(--sp-2);
+}
+.ob-choice {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-3) var(--sp-4);
+  border: var(--line);
+  border-radius: var(--r-lg);
+  background: #fff;
+  box-shadow: var(--sh-chunky);
+  cursor: pointer;
+  font-family: var(--f-title);
+  color: var(--c-line);
+  transition:
+    translate 0.1s,
+    box-shadow 0.1s;
+}
+.ob-choice:hover {
+  animation: k-wiggle 0.5s ease;
+  background: #f6fbff;
+}
+.ob-choice:active {
+  translate: 0 5px;
+  box-shadow: 0 1px 0 var(--c-line);
+}
+.ob-choice strong {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.15;
+}
+.ob-choice small {
+  font: 700 18px var(--f-body);
+  color: var(--c-ink-soft);
+}
+.ob-icon {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: var(--line);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--sh-chunky-sm);
+}
+.ob-icon.sky,
+.ob-mic-art {
+  background: linear-gradient(#d6ecff, var(--c-sky));
+}
+.ob-icon.sage,
+.ob-mic-art.sage {
+  background: linear-gradient(#d9f8ec, var(--c-sage-soft));
+}
+.ob-mic-art {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  border: var(--line);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--sh-chunky-sm);
+  color: var(--c-line);
+}
+.ob-actions {
+  justify-content: center;
+  margin-top: var(--sp-2);
+}
+@media (max-width: 520px) {
+  .ob-choices {
+    grid-template-columns: 1fr;
+  }
+  .ob-choice {
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    text-align: left;
+    align-items: center;
+    column-gap: var(--sp-3);
+  }
+  .ob-choice .ob-icon {
+    grid-row: span 2;
+    width: 72px;
+    height: 72px;
+  }
+}
+
+/* ---------- tutorial coach marks ---------- */
+.tut-root {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+}
+.tut-dim {
+  position: absolute;
+  inset: 0;
+}
+.tut-ring {
+  fill: none;
+  stroke: #ffd23f;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 10px rgba(255, 210, 63, 0.85));
+}
+.tut-arrow {
+  position: absolute;
+  translate: -50% -100%;
+  animation: tut-bounce 0.9s ease-in-out infinite;
+  pointer-events: none;
+}
+.tut-arrow.up {
+  translate: -50% 0;
+  rotate: 180deg;
+}
+@keyframes tut-bounce {
+  50% {
+    margin-top: -14px;
+  }
+}
+.tut-arrow.up {
+  animation-name: tut-bounce-up;
+}
+@keyframes tut-bounce-up {
+  50% {
+    margin-top: 14px;
+  }
+}
+.tut-card-wrap {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  width: min(900px, calc(100vw - 24px));
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-2);
+  animation: k-pop 0.45s var(--spring) both;
+}
+.tut-card-wrap.bottom {
+  bottom: 20px;
+}
+.tut-card-wrap.top {
+  top: 20px;
+}
+.tut-bust {
+  flex: none;
+  width: 170px;
+  height: 170px;
+  margin-bottom: -6px;
+}
+.tut-card {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--sp-4) var(--sp-5);
+}
+.tut-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+.tut-body {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.tut-body .k-line {
+  flex: 1 1 auto;
+}
+.tut-art {
+  flex: none;
+}
+.tut-tags {
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: center;
+}
+.tut-tags .k-tag {
+  font-size: 21px;
+}
+.tut-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}
+.tut-spacer {
+  flex: 1 1 auto;
+}
+.tut-next-ready {
+  animation: k-wiggle 0.6s ease 0.2s 2;
+}
+.tut-lever-knob {
+  animation: tut-lever 1.6s ease-in-out infinite;
+}
+@keyframes tut-lever {
+  0%,
+  20% {
+    transform: translateY(-30px);
+  }
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+}
+@media (max-width: 700px) {
+  .tut-bust {
+    width: 96px;
+    height: 110px;
+    position: absolute;
+    left: 6px;
+    top: -86px;
+  }
+  .tut-card-wrap.top .tut-bust {
+    top: auto;
+    bottom: -100px;
+  }
+  .tut-body {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .tut-art {
+    align-self: center;
+  }
+  .tut-art svg {
+    max-height: 70px;
+  }
+}
+
+/* ---------- conversation mode ---------- */
+.cv-root {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: radial-gradient(ellipse at 30% 100%, rgba(20, 16, 46, 0.1), rgba(20, 16, 46, 0.45));
+}
+.cv-bust {
+  position: absolute;
+  left: max(0px, calc(50% - 640px));
+  bottom: 0;
+  width: min(36vw, 440px);
+  height: min(70vh, 560px);
+}
+.cv-close {
+  position: absolute;
+  top: clamp(20px, 3.4vh, 36px);
+  right: clamp(20px, 2.4vw, 40px);
+  z-index: 3;
+}
+.cv-panel {
+  position: absolute;
+  right: max(28px, calc(50% - 640px + 8px));
+  bottom: 28px;
+  width: min(760px, calc(100vw - min(36vw, 440px) - 40px));
+  display: grid;
+  gap: var(--sp-3);
+}
+.cv-voice {
+  align-content: end;
+}
+.cv-voice .k-chat {
+  justify-self: end;
+}
+.cv-micbar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border: var(--line);
+  border-radius: var(--r-lg);
+  background: var(--c-paper);
+  box-shadow: var(--sh-chunky);
+}
+.cv-status {
+  display: grid;
+  gap: var(--sp-1);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.cv-status strong {
+  font: 700 26px var(--f-title);
+  color: var(--c-line);
+}
+.cv-wave {
+  width: 100%;
+  max-width: 320px;
+  height: 48px;
+}
+.cv-switch {
+  justify-self: end;
+  color: var(--c-paper);
+}
+.cv-voice .k-chips .k-btn {
+  background: var(--c-paper);
+}
+.cv-chat {
+  top: auto;
+  max-height: min(640px, calc(100vh - 140px));
+  grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+  gap: 14px;
+  padding: 18px 20px 16px;
+  border-radius: 28px;
+}
+.cv-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 2px dashed #d6ecff;
+}
+.cv-head > div {
+  display: grid;
+}
+.cv-title {
+  font: 600 26px/1.1 var(--f-title);
+  color: var(--c-line);
+}
+.cv-sub {
+  font: 500 18px/1.2 var(--f-body);
+  color: var(--c-ink-soft);
+}
+.cv-list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 6px 4px 6px;
+  min-height: 120px;
+  overscroll-behavior: contain;
+}
+.cv-list .k-chat.nova .k-bubble {
+  background: #eaf5ff;
+}
+.cv-list .k-bubble {
+  max-width: min(480px, 78%);
+  font-size: 21px;
+}
+.cv-chips {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  scrollbar-width: thin;
+}
+.cv-chip {
+  flex: none;
+  min-height: 46px;
+  font-size: 18px;
+  padding: 6px 16px 8px;
+}
+.cv-chat .k-ask-row {
+  margin-top: 0;
+}
+.cv-chat .k-input {
+  border-radius: 999px;
+  min-height: 56px;
+  padding: 6px 22px;
+  font-size: 21px;
+}
+.cv-note {
+  margin: 0;
+  font-size: 16px;
+  text-align: center;
+}
+.cv-notice {
+  z-index: 5;
+}
+.od-notice {
+  max-width: min(640px, calc(100vw - 32px));
+}
+@media (max-aspect-ratio: 4/5) {
+  .cv-bust {
+    left: 0;
+    width: 52vw;
+    height: 34vh;
+    top: 8px;
+    bottom: auto;
+  }
+  .cv-panel {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    bottom: 12px;
+  }
+  .cv-chat {
+    top: 30vh;
+    bottom: 12px;
+    max-height: none;
+  }
+  .k-mic.big {
+    width: 92px;
+    height: 92px;
+  }
+}
+@media (max-height: 560px) and (min-aspect-ratio: 4/5) {
+  .cv-bust {
+    height: 80vh;
+  }
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+/* the conversation and onboarding own the top-right corner while open */
+.od-app:has(.cv-root, .od-onboard) .od-gear {
+  display: none;
+}
+/* labels fade in with opacity only: a transform animation would override the projected position */
+.od-icon-label {
+  animation: k-fade 0.5s ease 0.6s both;
+}

@@ -1,0 +1,114 @@
+{
+  "novaStyle": "Say this like a cheerful, excited young space explorer talking to a kid friend, bright and bouncy, with a smile in your voice",
+ "narratorStyle": "Read this like a gentle, wonder-filled bedtime storybook narrator: warm, slow and calm, with soft natural pauses at commas and periods, and gentle emphasis on the important words",
+ "rows": [
+  {
+   "group": "nova",
+   "engine": "kokoro",
+   "voice": "am_puck (old)",
+   "file": "nova-kokoro-am_puck-0.mp3",
+   "text": "Hi, explorer! I'm Nova, your space guide on Starship Odyssey!",
+   "seconds": 3.75,
+   "wpm": 160,
+   "pitch_hz": 113.2,
+   "pitch_range_hz": 60.7,
+   "pause_share": 0.2
+  },
+  {
+   "group": "nova",
+   "engine": "kokoro",
+   "voice": "am_puck, pitch x1.32 (chosen)",
+   "file": "nova-kokoro-am_puck-1.mp3",
+   "text": "Hi, explorer! I'm Nova, your space guide on Starship Odyssey!",
+   "seconds": 3.64,
+   "wpm": 165,
+   "pitch_hz": 147.2,
+   "pitch_range_hz": 76.5,
+   "pause_share": 0.21
+  },
+  {
+   "group": "nova",
+   "engine": "kokoro",
+   "voice": "am_puck, pitch x1.32 (chosen)",
+   "file": "nova-kokoro-am_puck-2.mp3",
+   "text": "Woohoo! Martian blueberries are tiny round pebbles. Want to see?",
+   "seconds": 3.47,
+   "wpm": 173,
+   "pitch_hz": 151.4,
+   "pitch_range_hz": 93.7,
+   "pause_share": 0.17
+  },
+  {
+   "group": "nova",
+   "engine": "kokoro",
+   "voice": "am_puck, pitch x1.5",
+   "file": "nova-kokoro-am_puck-3.mp3",
+   "text": "Hi, explorer! I'm Nova, your space guide on Starship Odyssey!",
+   "seconds": 3.64,
+   "wpm": 165,
+   "pitch_hz": 167.8,
+   "pitch_range_hz": 86.4,
+   "pause_share": 0.21
+  },
+  {
+   "group": "nova",
+   "engine": "kokoro",
+   "voice": "am_echo, pitch x1.32",
+   "file": "nova-kokoro-am_echo-4.mp3",
+   "text": "Hi, explorer! I'm Nova, your space guide on Starship Odyssey!",
+   "seconds": 4.16,
+   "wpm": 144,
+   "pitch_hz": 149.1,
+   "pitch_range_hz": 88.5,
+   "pause_share": 0.34
+  },
+  {
+   "group": "nova",
+   "engine": "kokoro",
+   "voice": "af_sky, pitch x0.95",
+   "file": "nova-kokoro-af_sky-5.mp3",
+   "text": "Hi, explorer! I'm Nova, your space guide on Starship Odyssey!",
+   "seconds": 3.92,
+   "wpm": 153,
+   "pitch_hz": 149.1,
+   "pitch_range_hz": 90.3,
+   "pause_share": 0.31
+  },
+  {
+   "group": "narrator",
+   "engine": "kokoro",
+   "voice": "af_heart (old pacing)",
+   "file": "narrator-kokoro-af_heart-6.mp3",
+   "text": "Long ago, a little lander named Eagle touched the Moon. Its engines went quiet, and the dust settled softly around its feet.",
+   "seconds": 7.76,
+   "wpm": 170,
+   "pitch_hz": 198.3,
+   "pitch_range_hz": 83.8,
+   "pause_share": 0.29
+  },
+  {
+   "group": "narrator",
+   "engine": "kokoro",
+   "voice": "af_bella",
+   "file": "narrator-kokoro-af_bella-7.mp3",
+   "text": "Long ago, a little lander named Eagle touched the Moon. Its engines went quiet, and the dust settled softly around its feet.",
+   "seconds": 8.55,
+   "wpm": 154,
+   "pitch_hz": 205.1,
+   "pitch_range_hz": 81.0,
+   "pause_share": 0.28
+  },
+  {
+   "group": "narrator",
+   "engine": "kokoro",
+   "voice": "af_heart bedtime pacing (chosen)",
+   "file": "narrator-kokoro-bedtime.mp3",
+   "text": "Long ago, a little lander named Eagle touched the Moon. Its engines went quiet, and the dust settled softly around its feet.",
+   "seconds": 9.18,
+   "wpm": 144,
+   "pitch_hz": 198.3,
+   "pitch_range_hz": 92.0,
+   "pause_share": 0.37
+  }
+ ]
+}

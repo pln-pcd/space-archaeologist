@@ -1,0 +1,1 @@
+{ "voice": "af_heart", "speed": 1.04, "pitch": 1.12, "_about": "v7.1: ONE natural Kokoro voice (af_heart, the most natural Kokoro voice) for Nova, the narrator and every live line. No pitch shift. Re-render clips with python -I scripts/voices.py --nova --force and --story 1|2 --force." }

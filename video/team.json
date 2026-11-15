@@ -1,0 +1,12 @@
+{
+  "_about": "Swap the team name here, then run: node video/build.mjs && node video/render.mjs (see video/README.md). Names exactly as registered.",
+  "teamLabel": "Team [TEAM NAME]",
+  "members": [
+    "Natasha Nicole E. Remoto (Team Owner)",
+    "Paulina C. Dela Cruz",
+    "Ella Mae Dolon",
+    "Jason Michael J. Lorente",
+    "Earl Clester Barde",
+    "Jana Melissa Regondola"
+  ]
+}

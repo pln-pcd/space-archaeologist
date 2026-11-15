@@ -1,0 +1,114 @@
+/* Juice (v4.6 §10): iris wipe between screens, cursor sparkles, stamp shake, idle bob. Reduced motion:
+   the wipe becomes a plain fade, and sparkles, shake and bob are off. */
+
+/* ---------- iris / warp wipe: a starry indigo circle closes over the screen, then opens ---------- */
+.od-iris {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0 1px, transparent 2px) 0 0 / 90px 90px,
+    radial-gradient(circle at 70% 60%, rgba(255, 226, 122, 0.9) 0 1.5px, transparent 2.5px) 0 0 / 130px 130px,
+    radial-gradient(ellipse at 50% 50%, #3a2f86, #1b1645 70%);
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.42s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.od-iris.on {
+  clip-path: circle(150% at 50% 50%);
+  pointer-events: auto;
+}
+.reduced-motion .od-iris {
+  clip-path: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.reduced-motion .od-iris.on {
+  opacity: 1;
+}
+
+/* ---------- cursor sparkles over clickable things ---------- */
+.od-sparkle {
+  position: fixed;
+  z-index: 210;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z' fill='%23FFD23F'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation: od-sparkle 0.65s ease-out forwards;
+}
+@keyframes od-sparkle {
+  from {
+    transform: scale(0.4) rotate(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(14px) scale(1) rotate(90deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- the passport stamp thunk ---------- */
+.od-shake {
+  animation: od-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes od-shake {
+  15% {
+    translate: -6px 3px;
+  }
+  35% {
+    translate: 5px -2px;
+  }
+  55% {
+    translate: -3px 2px;
+  }
+  75% {
+    translate: 2px -1px;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+/* ---------- a gentle idle bob on the things that invite a tap (translate only: the labels use transform
+   for their projected position, so the bob never fights it) ---------- */
+/* the CONTENTS bob, never the button box: the hit area stays still (easy to tap, stable for tests) */
+.od-ask:not([data-wait="1"]) > *,
+.od-dash .od-icon-label:not(.sealed) > :is(strong, small) {
+  animation: od-bob 2.6s ease-in-out infinite;
+}
+.od-dash .od-icon-label:not(.sealed):nth-child(2) > :is(strong, small) {
+  animation-delay: -1.3s;
+}
+.od-ask:hover > *,
+.od-icon-label:hover > *,
+.od-icon-label.hot > * {
+  animation-play-state: paused;
+}
+@keyframes od-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -5px;
+  }
+}
+.reduced-motion .od-dash .od-icon-label > *,
+.reduced-motion .od-ask > *,
+.reduced-motion .od-shake,
+.reduced-motion .od-sparkle {
+  animation: none !important;
+}
+.reduced-motion .od-sparkle {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.od-ask > *, .od-dash .od-icon-label > *, .od-shake) {
+    animation: none !important;
+  }
+  .od-sparkle {
+    display: none;
+  }
+}

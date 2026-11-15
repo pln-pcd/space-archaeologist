@@ -1,0 +1,42 @@
+{
+  "landed-0": {
+    "text": "Apollo 11 landed at Tranquility Base in 1969.",
+    "duration": 4.647
+  },
+  "first-step-0": {
+    "text": "Neil Armstrong and Buzz Aldrin explored the Moon.",
+    "duration": 2.94
+  },
+  "hop-0": {
+    "text": "The Moon's gravity is about one sixth of Earth's.",
+    "duration": 2.769
+  },
+  "bootprint-0": {
+    "text": "No wind blows the astronauts' footprints away.",
+    "duration": 2.599
+  },
+  "columbia-0": {
+    "text": "Michael Collins stayed in lunar orbit aboard Columbia.",
+    "duration": 3.309
+  },
+  "flag-rocks-0": {
+    "text": "Apollo 11 brought Moon rocks and soil home.",
+    "duration": 2.753
+  },
+  "experiments-0": {
+    "text": "Astronauts deployed a seismometer and laser retroreflector.",
+    "duration": 3.665
+  },
+  "plaque-0": {
+    "text": "A plaque on the descent stage commemorates the landing.",
+    "duration": 2.897
+  },
+  "liftoff-0": {
+    "text": "The ascent stage carried Neil and Buzz back to lunar orbit.",
+    "duration": 3.309
+  },
+  "today-0": {
+    "text": "Scientists measure the Moon's distance using laser retroreflectors.",
+    "duration": 4.049
+  }
+}

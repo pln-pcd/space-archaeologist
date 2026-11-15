@@ -1,0 +1,321 @@
+/* v7.2 SETTINGS: a game drawer of icon tiles (no rows, no scrollbar) + slide transitions for panels */
+.st-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  justify-items: end;
+  align-items: stretch;
+  padding: 14px;
+  background: rgba(20, 16, 46, 0.45);
+  animation: g-fade 0.2s ease both;
+}
+.st-scrim.out {
+  animation: st-fade-out 0.24s ease both;
+}
+@keyframes st-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+.st {
+  position: relative;
+  width: min(390px, calc(100vw - 28px));
+  max-height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: 14px 16px 16px;
+  border: 3px solid var(--g-ink);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(185, 168, 255, 0.35), transparent 40%),
+    linear-gradient(#ffffff, #f4f0ff);
+  box-shadow: 0 7px 0 var(--g-ink), 0 24px 60px rgba(10, 6, 30, 0.4);
+  font-family: "Fredoka", sans-serif;
+  color: var(--g-ink);
+  animation: st-in 0.42s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.st * {
+  box-sizing: border-box;
+}
+.st-scrim.out .st {
+  animation: st-out 0.24s ease-in both;
+}
+@keyframes st-in {
+  from {
+    transform: translateX(115%) rotate(4deg);
+  }
+}
+@keyframes st-out {
+  to {
+    transform: translateX(115%) rotate(4deg);
+  }
+}
+.st-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.st-head h2 {
+  flex: 1;
+  margin: 0;
+  font: 400 30px/1 "Lilita One", "Fredoka", sans-serif !important;
+  color: var(--g-ink);
+}
+.st-badge {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 3px solid var(--g-ink);
+  border-radius: 14px;
+  background: linear-gradient(#ffe88f, var(--g-sun));
+  box-shadow: 0 3px 0 var(--g-ink);
+}
+.st-x {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 3px solid var(--g-ink);
+  border-radius: 50%;
+  background: linear-gradient(#ffb0a6, var(--g-coral));
+  color: #fff;
+  box-shadow: 0 3px 0 var(--g-ink);
+  cursor: pointer;
+  transition: transform 0.2s var(--spring, ease);
+}
+.st-x:hover {
+  transform: rotate(90deg) scale(1.06);
+}
+.st-x svg {
+  display: block;
+}
+.st-body {
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+.st-body h3 {
+  margin: 4px 0 0;
+  font: 700 12px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a7fd0;
+}
+.st-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.st-tiles.two {
+  grid-template-columns: repeat(2, 1fr);
+}
+.st-tile {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  min-height: 0;
+  padding: 8px 4px 7px;
+  border: 3px solid #cfc6f3;
+  border-radius: 18px;
+  background: #f6f3ff;
+  color: #8a82ad;
+  font-family: "Fredoka", sans-serif;
+  cursor: pointer;
+  transition:
+    transform 0.2s var(--spring, ease),
+    background 0.15s,
+    border-color 0.15s;
+}
+.st-tile:hover {
+  transform: translateY(-2px);
+}
+.st-tile:active {
+  transform: translateY(1px) scale(0.98);
+}
+.st-tile-ico {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #ece8ff;
+}
+.st-tile-label {
+  font: 600 13px/1.1 "Fredoka", sans-serif;
+}
+.st-tile-state {
+  font: 700 10px/1 "Fredoka", sans-serif;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+.st-tile.on {
+  border-color: var(--g-ink);
+  background: #fff;
+  color: var(--g-ink);
+  box-shadow: 0 3px 0 var(--g-ink);
+}
+.st-tile.on .st-tile-ico {
+  border: 2.5px solid var(--g-ink);
+}
+.st-tile.on.mint .st-tile-ico {
+  background: linear-gradient(#c8f7e6, var(--g-mint));
+}
+.st-tile.on.sky .st-tile-ico {
+  background: linear-gradient(#cfe9ff, var(--g-sky));
+}
+.st-tile.on.pink .st-tile-ico {
+  background: linear-gradient(#ffd3e2, var(--g-pink));
+}
+.st-tile.on.sun .st-tile-ico {
+  background: linear-gradient(#ffe88f, var(--g-sun));
+}
+.st-tile.on.lilac .st-tile-ico {
+  background: linear-gradient(#ece4ff, var(--g-lilac));
+}
+.st-aa {
+  font: 400 18px/1 "Lilita One", sans-serif;
+}
+.st-slider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  background: #f6f3ff;
+}
+.st-slider input {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  border: 2.5px solid var(--g-ink);
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--g-mint) var(--v, 90%), #fff var(--v, 90%));
+}
+.st-slider input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--g-ink);
+  border-radius: 50%;
+  background: var(--g-sun);
+  box-shadow: 0 2px 0 var(--g-ink);
+  cursor: pointer;
+}
+.st-slider input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--g-ink);
+  border-radius: 50%;
+  background: var(--g-sun);
+}
+.st-seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 5px;
+  border: 3px solid var(--g-ink);
+  border-radius: 999px;
+  background: #f6f3ff;
+}
+.st-seg button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #6d6596;
+  font: 600 14px/1 "Fredoka", sans-serif;
+  cursor: pointer;
+}
+.st-seg button[aria-checked="true"] {
+  background: linear-gradient(#ffe88f, var(--g-sun));
+  color: var(--g-ink);
+  box-shadow: 0 2px 0 var(--g-ink);
+}
+.st-foot {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+.st-foot .g-btn {
+  flex: 1;
+  min-height: 42px;
+  font-size: 15px;
+  padding: 6px 10px;
+}
+.st-reset {
+  color: #c2453c;
+}
+.st-done {
+  width: 100%;
+}
+.st-forget p {
+  margin: 0;
+  font: 500 16px/1.35 "Fredoka", sans-serif;
+}
+.st-forget label {
+  display: grid;
+  gap: 6px;
+  font: 600 16px/1 "Fredoka", sans-serif;
+}
+.st-input {
+  height: 46px;
+  padding: 0 14px;
+  border: 3px solid var(--g-ink);
+  border-radius: 14px;
+  font: 600 20px/1 "Fredoka", sans-serif;
+}
+
+/* ---------- game panels slide in from the dock side (no zoom) ---------- */
+html body .gp {
+  animation: gp-in 0.45s cubic-bezier(0.34, 1.35, 0.64, 1) both;
+}
+@keyframes gp-in {
+  from {
+    opacity: 0;
+    transform: translateX(60px) translateY(10px) rotate(2deg);
+  }
+}
+html body .g-scrim.closing .gp {
+  animation: gp-out 0.22s ease-in both;
+}
+html body .g-scrim.closing {
+  animation: st-fade-out 0.22s ease both;
+}
+@keyframes gp-out {
+  to {
+    opacity: 0;
+    transform: translateX(60px) rotate(2deg);
+  }
+}
+html body .mc,
+html body .ht-card {
+  animation: mc-in 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+@keyframes mc-in {
+  from {
+    opacity: 0;
+    transform: translateY(80px) rotate(-3deg);
+  }
+}
+.reduced-motion .st,
+.reduced-motion .gp,
+.reduced-motion .mc,
+.reduced-motion .ht-card {
+  animation: none !important;
+}

@@ -1,0 +1,379 @@
+/* HAND TRAINING (v7.1) + the game-style Glove Cam */
+.ht {
+  z-index: 95;
+}
+.ht-card {
+  position: relative;
+  width: min(940px, calc(100vw - 48px));
+  padding: 24px 26px 22px;
+  animation: g-pop 0.35s var(--spring, ease) both;
+  font-family: "Fredoka", sans-serif;
+  color: #241d48;
+}
+.ht-card h2 {
+  margin: 0 0 6px;
+  font: 400 34px/1.05 "Lilita One", "Fredoka", sans-serif;
+}
+.ht-card p {
+  margin: 0 0 10px;
+  font: 500 19px/1.35 "Fredoka", sans-serif;
+  color: #4b4370;
+}
+.ht-x {
+  position: absolute !important;
+  top: -18px;
+  right: -18px;
+  --g-icon: 46px;
+}
+.ht-ask {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 22px;
+  align-items: center;
+}
+.ht-hero {
+  display: grid;
+  place-items: center;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, #e9e2ff, #b9a8ff);
+  border: 3px solid #241d48;
+  box-shadow: 0 6px 0 #241d48;
+  animation: ht-wave 2.4s ease-in-out infinite;
+}
+.ht-center .ht-hero {
+  margin: 0 auto 12px;
+}
+@keyframes ht-wave {
+  0%,
+  100% {
+    rotate: -6deg;
+  }
+  50% {
+    rotate: 6deg;
+  }
+}
+.ht-list {
+  list-style: none;
+  margin: 6px 0 14px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 14px;
+}
+.ht-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 4px;
+  border-radius: 14px;
+  background: #f3efff;
+  font: 500 15px/1.2 "Fredoka", sans-serif;
+}
+.ht-list b {
+  font-weight: 700;
+}
+.ht-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+.ht-note {
+  margin-top: 12px !important;
+  font-size: 13px !important;
+  color: #8a82ad !important;
+}
+.ht-center {
+  text-align: center;
+  padding: 10px 20px;
+}
+.ht-step {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+}
+.ht-cam {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border: 3px solid #241d48;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #1b1440;
+  box-shadow: 0 6px 0 #241d48;
+}
+.ht-cam video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  filter: saturate(0.85) brightness(1.08);
+}
+.ht-live {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 5px;
+  border-radius: 999px;
+  background: rgba(36, 29, 72, 0.75);
+  color: #fff;
+  font: 600 13px/1 "Fredoka", sans-serif;
+}
+.ht-live i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7ff0c8;
+  box-shadow: 0 0 8px #7ff0c8;
+}
+.ht-info {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+.ht-dots {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  margin: 0 0 8px;
+  padding: 0;
+}
+.ht-dots li {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #241d48;
+  border-radius: 50%;
+  background: #fff;
+  font: 700 13px/1 "Fredoka", sans-serif;
+}
+.ht-dots li.now {
+  background: #ffd23f;
+  transform: scale(1.15);
+}
+.ht-dots li.done {
+  background: #5ed3b0;
+}
+.ht-pose {
+  animation: g-pop 0.4s var(--spring, ease) both;
+}
+.ht-how {
+  font-weight: 600 !important;
+  color: #241d48 !important;
+}
+.ht-what {
+  padding: 6px 14px;
+  border-radius: 14px;
+  background: #fff4c2;
+  font-size: 16px !important;
+}
+.ht-skip {
+  min-height: 42px;
+  font-size: 16px;
+}
+/* targets drawn over the whole screen (above the card) */
+.ht-star {
+  position: fixed;
+  z-index: 97;
+  width: 70px;
+  height: 70px;
+  translate: -50% -50%;
+  background: #ffd23f;
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  filter: drop-shadow(0 0 12px rgba(255, 210, 63, 0.8));
+  animation: ht-twinkle 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+.ht-star.got {
+  background: #5ed3b0;
+  animation: g-pop 0.4s var(--spring, ease) both;
+  opacity: 0.5;
+}
+@keyframes ht-twinkle {
+  50% {
+    transform: scale(1.15) rotate(10deg);
+  }
+}
+.ht-bigstar {
+  position: fixed;
+  z-index: 97;
+  left: 50%;
+  top: 14%;
+  translate: -50% 0;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  background: #ffd23f;
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: ht-twinkle 1.4s ease-in-out infinite;
+  pointer-events: none;
+}
+.ht-bigstar span {
+  margin-top: 26px;
+  font: 400 18px/1 "Lilita One", sans-serif;
+  color: #241d48;
+}
+.ht-palm {
+  position: fixed;
+  z-index: 97;
+  left: 50%;
+  top: 11%;
+  translate: -50% 0;
+  display: grid;
+  place-items: center;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #fff 58%, transparent 59%),
+    conic-gradient(#5bb8ff calc(var(--p, 0) * 360deg), rgba(255, 255, 255, 0.3) 0);
+  border: 3px solid #241d48;
+  pointer-events: none;
+}
+.ht-palm b {
+  font: 400 28px/1 "Lilita One", sans-serif;
+  color: #241d48;
+}
+.ht-seen {
+  position: fixed;
+  z-index: 97;
+  left: 50%;
+  bottom: 22px;
+  translate: -50% 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px 9px;
+  border: 3px solid #241d48;
+  border-radius: 999px;
+  background: #fff;
+  font: 600 17px/1 "Fredoka", sans-serif;
+  color: #241d48;
+}
+.ht-seen i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff8fb1;
+}
+.ht-seen[data-on="1"] i {
+  background: #5ed3b0;
+  box-shadow: 0 0 10px #5ed3b0;
+}
+
+/* ---------- the Glove Cam: a small game monitor at the bottom-left ---------- */
+html body .glove-cam.v2 {
+  position: fixed !important;
+  left: 20px !important;
+  bottom: 20px !important;
+  right: auto !important;
+  top: auto !important;
+  width: 210px !important;
+  height: auto !important;
+  padding: 0 !important;
+  border: 3px solid #241d48 !important;
+  border-radius: 20px !important;
+  background: #1b1440 !important;
+  box-shadow: 0 5px 0 #241d48 !important;
+  overflow: hidden;
+  z-index: 45 !important;
+}
+html body .glove-cam.v2::before,
+html body .glove-cam.v2::after {
+  display: none !important;
+}
+html body .glove-cam.v2 .gc-screen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #1b1440 !important;
+}
+html body .glove-cam.v2 video {
+  filter: saturate(0.8) brightness(1.05);
+  opacity: 0.85;
+}
+html body .glove-cam.v2 header {
+  top: 6px !important;
+  left: 6px !important;
+  right: 6px !important;
+  padding: 3px 4px 3px 10px !important;
+  border-radius: 999px !important;
+  background: rgba(36, 29, 72, 0.7) !important;
+  color: #fff !important;
+  font: 600 12px/1 "Fredoka", sans-serif !important;
+}
+html body .glove-cam.v2 header strong {
+  font: 600 12px/1 "Fredoka", sans-serif !important;
+  color: #fff !important;
+}
+html body .glove-cam.v2 header button {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  border: 0 !important;
+  background: #fff !important;
+  color: #241d48 !important;
+  box-shadow: none !important;
+}
+html body .glove-cam.v2 .gc-status {
+  left: 6px !important;
+  right: 6px !important;
+  bottom: 6px !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  border: 0 !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #241d48 !important;
+  font: 600 12px/1.1 "Fredoka", sans-serif !important;
+  box-shadow: none !important;
+}
+html body .glove-cam.v2 .gc-dot {
+  background: #5ed3b0 !important;
+}
+html body .glove-cam-pill {
+  position: fixed !important;
+  left: 20px !important;
+  bottom: 20px !important;
+  right: auto !important;
+  top: auto !important;
+  border: 3px solid #241d48 !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: #241d48 !important;
+  font: 600 13px/1 "Fredoka", sans-serif !important;
+  box-shadow: 0 3px 0 #241d48 !important;
+  z-index: 45 !important;
+}
+/* the glove sprite rides above everything (dialogs included) */
+html body .glove-sprite {
+  z-index: 300 !important;
+  /* v7.6: a bigger glove with a white rim, an ink outline glow and a soft shadow */
+  width: 172px !important;
+  height: 172px !important;
+  filter: drop-shadow(0 0 0 #fff) drop-shadow(0 0 3px #fff) drop-shadow(0 0 1.5px #241d48) drop-shadow(0 9px 10px rgba(20, 12, 50, 0.4));
+}
+/* the hand tracker drawn over a camera picture */
+.hand-tracker {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+html body .glove-avatar {
+  z-index: 299 !important;
+}
+.reduced-motion .ht-hero,
+.reduced-motion .ht-star,
+.reduced-motion .ht-bigstar {
+  animation: none;
+}

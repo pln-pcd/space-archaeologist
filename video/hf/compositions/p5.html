@@ -1,0 +1,233 @@
+<template>
+<style>
+@font-face { font-family: "Lilita One"; src: url("assets/fonts/lilita-one-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+.k-bg { position: absolute; inset: 0; background: radial-gradient(1200px 700px at 30% 20%, #2A1B66, #160E3A 70%); }
+.k-stars { position: absolute; inset: 0; background-image:
+  radial-gradient(2px 2px at 120px 160px, #fff8 50%, transparent 51%), radial-gradient(2px 2px at 1720px 120px, #fff9 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 420px 940px, #fff7 50%, transparent 51%), radial-gradient(2px 2px at 1500px 980px, #fff8 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 980px 60px, #fff6 50%, transparent 51%), radial-gradient(2px 2px at 60px 620px, #fff7 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 1860px 560px, #fff7 50%, transparent 51%), radial-gradient(2.5px 2.5px at 760px 1030px, #fff6 50%, transparent 51%); }
+.k-planet { position: absolute; border-radius: 50%; border: 5px solid #241D48; }
+.k-screen { position: absolute; left: 160px; top: 104px; width: 1600px; height: 900px; border-radius: 28px;
+  border: 6px solid #241D48; box-shadow: 0 10px 0 #241D48, 0 0 0 10px rgba(201,184,255,.18); overflow: hidden; background: #0d0826; }
+.k-zoom { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.k-zoom video, .k-zoom img.k-full { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; }
+.k-cursor { position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -6px 0 0 -10px; }
+.k-card { background: #FFFFFF; border: 6px solid #241D48; border-radius: 34px; box-shadow: 0 12px 0 #241D48; color: #241D48; }
+.k-kicker { font: 700 26px/1 "Fredoka"; letter-spacing: .16em; text-transform: uppercase; color: #7A6FB0; }
+.k-title { font: 400 116px/1 "Lilita One"; color: #241D48; letter-spacing: .01em; }
+.k-q { font: 600 42px/1.2 "Fredoka"; color: #4b4380; }
+.k-line { font: 400 84px/1.05 "Lilita One"; color: #fff; text-shadow: 0 6px 0 #241D48; -webkit-text-stroke: 3px #241D48; paint-order: stroke fill; }
+.k-line.ink { color: #241D48; text-shadow: none; -webkit-text-stroke: 0; }
+.k-hi { color: #FFD23F; }
+.k-bubble { position: absolute; background: #fff; border: 5px solid #241D48; border-radius: 26px; box-shadow: 0 7px 0 #241D48; padding: 16px 26px; font: 600 34px/1.2 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-bubble small { display: block; font: 700 18px/1 "Fredoka"; letter-spacing: .14em; text-transform: uppercase; color: #7A6FB0; margin-bottom: 6px; }
+.k-chip { display: inline-flex; align-items: center; gap: 12px; padding: 10px 22px 10px 16px; border-radius: 999px; border: 4px solid #241D48; background: #fff; box-shadow: 0 5px 0 #241D48; font: 600 30px/1 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-chip svg { width: 34px; height: 34px; }
+.k-chip.sun { background: #FFD23F; } .k-chip.mint { background: #8EE6C4; } .k-chip.lilac { background: #C9B8FF; } .k-chip.sky { background: #7CC8FF; } .k-chip.coral { background: #FF6B6B; color: #fff; }
+.k-credit { position: absolute; left: 160px; bottom: 26px; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.35); font: 500 19px/1.2 "Fredoka"; color: #fff; white-space: nowrap; }
+.k-label { position: absolute; padding: 10px 20px; border-radius: 14px; background: #241D48; color: #fff; font: 600 28px/1.2 "Fredoka"; white-space: nowrap; border: 3px solid #fff; }
+.k-tag-hole { position: absolute; width: 46px; height: 46px; border-radius: 50%; border: 6px solid #241D48; background: #160E3A; }
+.k-dust { position: absolute; inset: 0; border-radius: 30px;
+  background: radial-gradient(3px 3px at 20% 30%, #b9a98f 50%, transparent 52%) 0 0/38px 34px, radial-gradient(2px 2px at 60% 70%, #cbbda0 50%, transparent 52%) 0 0/29px 31px, linear-gradient(135deg, #d8c9ad, #c4b393);
+  -webkit-mask-image: linear-gradient(100deg, #000 0 42%, rgba(0,0,0,.6) 50%, transparent 58%); -webkit-mask-size: 300% 100%; -webkit-mask-repeat: no-repeat; -webkit-mask-position: 0% 0; }
+.k-ring { position: absolute; border-radius: 50%; border: 8px solid #8EE6C4; box-shadow: 0 0 0 6px #241D48 inset, 0 0 0 6px #241D48; }
+.k-stat { font: 400 150px/0.9 "Lilita One"; color: #FFD23F; -webkit-text-stroke: 5px #241D48; paint-order: stroke fill; text-shadow: 0 9px 0 #241D48; }
+
+#root { position: absolute; inset: 0; overflow: hidden; }
+</style>
+<div id="root" data-composition-id="p5" data-width="1920" data-height="1080">
+  <div class="k-bg"></div><div class="k-stars"></div>
+  <div class="k-planet" style="left:-90px;top:640px;width:260px;height:260px;background:#C9B8FF;opacity:.35"></div>
+  <div class="k-planet" style="left:1780px;top:70px;width:200px;height:200px;background:#FF6B6B;opacity:.3"></div>
+  <div id="p5-screen" class="k-screen"><div id="p5-zoom" class="k-zoom">
+    <video id="p5-v1" class="clip" src="assets/footage/novachat.mp4" muted playsinline data-start="3.6" data-duration="4.6" data-media-start="6.867" data-playback-rate="1.2" data-track-index="1" style="z-index:11"></video>
+    <video id="p5-v2" class="clip" src="assets/footage/novachat.mp4" muted playsinline data-start="8.2" data-duration="4.194" data-media-start="47.267" data-playback-rate="1" data-track-index="1" style="z-index:12"></video>
+    <video id="p5-v3" class="clip" src="assets/footage/rockbox.mp4" muted playsinline data-start="12.394" data-duration="8.517" data-media-start="7.033" data-playback-rate="1" data-track-index="1" style="z-index:17"></video>
+    <video id="p5-v4" class="clip" src="assets/footage/mission1.mp4" muted playsinline data-start="20.911" data-duration="6.149" data-media-start="49.1" data-playback-rate="0.8863229793462356" data-track-index="1" style="z-index:23"></video>
+    <video id="p5-v5" class="clip" src="assets/footage/facts.mp4" muted playsinline data-start="27.059" data-duration="8.602" data-media-start="0" data-playback-rate="0.48" data-track-index="1" style="z-index:27"></video>
+    <video id="p5-v6" class="clip" src="assets/footage/novachat.mp4" muted playsinline data-start="35.661" data-duration="7.023" data-media-start="28.467" data-playback-rate="1" data-track-index="1" style="z-index:31"></video>
+    <video id="p5-v7" class="clip" src="assets/footage/settings.mp4" muted playsinline data-start="42.685" data-duration="8.175" data-media-start="2.133" data-playback-rate="0.9891946992864427" data-track-index="1" style="z-index:35"></video>
+    <video id="p5-v8" class="clip" src="assets/footage/settings.mp4" muted playsinline data-start="50.86" data-duration="9.555" data-media-start="3.367" data-playback-rate="0.7172510029652888" data-track-index="1" style="z-index:38"></video>
+    <div id="p5-cur" class="k-cursor" style="z-index:500;opacity:0"><svg viewBox="0 0 64 64"><path d="M10 6 L10 50 L22 39 L30 58 L39 54 L31 36 L48 36 Z" fill="#fff" stroke="#241D48" stroke-width="5" stroke-linejoin="round"/></svg></div>
+  </div></div>
+  <div id="p5-o11" class="clip" data-start="0" data-duration="3.55" data-layout-allow-overlap style="position:absolute;inset:0;z-index:11"><div id="p5-o11-in" style="position:absolute;inset:0"><div class="k-card" style="position:absolute;left:330px;top:250px;width:1260px;height:560px;padding:70px 90px 0 150px;overflow:hidden">
+          <i class="k-tag-hole" style="left:48px;top:62px"></i>
+          <div class="k-kicker">Field report 05 of 06</div>
+          <div class="k-title" style="margin-top:22px">Why it works</div>
+          <div class="k-q" style="margin-top:28px;max-width:900px">Every feature has a reason.</div>
+          <div id="p5-o11-dust" class="k-dust"></div></div>
+          <div id="p5-o11-ring" class="k-ring" style="left:960px;top:540px;width:2600px;height:2600px;margin:-1300px 0 0 -1300px;opacity:0"></div></div></div>
+  <div id="p5-o14" class="clip" data-start="3.6" data-duration="8.744" style="position:absolute;right:160px;top:22px;z-index:60"><div id="p5-o14-in"><span class="k-chip sun" style="font:400 36px/1 'Lilita One';padding:12px 26px">Why Nova?</span></div></div>
+  <div id="p5-o17" class="clip" data-start="4.8" data-duration="7.544"  style="position:absolute;z-index:17;left:0;right:0;top:802px"><div id="p5-o17-in"><div style="text-align:center;white-space:nowrap"><span id="p5-o17-c0" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg>Voice or text</span></span><span id="p5-o17-c1" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>Stays on space</span></span><span id="p5-o17-c2" style="display:inline-block;margin:0 10px"><span class="k-chip mint" style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sourced facts</span></span></div></div></div>
+  <div id="p5-o19" class="clip" data-start="12.394" data-duration="8.467" style="position:absolute;right:160px;top:22px;z-index:60"><div id="p5-o19-in"><span class="k-chip sun" style="font:400 36px/1 'Lilita One';padding:12px 26px">Why hands?</span></div></div>
+  <div id="p5-o20" class="clip" data-start="12.394" data-duration="8.467" style="position:absolute;left:160px;top:26px;z-index:60"><div id="p5-o20-in"><span class="k-chip lilac" style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.9-2.4L3.4 16.9a2 2 0 0 1 2.8-2.8L8 16"/></svg>Hands</span></div></div>
+  <div id="p5-o22" class="clip" data-start="12.594" data-duration="8.267"  style="position:absolute;z-index:22;left:210px;top:950px"><div id="p5-o22-in"><div class="k-label">Simulated hand input (no webcam)</div></div></div>
+  <div id="p5-o23" class="clip" data-start="15.994" data-duration="4.867"  style="position:absolute;z-index:23;left:0;right:0;top:802px"><div id="p5-o23-in"><div style="text-align:center;white-space:nowrap"><span id="p5-o23-c0" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3l7 17 2.5-7.5L21 10z"/></svg>Mouse</span></span><span id="p5-o23-c1" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M7 15h10"/></svg>Keyboard</span></span><span id="p5-o23-c2" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.9-2.4L3.4 16.9a2 2 0 0 1 2.8-2.8L8 16"/></svg>Touch</span></span></div></div></div>
+  <div id="p5-o25" class="clip" data-start="20.911" data-duration="6.099" style="position:absolute;right:160px;top:22px;z-index:60"><div id="p5-o25-in"><span class="k-chip sun" style="font:400 36px/1 'Lilita One';padding:12px 26px">Why voices?</span></div></div>
+  <div id="p5-o27" class="clip" data-start="22.311" data-duration="4.699"  style="position:absolute;z-index:27;left:0;right:0;top:802px"><div id="p5-o27-in"><div style="text-align:center;white-space:nowrap"><span id="p5-o27-c0" style="display:inline-block;margin:0 10px"><span class="k-chip sun" style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M10 10.5a2.5 2.5 0 1 0 0 3M17 10.5a2.5 2.5 0 1 0 0 3"/></svg>Read aloud + captions</span></span></div></div></div>
+  <div id="p5-o30" class="clip" data-start="29.259" data-duration="6.352"  style="position:absolute;z-index:30;left:1240px;top:330px"><div id="p5-o30-in"><div class="k-card" style="padding:26px 40px 30px;min-width:470px"><div class="k-stat">275</div><div style="font:600 32px/1.2 'Fredoka';margin-top:10px">facts, each with a NASA source</div></div></div></div>
+  <div id="p5-o31" class="clip" data-start="31.159" data-duration="4.452"  style="position:absolute;z-index:31;left:1240px;top:640px"><div id="p5-o31-in"><div class="k-card" style="padding:26px 40px 30px;min-width:470px"><div class="k-stat">46</div><div style="font:600 32px/1.2 'Fredoka';margin-top:10px">NASA sources</div></div></div></div>
+  <div id="p5-o34" class="clip" data-start="37.261" data-duration="5.373"  style="position:absolute;z-index:34;left:0;right:0;top:802px"><div id="p5-o34-in"><div style="text-align:center;white-space:nowrap"><span id="p5-o34-c0" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Asteroids today</span></span><span id="p5-o34-c1" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7z"/></svg>Space weather</span></span><span id="p5-o34-c2" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/></svg>Mars weather</span></span></div></div></div>
+  <div id="p5-o35" class="clip" data-start="36.061" data-duration="6.573"  style="position:absolute;z-index:35;left:210px;top:160px"><div id="p5-o35-in"><div class="k-label">Live from NASA open APIs: NeoWs, DONKI, Curiosity REMS</div></div></div>
+  <div id="p5-o38" class="clip" data-start="43.685" data-duration="7.125"  style="position:absolute;z-index:38;left:0;right:0;top:802px"><div id="p5-o38-in"><div style="text-align:center;white-space:nowrap"><span id="p5-o38-c0" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M3 3l18 18"/></svg>No accounts</span></span><span id="p5-o38-c1" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>Camera + voice stay on device</span></span><span id="p5-o38-c2" style="display:inline-block;margin:0 10px"><span class="k-chip mint" style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>AI off switch</span></span></div></div></div>
+  <div id="p5-o41" class="clip" data-start="51.66" data-duration="8.705"  style="position:absolute;z-index:41;left:0;right:0;top:802px"><div id="p5-o41-in"><div style="text-align:center;white-space:nowrap"><span id="p5-o41-c0" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M10 10.5a2.5 2.5 0 1 0 0 3M17 10.5a2.5 2.5 0 1 0 0 3"/></svg>Captions on</span></span><span id="p5-o41-c1" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7z"/></svg>Calm motion</span></span><span id="p5-o41-c2" style="display:inline-block;margin:0 10px"><span class="k-chip " style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v14a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v14a2 2 0 0 1 2-2h8z"/></svg>Easy-read font</span></span><span id="p5-o41-c3" style="display:inline-block;margin:0 10px"><span class="k-chip mint" style=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l20 20M8.5 16.4a5 5 0 0 1 7 0M5 12.6a10 10 0 0 1 5.2-2.8M19 12.6a10 10 0 0 0-2.3-1.6M12 20h.01"/></svg>Offline fact sheet</span></span></div></div></div>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.set("#p5-zoom", { x: 0, y: 0, scale: 0.833 }, 0);
+  tl.set("#p5-screen", { opacity: 0 }, 0);
+  tl.fromTo("#p5-o11-in", { opacity: 0, y: 40, rotation: -2 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "back.out(1.4)" }, 0);
+  tl.fromTo("#p5-o11-dust", { xPercent: 0, skewX: 0, opacity: 1 }, { xPercent: 108, skewX: -12, opacity: 0.2, duration: 0.6, ease: "power2.inOut" }, 0.15);
+  tl.fromTo("#p5-o11-ring", { scale: 0.015, opacity: 0.9 }, { scale: 1, opacity: 0, duration: 0.6, ease: "power2.out" }, 3);
+  tl.to("#p5-o11-in", { opacity: 0, y: -60, duration: 0.3, ease: "power3.in" }, 3.2);
+  tl.set("#p5-screen", { opacity: 1 }, 3.6);
+  tl.set("#p5-zoom", {"x":-480,"y":-270,"scale":1.083}, 3.6);
+  tl.set("#p5-cur", { x: 1151, y: 946, opacity: 1, scale: 1 }, 3.6);
+  tl.set("#p5-cur", { x: 1158, y: 947, opacity: 1, scale: 1 }, 3.933);
+  tl.set("#p5-cur", { x: 1205, y: 948, opacity: 1, scale: 1 }, 4);
+  tl.set("#p5-cur", { x: 1410, y: 956, opacity: 1, scale: 1 }, 4.067);
+  tl.set("#p5-cur", { x: 1492, y: 960, opacity: 1, scale: 1 }, 4.133);
+  tl.set("#p5-cur", { x: 1515, y: 960, opacity: 1, scale: 1 }, 4.2);
+  tl.set("#p5-cur", { opacity: 0 }, 4.467);
+  tl.set("#p5-cur", { opacity: 0 }, 8.2);
+  tl.set("#p5-zoom", {"x":-480,"y":-270,"scale":1.083}, 8.2);
+  tl.set("#p5-cur", { opacity: 0 }, 12.394);
+  tl.fromTo("#p5-o14-in", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }, 3.65);
+  tl.fromTo("#p5-o17-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 4.8);
+  tl.fromTo("#p5-o17-c1", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 5.7);
+  tl.fromTo("#p5-o17-c2", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 6.6);
+  tl.to("#p5-o17-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 12.144);
+  tl.set("#p5-screen", { opacity: 1 }, 12.394);
+  tl.set("#p5-zoom", {"x":0,"y":0,"scale":0.833}, 12.394);
+  tl.set("#p5-cur", { opacity: 0 }, 20.911);
+  tl.fromTo("#p5-o19-in", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }, 12.444);
+  tl.fromTo("#p5-o20-in", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, 12.494);
+  tl.fromTo("#p5-o22-in", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 12.594);
+  tl.fromTo("#p5-o23-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 15.994);
+  tl.fromTo("#p5-o23-c1", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 16.344);
+  tl.fromTo("#p5-o23-c2", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 16.694);
+  tl.to("#p5-o23-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 20.661);
+  tl.set("#p5-screen", { opacity: 1 }, 20.911);
+  tl.set("#p5-zoom", {"x":-120,"y":-135,"scale":0.958}, 20.911);
+  tl.set("#p5-cur", { opacity: 0 }, 27.06);
+  tl.fromTo("#p5-o25-in", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }, 20.961);
+  tl.fromTo("#p5-o27-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 22.311);
+  tl.to("#p5-o27-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 26.81);
+  tl.set("#p5-screen", { opacity: 1 }, 27.059);
+  tl.set("#p5-zoom", {"x":-180,"y":-127.5,"scale":1.75}, 27.059);
+  tl.set("#p5-cur", { opacity: 0 }, 35.661);
+  tl.fromTo("#p5-o30-in", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 29.259);
+  tl.to("#p5-o30-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 35.411);
+  tl.fromTo("#p5-o31-in", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 31.159);
+  tl.to("#p5-o31-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 35.411);
+  tl.set("#p5-screen", { opacity: 1 }, 35.661);
+  tl.set("#p5-zoom", {"x":-662.083,"y":-405,"scale":1.208}, 35.661);
+  tl.set("#p5-cur", { opacity: 0 }, 42.684);
+  tl.fromTo("#p5-o34-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 37.261);
+  tl.fromTo("#p5-o34-c1", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 37.861);
+  tl.fromTo("#p5-o34-c2", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 38.461);
+  tl.to("#p5-o34-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 42.434);
+  tl.fromTo("#p5-o35-in", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 36.061);
+  tl.set("#p5-screen", { opacity: 1 }, 42.685);
+  tl.set("#p5-zoom", {"x":-1280,"y":-330,"scale":1.5}, 42.685);
+  tl.to("#p5-zoom", { ...{"x":-1472,"y":-382,"scale":1.6}, duration: 5, ease: "sine.inOut" }, 42.985);
+  tl.set("#p5-cur", { x: 1872, y: 48, opacity: 1, scale: 1 }, 42.685);
+  tl.set("#p5-cur", { x: 1870, y: 50, opacity: 1, scale: 1 }, 43.018);
+  tl.set("#p5-cur", { x: 1860, y: 68, opacity: 1, scale: 1 }, 43.085);
+  tl.set("#p5-cur", { x: 1830, y: 115, opacity: 1, scale: 1 }, 43.152);
+  tl.set("#p5-cur", { x: 1773, y: 207, opacity: 1, scale: 1 }, 43.218);
+  tl.set("#p5-cur", { x: 1690, y: 342, opacity: 1, scale: 1 }, 43.285);
+  tl.set("#p5-cur", { x: 1633, y: 434, opacity: 1, scale: 1 }, 43.352);
+  tl.set("#p5-cur", { x: 1603, y: 481, opacity: 1, scale: 1 }, 43.418);
+  tl.set("#p5-cur", { x: 1593, y: 499, opacity: 1, scale: 1 }, 43.485);
+  tl.set("#p5-cur", { x: 1591, y: 501, opacity: 1, scale: 1 }, 43.552);
+  tl.set("#p5-cur", { x: 1595, y: 502, opacity: 1, scale: 1 }, 45.018);
+  tl.set("#p5-cur", { x: 1609, y: 507, opacity: 1, scale: 1 }, 45.085);
+  tl.set("#p5-cur", { x: 1640, y: 516, opacity: 1, scale: 1 }, 45.152);
+  tl.set("#p5-cur", { x: 1680, y: 528, opacity: 1, scale: 1 }, 45.218);
+  tl.set("#p5-cur", { x: 1702, y: 534, opacity: 1, scale: 1 }, 45.285);
+  tl.set("#p5-cur", { x: 1710, y: 537, opacity: 1, scale: 1 }, 45.352);
+  tl.set("#p5-cur", { x: 1711, y: 537, opacity: 1, scale: 1 }, 45.418);
+  tl.set("#p5-cur", { x: 1713, y: 535, opacity: 1, scale: 1 }, 46.552);
+  tl.set("#p5-cur", { x: 1719, y: 525, opacity: 1, scale: 1 }, 46.618);
+  tl.set("#p5-cur", { x: 1732, y: 504, opacity: 1, scale: 1 }, 46.685);
+  tl.set("#p5-cur", { x: 1756, y: 467, opacity: 1, scale: 1 }, 46.752);
+  tl.set("#p5-cur", { x: 1780, y: 430, opacity: 1, scale: 1 }, 46.818);
+  tl.set("#p5-cur", { x: 1793, y: 409, opacity: 1, scale: 1 }, 46.885);
+  tl.set("#p5-cur", { x: 1799, y: 400, opacity: 1, scale: 1 }, 46.952);
+  tl.set("#p5-cur", { x: 1801, y: 397, opacity: 1, scale: 1 }, 47.018);
+  tl.set("#p5-cur", { x: 1799, y: 398, opacity: 1, scale: 1 }, 48.752);
+  tl.set("#p5-cur", { x: 1785, y: 408, opacity: 1, scale: 1 }, 48.818);
+  tl.set("#p5-cur", { x: 1747, y: 433, opacity: 1, scale: 1 }, 48.885);
+  tl.set("#p5-cur", { x: 1676, y: 480, opacity: 1, scale: 1 }, 48.952);
+  tl.set("#p5-cur", { x: 1622, y: 516, opacity: 1, scale: 1 }, 49.018);
+  tl.set("#p5-cur", { x: 1598, y: 533, opacity: 1, scale: 1 }, 49.085);
+  tl.set("#p5-cur", { x: 1591, y: 537, opacity: 1, scale: 1 }, 49.152);
+  tl.set("#p5-cur", { x: 1591, y: 537, opacity: 1, scale: 0.82 }, 49.218);
+  tl.set("#p5-cur", { x: 1591, y: 537, opacity: 1, scale: 1 }, 49.285);
+  tl.set("#p5-cur", { x: 1593, y: 537, opacity: 1, scale: 1 }, 49.885);
+  tl.set("#p5-cur", { x: 1609, y: 532, opacity: 1, scale: 1 }, 49.952);
+  tl.set("#p5-cur", { x: 1651, y: 519, opacity: 1, scale: 1 }, 50.018);
+  tl.set("#p5-cur", { x: 1693, y: 507, opacity: 1, scale: 1 }, 50.085);
+  tl.set("#p5-cur", { x: 1709, y: 502, opacity: 1, scale: 1 }, 50.152);
+  tl.set("#p5-cur", { x: 1711, y: 501, opacity: 1, scale: 1 }, 50.218);
+  tl.set("#p5-cur", { opacity: 0 }, 50.86);
+  tl.fromTo("#p5-o38-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 43.685);
+  tl.fromTo("#p5-o38-c1", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 44.685);
+  tl.fromTo("#p5-o38-c2", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 45.685);
+  tl.to("#p5-o38-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 50.61);
+  tl.set("#p5-screen", { opacity: 1 }, 50.86);
+  tl.set("#p5-zoom", {"x":-1280,"y":-330,"scale":1.5}, 50.86);
+  tl.to("#p5-zoom", { ...{"x":-1472,"y":-382,"scale":1.6}, duration: 5, ease: "sine.inOut" }, 51.16);
+  tl.set("#p5-cur", { x: 1591, y: 501, opacity: 1, scale: 1 }, 50.86);
+  tl.set("#p5-cur", { x: 1595, y: 502, opacity: 1, scale: 1 }, 52.327);
+  tl.set("#p5-cur", { x: 1600, y: 504, opacity: 1, scale: 1 }, 52.393);
+  tl.set("#p5-cur", { x: 1609, y: 507, opacity: 1, scale: 1 }, 52.46);
+  tl.set("#p5-cur", { x: 1640, y: 516, opacity: 1, scale: 1 }, 52.527);
+  tl.set("#p5-cur", { x: 1662, y: 523, opacity: 1, scale: 1 }, 52.593);
+  tl.set("#p5-cur", { x: 1693, y: 532, opacity: 1, scale: 1 }, 52.66);
+  tl.set("#p5-cur", { x: 1702, y: 534, opacity: 1, scale: 1 }, 52.727);
+  tl.set("#p5-cur", { x: 1710, y: 537, opacity: 1, scale: 1 }, 52.793);
+  tl.set("#p5-cur", { x: 1711, y: 537, opacity: 1, scale: 1 }, 52.86);
+  tl.set("#p5-cur", { x: 1712, y: 536, opacity: 1, scale: 1 }, 54.46);
+  tl.set("#p5-cur", { x: 1715, y: 531, opacity: 1, scale: 1 }, 54.527);
+  tl.set("#p5-cur", { x: 1719, y: 525, opacity: 1, scale: 1 }, 54.593);
+  tl.set("#p5-cur", { x: 1732, y: 504, opacity: 1, scale: 1 }, 54.66);
+  tl.set("#p5-cur", { x: 1743, y: 488, opacity: 1, scale: 1 }, 54.727);
+  tl.set("#p5-cur", { x: 1769, y: 446, opacity: 1, scale: 1 }, 54.793);
+  tl.set("#p5-cur", { x: 1780, y: 430, opacity: 1, scale: 1 }, 54.86);
+  tl.set("#p5-cur", { x: 1793, y: 409, opacity: 1, scale: 1 }, 54.927);
+  tl.set("#p5-cur", { x: 1797, y: 403, opacity: 1, scale: 1 }, 54.993);
+  tl.set("#p5-cur", { x: 1799, y: 400, opacity: 1, scale: 1 }, 55.06);
+  tl.set("#p5-cur", { x: 1801, y: 397, opacity: 1, scale: 1 }, 55.127);
+  tl.set("#p5-cur", { x: 1799, y: 398, opacity: 1, scale: 1 }, 57.527);
+  tl.set("#p5-cur", { x: 1785, y: 408, opacity: 1, scale: 1 }, 57.593);
+  tl.set("#p5-cur", { x: 1770, y: 418, opacity: 1, scale: 1 }, 57.66);
+  tl.set("#p5-cur", { x: 1716, y: 454, opacity: 1, scale: 1 }, 57.727);
+  tl.set("#p5-cur", { x: 1676, y: 480, opacity: 1, scale: 1 }, 57.793);
+  tl.set("#p5-cur", { x: 1622, y: 516, opacity: 1, scale: 1 }, 57.86);
+  tl.set("#p5-cur", { x: 1607, y: 527, opacity: 1, scale: 1 }, 57.927);
+  tl.set("#p5-cur", { x: 1598, y: 533, opacity: 1, scale: 1 }, 57.993);
+  tl.set("#p5-cur", { x: 1591, y: 537, opacity: 1, scale: 1 }, 58.06);
+  tl.set("#p5-cur", { x: 1599, y: 535, opacity: 1, scale: 1 }, 59.127);
+  tl.set("#p5-cur", { x: 1609, y: 532, opacity: 1, scale: 1 }, 59.193);
+  tl.set("#p5-cur", { x: 1651, y: 519, opacity: 1, scale: 1 }, 59.26);
+  tl.set("#p5-cur", { x: 1676, y: 512, opacity: 1, scale: 1 }, 59.327);
+  tl.set("#p5-cur", { x: 1704, y: 503, opacity: 1, scale: 1 }, 59.393);
+  tl.set("#p5-cur", { x: 1709, y: 502, opacity: 1, scale: 1 }, 59.46);
+  tl.set("#p5-cur", { x: 1711, y: 501, opacity: 1, scale: 1 }, 59.527);
+  tl.set("#p5-cur", { x: 1711, y: 501, opacity: 1, scale: 0.82 }, 59.593);
+  tl.set("#p5-cur", { x: 1711, y: 501, opacity: 1, scale: 1 }, 59.66);
+  tl.set("#p5-cur", { opacity: 0 }, 60.415);
+  tl.fromTo("#p5-o41-c0", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 51.66);
+  tl.fromTo("#p5-o41-c1", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 52.86);
+  tl.fromTo("#p5-o41-c2", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 54.06);
+  tl.fromTo("#p5-o41-c3", { opacity: 0, scale: 0.7, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, 55.26);
+  tl.to("#p5-o41-in", { opacity: 0, scale: 0.94, duration: 0.18, ease: "power2.in" }, 60.165);
+  window.__timelines["p5"] = tl;
+</script>
+</template>

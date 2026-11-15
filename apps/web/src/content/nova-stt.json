@@ -1,0 +1,1 @@
+{ "model": "onnx-community/whisper-tiny.en", "_about": "On-device speech-to-text model (transformers.js). Chosen by tools/stt_bench.mjs; see docs/design/NOVA.md." }

@@ -1,0 +1,69 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"reducedMotion","type":"boolean","label":"Reduced motion","default":false},
+    {"id":"device","type":"enum","label":"Device","default":"computer","options":[{"value":"computer","label":"Computer"},{"value":"tablet","label":"Tablet"},{"value":"phone","label":"Phone"}]}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <!-- Chapter 1 story (§8b): ten shots, e01-e21, timed from the narration (story/odyssey/storyline.ts).
+         Rendered by the GAME'S OWN scene code (assets/scenes.js, built from apps/web/src): the same
+         module plays live in the game. No text in the frame: captions stay live HTML cards in the game,
+         and the narration is the game's own audio clock (this film is muted). -->
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #000000;
+      }
+      #root {
+        position: absolute;
+        inset: 0;
+      }
+      #stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="ch1-story" data-start="0" data-duration="111.72" data-width="1920" data-height="1080">
+      <!-- the motion is all inside the WebGL canvas (the DOM layout audit cannot see it) -->
+      <div id="stage" data-layout-ignore data-hold></div>
+    </div>
+    <script type="module">
+      import "./assets/scenes.js";
+      window.__hf = window.__hf || {};
+      window.__hf.buildReady = window.__hf.buildReady || {};
+      const vars = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
+      const scene = window.OdysseyScenes.mount("ch1-story", document.getElementById("stage"), vars);
+      window.__hf.buildReady["ch1-story"] = scene.ready;
+      window.addEventListener("hf-seek", (e) => {
+        const t = e.detail.time;
+        // once ready, forward seeks draw synchronously; a backward seek re-mounts and returns a promise
+        const p = scene.isReady ? scene.renderAt(t) : scene.ready.then(() => scene.renderAt(t));
+        if (p && e.detail.waitUntil) e.detail.waitUntil(p);
+      });
+      scene.ready.then(() => scene.renderAt(0));
+      // one paused timeline spanning the film (the 3D is drawn from hf-seek time)
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#stage", { opacity: 1 }, 0).set("#stage", { opacity: 1 }, 111.71);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["ch1-story"] = tl;
+    </script>
+  </body>
+</html>

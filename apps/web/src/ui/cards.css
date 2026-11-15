@@ -1,0 +1,87 @@
+/* Cards v2: storybook-night panels with a bright ribbon header, sticker outlines and a little
+   motion in every card (bible §12). Loaded after game.css so it restyles the old panels. */
+
+/* ---------- shared scrim ---------- */
+
+/* ---------- generic station panel ---------- */
+.station-panel {
+  position: relative;
+  border-radius: 34px !important;
+  border: 4px solid #343029 !important;
+  background:
+    radial-gradient(circle at 1px 1px, #ffffff10 1px, transparent 1.5px) 0 0 / 22px 22px,
+    linear-gradient(165deg, #4b565c, #30373a 60%, #252b2e);
+  box-shadow:
+    0 0 0 5px #aba395,
+    0 0 0 9px #343029,
+    0 16px 0 9px #1c2022,
+    0 50px 110px #000c !important;
+  overflow: hidden;
+}
+.station-panel {
+  width: min(700px, calc(100vw - 60px));
+}
+
+/* ---------- sealed chapter card ---------- */
+.sealed-card {
+  width: min(640px, 92vw);
+  border-radius: 38px;
+  border: 5px solid #343029;
+  background: #f4f3f1;
+  color: #343029;
+  box-shadow:
+    0 0 0 6px #d5dadd,
+    0 0 0 10px #343029,
+    0 18px 0 10px #1c2022,
+    0 60px 120px #000c;
+  overflow: hidden;
+}
+@keyframes sc-drift {
+  to {
+    background-position: -240px 0;
+  }
+}
+@keyframes sc-scan {
+  to {
+    top: 100%;
+  }
+}
+@keyframes sc-bar {
+  50% {
+    height: 100%;
+  }
+}
+
+/* ---------- Voyager live countdown ---------- */
+@keyframes voy-blip {
+  0%,
+  60% {
+    opacity: 0.2;
+    scale: 0.6;
+  }
+  70% {
+    opacity: 1;
+    scale: 1.4;
+  }
+  100% {
+    opacity: 0.3;
+    scale: 1;
+  }
+}
+@keyframes voy-float {
+  50% {
+    translate: 0 -6px;
+    rotate: 4deg;
+  }
+}
+@keyframes voy-flip {
+  from {
+    transform: rotateX(70deg);
+    opacity: 0.4;
+  }
+}
+
+.od-badge {
+  white-space: nowrap;
+  flex: none;
+}

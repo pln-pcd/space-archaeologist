@@ -1,0 +1,32 @@
+{
+  "_about": "Sealed chapters (bible §11). One sourced teaser each. Lines: type fact (sourceIds required) or imagine.",
+  "teasers": [
+    {
+      "chapter": "viking",
+      "title": "Viking 1",
+      "place": "Mars · Chryse Planitia",
+      "lines": [
+        { "type": "fact", "text": "The first spacecraft to land on Mars and do its job.", "sourceIds": ["F6"] },
+        { "type": "imagine", "text": "Viking is still asleep. Its signal is coming soon!" }
+      ]
+    },
+    {
+      "chapter": "pioneer",
+      "title": "Pioneer 10",
+      "place": "The asteroid belt and Jupiter",
+      "lines": [
+        { "type": "fact", "text": "The first spacecraft to cross the asteroid belt.", "sourceIds": ["F8"] },
+        { "type": "imagine", "text": "Pioneer is far, far away. Listen for it soon!" }
+      ]
+    },
+    {
+      "chapter": "voyager",
+      "title": "Voyager 1",
+      "place": "Interstellar space",
+      "lines": [
+        { "type": "fact", "text": "Voyager 1 reaches one light-day from Earth on 18 Nov 2026.", "sourceIds": ["F1"] },
+        { "type": "imagine", "text": "Check the live panel by the airlock!" }
+      ]
+    }
+  ]
+}

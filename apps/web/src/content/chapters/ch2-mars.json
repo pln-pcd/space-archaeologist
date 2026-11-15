@@ -1,0 +1,636 @@
+{
+  "id": "opportunity",
+  "title": "One More Hill",
+  "place": "Meridiani Planum",
+  "date": "2004–2018",
+  "machine": "Opportunity",
+  "motif": "opportunity",
+  "beats": [
+    {
+      "id": "A",
+      "title": "The plan for Mars",
+      "lines": [
+        {
+          "id": "m-plan",
+          "text": "In June 2003, NASA shared this animation of the plan.",
+          "type": "fact",
+          "speaker": "nova",
+          "sourceIds": [
+            "M_VIDEO"
+          ],
+          "vo": true
+        },
+        {
+          "id": "m-turn",
+          "text": "That was the plan. Now let's make it happen!",
+          "type": "imagine",
+          "speaker": "nova",
+          "vo": true
+        }
+      ],
+      "video": {
+        "src": "/media/ch2/mer-plan.mp4",
+        "poster": "/media/ch2/mer-plan-poster.jpg",
+        "captions": "/media/ch2/mer-plan.en.vtt",
+        "credit": "Video: NASA/JPL-Caltech",
+        "sourceIds": [
+          "M_VIDEO"
+        ]
+      },
+      "kind": "scene",
+      "verbs": []
+    },
+    {
+      "id": "B",
+      "title": "A night launch",
+      "lines": [
+        {
+          "id": "b-pull",
+          "text": "Pull down to start the engines.",
+          "type": "imagine",
+          "speaker": "nova",
+          "vo": true
+        },
+        {
+          "id": "b-liftoff",
+          "text": "Liftoff! Push up to climb.",
+          "type": "imagine",
+          "speaker": "nova",
+          "vo": true
+        },
+        {
+          "id": "b-stage",
+          "text": "The boosters separate. The upper stage carries Opportunity onward.",
+          "type": "fact",
+          "speaker": "nova",
+          "sourceIds": [
+            "M_LAUNCH_KIT"
+          ],
+          "vo": true
+        },
+        {
+          "id": "b-date",
+          "text": "Opportunity launched July 7, 2003, at 11:18 p.m. EDT, at night!",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_LAUNCH"
+          ],
+          "vo": true
+        },
+        {
+          "id": "b-pad",
+          "text": "Its Delta II Heavy rocket had nine strap-on boosters.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_LAUNCH_KIT"
+          ],
+          "vo": true
+        },
+        {
+          "id": "b-beach",
+          "text": "The launch glare briefly lit up Florida's beaches.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_LAUNCH"
+          ],
+          "vo": true
+        },
+        {
+          "id": "b-imagine",
+          "text": "In real life, the launch team and computers controlled it. Here, you help.",
+          "type": "imagine",
+          "speaker": "narrator",
+          "vo": true
+        }
+      ],
+      "kind": "scene",
+      "verbs": []
+    },
+    {
+      "id": "C",
+      "title": "A soft landing",
+      "lines": [
+        {
+          "id": "m-cruise",
+          "text": "The trip to Mars took about six and a half months.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_LAUNCH",
+            "F4"
+          ],
+          "vo": true,
+          "shot": "cruise"
+        },
+        {
+          "id": "m-heat",
+          "text": "The heat shield protected Opportunity as it entered the thin Martian air.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "heat"
+        },
+        {
+          "id": "m-chute",
+          "text": "A parachute opened to slow the fall.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "chute"
+        },
+        {
+          "id": "m-drop",
+          "text": "The heat shield fell away.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "drop"
+        },
+        {
+          "id": "m-rope",
+          "text": "The lander lowered on a rope beneath the backshell.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "rope"
+        },
+        {
+          "id": "m-bags",
+          "text": "Giant airbags inflated around the lander.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "bags"
+        },
+        {
+          "id": "m-rockets",
+          "text": "Rockets on the backshell slowed the fall almost to a stop.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "rockets"
+        },
+        {
+          "id": "m-cut",
+          "text": "The rope was cut. The airbag ball dropped and bounced across the plain.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "cut"
+        },
+        {
+          "id": "m-hole",
+          "text": "It rolled into a small crater. Scientists called it a hole-in-one!",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F14",
+            "M_HOLE"
+          ],
+          "vo": true,
+          "shot": "hole"
+        },
+        {
+          "id": "m-date",
+          "text": "January 24, 2004 (U.S. time). January 25 in UTC.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F4"
+          ],
+          "vo": true
+        }
+      ],
+      "kind": "scene",
+      "verbs": []
+    },
+    {
+      "id": "D",
+      "title": "Opening like a flower",
+      "lines": [
+        {
+          "id": "m-deflate",
+          "text": "The airbags deflated and pulled back.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "deflate"
+        },
+        {
+          "id": "m-petals",
+          "text": "The lander opened its petals like a flower.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "petals"
+        },
+        {
+          "id": "m-unfold",
+          "text": "Opportunity unfolded its solar panels and camera mast.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "unfold"
+        },
+        {
+          "id": "m-roll",
+          "text": "It slowly drove onto the ground, leaving its first wheel tracks.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_EDL"
+          ],
+          "vo": true,
+          "shot": "roll"
+        }
+      ],
+      "kind": "scene",
+      "verbs": []
+    },
+    {
+      "id": "E",
+      "title": "One more hill",
+      "lines": [
+        {
+          "id": "m-story-01",
+          "text": "Opportunity woke up inside a small crater on a plain called Meridiani.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F22"
+          ],
+          "vo": true,
+          "shot": "crater"
+        },
+        {
+          "id": "m-story-02",
+          "text": "All around were tiny round pebbles. Scientists nicknamed them 'blueberries.'",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F14"
+          ],
+          "vo": true,
+          "shot": "berries"
+        },
+        {
+          "id": "m-story-03",
+          "text": "They're really grey. They looked blue in special false-colour pictures.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "M_GREY"
+          ],
+          "vo": true,
+          "shot": "berries"
+        },
+        {
+          "id": "m-story-04",
+          "text": "They formed inside rocks that were soaked by water long ago.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F14"
+          ],
+          "vo": true,
+          "shot": "water"
+        },
+        {
+          "id": "m-story-05",
+          "text": "Clues showed this place was once the shore of a salty sea.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F14"
+          ],
+          "vo": true,
+          "shot": "shore"
+        },
+        {
+          "id": "m-story-06",
+          "text": "Opportunity ran on sunlight. Dust slowly covered its solar panels.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F15"
+          ],
+          "vo": true,
+          "shot": "dust"
+        },
+        {
+          "id": "m-story-07",
+          "text": "But Martian winds sometimes blew the dust away, and its power came back.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F15"
+          ],
+          "vo": true,
+          "shot": "wind"
+        },
+        {
+          "id": "m-story-08",
+          "text": "Once, it got stuck in a sand dune for over a month.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F14"
+          ],
+          "vo": true,
+          "shot": "stuck"
+        },
+        {
+          "id": "m-story-09",
+          "text": "Engineers on Earth carefully drove it out.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F14"
+          ],
+          "vo": true,
+          "shot": "free"
+        },
+        {
+          "id": "m-story-10",
+          "text": "It kept exploring, crater after crater.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F4"
+          ],
+          "vo": true,
+          "shot": "drive"
+        },
+        {
+          "id": "m-story-11",
+          "text": "It became the first robot to drive farther than a marathon on another world.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F4"
+          ],
+          "vo": true,
+          "shot": "marathon"
+        },
+        {
+          "id": "m-story-12",
+          "text": "It reached Endeavour crater, about 22 kilometres wide.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F4"
+          ],
+          "vo": true,
+          "shot": "endeavour"
+        },
+        {
+          "id": "m-story-13",
+          "text": "In 2018, a giant dust storm covered Mars and blocked the sunlight.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F5"
+          ],
+          "vo": true,
+          "shot": "storm"
+        },
+        {
+          "id": "m-story-14",
+          "text": "Opportunity went quiet on June 10, 2018.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F4"
+          ],
+          "vo": true,
+          "shot": "quiet"
+        },
+        {
+          "id": "m-story-15",
+          "text": "Engineers sent more than a thousand messages, hoping it would wake.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F5"
+          ],
+          "vo": true,
+          "shot": "signals"
+        },
+        {
+          "id": "m-story-16",
+          "text": "It was planned for 90 Martian days. It worked about 60 times longer.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F5"
+          ],
+          "vo": true,
+          "shot": "rest"
+        },
+        {
+          "id": "m-story-17",
+          "text": "It drove 45 kilometres in all. It rests in Perseverance Valley today.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F4",
+            "F5"
+          ],
+          "vo": true,
+          "shot": "rest"
+        },
+        {
+          "id": "m-story-18",
+          "text": "In 2026, the rover Perseverance drove even farther, continuing the journey.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F18"
+          ],
+          "vo": true,
+          "shot": "perseverance"
+        }
+      ],
+      "kind": "scene",
+      "verbs": []
+    },
+    {
+      "id": "F",
+      "title": "That's what happened on Mars",
+      "lines": [
+        {
+          "id": "m-summary-1",
+          "text": "Opportunity landed in 2004 with a hole-in-one.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F4",
+            "F14"
+          ],
+          "vo": true,
+          "icon": "lander"
+        },
+        {
+          "id": "m-summary-2",
+          "text": "It found blueberries: clues of water.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F14"
+          ],
+          "vo": true,
+          "icon": "box"
+        },
+        {
+          "id": "m-summary-3",
+          "text": "Wind cleaned its solar panels.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F15"
+          ],
+          "vo": true,
+          "icon": "reflector"
+        },
+        {
+          "id": "m-summary-4",
+          "text": "The first robot beyond a marathon on another world.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F4"
+          ],
+          "vo": true,
+          "icon": "orbit"
+        },
+        {
+          "id": "m-summary-5",
+          "text": "It worked about 60 times longer than planned.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F5"
+          ],
+          "vo": true,
+          "icon": "orbit"
+        },
+        {
+          "id": "m-ask",
+          "text": "Ready for a mini-game?",
+          "type": "imagine",
+          "speaker": "nova",
+          "vo": true
+        }
+      ],
+      "kind": "scene",
+      "verbs": []
+    },
+    {
+      "id": "G",
+      "title": "Sol Keeper",
+      "lines": [
+        {
+          "id": "m-wipe",
+          "text": "Be the wind. Wipe the dust from the solar panels.",
+          "type": "imagine",
+          "speaker": "nova",
+          "vo": true
+        },
+        {
+          "id": "m-grab",
+          "text": "Pinch a grey pebble. Drop it in the Science Box.",
+          "type": "imagine",
+          "speaker": "nova",
+          "vo": true
+        },
+        {
+          "id": "m-point",
+          "text": "Point at a dust devil, then steer it over the panels.",
+          "type": "imagine",
+          "speaker": "nova",
+          "vo": true
+        },
+        {
+          "id": "m-rest",
+          "text": "Clear the panels to wake it up!",
+          "type": "imagine",
+          "speaker": "nova",
+          "vo": true
+        },
+        {
+          "id": "m-win",
+          "text": "You made it to sol 90, the whole planned mission!",
+          "type": "imagine",
+          "speaker": "nova",
+          "vo": true
+        },
+        {
+          "id": "m-longer",
+          "text": "The real Opportunity kept going about 60 times longer than planned!",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F5"
+          ],
+          "vo": true
+        },
+        {
+          "id": "m-hematite",
+          "text": "Grey hematite! It formed in water long ago.",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F14",
+            "M_GREY"
+          ],
+          "vo": true
+        },
+        {
+          "id": "m-clean",
+          "text": "Martian winds and whirlwinds really cleaned rover panels!",
+          "type": "fact",
+          "speaker": "narrator",
+          "sourceIds": [
+            "F15"
+          ],
+          "vo": true
+        }
+      ],
+      "kind": "scene",
+      "verbs": []
+    }
+  ]
+}

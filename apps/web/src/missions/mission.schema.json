@@ -1,0 +1,432 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:starship-odyssey:mission:v1",
+  "title": "Starship Odyssey mission",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "meta",
+    "storyShots",
+    "artifacts",
+    "evidenceSlots",
+    "reconstruction",
+    "discovery",
+    "challenge",
+    "rewards"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "location",
+        "difficulty",
+        "framing",
+        "briefing",
+        "estimatedMinutes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/$defs/fact"
+        },
+        "difficulty": {
+          "type": "string"
+        },
+        "framing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/imagine"
+          }
+        },
+        "briefing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/imagine"
+          }
+        },
+        "estimatedMinutes": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "storyShots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "cameraRef", "lines"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "cameraRef": {
+            "type": "string"
+          },
+          "lines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/line"
+            }
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    },
+    "evidenceSlots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "reconstruction": {
+      "type": "object",
+      "required": [
+        "prompt",
+        "modelRef",
+        "stages",
+        "timeline",
+        "hints",
+        "summary"
+      ],
+      "properties": {
+        "prompt": {
+          "type": "string"
+        },
+        "modelRef": {
+          "type": "string"
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "function"],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "$ref": "#/$defs/fact"
+              },
+              "function": {
+                "$ref": "#/$defs/fact"
+              }
+            }
+          }
+        },
+        "timeline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "fact"],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fact": {
+                "$ref": "#/$defs/fact"
+              }
+            }
+          }
+        },
+        "hints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/line"
+          }
+        },
+        "summary": {
+          "$ref": "#/$defs/fact"
+        }
+      }
+    },
+    "discovery": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fact"
+      }
+    },
+    "challenge": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "format",
+          "prompt",
+          "options",
+          "answer",
+          "explanation"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "format": {
+            "enum": ["pick", "match", "select", "order"]
+          },
+          "prompt": {
+            "$ref": "#/$defs/fact"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "label"],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "$ref": "#/$defs/fact"
+                }
+              }
+            }
+          },
+          "answer": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "explanation": {
+            "$ref": "#/$defs/fact"
+          }
+        }
+      }
+    },
+    "rewards": {
+      "type": "object",
+      "required": ["badge", "points", "rank"],
+      "properties": {
+        "badge": {
+          "type": "string"
+        },
+        "points": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rank": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "fact": {
+      "type": "object",
+      "required": ["kind", "text", "sourceId"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "fact"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "imagine": {
+      "type": "object",
+      "required": ["kind", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "imagine"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "line": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/fact"
+        },
+        {
+          "$ref": "#/$defs/imagine"
+        }
+      ]
+    },
+    "artifact": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "modelRef",
+        "spawnPosition",
+        "discoveryHint",
+        "leftBehindReason",
+        "originalMission",
+        "purpose",
+        "significance",
+        "summary",
+        "components",
+        "cluesRequired",
+        "activity",
+        "photo",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "$ref": "#/$defs/fact"
+        },
+        "modelRef": {
+          "type": "string"
+        },
+        "spawnPosition": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "discoveryHint": {
+          "$ref": "#/$defs/imagine"
+        },
+        "leftBehindReason": {
+          "type": "object",
+          "required": ["category", "fact"],
+          "properties": {
+            "category": {
+              "enum": ["science", "operation", "weight", "message"]
+            },
+            "fact": {
+              "$ref": "#/$defs/fact"
+            }
+          }
+        },
+        "originalMission": {
+          "$ref": "#/$defs/fact"
+        },
+        "purpose": {
+          "$ref": "#/$defs/fact"
+        },
+        "significance": {
+          "$ref": "#/$defs/fact"
+        },
+        "summary": {
+          "$ref": "#/$defs/fact"
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "hotspotPosition", "clue", "function"],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "$ref": "#/$defs/fact"
+              },
+              "hotspotPosition": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "clue": {
+                "$ref": "#/$defs/fact"
+              },
+              "function": {
+                "$ref": "#/$defs/fact"
+              }
+            }
+          }
+        },
+        "cluesRequired": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "activity": {
+          "enum": ["laser", "seismic", "message", "landing"]
+        },
+        "photo": {
+          "type": "object",
+          "required": ["src", "caption", "credit", "sourceId", "license"],
+          "properties": {
+            "src": {
+              "type": "string",
+              "pattern": "^/media/"
+            },
+            "caption": {
+              "$ref": "#/$defs/fact"
+            },
+            "credit": {
+              "$ref": "#/$defs/fact"
+            },
+            "sourceId": {
+              "type": "string"
+            },
+            "license": {
+              "const": "public-domain"
+            }
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "slot", "fact"],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slot": {
+                "type": "string"
+              },
+              "fact": {
+                "$ref": "#/$defs/fact"
+              }
+            }
+          }
+        },
+        "activityFact": {
+          "$ref": "#/$defs/fact"
+        }
+      }
+    }
+  }
+}

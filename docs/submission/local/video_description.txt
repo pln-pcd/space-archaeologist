@@ -1,0 +1,23 @@
+Space Archaeologist: demo (NASA Space Apps Challenge 2026)
+
+A free 3D browser game where kids aged 7 to 12 dig up the true stories of the machines NASA left on the Moon and Mars. Our entry for "Abandoned but not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars".
+
+Play: https://space-archaeologist.vercel.app
+Code: https://github.com/pln-pcd/space-archaeologist
+
+Chapters
+0:00 Intro
+0:11 The problem
+0:45 Our solution
+1:12 Live demo (real gameplay of the current build)
+3:06 Why it works: Nova, hands, voices, NASA data, safety and access
+4:06 Impact
+4:42 Play it
+
+Made with AI tools (Super Intelligence, SI): the narration is Kokoro text-to-speech; the spoken question in the voice demo is an adult text-to-speech voice; Nova's answers come from Google Gemini behind our safety guard and her voice is Kokoro; Claude Code helped write the code and build this video. Gameplay is real footage of the current build. In the Rock Box, investigation and quiz shots the hand input is simulated (synthetic hand data through the game's real gesture engine, no webcam image) and labelled on screen. Full details: AI_USE.md in the repository.
+
+Facts: every fact in the game and this video cites a NASA source (275 facts, 46 sources). NASA footage (Apollo 11 activities, July 16, 1969, NASA Kennedy Space Center) and Apollo 11 photographs courtesy of NASA. Not endorsed by NASA. No NASA insignia are used.
+
+Music and sound effects: the game's own songs and effects, written in code with Tone.js and ZzFX.
+
+Team (Philippines): Natasha Nicole E. Remoto (Team Owner), Paulina C. Dela Cruz, Ella Mae Dolon, Jason Michael J. Lorente, Earl Clester Barde, Jana Melissa Regondola.

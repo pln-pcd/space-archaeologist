@@ -1,0 +1,54 @@
+node_modules/
+dist/
+.env
+.venv/
+__pycache__/
+*.pyc
+*.tsbuildinfo
+*.db
+*.db-*
+.pytest_cache/
+playwright-report/
+test-results/
+apps/web/public/stories/*.raw.mp4
+apps/web/public/mediapipe/
+
+# reference screenshots of third-party work (study only, never committed)
+docs/research/ref/
+
+# HyperFrames: per-project caches, checks and history (never committed); scene bundles are rebuilt
+hyperframes/*/.hyperframes/
+hyperframes/_shared/dist/
+hyperframes/*/assets/scenes.js
+hyperframes/*/assets/gsap.min.js
+
+.vercel
+
+# new flow: secrets, Kokoro model files, ONNX runtime copies
+.env
+.env.*
+!.env.example
+server/models/
+.certs/
+
+# demo video: generated footage, audio and renders (rebuild with video/README.md)
+video/footage/
+video/narration/out/
+video/audio/out/
+video/build/
+video/hf/assets/footage/
+video/hf/assets/thumbs/
+video/hf/.hyperframes/
+video/renders/
+docs/submission/local/*.mp4
+# private submission notes (team details, form answers): never committed
+docs/submission/private/
+
+# local screenshots, logs and QA output (never committed)
+docs/audit/
+docs/audio/
+
+# agent tooling (local only)
+CLAUDE.md
+.claude/
+skills-lock.json

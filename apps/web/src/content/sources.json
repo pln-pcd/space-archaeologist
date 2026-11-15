@@ -1,0 +1,379 @@
+{
+  "_about": "Every fact line in src/content/*.json must list sourceIds from this file. Seeded from GAME_DESIGN_BIBLE.md §16 (fact sheet checked 12 Nov 2026). status: verified = usable; verify = find the primary NASA page before shipping; unverified = do not use the specific number. F18–F26 added from NASA open sources.",
+  "sources": [
+    {
+      "id": "F1",
+      "title": "Voyager 1 reaches one light-day from Earth (18 Nov 2026, 10:16:07 UTC; 25,902,068,356 km)",
+      "url": "https://science.nasa.gov/?p=338314",
+      "publisher": "NASA Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F4",
+      "title": "Mars Exploration Rover Opportunity mission page (launch, landing, last contact, 45.16 km, marathon, record passed by Perseverance)",
+      "url": "https://science.nasa.gov/mission/mer-opportunity/",
+      "publisher": "NASA Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F5",
+      "title": "NASA's Record-Setting Opportunity Rover Mission on Mars Comes to End",
+      "url": "https://www.nasa.gov/news-release/nasas-record-setting-opportunity-rover-mission-on-mars-comes-to-end",
+      "publisher": "NASA",
+      "retrieved": "2026-11-15",
+      "status": "verified",
+      "note": "Release says: designed for 90 sols and 1,000 m; lasted about 60 times longer; last contact 10 Jun 2018 as a planet-wide dust storm covered the rover; more than 1,000 recovery commands; rests in Perseverance Valley."
+    },
+    {
+      "id": "F6",
+      "title": "Viking 1 mission page (first truly successful Mars landing, 1976; operated until 11 Nov 1982)",
+      "url": "https://science.nasa.gov/mission/viking-1",
+      "publisher": "NASA Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F8",
+      "title": "10 Things: Pioneer Days (first through the asteroid belt, first past Jupiter, last signal 23 Jan 2003)",
+      "url": "https://science.nasa.gov/missions/pioneer/10-things-pioneer-days/",
+      "publisher": "NASA Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F10",
+      "title": "The Apollo Experiment That Keeps On Giving (reflectors need no power; ~385,000 km; Moon recedes 3.8 cm per year)",
+      "url": "https://www.nasa.gov/solar-system/the-apollo-experiment-that-keeps-on-giving/",
+      "publisher": "NASA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F11",
+      "title": "Apollo 11 seismometer could detect the astronauts' footsteps",
+      "url": "https://physicsworld.com/?p=81310",
+      "publisher": "Physics World (IOP Publishing)",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F12",
+      "title": "Apollo 11 Passive Seismic Experiment (first seismometer on the Moon; about three weeks of data)",
+      "url": "https://science.nasa.gov/resource/apollo-11-seismic-experiment/",
+      "publisher": "NASA Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F13",
+      "title": "Apollo Lunar Surface Journal: Apollo 11 experiments (laser reflector of 100 fused-silica corner cubes; two main experiments)",
+      "url": "https://www.nasa.gov/history/alsj/HamishALSEP.html",
+      "publisher": "NASA History Office (Apollo Lunar Surface Journal)",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F14",
+      "title": "Mars Exploration Rovers mission page, archived (hole-in-one in Eagle crater; hematite 'blueberries' formed with groundwater; salty-sea shoreline; stuck in a sand dune for over a month)",
+      "url": "https://webarchive.library.unt.edu/web/20201219070427/https://science.nasa.gov/missions/mars-rovers",
+      "publisher": "NASA Science (archived by UNT Libraries)",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F15",
+      "title": "Wind 'cleaning events' on Opportunity's solar panels gave energy boosts",
+      "url": "https://www.nasa.gov/?p=70994",
+      "publisher": "NASA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F16",
+      "title": "The Sun Sets on Mars (Spirit, PIA07997): fine dust scatters blue light forward, a bluish glow near the setting Sun; see also Pathfinder PIA00917",
+      "url": "https://science.nasa.gov/photojournal/the-sun-sets-on-mars/",
+      "publisher": "NASA/JPL Photojournal",
+      "retrieved": "2026-11-15",
+      "status": "verified",
+      "note": "Primary NASA caption found. Wording for kids: 'Mars dust makes a blue glow around the setting Sun.'"
+    },
+    {
+      "id": "F17",
+      "title": "This Month in NASA History: Opportunity's Hole-in-One (lander bounced 26 times before rolling into a small crater)",
+      "url": "https://appel.nasa.gov/2024/01/11/this-month-in-nasa-history-opportunitys-hole-in-one",
+      "publisher": "NASA APPEL Knowledge Services",
+      "retrieved": "2026-11-15",
+      "status": "verified",
+      "note": "26 bounces confirmed by a NASA page. The ~220-yard distance is still unverified: do not use it."
+    },
+    {
+      "id": "F18",
+      "title": "NASA's Perseverance sets off-world record for total distance driven (45.22 km on 11 Oct 2026, passing Opportunity's 45.16 km)",
+      "url": "https://science.nasa.gov/blogs/perseverance-mars-rover/2026/10/12/nasas-perseverance-sets-off-world-record-for-total-distance-driven/",
+      "publisher": "NASA Science (Perseverance blog)",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F19",
+      "title": "Moon Fact Sheet (surface gravity 1.62 m/s², 0.165 of Earth's ≈ 1/6; mean distance 384,400 km)",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+      "publisher": "NASA Goddard, NSSDCA",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F20",
+      "title": "Mars Fact Sheet (surface gravity ≈ 0.38 of Earth's; a day (sol) ≈ 24 h 40 min; two moons, Phobos and Deimos)",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+      "publisher": "NASA Goddard, NSSDCA",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F21",
+      "title": "Apollo 11 Mission Overview (launched 16 July 1969, Eagle landed 20 July 1969: about 4 days)",
+      "url": "https://www.nasa.gov/missions/apollo/apollo-11-mission-overview/",
+      "publisher": "NASA",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F22",
+      "title": "PIA21494: Rover's Landing Hardware at Eagle Crater (Eagle crater ≈ 22 m wide, 1.95°S, 354.47°E, Meridiani Planum)",
+      "url": "https://www.jpl.nasa.gov/images/rovers-landing-hardware-at-eagle-crater-mars",
+      "publisher": "NASA/JPL-Caltech",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F23",
+      "title": "Lunar Laser Ranging model (a laser pulse takes about 2.5 s for the Earth–Moon round trip)",
+      "url": "https://ssd.jpl.nasa.gov/ftp/eph/planets/ioms/LLR_Model_2020_DR.pdf",
+      "publisher": "NASA JPL Solar System Dynamics",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F24",
+      "title": "Mars Exploration Rover Launches press kit: top speed on flat hard ground 5 cm (2 in) per second; hazard checks bring the average to about 1 cm per second",
+      "url": "https://www.jpl.nasa.gov/news/press_kits/merlaunch.pdf",
+      "publisher": "NASA/JPL",
+      "status": "verified",
+      "note": "Also JPL robotics paper MER_ISER2004.pdf ('peak speed is 5 cm/sec'). NSSDCA lists ~3.75 cm/s, so kid wording: 'only a few centimetres a second'. Confirmed.",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F25",
+      "title": "StarChild: Apollo 11 (no wind on the Moon, so footprints can last for millions of years)",
+      "url": "https://starchild.gsfc.nasa.gov/docs/StarChild/space_level1/apollo11.html",
+      "publisher": "NASA Goddard (StarChild)",
+      "status": "verified",
+      "note": "Kid wording: 'No wind blows them away.' Avoid exact years.",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F26",
+      "title": "Apollo 11 Passive Seismic Experiment: stopped responding to commands on 25 Aug 1969 (overheating); about 3 weeks of data",
+      "url": "https://www.nasa.gov/wp-content/uploads/static/history/alsj/HamishALSEP.html",
+      "publisher": "NASA History Office (Apollo Lunar Surface Journal)",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F27",
+      "title": "Apollo 11 Lunar Module/EASEP: LM landed 20 July 1969 at 0.67416°N, 23.47314°E (from Lunar Reconnaissance Orbiter images)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C",
+      "publisher": "NASA Goddard, NSSDCA",
+      "retrieved": "2026-11-15",
+      "status": "verified",
+      "note": "Confirmed on the NSSDCA page (science.nasa.gov/mission/apollo-11/ returned 404)."
+    },
+    {
+      "id": "F28",
+      "title": "Apollo 11 Lunar Module / EASEP: the descent stage served as a platform for launching the ascent stage and was left behind on the Moon; EASEP with a passive seismometer and the laser retroreflector were deployed",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C",
+      "publisher": "NASA Goddard, NSSDCA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F29",
+      "title": "Apollo 11 Plaque: \"Here men from the planet Earth first set foot upon the moon, July 1969 A.D. We came in peace for all mankind.\" Attached to the ladder on the landing-gear strut of the descent stage",
+      "url": "https://science.nasa.gov/resource/apollo-11-plaque/",
+      "publisher": "NASA Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F30",
+      "title": "Apollo 11 Mission Overview, mission highlights: launch 16 July 1969, 9:32 a.m. EDT, Launch Pad 39A, Saturn V; Commander Neil Armstrong, Command Module Pilot Michael Collins, Lunar Module Pilot Buzz Aldrin; lunar orbit insertion at about 75 h 50 min (July 19); Eagle undocked from Columbia; landed in the Sea of Tranquility, partly flown by hand by Armstrong to avoid a crater; 'one small step for a man, one giant leap for mankind'; plaque attached to the descent stage; solar wind composition experiment, seismic experiment package and Laser Ranging Retroreflector; the EVA lasted more than two and a half hours; ascent stage fired after a rest period; docked with Columbia; splashed down in the Pacific Ocean on 24 July",
+      "url": "https://www.nasa.gov/missions/apollo/apollo-11-mission-overview/",
+      "publisher": "NASA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F31",
+      "title": "Apollo 11 Lunar Module / EASEP (NSSDCA 1969-059C): landed 20 July 1969, 20:17:40 UT; Armstrong reporting \"Houston, Tranquility Base here - the Eagle has landed\"; they set up a flag, deployed the EASEP, took photographs and collected 21.55 kg of lunar rock and soil, including two core tube samples",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C",
+      "publisher": "NASA Goddard, NSSDCA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F32",
+      "title": "Apollo 11 (NSSDCA): launched 16 July 1969, 09:32:00 a.m. EDT; landed on the Moon 20 July 1969, 20:17:40 UT, Sea of Tranquility; returned to Earth 24 July 1969; Armstrong commander, Collins command module pilot, Aldrin lunar module pilot",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo11info.html",
+      "publisher": "NASA Goddard, NSSDCA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F33",
+      "title": "Apollo Lunar Surface Journal: Apollo 11 landing transcript, 102:45:58: \"Houston, Tranquility Base here. The Eagle has landed.\"",
+      "url": "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/a11.landing.html",
+      "publisher": "NASA History Office (Apollo Lunar Surface Journal)",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F34",
+      "title": "NASA Astromaterials Curation, Lunar: nearly 400 lunar samples are sent out each year for research and teaching; study of Moon rocks and soil continues to give useful information",
+      "url": "https://curator.jsc.nasa.gov/lunar/",
+      "publisher": "NASA JSC Astromaterials Research and Exploration Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F35",
+      "title": "Apollo 11 Activities (KSC film, 16 July 1969): breakfast, crew exit, convoy, white room, hatch closing, launch count and launch. NASA video; used for the Chapter 1 intro film",
+      "url": "https://images.nasa.gov/details/KSC-19690716-MH-NAS01-0001-Apollo_11_Breakfast_C7Exit_Convoy_WhiteRmHatchClosing_Launch-HM_0083",
+      "publisher": "NASA Kennedy Space Center (NASA Image and Video Library)",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F36",
+      "title": "APOLLO 11: Landing the Eagle, The Final Approach (NASA film clip, the last 60 s before touchdown, from the NASA documentary \"Apollo 11: The Eagle Has Landed\"; public domain). Source of the real landing call audio \"Houston, Tranquility Base here. The Eagle has landed.\"",
+      "url": "https://archive.org/details/NIX-LV-1998-00035",
+      "publisher": "NASA Langley Research Center (NASA Image eXchange, mirrored by the Internet Archive)",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "M_VIDEO",
+      "title": "Rover Mission Animation, June 6, 2003",
+      "url": "https://www.jpl.nasa.gov/videos/rover-mission-animation/",
+      "publisher": "NASA/JPL-Caltech",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "M_LAUNCH",
+      "title": "Newly Launched Opportunity Follows Mars-Bound Spirit: night, EDT, beach glare",
+      "url": "https://www.jpl.nasa.gov/news/newly-launched-opportunity-follows-mars-bound-spirit/",
+      "publisher": "NASA/JPL-Caltech",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "M_LAUNCH_KIT",
+      "title": "Mars Exploration Rover Launches press kit: Delta II Heavy, nine boosters, six ground-lit and three air-lit",
+      "url": "https://www.jpl.nasa.gov/news/press_kits/merlaunch.pdf",
+      "publisher": "NASA/JPL-Caltech",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "M_EDL",
+      "title": "Mars Exploration Rovers January 2004 landing press kit: bridle, airbags, rockets, petals and egress",
+      "url": "https://science.nasa.gov/wp-content/uploads/2024/03/44744_Mars03Rover041020MER-1.pdf",
+      "publisher": "NASA/JPL-Caltech",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "M_GREY",
+      "title": "Berries Here, There, Everywhere: false-colour image of dark grey spherules",
+      "url": "https://science.nasa.gov/resource/berries-here-there-everywhere/",
+      "publisher": "NASA/JPL-Caltech/Cornell",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "M_HOLE",
+      "title": "This Month in NASA History: Opportunity's Hole-in-One",
+      "url": "https://appel.nasa.gov/2024/01/11/this-month-in-nasa-history-opportunitys-hole-in-one/",
+      "publisher": "NASA APPEL",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "M_COUNTDOWN",
+      "title": "NASA Artemis II Press Kit - Countdown Timeline",
+      "url": "https://www.nasa.gov/artemis-ii-press-kit/",
+      "publisher": "NASA",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "M_CREW",
+      "title": "NASA Artemis II Press Kit - Crew Countdown Activities",
+      "url": "https://www.nasa.gov/artemis-ii-press-kit/",
+      "publisher": "NASA",
+      "status": "verified",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "id": "F37",
+      "title": "Specific Impulse: exhaust gases accelerate opposite to the rocket",
+      "url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/specific-impulse/",
+      "publisher": "NASA Glenn Research Center",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F38",
+      "title": "Apollo experiments: solar-wind foil returned to Earth",
+      "url": "https://astrobiology.nasa.gov/missions/apollo-11/",
+      "publisher": "NASA Astrobiology",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F39",
+      "title": "Moon facts: extremely thin nonbreathable exosphere",
+      "url": "https://science.nasa.gov/moon/facts/",
+      "publisher": "NASA Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F40",
+      "title": "Apollo 11 press kit: lunar module descent stage, legs, footpads, tanks and engine",
+      "url": "https://science.nasa.gov/wp-content/uploads/2023/09/Apollo_11.pdf",
+      "publisher": "NASA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F41",
+      "title": "Apollo jettison bags and tight weight margins for return to lunar orbit",
+      "url": "https://history.nasa.gov/wp-content/uploads/static/history/alsj/WOTM/WOTM-JettisonBag.html",
+      "publisher": "NASA Apollo Lunar Surface Journal",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "F42",
+      "title": "Apollo 11 image library: NASA mission photographs, credits and reuse",
+      "url": "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/images11.html",
+      "publisher": "NASA History",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    }
+  ]
+}

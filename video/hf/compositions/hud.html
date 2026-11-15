@@ -1,0 +1,74 @@
+<template>
+<style>
+@font-face { font-family: "Lilita One"; src: url("assets/fonts/lilita-one-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+@font-face { font-family: "Fredoka"; src: url("assets/fonts/fredoka-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+.k-bg { position: absolute; inset: 0; background: radial-gradient(1200px 700px at 30% 20%, #2A1B66, #160E3A 70%); }
+.k-stars { position: absolute; inset: 0; background-image:
+  radial-gradient(2px 2px at 120px 160px, #fff8 50%, transparent 51%), radial-gradient(2px 2px at 1720px 120px, #fff9 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 420px 940px, #fff7 50%, transparent 51%), radial-gradient(2px 2px at 1500px 980px, #fff8 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 980px 60px, #fff6 50%, transparent 51%), radial-gradient(2px 2px at 60px 620px, #fff7 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 1860px 560px, #fff7 50%, transparent 51%), radial-gradient(2.5px 2.5px at 760px 1030px, #fff6 50%, transparent 51%); }
+.k-planet { position: absolute; border-radius: 50%; border: 5px solid #241D48; }
+.k-screen { position: absolute; left: 160px; top: 104px; width: 1600px; height: 900px; border-radius: 28px;
+  border: 6px solid #241D48; box-shadow: 0 10px 0 #241D48, 0 0 0 10px rgba(201,184,255,.18); overflow: hidden; background: #0d0826; }
+.k-zoom { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.k-zoom video, .k-zoom img.k-full { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; }
+.k-cursor { position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -6px 0 0 -10px; }
+.k-card { background: #FFFFFF; border: 6px solid #241D48; border-radius: 34px; box-shadow: 0 12px 0 #241D48; color: #241D48; }
+.k-kicker { font: 700 26px/1 "Fredoka"; letter-spacing: .16em; text-transform: uppercase; color: #7A6FB0; }
+.k-title { font: 400 116px/1 "Lilita One"; color: #241D48; letter-spacing: .01em; }
+.k-q { font: 600 42px/1.2 "Fredoka"; color: #4b4380; }
+.k-line { font: 400 84px/1.05 "Lilita One"; color: #fff; text-shadow: 0 6px 0 #241D48; -webkit-text-stroke: 3px #241D48; paint-order: stroke fill; }
+.k-line.ink { color: #241D48; text-shadow: none; -webkit-text-stroke: 0; }
+.k-hi { color: #FFD23F; }
+.k-bubble { position: absolute; background: #fff; border: 5px solid #241D48; border-radius: 26px; box-shadow: 0 7px 0 #241D48; padding: 16px 26px; font: 600 34px/1.2 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-bubble small { display: block; font: 700 18px/1 "Fredoka"; letter-spacing: .14em; text-transform: uppercase; color: #7A6FB0; margin-bottom: 6px; }
+.k-chip { display: inline-flex; align-items: center; gap: 12px; padding: 10px 22px 10px 16px; border-radius: 999px; border: 4px solid #241D48; background: #fff; box-shadow: 0 5px 0 #241D48; font: 600 30px/1 "Fredoka"; color: #241D48; white-space: nowrap; }
+.k-chip svg { width: 34px; height: 34px; }
+.k-chip.sun { background: #FFD23F; } .k-chip.mint { background: #8EE6C4; } .k-chip.lilac { background: #C9B8FF; } .k-chip.sky { background: #7CC8FF; } .k-chip.coral { background: #FF6B6B; color: #fff; }
+.k-credit { position: absolute; left: 160px; bottom: 26px; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.35); font: 500 19px/1.2 "Fredoka"; color: #fff; white-space: nowrap; }
+.k-label { position: absolute; padding: 10px 20px; border-radius: 14px; background: #241D48; color: #fff; font: 600 28px/1.2 "Fredoka"; white-space: nowrap; border: 3px solid #fff; }
+.k-tag-hole { position: absolute; width: 46px; height: 46px; border-radius: 50%; border: 6px solid #241D48; background: #160E3A; }
+.k-dust { position: absolute; inset: 0; border-radius: 30px;
+  background: radial-gradient(3px 3px at 20% 30%, #b9a98f 50%, transparent 52%) 0 0/38px 34px, radial-gradient(2px 2px at 60% 70%, #cbbda0 50%, transparent 52%) 0 0/29px 31px, linear-gradient(135deg, #d8c9ad, #c4b393);
+  -webkit-mask-image: linear-gradient(100deg, #000 0 42%, rgba(0,0,0,.6) 50%, transparent 58%); -webkit-mask-size: 300% 100%; -webkit-mask-repeat: no-repeat; -webkit-mask-position: 0% 0; }
+.k-ring { position: absolute; border-radius: 50%; border: 8px solid #8EE6C4; box-shadow: 0 0 0 6px #241D48 inset, 0 0 0 6px #241D48; }
+.k-stat { font: 400 150px/0.9 "Lilita One"; color: #FFD23F; -webkit-text-stroke: 5px #241D48; paint-order: stroke fill; text-shadow: 0 9px 0 #241D48; }
+
+#root { position: absolute; inset: 0; }
+#hud-path { position: absolute; left: 0; right: 0; top: 24px; text-align: center; }
+.hud-bar { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.95); border: 4px solid #241D48; box-shadow: 0 5px 0 #241D48; }
+.hs { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 7px 18px; border-radius: 999px; font: 600 26px/1 "Fredoka"; color: #7A6FB0; }
+.hs-now { position: absolute; inset: 0; border-radius: 999px; background: #FFD23F; border: 3px solid #241D48; opacity: 0; }
+.hs-t { position: relative; }
+.hs-done { position: relative; width: 22px; height: 22px; color: #2a9d74; opacity: 0; display: inline-block; }
+.hs-done svg { width: 22px; height: 22px; }
+.hs-dash { width: 14px; height: 3px; border-radius: 2px; background: #d9d2f5; }
+#wm { position: absolute; right: 160px; bottom: 24px; display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,.92); border: 3px solid #241D48; font: 600 22px/1 "Fredoka"; color: #241D48; }
+#wm svg { width: 22px; height: 22px; color: #8a6fe0; }
+</style>
+<div id="root" data-composition-id="hud" data-width="1920" data-height="1080">
+  <div id="hud-path"><span class="hud-bar"><span id="hs0" class="hs"><i id="hs0-done" class="hs-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></i><b id="hs0-now" class="hs-now"></b><span class="hs-t">Intro</span></span><span class="hs-dash"></span><span id="hs1" class="hs"><i id="hs1-done" class="hs-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></i><b id="hs1-now" class="hs-now"></b><span class="hs-t">Problem</span></span><span class="hs-dash"></span><span id="hs2" class="hs"><i id="hs2-done" class="hs-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></i><b id="hs2-now" class="hs-now"></b><span class="hs-t">Solution</span></span><span class="hs-dash"></span><span id="hs3" class="hs"><i id="hs3-done" class="hs-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></i><b id="hs3-now" class="hs-now"></b><span class="hs-t">Demo</span></span><span class="hs-dash"></span><span id="hs4" class="hs"><i id="hs4-done" class="hs-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></i><b id="hs4-now" class="hs-now"></b><span class="hs-t">Features</span></span><span class="hs-dash"></span><span id="hs5" class="hs"><i id="hs5-done" class="hs-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></i><b id="hs5-now" class="hs-now"></b><span class="hs-t">Impact</span></span></span></div>
+  <div id="cr0" class="clip k-credit" data-start="88.612" data-duration="4.207">Footage: Apollo 11 activities, July 16, 1969 · NASA Kennedy Space Center</div>
+  <div id="wm"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7z"/></svg>Made with AI tools</div>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.set("#hs0-now", { opacity: 1 }, 0); tl.fromTo("#hs0", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 0);
+  tl.set("#hs0-now", { opacity: 0 }, 11.838); tl.set("#hs0-done", { opacity: 1 }, 11.838);
+  tl.set("#hs1-now", { opacity: 1 }, 11.838); tl.fromTo("#hs1", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 11.838);
+  tl.set("#hs1-now", { opacity: 0 }, 45.855); tl.set("#hs1-done", { opacity: 1 }, 45.855);
+  tl.set("#hs2-now", { opacity: 1 }, 45.855); tl.fromTo("#hs2", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 45.855);
+  tl.set("#hs2-now", { opacity: 0 }, 72.914); tl.set("#hs2-done", { opacity: 1 }, 72.914);
+  tl.set("#hs3-now", { opacity: 1 }, 72.914); tl.fromTo("#hs3", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 72.914);
+  tl.set("#hs3-now", { opacity: 0 }, 186.248); tl.set("#hs3-done", { opacity: 1 }, 186.248);
+  tl.set("#hs4-now", { opacity: 1 }, 186.248); tl.fromTo("#hs4", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 186.248);
+  tl.set("#hs4-now", { opacity: 0 }, 246.663); tl.set("#hs4-done", { opacity: 1 }, 246.663);
+  tl.set("#hs5-now", { opacity: 1 }, 246.663); tl.fromTo("#hs5", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 246.663);
+  tl.set("#hs5-now", { opacity: 0 }, 282.017); tl.set("#hs5-done", { opacity: 1 }, 282.017);
+  tl.to("#hud-path", { opacity: 0, y: -30, duration: 0.4, ease: "power2.in" }, 282.017);
+  window.__timelines["hud"] = tl;
+</script>
+</template>

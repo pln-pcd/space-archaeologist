@@ -1,0 +1,1293 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "id": "moon-001",
+    "title": "The Forgotten Moon",
+    "location": {
+      "kind": "fact",
+      "text": "Tranquility Base · Apollo 11",
+      "sourceId": "F30"
+    },
+    "difficulty": "Beginner",
+    "framing": [
+      {
+        "kind": "imagine",
+        "text": "Year 2075. Your Space Archaeologist adventure begins."
+      },
+      {
+        "kind": "imagine",
+        "text": "Our imaginary agency preserves the stories machines left behind."
+      }
+    ],
+    "briefing": [
+      {
+        "kind": "imagine",
+        "text": "Every object has a story."
+      },
+      {
+        "kind": "imagine",
+        "text": "Your job is to discover it."
+      }
+    ],
+    "estimatedMinutes": [
+      15,
+      20
+    ]
+  },
+  "storyShots": [
+    {
+      "id": "landed",
+      "cameraRef": "landed",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "Apollo 11 landed at Tranquility Base in 1969.",
+          "sourceId": "F30"
+        }
+      ]
+    },
+    {
+      "id": "first-step",
+      "cameraRef": "first-step",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "Neil Armstrong and Buzz Aldrin explored the Moon.",
+          "sourceId": "F30"
+        }
+      ]
+    },
+    {
+      "id": "hop",
+      "cameraRef": "hop",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "The Moon's gravity is about one sixth of Earth's.",
+          "sourceId": "F19"
+        }
+      ]
+    },
+    {
+      "id": "bootprint",
+      "cameraRef": "bootprint",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "No wind blows the astronauts' footprints away.",
+          "sourceId": "F25"
+        }
+      ]
+    },
+    {
+      "id": "columbia",
+      "cameraRef": "columbia",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "Michael Collins stayed in lunar orbit aboard Columbia.",
+          "sourceId": "F30"
+        }
+      ]
+    },
+    {
+      "id": "flag-rocks",
+      "cameraRef": "flag-rocks",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "Apollo 11 brought Moon rocks and soil home.",
+          "sourceId": "F31"
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "cameraRef": "experiments",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "Astronauts deployed a seismometer and laser retroreflector.",
+          "sourceId": "F28"
+        }
+      ]
+    },
+    {
+      "id": "plaque",
+      "cameraRef": "plaque",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "A plaque on the descent stage commemorates the landing.",
+          "sourceId": "F29"
+        }
+      ]
+    },
+    {
+      "id": "liftoff",
+      "cameraRef": "liftoff",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "The ascent stage carried Neil and Buzz back to lunar orbit.",
+          "sourceId": "F30"
+        }
+      ]
+    },
+    {
+      "id": "today",
+      "cameraRef": "today",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "Scientists measure the Moon's distance using laser retroreflectors.",
+          "sourceId": "F10"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "descent-stage",
+      "name": {
+        "kind": "fact",
+        "text": "Eagle Descent Stage",
+        "sourceId": "F28"
+      },
+      "modelRef": "descent",
+      "spawnPosition": [
+        0,
+        0,
+        -1
+      ],
+      "discoveryHint": {
+        "kind": "imagine",
+        "text": "Look for wide feet and a ladder."
+      },
+      "leftBehindReason": {
+        "category": "operation",
+        "fact": {
+          "kind": "fact",
+          "text": "It stayed as the ascent stage's launch platform.",
+          "sourceId": "F28"
+        }
+      },
+      "originalMission": {
+        "kind": "fact",
+        "text": "Apollo 11 · 1969",
+        "sourceId": "F30"
+      },
+      "purpose": {
+        "kind": "fact",
+        "text": "Its engine slowed Eagle for landing.",
+        "sourceId": "F40"
+      },
+      "significance": {
+        "kind": "fact",
+        "text": "It supported the first crewed lunar landing.",
+        "sourceId": "F30"
+      },
+      "summary": {
+        "kind": "fact",
+        "text": "Eagle's bottom half stayed. The ascent stage carried Neil and Buzz to lunar orbit.",
+        "sourceId": "F28"
+      },
+      "components": [
+        {
+          "id": "legs",
+          "name": {
+            "kind": "fact",
+            "text": "Landing legs",
+            "sourceId": "F40"
+          },
+          "hotspotPosition": [
+            -1.4,
+            0.8,
+            0.8
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Four legs supported Eagle on the surface.",
+            "sourceId": "F40"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Support the lander.",
+            "sourceId": "F40"
+          }
+        },
+        {
+          "id": "footpads",
+          "name": {
+            "kind": "fact",
+            "text": "Footpads",
+            "sourceId": "F40"
+          },
+          "hotspotPosition": [
+            1.8,
+            0.15,
+            1.2
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Wide footpads spread the lander's weight.",
+            "sourceId": "F40"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Spread weight on the soil.",
+            "sourceId": "F40"
+          }
+        },
+        {
+          "id": "engine",
+          "name": {
+            "kind": "fact",
+            "text": "Descent engine",
+            "sourceId": "F40"
+          },
+          "hotspotPosition": [
+            0,
+            0.8,
+            0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "This rocket engine slowed Eagle toward the surface.",
+            "sourceId": "F40"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Slow the descent.",
+            "sourceId": "F40"
+          }
+        },
+        {
+          "id": "tanks",
+          "name": {
+            "kind": "fact",
+            "text": "Propellant tanks",
+            "sourceId": "F40"
+          },
+          "hotspotPosition": [
+            0.8,
+            1.65,
+            0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "The descent stage held fuel and oxidizer tanks.",
+            "sourceId": "F40"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Supply the descent engine.",
+            "sourceId": "F40"
+          }
+        },
+        {
+          "id": "plaque",
+          "name": {
+            "kind": "fact",
+            "text": "Plaque",
+            "sourceId": "F29"
+          },
+          "hotspotPosition": [
+            0,
+            1.3,
+            1.5
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "A plaque was attached to the descent stage's ladder.",
+            "sourceId": "F29"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Commemorate the landing.",
+            "sourceId": "F29"
+          }
+        }
+      ],
+      "cluesRequired": 3,
+      "activity": "landing",
+      "photo": {
+        "src": "/media/artifacts/descent.jpg",
+        "caption": {
+          "kind": "fact",
+          "text": "Eagle at Tranquility Base.",
+          "sourceId": "F42"
+        },
+        "credit": {
+          "kind": "fact",
+          "text": "NASA",
+          "sourceId": "F42"
+        },
+        "sourceId": "F42",
+        "license": "public-domain"
+      },
+      "evidence": [
+        {
+          "id": "descent-stage-part",
+          "slot": "component",
+          "fact": {
+            "kind": "fact",
+            "text": "Landing legs",
+            "sourceId": "F40"
+          }
+        },
+        {
+          "id": "descent-stage-mission",
+          "slot": "mission",
+          "fact": {
+            "kind": "fact",
+            "text": "Apollo 11 · 1969",
+            "sourceId": "F30"
+          }
+        },
+        {
+          "id": "descent-stage-photo",
+          "slot": "photo",
+          "fact": {
+            "kind": "fact",
+            "text": "Eagle at Tranquility Base.",
+            "sourceId": "F42"
+          }
+        },
+        {
+          "id": "descent-stage-function",
+          "slot": "function",
+          "fact": {
+            "kind": "fact",
+            "text": "Its engine slowed Eagle for landing.",
+            "sourceId": "F40"
+          }
+        },
+        {
+          "id": "descent-stage-reason",
+          "slot": "reason",
+          "fact": {
+            "kind": "fact",
+            "text": "It stayed as the ascent stage's launch platform.",
+            "sourceId": "F28"
+          }
+        }
+      ]
+    },
+    {
+      "id": "retroreflector",
+      "name": {
+        "kind": "fact",
+        "text": "Laser Ranging Retroreflector",
+        "sourceId": "F13"
+      },
+      "modelRef": "reflector",
+      "spawnPosition": [
+        4,
+        0,
+        2.4
+      ],
+      "discoveryHint": {
+        "kind": "imagine",
+        "text": "Something small catches the light, toward the east."
+      },
+      "leftBehindReason": {
+        "category": "science",
+        "fact": {
+          "kind": "fact",
+          "text": "It stayed for laser-ranging experiments from Earth.",
+          "sourceId": "F10"
+        }
+      },
+      "originalMission": {
+        "kind": "fact",
+        "text": "Apollo 11 · 1969",
+        "sourceId": "F30"
+      },
+      "purpose": {
+        "kind": "fact",
+        "text": "Reflect laser light back toward Earth.",
+        "sourceId": "F10"
+      },
+      "significance": {
+        "kind": "fact",
+        "text": "Laser ranging measures the Earth–Moon distance.",
+        "sourceId": "F10"
+      },
+      "summary": {
+        "kind": "fact",
+        "text": "This passive reflector helps scientists measure the Moon's distance.",
+        "sourceId": "F10"
+      },
+      "components": [
+        {
+          "id": "cubes",
+          "name": {
+            "kind": "fact",
+            "text": "Corner cubes",
+            "sourceId": "F13"
+          },
+          "hotspotPosition": [
+            -0.4,
+            0.3,
+            0.3
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Fused-silica corner cubes return light toward its source.",
+            "sourceId": "F13"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Return light toward its source.",
+            "sourceId": "F13"
+          }
+        },
+        {
+          "id": "array",
+          "name": {
+            "kind": "fact",
+            "text": "Reflector array",
+            "sourceId": "F13"
+          },
+          "hotspotPosition": [
+            0.3,
+            0.25,
+            0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Apollo 11's array held 100 corner cubes.",
+            "sourceId": "F13"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Hold the corner cubes.",
+            "sourceId": "F13"
+          }
+        },
+        {
+          "id": "passive",
+          "name": {
+            "kind": "fact",
+            "text": "Passive optics",
+            "sourceId": "F10"
+          },
+          "hotspotPosition": [
+            0,
+            0.4,
+            -0.2
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "The reflector needs no electrical power.",
+            "sourceId": "F10"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Reflect without batteries.",
+            "sourceId": "F10"
+          }
+        }
+      ],
+      "cluesRequired": 3,
+      "activity": "laser",
+      "photo": {
+        "src": "/media/artifacts/reflector.jpg",
+        "caption": {
+          "kind": "fact",
+          "text": "Aldrin carries Apollo 11's science experiments.",
+          "sourceId": "F42"
+        },
+        "credit": {
+          "kind": "fact",
+          "text": "NASA",
+          "sourceId": "F42"
+        },
+        "sourceId": "F42",
+        "license": "public-domain"
+      },
+      "evidence": [
+        {
+          "id": "retroreflector-part",
+          "slot": "component",
+          "fact": {
+            "kind": "fact",
+            "text": "Corner cubes",
+            "sourceId": "F13"
+          }
+        },
+        {
+          "id": "retroreflector-mission",
+          "slot": "mission",
+          "fact": {
+            "kind": "fact",
+            "text": "Apollo 11 · 1969",
+            "sourceId": "F30"
+          }
+        },
+        {
+          "id": "retroreflector-photo",
+          "slot": "photo",
+          "fact": {
+            "kind": "fact",
+            "text": "Aldrin carries Apollo 11's science experiments.",
+            "sourceId": "F42"
+          }
+        },
+        {
+          "id": "retroreflector-function",
+          "slot": "function",
+          "fact": {
+            "kind": "fact",
+            "text": "Reflect laser light back toward Earth.",
+            "sourceId": "F10"
+          }
+        },
+        {
+          "id": "retroreflector-reason",
+          "slot": "reason",
+          "fact": {
+            "kind": "fact",
+            "text": "It stayed for laser-ranging experiments from Earth.",
+            "sourceId": "F10"
+          }
+        }
+      ],
+      "activityFact": {
+        "kind": "fact",
+        "text": "Laser light takes about 2.5 seconds to travel there and back.",
+        "sourceId": "F23"
+      }
+    },
+    {
+      "id": "seismometer",
+      "name": {
+        "kind": "fact",
+        "text": "Passive Seismic Experiment",
+        "sourceId": "F12"
+      },
+      "modelRef": "seismometer",
+      "spawnPosition": [
+        -4,
+        0,
+        2
+      ],
+      "discoveryHint": {
+        "kind": "imagine",
+        "text": "Try the westward glint, low against the ground."
+      },
+      "leftBehindReason": {
+        "category": "science",
+        "fact": {
+          "kind": "fact",
+          "text": "It stayed to measure lunar ground movement.",
+          "sourceId": "F12"
+        }
+      },
+      "originalMission": {
+        "kind": "fact",
+        "text": "Apollo 11 · 1969",
+        "sourceId": "F30"
+      },
+      "purpose": {
+        "kind": "fact",
+        "text": "Detect moonquakes and meteorite impacts.",
+        "sourceId": "F12"
+      },
+      "significance": {
+        "kind": "fact",
+        "text": "Its data revealed information about the Moon's interior.",
+        "sourceId": "F12"
+      },
+      "summary": {
+        "kind": "fact",
+        "text": "The seismometer recorded ground movement for about three weeks.",
+        "sourceId": "F12"
+      },
+      "components": [
+        {
+          "id": "sensor",
+          "name": {
+            "kind": "fact",
+            "text": "Seismic sensors",
+            "sourceId": "F12"
+          },
+          "hotspotPosition": [
+            0,
+            0.4,
+            0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Sensors measured movement of the lunar ground.",
+            "sourceId": "F12"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Measure ground movement.",
+            "sourceId": "F12"
+          }
+        },
+        {
+          "id": "solar",
+          "name": {
+            "kind": "fact",
+            "text": "Solar panels",
+            "sourceId": "F12"
+          },
+          "hotspotPosition": [
+            -0.7,
+            0.15,
+            0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Solar cells supplied electrical power during lunar days.",
+            "sourceId": "F12"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Make electricity from sunlight.",
+            "sourceId": "F12"
+          }
+        },
+        {
+          "id": "radio",
+          "name": {
+            "kind": "fact",
+            "text": "Radio link",
+            "sourceId": "F12"
+          },
+          "hotspotPosition": [
+            0.4,
+            0.6,
+            0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Measurements were sent to tracking stations on Earth.",
+            "sourceId": "F12"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Send measurements to Earth.",
+            "sourceId": "F12"
+          }
+        }
+      ],
+      "cluesRequired": 3,
+      "activity": "seismic",
+      "photo": {
+        "src": "/media/artifacts/seismometer.jpg",
+        "caption": {
+          "kind": "fact",
+          "text": "Apollo 11's seismic experiment and solar panels.",
+          "sourceId": "F12"
+        },
+        "credit": {
+          "kind": "fact",
+          "text": "NASA",
+          "sourceId": "F12"
+        },
+        "sourceId": "F12",
+        "license": "public-domain"
+      },
+      "evidence": [
+        {
+          "id": "seismometer-part",
+          "slot": "component",
+          "fact": {
+            "kind": "fact",
+            "text": "Seismic sensors",
+            "sourceId": "F12"
+          }
+        },
+        {
+          "id": "seismometer-mission",
+          "slot": "mission",
+          "fact": {
+            "kind": "fact",
+            "text": "Apollo 11 · 1969",
+            "sourceId": "F30"
+          }
+        },
+        {
+          "id": "seismometer-photo",
+          "slot": "photo",
+          "fact": {
+            "kind": "fact",
+            "text": "Apollo 11's seismic experiment and solar panels.",
+            "sourceId": "F12"
+          }
+        },
+        {
+          "id": "seismometer-function",
+          "slot": "function",
+          "fact": {
+            "kind": "fact",
+            "text": "Detect moonquakes and meteorite impacts.",
+            "sourceId": "F12"
+          }
+        },
+        {
+          "id": "seismometer-reason",
+          "slot": "reason",
+          "fact": {
+            "kind": "fact",
+            "text": "It stayed to measure lunar ground movement.",
+            "sourceId": "F12"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plaque",
+      "name": {
+        "kind": "fact",
+        "text": "Apollo 11 Plaque",
+        "sourceId": "F29"
+      },
+      "modelRef": "plaque",
+      "spawnPosition": [
+        0,
+        0,
+        0.8
+      ],
+      "discoveryHint": {
+        "kind": "imagine",
+        "text": "Near the ladder, a message waits for you."
+      },
+      "leftBehindReason": {
+        "category": "message",
+        "fact": {
+          "kind": "fact",
+          "text": "It stayed to commemorate the historic lunar landing.",
+          "sourceId": "F29"
+        }
+      },
+      "originalMission": {
+        "kind": "fact",
+        "text": "Apollo 11 · 1969",
+        "sourceId": "F30"
+      },
+      "purpose": {
+        "kind": "fact",
+        "text": "Commemorate humanity's first crewed lunar landing.",
+        "sourceId": "F29"
+      },
+      "significance": {
+        "kind": "fact",
+        "text": "Its message describes a peaceful visit from Earth.",
+        "sourceId": "F29"
+      },
+      "summary": {
+        "kind": "fact",
+        "text": "The plaque stayed attached to the descent stage's ladder.",
+        "sourceId": "F29"
+      },
+      "components": [
+        {
+          "id": "message",
+          "name": {
+            "kind": "fact",
+            "text": "Message",
+            "sourceId": "F29"
+          },
+          "hotspotPosition": [
+            0,
+            0.5,
+            0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "The plaque carries a message of peace.",
+            "sourceId": "F29"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Commemorate the landing.",
+            "sourceId": "F29"
+          }
+        },
+        {
+          "id": "attachment",
+          "name": {
+            "kind": "fact",
+            "text": "Ladder attachment",
+            "sourceId": "F29"
+          },
+          "hotspotPosition": [
+            -0.5,
+            0.1,
+            0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "It was attached to a landing-gear strut.",
+            "sourceId": "F29"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Hold the plaque on the descent stage.",
+            "sourceId": "F29"
+          }
+        },
+        {
+          "id": "date",
+          "name": {
+            "kind": "fact",
+            "text": "Mission date",
+            "sourceId": "F29"
+          },
+          "hotspotPosition": [
+            0.5,
+            0.1,
+            0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "The inscription includes July 1969.",
+            "sourceId": "F29"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Record the landing's date.",
+            "sourceId": "F29"
+          }
+        }
+      ],
+      "cluesRequired": 3,
+      "activity": "message",
+      "photo": {
+        "src": "/media/artifacts/plaque.jpg",
+        "caption": {
+          "kind": "fact",
+          "text": "Apollo 11's commemorative plaque.",
+          "sourceId": "F29"
+        },
+        "credit": {
+          "kind": "fact",
+          "text": "NASA",
+          "sourceId": "F29"
+        },
+        "sourceId": "F29",
+        "license": "public-domain"
+      },
+      "evidence": [
+        {
+          "id": "plaque-part",
+          "slot": "component",
+          "fact": {
+            "kind": "fact",
+            "text": "Message",
+            "sourceId": "F29"
+          }
+        },
+        {
+          "id": "plaque-mission",
+          "slot": "mission",
+          "fact": {
+            "kind": "fact",
+            "text": "Apollo 11 · 1969",
+            "sourceId": "F30"
+          }
+        },
+        {
+          "id": "plaque-photo",
+          "slot": "photo",
+          "fact": {
+            "kind": "fact",
+            "text": "Apollo 11's commemorative plaque.",
+            "sourceId": "F29"
+          }
+        },
+        {
+          "id": "plaque-function",
+          "slot": "function",
+          "fact": {
+            "kind": "fact",
+            "text": "Commemorate humanity's first crewed lunar landing.",
+            "sourceId": "F29"
+          }
+        },
+        {
+          "id": "plaque-reason",
+          "slot": "reason",
+          "fact": {
+            "kind": "fact",
+            "text": "It stayed to commemorate the historic lunar landing.",
+            "sourceId": "F29"
+          }
+        }
+      ]
+    }
+  ],
+  "evidenceSlots": [
+    {
+      "id": "component",
+      "label": "Component"
+    },
+    {
+      "id": "mission",
+      "label": "Mission"
+    },
+    {
+      "id": "photo",
+      "label": "Historical photo"
+    },
+    {
+      "id": "function",
+      "label": "Function"
+    },
+    {
+      "id": "reason",
+      "label": "Why it stayed"
+    }
+  ],
+  "reconstruction": {
+    "prompt": "How did the Lunar Module work?",
+    "modelRef": "eagle",
+    "stages": [
+      {
+        "id": "descent",
+        "name": {
+          "kind": "fact",
+          "text": "Descent Stage",
+          "sourceId": "F28"
+        },
+        "function": {
+          "kind": "fact",
+          "text": "Land, then support the ascent stage's launch.",
+          "sourceId": "F28"
+        }
+      },
+      {
+        "id": "ascent",
+        "name": {
+          "kind": "fact",
+          "text": "Ascent Stage",
+          "sourceId": "F30"
+        },
+        "function": {
+          "kind": "fact",
+          "text": "Carry Neil and Buzz to lunar orbit and dock with Columbia.",
+          "sourceId": "F30"
+        }
+      }
+    ],
+    "timeline": [
+      {
+        "id": "undock",
+        "fact": {
+          "kind": "fact",
+          "text": "Undock from Columbia.",
+          "sourceId": "F30"
+        }
+      },
+      {
+        "id": "descent",
+        "fact": {
+          "kind": "fact",
+          "text": "Descend toward the Moon.",
+          "sourceId": "F30"
+        }
+      },
+      {
+        "id": "landing",
+        "fact": {
+          "kind": "fact",
+          "text": "Land at Tranquility Base.",
+          "sourceId": "F30"
+        }
+      },
+      {
+        "id": "moonwalk",
+        "fact": {
+          "kind": "fact",
+          "text": "Neil and Buzz explore the Moon.",
+          "sourceId": "F30"
+        }
+      },
+      {
+        "id": "ascent",
+        "fact": {
+          "kind": "fact",
+          "text": "The ascent stage lifts off. The descent stage stays.",
+          "sourceId": "F28"
+        }
+      },
+      {
+        "id": "dock",
+        "fact": {
+          "kind": "fact",
+          "text": "Dock with Columbia in lunar orbit.",
+          "sourceId": "F30"
+        }
+      }
+    ],
+    "hints": [
+      {
+        "kind": "imagine",
+        "text": "Which part touched the Moon?"
+      },
+      {
+        "kind": "fact",
+        "text": "The descent stage supported the ascent stage's launch.",
+        "sourceId": "F28"
+      },
+      {
+        "kind": "fact",
+        "text": "The ascent stage returned the astronauts to Columbia in lunar orbit.",
+        "sourceId": "F30"
+      }
+    ],
+    "summary": {
+      "kind": "fact",
+      "text": "Eagle's ascent stage launched from its descent stage.",
+      "sourceId": "F28"
+    }
+  },
+  "discovery": [
+    {
+      "kind": "fact",
+      "text": "The Moon has an extremely thin atmosphere, called an exosphere.",
+      "sourceId": "F39"
+    },
+    {
+      "kind": "fact",
+      "text": "It has no breathable air like Earth's.",
+      "sourceId": "F39"
+    },
+    {
+      "kind": "fact",
+      "text": "Eagle used a rocket engine to slow its descent.",
+      "sourceId": "F40"
+    },
+    {
+      "kind": "fact",
+      "text": "The descent stage became the launch platform for the ascent stage.",
+      "sourceId": "F28"
+    },
+    {
+      "kind": "fact",
+      "text": "The ascent stage took Neil and Buzz to Columbia in lunar orbit.",
+      "sourceId": "F30"
+    },
+    {
+      "kind": "fact",
+      "text": "The solar-wind foil came home for laboratory analysis.",
+      "sourceId": "F38"
+    },
+    {
+      "kind": "fact",
+      "text": "Some equipment stayed to save weight for liftoff.",
+      "sourceId": "F41"
+    },
+    {
+      "kind": "fact",
+      "text": "Scientists still use laser retroreflectors to measure the Moon's distance.",
+      "sourceId": "F10"
+    }
+  ],
+  "challenge": [
+    {
+      "id": "left",
+      "format": "pick",
+      "prompt": {
+        "kind": "fact",
+        "text": "Which stage stayed on the Moon?",
+        "sourceId": "F28"
+      },
+      "options": [
+        {
+          "id": "ascent",
+          "label": {
+            "kind": "fact",
+            "text": "Ascent Stage",
+            "sourceId": "F30"
+          }
+        },
+        {
+          "id": "descent",
+          "label": {
+            "kind": "fact",
+            "text": "Descent Stage",
+            "sourceId": "F28"
+          }
+        }
+      ],
+      "answer": [
+        "descent"
+      ],
+      "explanation": {
+        "kind": "fact",
+        "text": "The descent stage stayed as the launch platform.",
+        "sourceId": "F28"
+      }
+    },
+    {
+      "id": "function",
+      "format": "match",
+      "prompt": {
+        "kind": "fact",
+        "text": "Match the reflector to its job.",
+        "sourceId": "F10"
+      },
+      "options": [
+        {
+          "id": "quakes",
+          "label": {
+            "kind": "fact",
+            "text": "Measure ground movement.",
+            "sourceId": "F12"
+          }
+        },
+        {
+          "id": "light",
+          "label": {
+            "kind": "fact",
+            "text": "Return laser light.",
+            "sourceId": "F10"
+          }
+        }
+      ],
+      "answer": [
+        "light"
+      ],
+      "explanation": {
+        "kind": "fact",
+        "text": "Corner cubes send laser light toward its source.",
+        "sourceId": "F13"
+      }
+    },
+    {
+      "id": "object",
+      "format": "select",
+      "prompt": {
+        "kind": "fact",
+        "text": "Select the instrument that detected moonquakes.",
+        "sourceId": "F12"
+      },
+      "options": [
+        {
+          "id": "reflector",
+          "label": {
+            "kind": "fact",
+            "text": "Laser Ranging Retroreflector",
+            "sourceId": "F13"
+          }
+        },
+        {
+          "id": "seismometer",
+          "label": {
+            "kind": "fact",
+            "text": "Passive Seismic Experiment",
+            "sourceId": "F12"
+          }
+        },
+        {
+          "id": "plaque",
+          "label": {
+            "kind": "fact",
+            "text": "Apollo 11 Plaque",
+            "sourceId": "F29"
+          }
+        }
+      ],
+      "answer": [
+        "seismometer"
+      ],
+      "explanation": {
+        "kind": "fact",
+        "text": "The Passive Seismic Experiment sensed lunar ground movement.",
+        "sourceId": "F12"
+      }
+    },
+    {
+      "id": "order",
+      "format": "order",
+      "prompt": {
+        "kind": "fact",
+        "text": "Put the return journey in order.",
+        "sourceId": "F30"
+      },
+      "options": [
+        {
+          "id": "dock",
+          "label": {
+            "kind": "fact",
+            "text": "Dock with Columbia.",
+            "sourceId": "F30"
+          }
+        },
+        {
+          "id": "stay",
+          "label": {
+            "kind": "fact",
+            "text": "Descent stage supports launch.",
+            "sourceId": "F28"
+          }
+        },
+        {
+          "id": "lift",
+          "label": {
+            "kind": "fact",
+            "text": "Ascent stage lifts off.",
+            "sourceId": "F30"
+          }
+        }
+      ],
+      "answer": [
+        "stay",
+        "lift",
+        "dock"
+      ],
+      "explanation": {
+        "kind": "fact",
+        "text": "The descent stage supports launch. The ascent stage docks with Columbia.",
+        "sourceId": "F30"
+      }
+    },
+    {
+      "id": "home",
+      "format": "pick",
+      "prompt": {
+        "kind": "fact",
+        "text": "Which experiment's foil came home?",
+        "sourceId": "F38"
+      },
+      "options": [
+        {
+          "id": "solarwind",
+          "label": {
+            "kind": "fact",
+            "text": "Solar Wind Composition",
+            "sourceId": "F38"
+          }
+        },
+        {
+          "id": "reflector",
+          "label": {
+            "kind": "fact",
+            "text": "Laser Ranging Retroreflector",
+            "sourceId": "F10"
+          }
+        }
+      ],
+      "answer": [
+        "solarwind"
+      ],
+      "explanation": {
+        "kind": "fact",
+        "text": "The solar-wind foil returned to Earth for laboratory analysis.",
+        "sourceId": "F38"
+      }
+    }
+  ],
+  "rewards": {
+    "badge": "Tranquility Storykeeper",
+    "points": 400,
+    "rank": "Space Archaeologist"
+  }
+}

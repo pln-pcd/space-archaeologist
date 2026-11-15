@@ -1,0 +1,326 @@
+{
+ "gemini_model": "gemini-3.8-flash-lite-tts",
+ "judge_model": "gemini-3.5-flash",
+ "style_prompt": "Read this aloud in a warm, clear and confident voice, speaking to judges, with the playful energy of a kids' game trailer: ",
+ "summary": {
+  "kokoro:am_michael": {
+   "mean_wer": 0.025,
+   "mean_wpm": 149,
+   "mean_judge": 5.93
+  },
+  "kokoro:af_bella": {
+   "mean_wer": 0.012,
+   "mean_wpm": 156,
+   "mean_judge": 4.73
+  },
+  "kokoro:am_puck": {
+   "mean_wer": 0.025,
+   "mean_wpm": 156,
+   "mean_judge": 7.53
+  },
+  "kokoro:bm_george": {
+   "mean_wer": 0.025,
+   "mean_wpm": 151,
+   "mean_judge": 7.53
+  },
+  "kokoro:bf_emma": {
+   "mean_wer": 0.025,
+   "mean_wpm": 176,
+   "mean_judge": 6.73
+  },
+  "gemini:Achird": {
+   "mean_wer": 0.908,
+   "mean_wpm": 122,
+   "mean_judge": 8.6
+  },
+  "gemini:Sulafat": {
+   "mean_wer": 0.923,
+   "mean_wpm": 117,
+   "mean_judge": null
+  }
+ },
+ "clips": [
+  {
+   "engine": "kokoro",
+   "voice": "am_michael",
+   "line": "n01",
+   "seconds": 7.06,
+   "wpm": 145,
+   "heard": "In 1969, Apollo 11 landed on the moon. Part of its lander is still up there today.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 7,
+    "clarity": 9,
+    "confidence": 8,
+    "playful_energy": 5,
+    "naturalness": 9,
+    "issues": "Tone is documentary-like; needs more playful excitement for a kids' game trailer."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "am_michael",
+   "line": "n08",
+   "seconds": 10.88,
+   "wpm": 149,
+   "heard": "Space Archaeologist is a free browser game. Kids aged 7 to 12 explore the real machines left on the Moon and Mars and learn their true stories.",
+   "wer": 0.074,
+   "judge": {
+    "warmth": 6,
+    "clarity": 8,
+    "confidence": 7,
+    "playful_energy": 5,
+    "naturalness": 4,
+    "issues": "Robotic cadence, flat intonation, lacks dynamic enthusiasm needed for a kids trailer."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "am_michael",
+   "line": "n29",
+   "seconds": 8.32,
+   "wpm": 152,
+   "heard": "Moving your real hands to scan, grab and ping makes learning active, and it's optional. Mouse, keyboard and touch work everywhere.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 3,
+    "clarity": 8,
+    "confidence": 5,
+    "playful_energy": 2,
+    "naturalness": 3,
+    "issues": "Robotic synthetic voice with unnatural cadence and no playful energy or warmth."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "af_bella",
+   "line": "n01",
+   "seconds": 6.57,
+   "wpm": 155,
+   "heard": "In 1969, Apollo 11 landed on the moon. Part of its lander is still up there today.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 3,
+    "clarity": 7,
+    "confidence": 6,
+    "playful_energy": 2,
+    "naturalness": 3,
+    "issues": "Robotic tone, flat monotone delivery, lacks excitement and warmth for kids."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "af_bella",
+   "line": "n08",
+   "seconds": 10.24,
+   "wpm": 158,
+   "heard": "Space Archaeist is a free browser game. Kids aged seven to twelve explore the real machines left on the moon and Mars and learn their true stories.",
+   "wer": 0.037,
+   "judge": {
+    "warmth": 2,
+    "clarity": 8,
+    "confidence": 3,
+    "playful_energy": 1,
+    "naturalness": 2,
+    "issues": "Extremely robotic synth voice, monotone delivery, lacking natural cadence and enthusiasm."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "af_bella",
+   "line": "n29",
+   "seconds": 8.12,
+   "wpm": 155,
+   "heard": "Moving your real hands to scan, grab and ping makes learning active. And it's optional. Mouse, keyboard and touch work everywhere.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 6,
+    "clarity": 9,
+    "confidence": 8,
+    "playful_energy": 6,
+    "naturalness": 5,
+    "issues": "Robotic intonation, flat pitch modulation, and rigid pauses between short phrases."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "am_puck",
+   "line": "n01",
+   "seconds": 6.65,
+   "wpm": 153,
+   "heard": "In 1969, Apollo 11 landed on the moon. Part of its lander is still up there today.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 6,
+    "clarity": 8,
+    "confidence": 8,
+    "playful_energy": 4,
+    "naturalness": 7,
+    "issues": "Lacks playful excitement for a kids' trailer; sounds like a dry documentary."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "am_puck",
+   "line": "n08",
+   "seconds": 10.04,
+   "wpm": 161,
+   "heard": "Space Archaeologist is a free browser game. Kids aged 7 to 12 explore the real machines left on the Moon and Mars and learn their true stories.",
+   "wer": 0.074,
+   "judge": {
+    "warmth": 8,
+    "clarity": 9,
+    "confidence": 9,
+    "playful_energy": 6,
+    "naturalness": 9,
+    "issues": "Lacks high playful energy suitable for a kids' game trailer."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "am_puck",
+   "line": "n29",
+   "seconds": 8.17,
+   "wpm": 154,
+   "heard": "Moving your real hands to scan, grab, and ping makes learning active, and it's optional. Mouse, keyboard, and touch work everywhere.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 8,
+    "clarity": 9,
+    "confidence": 8,
+    "playful_energy": 6,
+    "naturalness": 8,
+    "issues": "Slightly clinical tone; lacks dynamic playful energy for a kids' trailer."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "bm_george",
+   "line": "n01",
+   "seconds": 6.95,
+   "wpm": 147,
+   "heard": "In 1969, Apollo 11 landed on the moon. Part of its lander is still up there today.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 6,
+    "clarity": 9,
+    "confidence": 8,
+    "playful_energy": 4,
+    "naturalness": 7,
+    "issues": "Tone is too documentary-like and serious for a kids' game trailer; lacks excitement."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "bm_george",
+   "line": "n08",
+   "seconds": 10.43,
+   "wpm": 155,
+   "heard": "Space Archaeologist is a free browser game. Kids aged 7 to 12 explore the real machines left on the Moon and Mars and learn their true stories.",
+   "wer": 0.074,
+   "judge": {
+    "warmth": 8,
+    "clarity": 9,
+    "confidence": 9,
+    "playful_energy": 8,
+    "naturalness": 9,
+    "issues": "None; clean, polished professional delivery."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "bm_george",
+   "line": "n29",
+   "seconds": 8.29,
+   "wpm": 152,
+   "heard": "Moving your real hands to scan, grab and ping makes learning active, and it's optional. Mouse, keyboard and touch work everywhere.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 7,
+    "clarity": 9,
+    "confidence": 8,
+    "playful_energy": 6,
+    "naturalness": 6,
+    "issues": "Robotic intonation and unnatural cadence between sentences."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "bf_emma",
+   "line": "n01",
+   "seconds": 6.05,
+   "wpm": 168,
+   "heard": "In 1969, Apollo 11 landed on the moon. Part of its lander is still up there today.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 7,
+    "clarity": 9,
+    "confidence": 8,
+    "playful_energy": 5,
+    "naturalness": 8,
+    "issues": "Lacks excitement and playful energy for a kids' trailer; tone is too documentary-style."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "bf_emma",
+   "line": "n08",
+   "seconds": 8.85,
+   "wpm": 183,
+   "heard": "Space Archaeologist is a free browser game. Kids aged 7 to 12 explore the real machines left on the Moon and Mars, and learn their true stories.",
+   "wer": 0.074,
+   "judge": {
+    "warmth": 5,
+    "clarity": 8,
+    "confidence": 7,
+    "playful_energy": 4,
+    "naturalness": 4,
+    "issues": "Robotic cadence and flat, monotonous inflection unsuited for an engaging kids' trailer."
+   }
+  },
+  {
+   "engine": "kokoro",
+   "voice": "bf_emma",
+   "line": "n29",
+   "seconds": 7.12,
+   "wpm": 177,
+   "heard": "Moving your real hands to scan, grab and ping makes learning active. And it's optional. Mouse, keyboard and touch work everywhere.",
+   "wer": 0.0,
+   "judge": {
+    "warmth": 7,
+    "clarity": 9,
+    "confidence": 8,
+    "playful_energy": 6,
+    "naturalness": 6,
+    "issues": "Slight robotic cadence and unnaturally rigid pacing between clauses."
+   }
+  },
+  {
+   "engine": "gemini",
+   "voice": "Achird",
+   "line": "n01+n08+n29",
+   "seconds": 32.88,
+   "wpm": 122,
+   "heard": "Read this aloud in a warm, clear, and confident voice speaking to judges with the playful energy of a kid's game trailer In nineteen sixty nine, Apollo 11 landed on the moon. Part of its lander is still up there to day. Space Archaeologist is a free browser game. Kids aged seven to twelve",
+   "wer": 0.908,
+   "judge": {
+    "warmth": 8,
+    "clarity": 9,
+    "confidence": 9,
+    "playful_energy": 8,
+    "naturalness": 9,
+    "issues": "None; clear, engaging delivery with good warmth and confidence."
+   }
+  },
+  {
+   "engine": "gemini",
+   "voice": "Sulafat",
+   "line": "n01+n08+n29",
+   "seconds": 34.44,
+   "wpm": 117,
+   "heard": "Read this aloud in a warm, clear, and confident voice, speaking to judges, with the playful energy of a kid's game trailer. In 1969, Apollo 11 landed on the moon. Part of its lander is still up there today. Space Archaeologist is a free browser game. Kids aged six",
+   "wer": 0.923,
+   "judge": {}
+  }
+ ]
+}

@@ -1,0 +1,560 @@
+/*
+ * Starship Odyssey · new flow UI (new-flow prompt §1, §1d.4).
+ * after-p2 motion language (springy press squash, pops, chunky rounded shapes with a bottom lip) +
+ * the readable cream cards: #FFF8EC, 3 px #3A2A24 outline, 20 px corners, 0 5px 0 offset shadow,
+ * Lexend 500 ≥ 28 px body (#2E2622, ≈ 14:1), ≤ 45 characters a line, ≤ 3 lines a card.
+ * Titles: Fredoka (the after-p2 title face). Buttons ≥ 64 px tall with ≥ 96 px hit areas.
+ */
+:root {
+  --ody-card: #ffffff;
+  --ody-ink: #241d48;
+  --ody-line: #241d48;
+  --ody-shadow: 0 6px 0 #241d48;
+  --ody-plum: #2a2358;
+  --ody-space: #14102e;
+  --ody-butter: #ffd23f;
+  --ody-brass: #e8b84a;
+  --ody-peach: #f5b98a;
+  --ody-sky: #8ec5e8;
+  --ody-mint: #7fd8be;
+  --ody-rose: #f0a9b8;
+  --ody-lilac: #c7bdf5;
+  --ody-focus: #2f6fb0;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ody-body: 28px;
+  --ody-small: 22px;
+  --ody-title: "Fredoka", "Lexend", system-ui, sans-serif;
+  --ody-font: "Fredoka", "Lexend", system-ui, sans-serif;
+  --ody-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.16 0 0 0 0 0.14 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+html[data-text-size="large"] {
+  --ody-body: 31px;
+  --ody-small: 24px;
+}
+html[data-text-size="larger"] {
+  --ody-body: 34px;
+  --ody-small: 26px;
+}
+html.reading-font {
+  --ody-font: "OpenDyslexic", "Lexend", sans-serif;
+}
+
+body.od-game {
+  margin: 0;
+  background: var(--ody-space);
+  overflow: hidden;
+}
+.od-app {
+  position: fixed;
+  inset: 0;
+  font-family: var(--ody-font);
+  font-weight: 500;
+  color: var(--ody-ink);
+  -webkit-font-smoothing: antialiased;
+}
+/* a static paper grain over the frame (3–4 %, never shimmering). Plain alpha, no blend mode: a
+   mix-blend layer over the live WebGL canvas made some Windows GPUs flash black (v4.6). */
+.od-app::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--ody-grain);
+  opacity: 0.45;
+  z-index: 90;
+}
+.od-app :focus-visible {
+  outline: 4px solid var(--ody-focus);
+  outline-offset: 3px;
+}
+.od-canvas {
+  position: fixed !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ---------- the card ---------- */
+.od-card {
+  background-color: var(--ody-card);
+  background-image: var(--ody-grain);
+  color: var(--ody-ink);
+  border: 3px solid var(--ody-line);
+  border-radius: 20px;
+  box-shadow: var(--ody-shadow);
+  font-family: var(--ody-font);
+  font-weight: 500;
+}
+.od-card h2 {
+  font-family: var(--ody-title);
+  font-weight: 600;
+  font-size: clamp(34px, 3.2vw, 44px);
+  line-height: 1.15;
+  margin: 0 0 14px;
+  color: var(--ody-line);
+}
+.od-card p {
+  font-size: var(--ody-body);
+  line-height: 1.45;
+  margin: 0 0 12px;
+  max-width: 45ch;
+}
+.od-small {
+  font-size: var(--ody-small) !important;
+  line-height: 1.35 !important;
+  color: #4a3e38;
+  margin: 8px 0 0 !important;
+}
+.od-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-top: 14px;
+}
+
+/* ---------- buttons: chunky, a bottom lip, squash on press (after-p2) ---------- */
+.od-btn,
+.od-start,
+.od-icon-label,
+.od-ask,
+.od-gear {
+  position: relative;
+  font-family: var(--ody-font);
+  font-weight: 600;
+  color: var(--ody-ink);
+  cursor: pointer;
+  transition:
+    transform 0.28s var(--spring),
+    background 0.2s,
+    box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+/* invisible hit-area extension: every target ≥ 96 px */
+.od-btn::before,
+.od-gear::before,
+.od-icon-label::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+}
+.od-btn:active:not(:disabled),
+.od-start:active,
+.od-ask:active,
+.od-gear:active,
+.od-icon-label:active {
+  transform: scale(1.06, 0.88);
+  transition-duration: 0.08s;
+}
+.od-btn {
+  min-height: 68px;
+  padding: 10px 28px;
+  border: 3px solid var(--ody-line);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 5px 0 var(--ody-line);
+  font-size: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.od-btn:hover {
+  transform: translateY(-2px);
+}
+.od-btn.primary {
+  background: var(--ody-butter);
+}
+.od-btn.danger {
+  background: #f6c9c4;
+}
+.od-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.od-icon-btn {
+  min-height: 56px;
+  min-width: 56px;
+  padding: 6px 14px;
+  border: 0;
+  background: transparent;
+  color: var(--ody-ink);
+  font-family: var(--ody-font);
+  font-weight: 600;
+  font-size: 22px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  border-radius: 14px;
+  cursor: pointer;
+}
+.od-icon-btn:hover {
+  background: #f3e6d0;
+}
+.od-gear {
+  position: fixed;
+  top: clamp(20px, 3.4vh, 36px);
+  right: clamp(20px, 2.4vw, 40px);
+  z-index: 60;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 3px solid var(--ody-line);
+  background: var(--ody-card);
+  box-shadow: var(--ody-shadow);
+  display: grid;
+  place-items: center;
+}
+
+@keyframes od-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---------- name card ---------- */
+.od-screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background:
+    radial-gradient(ellipse at 30% 20%, #3a3170 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, #4a4088 0%, transparent 55%),
+    var(--ody-space);
+  overflow: auto;
+}
+.od-name-wrap {
+  position: relative;
+  width: min(760px, 100%);
+  padding-top: 170px;
+}
+.od-peek {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% 0;
+  width: 320px;
+  height: 260px;
+  z-index: 1;
+}
+.od-namecard {
+  position: relative;
+  z-index: 2;
+  padding: 30px 36px 28px;
+  animation: od-pop 0.6s var(--spring) both;
+}
+.od-input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 72px;
+  padding: 10px 22px;
+  border: 3px solid var(--ody-line);
+  border-radius: 18px;
+  background: #fff;
+  font: 500 var(--ody-body) var(--ody-font);
+  color: var(--ody-ink);
+}
+.od-input::placeholder {
+  color: #7a6c64;
+}
+.od-hint {
+  font-size: var(--ody-small) !important;
+  color: #4a3e38;
+}
+.od-msg {
+  min-height: 1.4em;
+  color: #9a2f22 !important;
+  font-size: var(--ody-small) !important;
+}
+
+/* ---------- the Nova stage (DOM screens) ---------- */
+.od-nova-stage {
+  pointer-events: none;
+}
+.od-nova-stage canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.od-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(20, 16, 46, 0.55);
+}
+.od-confirm,
+.od-notice {
+  padding: 30px 34px;
+  max-width: 720px;
+  animation: od-pop 0.4s var(--spring) both;
+}
+.od-panel {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: calc(100vh - 32px);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 28px 30px;
+  animation: od-pop 0.4s var(--spring) both;
+}
+.od-panel-body {
+  overflow: auto;
+  display: grid;
+  gap: 12px;
+  padding-right: 6px;
+  margin-bottom: 14px;
+}
+.od-panel ul {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 22px;
+  line-height: 1.4;
+}
+.od-x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.od-toggle,
+.od-slider,
+.od-seg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  font-size: 24px;
+  border-bottom: 2px dashed #e4d3bb;
+}
+.od-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.od-toggle i {
+  flex: none;
+  width: 76px;
+  height: 42px;
+  border-radius: 999px;
+  border: 3px solid var(--ody-line);
+  background: #e7dccd;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.od-toggle i::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--ody-line);
+  transition: transform 0.25s var(--spring);
+}
+.od-toggle input:checked + i {
+  background: var(--ody-mint);
+}
+.od-toggle input:checked + i::after {
+  transform: translateX(32px);
+}
+.od-toggle input:focus-visible + i {
+  outline: 4px solid var(--ody-focus);
+  outline-offset: 3px;
+}
+.od-toggle {
+  cursor: pointer;
+}
+.od-slider input {
+  width: 46%;
+  accent-color: #4a7fa8;
+  height: 32px;
+}
+.od-seg div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.od-seg button {
+  min-height: 52px;
+  padding: 4px 14px;
+  border: 3px solid var(--ody-line);
+  border-radius: 999px;
+  background: #fff;
+  font: 600 20px var(--ody-font);
+  color: var(--ody-ink);
+  cursor: pointer;
+}
+.od-seg button.on {
+  background: var(--ody-butter);
+}
+.od-forget p {
+  font-size: 22px !important;
+}
+
+/* ---------- the check-in ---------- */
+.od-checkin {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+}
+.od-backdrop {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.8) saturate(0.95);
+}
+.od-checkin.eagle .od-backdrop {
+  background-color: #2b2a33;
+}
+.od-checkin.opportunity .od-backdrop {
+  background-color: #8a5a3f;
+}
+.od-checkin-nova {
+  position: absolute;
+  top: 9vh;
+  width: min(40vw, 460px);
+  height: min(50vh, 460px);
+}
+.od-checkin ~ * .ch-title,
+.ch1-player[data-scene="F_CHECKIN"] .ch-title,
+.ch2-player[data-scene="F_CHECKIN"] .ch2-heading,
+.ch2-player[data-scene="E_STORY"] .ch2-heading {
+  display: none;
+}
+.od-checkin-nova.from-right {
+  right: 2vw;
+}
+.od-checkin-nova.from-left {
+  left: 2vw;
+}
+
+/* ---------- screen fade + judge strip ---------- */
+.od-fade {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: #fff3e0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out);
+}
+.od-fade.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+.od-judge {
+  position: fixed;
+  left: 18px;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 65;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  font-size: 18px;
+}
+.od-judge button {
+  min-height: 44px;
+  border: 2px solid var(--ody-line);
+  border-radius: 12px;
+  background: #fff;
+  font: 600 18px var(--ody-font);
+  cursor: pointer;
+}
+
+/* ---------- devices ---------- */
+/* phones: 24 px body (the 28 px minimum does not fit 3 lines + answers in a 390 px-tall landscape screen) */
+html[data-device="phone"] {
+  --ody-body: 24px;
+  --ody-small: 18px;
+}
+html[data-device="phone"] .od-name-wrap {
+  padding-top: 96px;
+}
+html[data-device="phone"] .od-peek {
+  width: 190px;
+  height: 150px;
+}
+html[data-device="phone"] .od-namecard {
+  padding: 16px 20px;
+}
+html[data-device="phone"] .od-namecard h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+html[data-device="phone"] .od-input {
+  min-height: 56px;
+}
+html[data-device="phone"] .od-btn {
+  min-height: 56px;
+  font-size: 20px;
+  padding: 6px 16px;
+}
+
+/* ---------- reduced motion: fades only ---------- */
+.reduced-motion .od-app *,
+.reduced-motion .od-app *::before,
+.reduced-motion .od-app *::after {
+  animation-duration: 0.01ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+}
+.reduced-motion .od-btn:active,
+.reduced-motion .od-start:active,
+.reduced-motion .od-gear:active {
+  transform: none;
+}
+
+/* ---------- fonts: win over the legacy global font rules (master.css forces its paper font) ---------- */
+.od-app :where(*:not(svg, svg *, .mono, .mono *, .od-free, .od-free *)) {
+  font-family: var(--ody-font) !important;
+}
+.od-app :is(.od-card h2, .od-speaker) {
+  font-family: var(--ody-title) !important;
+}
+html.reading-font .od-app :where(*:not(svg, svg *)) {
+  font-family: "OpenDyslexic", sans-serif !important;
+}
+
+/* ---------- the story films ---------- */
+.od-story {
+  position: fixed;
+  inset: 0;
+  background: #000;
+}
+.od-story .od-story-canvas,
+.od-story .od-story-video {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+/* cards always read dark on cream, whatever the legacy rules say */
+.od-app .od-card :is(p, li, span, small, label, strong, h2, h3) {
+  color: var(--ody-ink);
+}
+.od-app .od-card h2 {
+  color: var(--ody-line) !important;
+}
+.od-app .od-card p {
+  color: var(--ody-ink) !important;
+}
+

@@ -1,0 +1,422 @@
+{
+  "_about": "Nova's scripted lines (new-flow prompt §5, §7, §8c). Every line is spoken AND shown. 'lead' parts contain {name} and are voiced live by our LOCAL server only (never pre-rendered, never sent to a third party); the rest is pre-rendered to /audio/nova/<id>.mp3 by scripts/nova-voices.mjs. type: imagine = Nova's own words, fact = must cite sourceIds.",
+  "lines": [
+    {
+      "id": "greet-hi",
+      "lead": "Hi, {name}!",
+      "text": "I'm Nova, your space guide on Starship Odyssey!",
+      "type": "imagine"
+    },
+    {
+      "id": "greet-how",
+      "text": "How are you today?",
+      "type": "imagine"
+    },
+    {
+      "id": "mood-great",
+      "text": "Yay! That makes me happy too!",
+      "type": "imagine"
+    },
+    {
+      "id": "mood-okay",
+      "text": "Okay is okay! Exploring space might make it great.",
+      "type": "imagine"
+    },
+    {
+      "id": "mood-tired",
+      "text": "Thanks for telling me. We'll take it nice and easy today.",
+      "type": "imagine"
+    },
+    {
+      "id": "mood-other",
+      "text": "Thanks for telling me!",
+      "type": "imagine"
+    },
+    {
+      "id": "greet-ready",
+      "text": "Are you ready to learn about real space missions?",
+      "type": "imagine"
+    },
+    {
+      "id": "howto-1",
+      "text": "Awesome! Here's how it works.",
+      "type": "imagine"
+    },
+    {
+      "id": "howto-2",
+      "text": "Click a mission on the wall to learn and discover what happened there.",
+      "type": "imagine"
+    },
+    {
+      "id": "howto-3",
+      "text": "Each mission starts with a real NASA video. Then you help launch the rocket and watch the story.",
+      "type": "imagine"
+    },
+    {
+      "id": "howto-4",
+      "text": "After the story, you can play a mini-game. You'll use your hands in front of the camera, or the mouse if you like.",
+      "type": "imagine"
+    },
+    {
+      "id": "howto-5",
+      "text": "And you can ask me anything about NASA and space missions, anytime! Just press this button and talk, or type your question.",
+      "type": "imagine"
+    },
+    {
+      "id": "howto-6",
+      "text": "Let's start with the Moon. Ready? Click it!",
+      "type": "imagine"
+    },
+    {
+      "id": "back-hi",
+      "lead": "Welcome back, {name}!",
+      "text": "Which mission do you want to explore today?",
+      "type": "imagine"
+    },
+    {
+      "id": "done-moon",
+      "text": "You finished the Moon mission! ⭐ Mars is waiting when you're ready.",
+      "type": "imagine"
+    },
+    {
+      "id": "done-mars",
+      "text": "You finished the Mars mission! ⭐ The Moon is waiting when you're ready.",
+      "type": "imagine"
+    },
+    {
+      "id": "done-all",
+      "lead": "You've finished all the open missions, {name}!",
+      "text": "More are coming soon. You can replay any mission or ask me questions.",
+      "type": "imagine"
+    },
+    {
+      "id": "mission-confirm-eagle",
+      "text": "Start the Moon mission?",
+      "type": "imagine"
+    },
+    {
+      "id": "mission-confirm-opportunity",
+      "text": "Start the Mars mission?",
+      "type": "imagine"
+    },
+    {
+      "id": "mission-sealed",
+      "text": "That mission is still sealed. It's coming soon!",
+      "type": "imagine"
+    },
+    {
+      "id": "mission-go",
+      "text": "Here we go! Buckle up!",
+      "type": "imagine"
+    },
+    {
+      "id": "check-how",
+      "lead": "How was the mission, {name}?",
+      "text": "",
+      "type": "imagine"
+    },
+    {
+      "id": "check-awesome",
+      "text": "Woohoo! I loved it too!",
+      "type": "imagine"
+    },
+    {
+      "id": "check-okay",
+      "text": "Thanks for being honest! Every explorer has different favourites.",
+      "type": "imagine"
+    },
+    {
+      "id": "check-other",
+      "text": "Thanks for sharing that with me!",
+      "type": "imagine"
+    },
+    {
+      "id": "check-learn",
+      "text": "Did you learn something today?",
+      "type": "imagine"
+    },
+    {
+      "id": "check-learn-yes",
+      "text": "Great job! Here's one more fun fact.",
+      "type": "imagine"
+    },
+    {
+      "id": "check-learn-little",
+      "text": "That's how all learning starts! Here's one fun fact.",
+      "type": "imagine"
+    },
+    {
+      "id": "fact-eagle",
+      "text": "Scientists still bounce lasers off the reflector they left behind.",
+      "type": "fact",
+      "sourceIds": [
+        "F10"
+      ]
+    },
+    {
+      "id": "fact-opportunity",
+      "text": "It was planned for 90 Martian days. It worked about 60 times longer!",
+      "type": "fact",
+      "sourceIds": [
+        "F5"
+      ]
+    },
+    {
+      "id": "check-questions",
+      "text": "Do you have any questions about the mission?",
+      "type": "imagine"
+    },
+    {
+      "id": "check-ask",
+      "text": "Ask me anything about the mission! Talk or type.",
+      "type": "imagine"
+    },
+    {
+      "id": "check-more",
+      "text": "Any other questions?",
+      "type": "imagine"
+    },
+    {
+      "id": "check-play",
+      "text": "Are you ready for a mini-game?",
+      "type": "imagine"
+    },
+    {
+      "id": "check-story",
+      "text": "Okay! Let's watch the story again.",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-open",
+      "text": "What would you like to know about NASA and space?",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-listening",
+      "text": "I'm listening!",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-unsure",
+      "text": "I'm not sure about that one. You could look it up on nasa.gov with a grown-up!",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-offline",
+      "text": "I don't know that one yet! Try asking me about the Moon landing or the Mars rover.",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-slow",
+      "text": "Hmm, my radio is a bit slow right now. Try asking me again in a moment!",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-rest",
+      "text": "Let's rest the radio for a little bit. Explore a mission, then ask me again!",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-wait",
+      "text": "One question at a time, space explorer!",
+      "type": "imagine"
+    },
+    {
+      "id": "intro-1",
+      "text": "Hi! I'm Nova. Welcome aboard, Space Archaeologist!",
+      "type": "imagine"
+    },
+    {
+      "id": "intro-2",
+      "text": "Long ago, brave machines flew to the Moon and to Mars.",
+      "type": "imagine"
+    },
+    {
+      "id": "intro-3",
+      "text": "Many of them are still there, quiet and waiting.",
+      "type": "imagine"
+    },
+    {
+      "id": "intro-4",
+      "text": "Your job: find them, dust them off and learn their true stories.",
+      "type": "imagine"
+    },
+    {
+      "id": "intro-5",
+      "text": "Keep your finds in your Passport, earn badges, and ask me anything!",
+      "type": "imagine"
+    },
+    {
+      "id": "intro-6",
+      "text": "Ready? Pick a mission on our ship. Let's go!",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-say-again",
+      "text": "Oops, my space ears got fuzzy. Can you say that again?",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-heard-nothing",
+      "text": "I didn't catch that. Try again, or type your question!",
+      "type": "imagine"
+    },
+    {
+      "id": "safety",
+      "text": "That sounds really important. Please tell a grown-up you trust, like a parent or teacher, right away.",
+      "type": "imagine"
+    },
+    {
+      "id": "safety-2",
+      "text": "I'm here to talk about space with you whenever you want.",
+      "type": "imagine"
+    },
+    {
+      "id": "redirect-1",
+      "text": "I'm your NASA space guide, so I only talk about space missions! Want to know why the Moon has no wind?",
+      "type": "imagine",
+      "chip": "Why is there no wind on the Moon?"
+    },
+    {
+      "id": "redirect-2",
+      "text": "That's not a space question, but here's a fun one. Want to hear about the Martian blueberries?",
+      "type": "imagine",
+      "chip": "What are Martian blueberries?"
+    },
+    {
+      "id": "redirect-3",
+      "text": "I only know about NASA and space. Ask me about the Apollo 11 Moon landing!",
+      "type": "imagine",
+      "chip": "Who walked on the Moon?"
+    },
+    {
+      "id": "redirect-4",
+      "text": "Let's keep our eyes on the stars! You could ask me how Opportunity got its power.",
+      "type": "imagine",
+      "chip": "How did Opportunity get power?"
+    },
+    {
+      "id": "redirect-5",
+      "text": "That one's outside my space suit! Want to know what the astronauts left on the Moon?",
+      "type": "imagine",
+      "chip": "What did they leave on the Moon?"
+    },
+    {
+      "id": "redirect-6",
+      "text": "I'm just here for space adventures. Ask me how long the trip to Mars took!",
+      "type": "imagine",
+      "chip": "How long was the trip to Mars?"
+    },
+    {
+      "id": "talk-ask",
+      "text": "How do you want to talk with me?",
+      "type": "imagine"
+    },
+    {
+      "id": "talk-voice-perm",
+      "text": "I need to hear you through the microphone. A grown-up can help you say yes!",
+      "type": "imagine"
+    },
+    {
+      "id": "talk-voice-ok",
+      "text": "Yay! Tap me anytime to start talking!",
+      "type": "imagine"
+    },
+    {
+      "id": "talk-chat",
+      "text": "Great! Tap me anytime, and we can type to chat.",
+      "type": "imagine"
+    },
+    {
+      "id": "talk-fallback",
+      "text": "No problem! Let's type instead.",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-1",
+      "text": "We visit brave machines that went quiet, and hear their stories!",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-2",
+      "text": "This is the Mission Wall. Missions 1 and 2 are open. More unlock soon!",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-3",
+      "text": "Pick a mission. Then pull the launch lever down to blast off!",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-4",
+      "text": "True story means it really happened. Imagine means a pretend part of the story.",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-5",
+      "text": "Ask me space questions with this button. Finish missions to earn passport stamps!",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-6",
+      "text": "Settings live up here. Press Replay anytime to hear me again!",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-done",
+      "text": "You're ready, explorer! Let's start with the Moon.",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-hi",
+      "text": "Hi, explorer! Ask me anything about space missions!",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-howareyou",
+      "text": "I'm super, thanks for asking! Want to hear about the Moon or Mars?",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-name",
+      "text": "I'm Nova, your space guide! What space question do you have?",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-thanks",
+      "text": "You're welcome! Got another space question for me?",
+      "type": "imagine"
+    },
+    {
+      "id": "chat-bye",
+      "text": "Bye for now, explorer! The stars will be waiting.",
+      "type": "imagine"
+    },
+    {
+      "id": "redirect-0",
+      "text": "That's not a space question! Want to know about the Moon or Mars?",
+      "type": "imagine",
+      "chip": "Tell me about the Moon"
+    },
+    {
+      "id": "tut-archive",
+      "text": "Open Ship stations to visit your Space Archive shelf.",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-records",
+      "text": "Mission Records keeps your investigations and pinned evidence.",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-wardrobe",
+      "text": "The wardrobe lets you change your explorer anytime.",
+      "type": "imagine"
+    },
+    {
+      "id": "tut-chart",
+      "text": "Your star chart celebrates points, badges, and completed missions.",
+      "type": "imagine"
+    }
+  ]
+}

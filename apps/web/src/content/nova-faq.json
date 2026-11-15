@@ -1,0 +1,513 @@
+{
+  "_about": "Nova's local answers (offline / no API key), and the facts the server injects into Claude's prompt. Every answer is built only from sources.json (sourceIds). 'keys' are matched fuzzily against the question. mission: eagle | opportunity | null.",
+  "faq": [
+    {
+      "id": "moon-wind",
+      "mission": "eagle",
+      "keys": [
+        "wind moon",
+        "no wind",
+        "air moon",
+        "footprints last",
+        "boot prints"
+      ],
+      "a": "There's no wind on the Moon! So the astronauts' boot prints can stay there for millions of years.",
+      "sourceIds": [
+        "F25"
+      ]
+    },
+    {
+      "id": "moon-left",
+      "mission": "eagle",
+      "keys": [
+        "leave moon",
+        "left behind",
+        "left on the moon",
+        "still there",
+        "what did they leave"
+      ],
+      "a": "They left Eagle's bottom half, a laser reflector and a seismometer. Scientists still bounce lasers off that reflector today!",
+      "sourceIds": [
+        "F28",
+        "F10",
+        "F12"
+      ]
+    },
+    {
+      "id": "moon-trip",
+      "mission": "eagle",
+      "keys": [
+        "how long trip moon",
+        "trip take",
+        "get to the moon",
+        "how many days moon",
+        "travel to the moon"
+      ],
+      "a": "The trip to the Moon took about three days. Eagle landed on July 20, 1969, four days after launch.",
+      "sourceIds": [
+        "F30",
+        "F21"
+      ]
+    },
+    {
+      "id": "moon-who",
+      "mission": "eagle",
+      "keys": [
+        "who walked",
+        "first person moon",
+        "astronauts apollo",
+        "armstrong",
+        "aldrin",
+        "collins",
+        "crew"
+      ],
+      "a": "Neil Armstrong and Buzz Aldrin walked on the Moon. Michael Collins circled above in Columbia, waiting to bring them home.",
+      "sourceIds": [
+        "F30"
+      ]
+    },
+    {
+      "id": "moon-words",
+      "mission": "eagle",
+      "keys": [
+        "what did armstrong say",
+        "small step",
+        "first words",
+        "giant leap"
+      ],
+      "a": "Neil Armstrong said: That's one small step for a man, one giant leap for mankind.",
+      "sourceIds": [
+        "F30"
+      ]
+    },
+    {
+      "id": "moon-rocks",
+      "mission": "eagle",
+      "keys": [
+        "moon rocks",
+        "samples",
+        "bring back",
+        "how much rock",
+        "soil"
+      ],
+      "a": "They brought home about 21.5 kilograms of Moon rock and soil. Scientists still study Apollo Moon samples today!",
+      "sourceIds": [
+        "F31",
+        "F34"
+      ]
+    },
+    {
+      "id": "moon-gravity",
+      "mission": "eagle",
+      "keys": [
+        "gravity moon",
+        "bounce",
+        "weigh moon",
+        "jump moon",
+        "hop"
+      ],
+      "a": "The Moon's gravity is about one sixth of Earth's. You would weigh much less there, so the astronauts could bounce!",
+      "sourceIds": [
+        "F19",
+        "F31"
+      ]
+    },
+    {
+      "id": "moon-distance",
+      "mission": "eagle",
+      "keys": [
+        "how far moon",
+        "distance moon",
+        "far away moon",
+        "laser",
+        "reflector"
+      ],
+      "a": "The Moon is about 385,000 kilometres away. A laser pulse takes about 2.5 seconds to get there and back!",
+      "sourceIds": [
+        "F10",
+        "F23"
+      ]
+    },
+    {
+      "id": "moon-launch",
+      "mission": "eagle",
+      "keys": [
+        "when launch apollo",
+        "saturn v",
+        "rocket apollo",
+        "launch pad",
+        "1969 launch"
+      ],
+      "a": "Apollo 11 launched on July 16, 1969, on a giant Saturn V rocket from Launch Pad 39A.",
+      "sourceIds": [
+        "F30",
+        "F32"
+      ]
+    },
+    {
+      "id": "moon-quake",
+      "mission": "eagle",
+      "keys": [
+        "seismometer",
+        "moonquake",
+        "quakes"
+      ],
+      "a": "It was the first seismometer on the Moon. It could even feel the astronauts' footsteps! It sent data for about three weeks.",
+      "sourceIds": [
+        "F12",
+        "F11"
+      ]
+    },
+    {
+      "id": "moon-plaque",
+      "mission": "eagle",
+      "keys": [
+        "plaque",
+        "sign",
+        "what does it say"
+      ],
+      "a": "A plaque on Eagle's leg says: We came in peace for all mankind.",
+      "sourceIds": [
+        "F29"
+      ]
+    },
+    {
+      "id": "moon-home",
+      "mission": "eagle",
+      "keys": [
+        "get home",
+        "come back",
+        "splash",
+        "return earth",
+        "fly home"
+      ],
+      "a": "They met Columbia and flew home together. They splashed down safely in the Pacific Ocean on July 24, 1969.",
+      "sourceIds": [
+        "F30",
+        "F32"
+      ]
+    },
+    {
+      "id": "moon-landing",
+      "mission": "eagle",
+      "keys": [
+        "eagle land",
+        "landing moon",
+        "tranquility",
+        "eagle has landed",
+        "when land moon"
+      ],
+      "a": "Eagle landed on July 20, 1969. Armstrong steered it past a crater to a safer spot. Then he said: The Eagle has landed.",
+      "sourceIds": [
+        "F32",
+        "F30",
+        "F33"
+      ]
+    },
+    {
+      "id": "mars-berries",
+      "mission": "opportunity",
+      "keys": [
+        "blueberries",
+        "blueberry",
+        "hematite",
+        "pebbles",
+        "spheres"
+      ],
+      "a": "Martian blueberries are tiny round pebbles of a mineral called hematite. They're really grey! They formed in rocks soaked by water long ago.",
+      "sourceIds": [
+        "F14",
+        "M_GREY"
+      ]
+    },
+    {
+      "id": "mars-power",
+      "mission": "opportunity",
+      "keys": [
+        "power",
+        "energy",
+        "solar",
+        "batteries",
+        "sunlight",
+        "panels"
+      ],
+      "a": "Opportunity ran on sunlight with solar panels. Dust covered them, but Martian winds sometimes blew it away, and the power came back!",
+      "sourceIds": [
+        "F15"
+      ]
+    },
+    {
+      "id": "mars-stop",
+      "mission": "opportunity",
+      "keys": [
+        "stop working",
+        "why did it stop",
+        "die",
+        "quiet",
+        "dust storm",
+        "end"
+      ],
+      "a": "In 2018, a giant dust storm blocked the sunlight. Opportunity went quiet on June 10, 2018. Engineers sent more than a thousand messages.",
+      "sourceIds": [
+        "F5",
+        "F4"
+      ]
+    },
+    {
+      "id": "mars-long",
+      "mission": "opportunity",
+      "keys": [
+        "how long work",
+        "how long did it last",
+        "90 days",
+        "years",
+        "planned"
+      ],
+      "a": "It was planned for 90 Martian days, but it worked about 60 times longer!",
+      "sourceIds": [
+        "F5"
+      ]
+    },
+    {
+      "id": "mars-trip",
+      "mission": "opportunity",
+      "keys": [
+        "trip to mars",
+        "how long trip mars",
+        "get to mars",
+        "travel to mars"
+      ],
+      "a": "The trip to Mars took about six and a half months.",
+      "sourceIds": [
+        "M_LAUNCH",
+        "F4"
+      ]
+    },
+    {
+      "id": "mars-landing",
+      "mission": "opportunity",
+      "keys": [
+        "land on mars",
+        "airbags",
+        "hole in one",
+        "hole-in-one",
+        "landing mars",
+        "bounce mars"
+      ],
+      "a": "Giant airbags wrapped the lander, and it bounced across the ground. Then it rolled into a small crater: a hole-in-one!",
+      "sourceIds": [
+        "M_EDL",
+        "F14"
+      ]
+    },
+    {
+      "id": "mars-drive",
+      "mission": "opportunity",
+      "keys": [
+        "how far drive",
+        "marathon",
+        "distance opportunity",
+        "kilometres",
+        "record"
+      ],
+      "a": "Opportunity drove 45 kilometres. It was the first robot to drive farther than a marathon on another world!",
+      "sourceIds": [
+        "F4"
+      ]
+    },
+    {
+      "id": "mars-perseverance",
+      "mission": "opportunity",
+      "keys": [
+        "perseverance",
+        "newer rover",
+        "record now"
+      ],
+      "a": "In October 2026, the rover Perseverance drove even farther than Opportunity, continuing the journey.",
+      "sourceIds": [
+        "F18"
+      ]
+    },
+    {
+      "id": "mars-launch",
+      "mission": "opportunity",
+      "keys": [
+        "when launch opportunity",
+        "delta",
+        "rocket opportunity",
+        "2003"
+      ],
+      "a": "Opportunity launched at night on July 7, 2003, on a Delta II Heavy rocket with nine boosters.",
+      "sourceIds": [
+        "M_LAUNCH",
+        "M_LAUNCH_KIT"
+      ]
+    },
+    {
+      "id": "mars-water",
+      "mission": "opportunity",
+      "keys": [
+        "water mars",
+        "sea",
+        "ocean",
+        "shore",
+        "salty"
+      ],
+      "a": "Clues showed that Opportunity's landing place was once the shore of a salty sea, long ago.",
+      "sourceIds": [
+        "F14"
+      ]
+    },
+    {
+      "id": "mars-stuck",
+      "mission": "opportunity",
+      "keys": [
+        "stuck",
+        "sand dune",
+        "sand"
+      ],
+      "a": "Once, Opportunity got stuck in a sand dune for over a month. Engineers on Earth carefully drove it out.",
+      "sourceIds": [
+        "F14"
+      ]
+    },
+    {
+      "id": "mars-where",
+      "mission": "opportunity",
+      "keys": [
+        "where is opportunity",
+        "where now",
+        "rest",
+        "today"
+      ],
+      "a": "Opportunity rests in Perseverance Valley on Mars today.",
+      "sourceIds": [
+        "F5"
+      ]
+    },
+    {
+      "id": "mars-moons",
+      "mission": "opportunity",
+      "keys": [
+        "mars moons",
+        "phobos",
+        "deimos",
+        "moons of mars"
+      ],
+      "a": "Mars has two little moons, called Phobos and Deimos.",
+      "sourceIds": [
+        "F20"
+      ]
+    },
+    {
+      "id": "mars-gravity",
+      "mission": "opportunity",
+      "keys": [
+        "gravity mars",
+        "weigh mars",
+        "sol",
+        "day on mars"
+      ],
+      "a": "Mars gravity is about 0.38 of Earth's, so you'd feel much lighter. A day on Mars, called a sol, is about 24 hours and 40 minutes.",
+      "sourceIds": [
+        "F20"
+      ]
+    },
+    {
+      "id": "mars-speed",
+      "mission": "opportunity",
+      "keys": [
+        "how fast",
+        "speed",
+        "drive fast"
+      ],
+      "a": "Opportunity drove very slowly, just a few centimetres a second, checking for dangers as it went.",
+      "sourceIds": [
+        "F24"
+      ]
+    },
+    {
+      "id": "voyager",
+      "mission": null,
+      "keys": [
+        "voyager",
+        "farthest",
+        "light-day",
+        "light day"
+      ],
+      "a": "Voyager 1 is so far away that it reaches one light-day from Earth on November 18, 2026!",
+      "sourceIds": [
+        "F1"
+      ]
+    },
+    {
+      "id": "pioneer",
+      "mission": null,
+      "keys": [
+        "pioneer",
+        "jupiter",
+        "asteroid belt"
+      ],
+      "a": "Pioneer 10 was the first spacecraft through the asteroid belt and the first to fly past Jupiter.",
+      "sourceIds": [
+        "F8"
+      ]
+    },
+    {
+      "id": "viking",
+      "mission": null,
+      "keys": [
+        "viking",
+        "first mars landing"
+      ],
+      "a": "Viking 1 made the first truly successful landing on Mars in 1976. It worked until 1982!",
+      "sourceIds": [
+        "F6"
+      ]
+    },
+    {
+      "id": "moon-drift",
+      "mission": null,
+      "keys": [
+        "moon moving away",
+        "drift away",
+        "moon getting farther"
+      ],
+      "a": "The Moon drifts away from Earth about 3.8 centimetres every year. Scientists measure it with lasers!",
+      "sourceIds": [
+        "F10"
+      ]
+    },
+    {
+      "id": "rocket-thrust",
+      "mission": null,
+      "keys": [
+        "rockets work",
+        "rocket work",
+        "thrust",
+        "rocket engine"
+      ],
+      "a": "A rocket pushes gases backward. The rocket moves the opposite way.",
+      "sourceIds": [
+        "F37"
+      ]
+    }
+  ],
+  "chips": {
+    "eagle": [
+      "Why is there no wind on the Moon?",
+      "What did they leave on the Moon?",
+      "How long did the trip take?"
+    ],
+    "opportunity": [
+      "What are Martian blueberries?",
+      "How did Opportunity get power?",
+      "Why did it stop working?"
+    ],
+    "home": [
+      "Who walked on the Moon?",
+      "What are Martian blueberries?",
+      "How far away is the Moon?"
+    ]
+  }
+}

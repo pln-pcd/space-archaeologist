@@ -1,0 +1,10 @@
+# Starship Odyssey local server (Nova). Pinned; each release is at least two weeks old.
+fastapi==0.162.2
+uvicorn==0.54.0
+google-genai==2.34.0    # Gemini API, official SDK (Apache-2.0); 2.34.0 released 2026-10-29
+python-dotenv==1.1.1    # reads .env (BSD-3-Clause)
+kokoro-onnx==0.6.1      # Kokoro-82M voice on this laptop (MIT); pulls phonemizer + espeakng-loader (GPL-3.0, server only)
+numpy>=2,<3
+httpx>=0.28,<1          # optional ElevenLabs voice
+pytest>=8,<10
+onnx-asr[hub]==0.12.0   # Nova's ears on this laptop (MIT); Parakeet TDT 0.6B v2 model (CC-BY-4.0) via huggingface-hub

@@ -1,0 +1,606 @@
+{
+  "id": "eagle",
+  "title": "The Part That Stayed",
+  "place": "Sea of Tranquility",
+  "date": "July 1969",
+  "machine": "Eagle",
+  "motif": "eagle",
+  "flow": [
+    "OPEN_BOOK",
+    "A_VIDEO",
+    "B_LAUNCH",
+    "C_TRIP_AND_LANDING",
+    "D_FIRST_STEPS",
+    "E_STORY",
+    "F_SUMMARY_AND_ASK",
+    "G_CAMERA_CHECK",
+    "G_MINIGAME",
+    "RESULTS",
+    "STAMP",
+    "BACK_TO_SHIP"
+  ],
+  "beats": [
+    {
+      "id": "A",
+      "kind": "scene",
+      "title": "Apollo 11 · July 1969",
+      "verbs": [],
+      "lines": [
+        {
+          "id": "a-turn",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "Now it's your turn. Let's help the rocket launch.",
+          "vo": true
+        }
+      ],
+      "video": {
+        "src": "/media/ch1/apollo11-intro.mp4",
+        "poster": "/media/ch1/apollo11-intro-poster.jpg",
+        "captions": "/media/ch1/apollo11-intro.en.vtt",
+        "credit": "Video: NASA",
+        "sourceIds": [
+          "F35"
+        ]
+      }
+    },
+    {
+      "id": "B",
+      "kind": "scene",
+      "title": "Launch Pad 39A",
+      "verbs": [],
+      "lines": [
+        {
+          "id": "b-pull",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "Pull the lever down to start the engines.",
+          "vo": true
+        },
+        {
+          "id": "b-liftoff",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "Liftoff. Push the lever up to climb.",
+          "vo": true
+        },
+        {
+          "id": "b-stage",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "The first stage falls away. The next one fires.",
+          "vo": true
+        },
+        {
+          "id": "b-date",
+          "speaker": "card",
+          "type": "fact",
+          "text": "Apollo 11 launched on July 16, 1969, at 9:32 a.m.",
+          "sourceIds": [
+            "F30",
+            "F32"
+          ]
+        },
+        {
+          "id": "b-pad",
+          "speaker": "card",
+          "type": "fact",
+          "text": "Its Saturn V rocket launched from Launch Pad 39A.",
+          "sourceIds": [
+            "F30"
+          ]
+        },
+        {
+          "id": "b-imagine",
+          "speaker": "card",
+          "type": "imagine",
+          "text": "Really, computers and the launch team ran the launch. Here, you help."
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "kind": "scene",
+      "title": "To the Moon",
+      "verbs": [],
+      "lines": [
+        {
+          "id": "c-trip",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "The trip to the Moon took about three days.",
+          "sourceIds": [
+            "F30"
+          ],
+          "vo": true
+        },
+        {
+          "id": "c-collins",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Michael Collins stayed in Columbia, circling the Moon.",
+          "sourceIds": [
+            "F30"
+          ],
+          "vo": true
+        },
+        {
+          "id": "c-steer",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Armstrong steered Eagle past a crater to a safer spot.",
+          "sourceIds": [
+            "F30"
+          ],
+          "glossary": [
+            "lunar module"
+          ],
+          "vo": true
+        },
+        {
+          "id": "c-landed",
+          "speaker": "nasa",
+          "type": "fact",
+          "text": "Houston, Tranquility Base here. The Eagle has landed.",
+          "sourceIds": [
+            "F33",
+            "F31"
+          ],
+          "audio": "/media/ch1/eagle-has-landed.mp3",
+          "who": "Neil Armstrong"
+        },
+        {
+          "id": "c-date",
+          "speaker": "card",
+          "type": "fact",
+          "text": "July 20, 1969",
+          "sourceIds": [
+            "F32"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "kind": "scene",
+      "title": "First steps",
+      "verbs": [],
+      "lines": [
+        {
+          "id": "d-step",
+          "speaker": "nasa",
+          "type": "fact",
+          "text": "That's one small step for [a] man, one giant leap for mankind.",
+          "sourceIds": [
+            "F30"
+          ],
+          "audio": "/media/ch1/one-small-step.mp3",
+          "who": "Neil Armstrong"
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "kind": "scene",
+      "title": "The Sea of Tranquility",
+      "verbs": [],
+      "lines": [
+        {
+          "id": "e01",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "On July 20, 1969, a spacecraft named Eagle landed on the Moon.",
+          "sourceIds": [
+            "F32",
+            "F31"
+          ],
+          "glossary": [
+            "lunar module"
+          ],
+          "vo": true,
+          "shot": "wide"
+        },
+        {
+          "id": "e02",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Neil Armstrong stepped out first, the first person on the Moon.",
+          "sourceIds": [
+            "F29",
+            "F31"
+          ],
+          "vo": true,
+          "shot": "armstrong"
+        },
+        {
+          "id": "e03",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Buzz Aldrin joined him. The Moon's gravity is weak, so they bounced.",
+          "sourceIds": [
+            "F31",
+            "F19"
+          ],
+          "vo": true,
+          "shot": "bounce"
+        },
+        {
+          "id": "e04",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "The ground was covered in fine grey dust. Their boot prints stayed.",
+          "sourceIds": [
+            "F25"
+          ],
+          "vo": true,
+          "shot": "prints"
+        },
+        {
+          "id": "e05",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "High above, Michael Collins circled the Moon in Columbia.",
+          "sourceIds": [
+            "F30"
+          ],
+          "vo": true,
+          "shot": "columbia"
+        },
+        {
+          "id": "e06",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "He waited to bring his crewmates home.",
+          "sourceIds": [
+            "F30"
+          ],
+          "vo": true,
+          "shot": "columbia"
+        },
+        {
+          "id": "e07",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "They planted a flag and took many photographs.",
+          "sourceIds": [
+            "F31"
+          ],
+          "vo": true,
+          "shot": "flag"
+        },
+        {
+          "id": "e08",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "They collected about 21.5 kilograms of Moon rock and soil.",
+          "sourceIds": [
+            "F31"
+          ],
+          "vo": true,
+          "shot": "rocks"
+        },
+        {
+          "id": "e09",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "They set up a seismometer to feel moonquakes.",
+          "sourceIds": [
+            "F12"
+          ],
+          "glossary": [
+            "seismometer",
+            "moonquake"
+          ],
+          "vo": true,
+          "shot": "seismometer"
+        },
+        {
+          "id": "e10",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "They placed a laser reflector so scientists on Earth could aim light at it.",
+          "sourceIds": [
+            "F10",
+            "F13"
+          ],
+          "glossary": [
+            "reflector"
+          ],
+          "vo": true,
+          "shot": "reflector"
+        },
+        {
+          "id": "e11",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "A solar wind experiment caught tiny bits blowing from the Sun.",
+          "sourceIds": [
+            "F30"
+          ],
+          "glossary": [
+            "solar wind"
+          ],
+          "vo": true,
+          "shot": "solarwind"
+        },
+        {
+          "id": "e12",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "On Eagle's leg is a plaque. It reads:",
+          "sourceIds": [
+            "F29",
+            "F30"
+          ],
+          "vo": true,
+          "shot": "plaque"
+        },
+        {
+          "id": "e13",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Here men from the planet Earth first set foot upon the Moon, July 1969, A.D. We came in peace for all mankind.",
+          "sourceIds": [
+            "F29"
+          ],
+          "vo": true,
+          "shot": "plaque",
+          "verbatim": true
+        },
+        {
+          "id": "e14",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "They worked outside for about two and a half hours.",
+          "sourceIds": [
+            "F30"
+          ],
+          "vo": true,
+          "shot": "ladderup"
+        },
+        {
+          "id": "e15",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Then they climbed back into Eagle to rest.",
+          "sourceIds": [
+            "F30"
+          ],
+          "vo": true,
+          "shot": "ladderup"
+        },
+        {
+          "id": "e16",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "The next day, Eagle's top half blasted off.",
+          "sourceIds": [
+            "F30",
+            "F28"
+          ],
+          "glossary": [
+            "descent stage"
+          ],
+          "vo": true,
+          "shot": "ascent"
+        },
+        {
+          "id": "e17",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "The bottom half stayed behind. It was the launch pad.",
+          "sourceIds": [
+            "F28"
+          ],
+          "vo": true,
+          "shot": "ascent"
+        },
+        {
+          "id": "e18",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "They met Columbia and flew home together.",
+          "sourceIds": [
+            "F30"
+          ],
+          "vo": true,
+          "shot": "home"
+        },
+        {
+          "id": "e19",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "On July 24, they splashed down safely in the Pacific Ocean.",
+          "sourceIds": [
+            "F30",
+            "F32"
+          ],
+          "vo": true,
+          "shot": "splash"
+        },
+        {
+          "id": "e20",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Eagle's bottom half is still on the Moon today.",
+          "sourceIds": [
+            "F28"
+          ],
+          "vo": true,
+          "shot": "today"
+        },
+        {
+          "id": "e21",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Scientists still bounce lasers off the reflector they left behind.",
+          "sourceIds": [
+            "F10"
+          ],
+          "vo": true,
+          "shot": "today"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "kind": "scene",
+      "title": "That's what happened on the Moon",
+      "verbs": [],
+      "lines": [
+        {
+          "id": "f1",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Eagle landed on July 20, 1969.",
+          "sourceIds": [
+            "F32"
+          ],
+          "vo": true,
+          "icon": "lander"
+        },
+        {
+          "id": "f2",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Neil Armstrong and Buzz Aldrin walked on the Moon.",
+          "sourceIds": [
+            "F30"
+          ],
+          "vo": true,
+          "icon": "boot"
+        },
+        {
+          "id": "f3",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Michael Collins circled above in Columbia.",
+          "sourceIds": [
+            "F30"
+          ],
+          "vo": true,
+          "icon": "orbit"
+        },
+        {
+          "id": "f4",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "They brought home about 21.5 kg of Moon samples.",
+          "sourceIds": [
+            "F31"
+          ],
+          "vo": true,
+          "icon": "box"
+        },
+        {
+          "id": "f5",
+          "speaker": "narrator",
+          "type": "fact",
+          "text": "Eagle's bottom half and the laser reflector are still there.",
+          "sourceIds": [
+            "F28",
+            "F10"
+          ],
+          "vo": true,
+          "icon": "reflector"
+        },
+        {
+          "id": "f-ask",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "Ready for a mini-game?",
+          "vo": true
+        }
+      ]
+    },
+    {
+      "id": "G",
+      "kind": "scene",
+      "title": "Fill the Rock Box",
+      "verbs": [],
+      "lines": [
+        {
+          "id": "g-cam",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "This game uses your camera to see your hand. Nothing is saved or sent.",
+          "vo": true
+        },
+        {
+          "id": "g-show",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "Show me one hand.",
+          "vo": true
+        },
+        {
+          "id": "g-pinch",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "Pinch your fingers together to start.",
+          "vo": true
+        },
+        {
+          "id": "g-goal",
+          "speaker": "nova",
+          "type": "fact",
+          "text": "Catch Moon samples. Apollo 11 brought home about 21.5 kg.",
+          "sourceIds": [
+            "F31"
+          ],
+          "vo": true
+        },
+        {
+          "id": "g-imagine",
+          "speaker": "card",
+          "type": "imagine",
+          "text": "The real moonwalk lasted about 2½ hours. Ours lasts 90 seconds.",
+          "sourceIds": [
+            "F30"
+          ]
+        },
+        {
+          "id": "g-earth",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "That one is from Earth. Back to Earth it goes.",
+          "vo": true
+        },
+        {
+          "id": "g-laser",
+          "speaker": "nova",
+          "type": "imagine",
+          "text": "Point at the reflector and hold still.",
+          "vo": true
+        },
+        {
+          "id": "g-laser-time",
+          "speaker": "card",
+          "type": "fact",
+          "text": "Light took about 2.5 seconds to go there and back.",
+          "sourceIds": [
+            "F23"
+          ]
+        },
+        {
+          "id": "g-laser-dist",
+          "speaker": "card",
+          "type": "fact",
+          "text": "The Moon is about 385,000 km away.",
+          "sourceIds": [
+            "F10"
+          ]
+        },
+        {
+          "id": "g-study",
+          "speaker": "card",
+          "type": "fact",
+          "text": "Scientists still study Apollo Moon samples today.",
+          "sourceIds": [
+            "F34"
+          ]
+        }
+      ]
+    }
+  ]
+}

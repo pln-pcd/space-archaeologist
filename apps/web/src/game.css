@@ -1,0 +1,140 @@
+/* Homeward is a single game surface. Every feature lives in this room. */
+html:has(.mission-game),
+body.game-mode {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+body.game-mode #root {
+  height: 100%;
+  overflow: hidden;
+}
+.game-toast {
+  position: absolute;
+  z-index: 95;
+  left: 50%;
+  bottom: 125px;
+  transform: translateX(-50%);
+  max-width: 500px;
+  background: #3a352df2;
+  border: 1px solid #c4beb34d;
+  border-radius: 10px;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #dfdcd7;
+  box-shadow: 0 15px 35px #0f121355;
+}
+/* In-game panels */
+.station-panel {
+  width: 510px;
+  max-width: 100%;
+  max-height: calc(100dvh - 50px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: linear-gradient(140deg, #464037, #2e2a24);
+  border: 1px solid #c6c1b752;
+  border-radius: 19px;
+  box-shadow:
+    0 5px 0 #201d19,
+    0 35px 100px #0a0b0c99,
+    inset 0 1px 0 #e8e6e217;
+}
+.book-play-tab {
+  margin-top: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 9px;
+  color: var(--book-color);
+}
+.book-play-tab > svg:last-child {
+  margin-left: 4px;
+}
+/* A book opens into its animated world. */
+.book-opening {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse, #5b5447, #1c2022ed 75%);
+  perspective: 1000px;
+}
+@keyframes game-twinkle {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 0.55;
+  }
+}
+@keyframes game-rise {
+  to {
+    transform: translateY(-12px);
+  }
+}
+@keyframes book-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes toy-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(2deg);
+  }
+}
+@keyframes star-drift {
+  to {
+    background-position: 150px 100px;
+  }
+}
+@media (max-width: 1100px) {
+  .book-play-tab {
+    font-size: 8px;
+  }
+}
+@media (max-width: 760px) {
+  .book-play-tab {
+    font-size: 9px;
+  }
+}
+@media (max-width: 520px) {
+  .station-panel {
+    max-height: calc(100dvh - 30px);
+    border-radius: 15px;
+  }
+  .book-play-tab {
+    font-size: 8px;
+    margin-top: 19px;
+    gap: 6px;
+  }
+  .book-play-tab svg {
+    width: 11px;
+  }
+  .game-toast {
+    bottom: 119px;
+    max-width: calc(100% - 32px);
+    width: max-content;
+    padding: 12px 16px;
+    font-size: 10px;
+    line-height: 1.9;
+  }
+}
+
+/* ---- v4 readability pass (bible §12: kids need bigger text) ---- */
+
+/* Settings → your explorer (bible §21) */

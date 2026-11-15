@@ -1,0 +1,497 @@
+/*
+ * Starship Odyssey design kit (v4.6 §9): one set of tokens and components for every 2D surface.
+ * Cozy storybook-space: cream paper cards with grain, warm-dark outlines, chunky offset shadows,
+ * sticker tags, tactile pills. Palette from the dossier: ~65 % neutrals, ~25 % soft secondary, ~10 % accents.
+ * Everything here carries .od-free (or sits inside it) so the legacy resets in ui/master.css don't apply.
+ */
+:root {
+  /* spacing scale */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  /* base: crisp white cards, deep indigo ink (no beige) */
+  --c-paper: #ffffff;
+  --c-paper-2: #f2f0ff;
+  --c-bone: #f6f4ff;
+  --c-sand: #e7e3fb;
+  --c-ink: #241d48;
+  --c-ink-soft: #5a5378;
+  --c-line: #241d48;
+  --c-slate: #5b5560;
+  --c-night: #14102e;
+  /* bright, friendly secondaries */
+  --c-sky: #5bb8ff;
+  --c-sky-soft: #d6ecff;
+  --c-sage: #2fb88a;
+  --c-sage-soft: #8ee6c4;
+  --c-denim: #6d82c9;
+  --c-lavender: #b9a8ff;
+  --c-butter: #ffd23f;
+  /* accents */
+  --c-ochre: #f5a623;
+  --c-ochre-hi: #ffd23f;
+  --c-terracotta: #ff8a4c;
+  --c-red: #ff5a4e;
+  --c-red-hi: #ff7d6b;
+  /* shape */
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 24px;
+  --r-pill: 999px;
+  --line: 3px solid var(--c-line);
+  --sh-chunky: 0 6px 0 var(--c-line);
+  --sh-chunky-sm: 0 4px 0 var(--c-line);
+  --sh-float: 0 14px 30px rgba(20, 12, 40, 0.28);
+  /* type */
+  --f-display: "Lilita One", "Fredoka", sans-serif;
+  --f-title: "Fredoka", "Nunito", sans-serif;
+  --f-body: "Fredoka", "Nunito", system-ui, sans-serif;
+  --fs-small: 20px;
+  --fs-body: 24px;
+  --fs-line: 27px;
+  --fs-title: clamp(30px, 2.6vw, 40px);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.14 0 0 0 0 0.11 0 0 0 0 0.28 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+html[data-text-size="large"] {
+  --fs-body: 26px;
+  --fs-line: 30px;
+  --fs-small: 22px;
+}
+html[data-text-size="larger"] {
+  --fs-body: 29px;
+  --fs-line: 33px;
+  --fs-small: 24px;
+}
+@media (max-width: 600px) {
+  :root {
+    --fs-body: 21px;
+    --fs-line: 22px;
+    --fs-small: 20px;
+  }
+}
+html.reading-font .od-free,
+html.reading-font .od-free * {
+  --f-body: "OpenDyslexic", "Fredoka", sans-serif;
+}
+
+/* ---------- Card ---------- */
+.k-card {
+  position: relative;
+  background-color: var(--c-paper);
+  background-image: var(--grain), linear-gradient(180deg, #ffffff 0%, #ffffff 55%, #f1f6ff 100%);
+  color: var(--c-ink);
+  border: var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-chunky);
+  padding: var(--sp-4) var(--sp-5);
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: var(--fs-body);
+  line-height: 1.4;
+}
+.k-card.stitched::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 2px dashed rgba(91, 184, 255, 0.45);
+  border-radius: calc(var(--r-md) - 6px);
+  pointer-events: none;
+}
+.k-card.starred::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: 18px;
+  width: 26px;
+  height: 26px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 16.9 6.3 20l1.2-6.4L2.8 9.2l6.4-.8z' fill='%23FFD23F' stroke='%23241D48' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  pointer-events: none;
+}
+.k-card h2 {
+  margin: 0 0 var(--sp-3);
+  font-family: var(--f-title);
+  font-weight: 700;
+  font-size: var(--fs-title);
+  line-height: 1.12;
+  color: var(--c-line);
+}
+.k-card p {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  color: var(--c-ink);
+  max-width: 44ch;
+}
+.k-card p:last-child {
+  margin-bottom: 0;
+}
+.k-small {
+  font-size: var(--fs-small);
+  color: var(--c-ink-soft);
+  font-weight: 600;
+}
+.k-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  align-items: center;
+}
+
+/* ---------- Button: tactile pills ---------- */
+.k-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 64px;
+  padding: 10px 28px 12px;
+  border: var(--line);
+  border-radius: var(--r-pill);
+  box-shadow: var(--sh-chunky-sm), inset 0 3px 0 rgba(255, 255, 255, 0.35);
+  background: var(--c-paper);
+  color: var(--c-ink);
+  font-family: var(--f-title);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 0.25s var(--spring),
+    box-shadow 0.12s,
+    translate 0.12s,
+    filter 0.15s;
+}
+/* a generous invisible hit area (≥ 96 px targets) */
+.k-btn::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+}
+.k-btn:hover:not(:disabled) {
+  animation: k-wiggle 0.5s ease;
+  filter: brightness(1.04);
+}
+.k-btn:active:not(:disabled) {
+  translate: 0 4px;
+  box-shadow: 0 0 0 var(--c-line), inset 0 2px 0 rgba(255, 255, 255, 0.25);
+  transition-duration: 0.06s;
+}
+.k-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.k-btn.primary {
+  background: linear-gradient(#ffe27a, var(--c-butter) 55%, var(--c-ochre));
+}
+.k-btn.danger {
+  background: linear-gradient(var(--c-red-hi), var(--c-red) 60%, #e8463b);
+  color: #fff;
+  text-shadow: 0 2px 0 rgba(36, 29, 72, 0.55);
+}
+.k-btn.secondary {
+  background: linear-gradient(#c4f4e2, var(--c-sage-soft));
+}
+.k-btn.sky {
+  background: linear-gradient(#bfe2ff, var(--c-sky));
+}
+.k-btn.lilac {
+  background: linear-gradient(#e6deff, var(--c-lavender));
+}
+.k-btn.ghost {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+.k-btn.lg {
+  min-height: 80px;
+  padding: 14px 36px 16px;
+  font-size: 30px;
+}
+.k-btn.sm {
+  min-height: 52px;
+  padding: 8px 20px 10px;
+  font-size: 21px;
+}
+.k-btn.round {
+  width: 64px;
+  min-width: 64px;
+  padding: 0;
+}
+.k-btn svg {
+  flex: none;
+}
+@keyframes k-wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-2.5deg) scale(1.03);
+  }
+  60% {
+    transform: rotate(2deg) scale(1.03);
+  }
+}
+
+/* ---------- Tag: sticker style ---------- */
+.k-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px 4px 9px;
+  border: 2.5px solid var(--c-line);
+  border-radius: 10px;
+  box-shadow: 0 3px 0 var(--c-line);
+  font-family: var(--f-title);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+  color: var(--c-line);
+  white-space: nowrap;
+  rotate: -3deg;
+  background: var(--c-paper);
+}
+.k-tag.true {
+  background: #8ee6c4;
+}
+.k-tag.imagine {
+  background: #d2c4ff;
+  rotate: 3deg;
+}
+.k-tag svg {
+  flex: none;
+}
+
+/* ---------- speaker badge ---------- */
+.k-speaker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 16px 5px 10px;
+  border: var(--line);
+  border-radius: var(--r-pill);
+  background: var(--c-sky);
+  color: var(--c-line);
+  box-shadow: 0 3px 0 var(--c-line);
+  font-family: var(--f-title);
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.1;
+}
+.k-speaker.narrator {
+  background: var(--c-butter);
+}
+.k-speaker.kid {
+  background: var(--c-sage-soft);
+}
+.k-speaker {
+  color: #fff;
+  text-shadow: 0 2px 0 rgba(36, 29, 72, 0.5);
+}
+.k-speaker.narrator,
+.k-speaker.kid {
+  color: var(--c-line);
+  text-shadow: none;
+}
+
+/* ---------- DialogueBox: header row (speaker + tag) + body ---------- */
+.k-dialogue {
+  position: relative;
+  padding-top: var(--sp-6);
+}
+.k-dialogue > .k-dhead {
+  position: absolute;
+  top: -20px;
+  left: var(--sp-5);
+  right: var(--sp-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  pointer-events: none;
+}
+.k-dialogue > .k-dhead > * {
+  pointer-events: auto;
+}
+.k-dhead-right {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.k-dhead .k-replay {
+  min-height: 44px;
+  padding: 4px 16px 6px;
+  font-size: 18px;
+  background: #fff;
+}
+.k-line {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: var(--fs-line);
+  line-height: 1.38;
+  color: var(--c-ink);
+  margin: 0;
+  max-width: 46ch;
+}
+
+/* ---------- ChatBubble ---------- */
+.k-chat {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-3);
+  max-width: 100%;
+}
+.k-chat.kid {
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+.k-bubble {
+  position: relative;
+  padding: var(--sp-3) var(--sp-4);
+  border: var(--line);
+  border-radius: 20px;
+  box-shadow: var(--sh-chunky-sm);
+  background: var(--c-paper);
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.35;
+  color: var(--c-ink);
+  max-width: min(560px, 74vw);
+  overflow-wrap: anywhere;
+}
+.k-chat.nova .k-bubble {
+  border-bottom-left-radius: 6px;
+}
+.k-chat.kid .k-bubble {
+  background: #d9f8ec;
+  border-bottom-right-radius: 6px;
+}
+.k-bubble small {
+  display: block;
+  font-family: var(--f-title);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--c-ink-soft);
+  margin-bottom: 2px;
+}
+
+/* ---------- Avatar ---------- */
+.k-avatar {
+  flex: none;
+  width: var(--av, 56px);
+  height: var(--av, 56px);
+  border-radius: 50%;
+  border: var(--line);
+  box-shadow: 0 3px 0 var(--c-line);
+  overflow: hidden;
+  background: var(--c-sky-soft);
+}
+.k-avatar svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- star burst on press (Phase 10 juice) ---------- */
+.k-burst {
+  position: fixed;
+  z-index: 200;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+.k-burst i {
+  position: absolute;
+  left: -9px;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 16.9 6.3 20l1.2-6.4L2.8 9.2l6.4-.8z' fill='%23FFD23F' stroke='%23241D48' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation: k-star 620ms var(--ease-out) forwards;
+}
+@keyframes k-star {
+  0% {
+    transform: translate(0, 0) scale(0.3) rotate(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(1) rotate(160deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- springy enter for cards and modals ---------- */
+.k-pop {
+  animation: k-pop 0.55s var(--spring) both;
+}
+@keyframes k-pop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.k-stagger > * {
+  animation: k-pop 0.5s var(--spring) both;
+}
+.k-stagger > *:nth-child(2) {
+  animation-delay: 60ms;
+}
+.k-stagger > *:nth-child(3) {
+  animation-delay: 120ms;
+}
+.k-stagger > *:nth-child(4) {
+  animation-delay: 180ms;
+}
+.k-stagger > *:nth-child(5) {
+  animation-delay: 240ms;
+}
+.k-stagger > *:nth-child(n + 6) {
+  animation-delay: 300ms;
+}
+/* a scrim behind modal cards */
+.k-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-4);
+  background: rgba(20, 16, 46, 0.55);
+  animation: k-fade 0.25s ease both;
+}
+@keyframes k-fade {
+  from {
+    opacity: 0;
+  }
+}
+.reduced-motion .k-pop,
+.reduced-motion .k-stagger > *,
+.reduced-motion .k-btn:hover {
+  animation: k-fade 0.2s ease both !important;
+}
+.reduced-motion .k-burst {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .k-pop,
+  .k-stagger > *,
+  .k-btn:hover {
+    animation: k-fade 0.2s ease both !important;
+  }
+  .k-burst {
+    display: none;
+  }
+}
