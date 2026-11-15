@@ -5,6 +5,9 @@
 //  - streams the server's answer (NDJSON) with a 6 s first-word timeout.
 // No chat content is stored anywhere (not in localStorage, not in logs).
 import faqData from "../../content/nova-faq.json";
+import ch1Data from "../../content/chapters/ch1-moon.json";
+import ch2Data from "../../content/chapters/ch2-mars.json";
+import glossaryData from "../../content/glossary.json";
 import linesData from "../../content/nova-lines.json";
 import { useStore } from "../../store";
 import { MISSIONS, MOON } from "../../missions/registry";
@@ -67,7 +70,7 @@ export const isDistress = (t: string) => DISTRESS.some((r) => r.test(t));
 
 // ---------- greetings and small talk: a friendly canned line that steers back to space (works offline) ----------
 const GREETING = /^\W*(?:(?:hi|hello|hey|hiya|howdy|yo|good (?:morning|afternoon|evening)|nice to meet you|thanks?|thank you|bye|goodbye|see you)\b|(?:how are you|how's it going|what(?:'s| is) your name|who are you)\b)/i;
-const SPACEISH = /\b(nasa|space|moon|mars|planet|star|sun|rocket|astronaut|rover|orbit|apollo|opportunity|jupiter|saturn|earth|galaxy|comet|asteroid|alien)/i;
+const SPACEISH = /\b(nasa|space|moon|lunar|mars|martian|planet|star|sun|rocket|astronaut|rover|orbit|apollo|opportunity|eagle|lander|jupiter|saturn|earth|galaxy|comet|asteroid|alien|reflector|laser|seismometer|plaque|blueberr|crater|gravity|voyager|viking|pioneer|perseverance|curiosity|armstrong|aldrin|nova)/i;
 export function greetingLine(t: string): { lineId: string; chip: string } | null {
   if (!GREETING.test(t) || t.split(/\s+/).length > 9 || SPACEISH.test(t)) return null;
   const s = t.toLowerCase();
@@ -88,8 +91,54 @@ const words = (s: string) =>
     .filter((w) => w && !STOP.has(w));
 const stem = (w: string) => w.replace(/(ies|es|s|ing|ed)$/, "");
 
+// v8: what speech-to-text often mishears in space questions (the same table as the server's)
+const SPEECH_FIX: [RegExp, string][] = [
+  [/\bknow va\b|\bno va\b|\bnover\b/gi, "nova"],
+  [/\bmass rover\b/gi, "mars rover"],
+  [/\bmarz\b|\bmass\b(?= (?:rover|planet|mission|dust|day|sol))/gi, "mars"],
+  [/\b(?:the )?noon\b(?= (?:landing|rock|dust|base|mission|lander))/gi, "moon"],
+  [/\bmoan\b/gi, "moon"],
+  [/\bapolo\b|\bappollo\b|\ba polo\b/gi, "apollo"],
+  [/\bretro[ -]reflector\b/gi, "retroreflector"],
+  [/\bseismo meter\b|\bseismograph\b/gi, "seismometer"],
+  [/\bblue berries\b/gi, "blueberries"],
+];
+export const fixSpeech = (t: string) => SPEECH_FIX.reduce((s, [re, to]) => s.replace(re, to), t);
+const SYN: Record<string, string[]> = {
+  moon: ["lunar"], lunar: ["moon"], rover: ["opportunity"], opportunity: ["rover"], lander: ["eagle", "descent"], eagle: ["lander"],
+  mars: ["martian"], martian: ["mars"], rocket: ["launch"], laser: ["reflector"], mirror: ["reflector"], reflector: ["laser"],
+  earthquake: ["seismometer"], moonquake: ["seismometer"], quake: ["seismometer"], shake: ["seismometer"],
+  blueberry: ["hematite"], hematite: ["blueberry"], pebble: ["blueberry"], solar: ["panel"], panel: ["solar"], power: ["solar"],
+  plaque: ["sign"], sign: ["plaque"], storm: ["dust"], airbag: ["bounce"], bounce: ["airbag"], far: ["distance"],
+};
+const qWords = (q: string) => {
+  const base = new Set(words(fixSpeech(q)).map(stem));
+  for (const w of [...base]) for (const syn of SYN[w] ?? []) base.add(stem(syn));
+  return base;
+};
+
+/** v8: every sourced line in the game (stories, both missions' finds, the glossary) for offline answers */
+type Kb = { text: string; mission: MissionId; w: Set<string> };
+let KB: Kb[] | null = null;
+function kb(): Kb[] {
+  if (KB) return KB;
+  const out: Kb[] = [];
+  const add = (text: string, mission: MissionId) => out.push({ text, mission, w: new Set(words(text).map(stem)) });
+  for (const [data, m] of [[ch1Data, "eagle"], [ch2Data, "opportunity"]] as const)
+    for (const b of (data as { beats: { lines: { type?: string; text: string; sourceIds?: string[] }[] }[] }).beats) for (const l of b.lines) if (l.type === "fact" && l.sourceIds?.length) add(l.text, m);
+  for (const t of Object.values((glossaryData as { terms: Record<string, { word: string; kid: string; sourceIds?: string[] }> }).terms)) if (t.sourceIds?.length) add(`${t.word[0].toUpperCase()}${t.word.slice(1)}: ${t.kid}`, null);
+  for (const m of MISSIONS.values()) {
+    const tag: MissionId = m.meta.id.startsWith("mars") ? "opportunity" : "eagle";
+    for (const a of m.artifacts) {
+      for (const f of [a.summary, a.purpose, a.significance, a.leftBehindReason.fact]) if (f.kind === "fact") add(`${a.name.text}: ${f.text}`, tag);
+      for (const c of a.components) if (c.clue.kind === "fact") add(`${c.name.text}: ${c.clue.text}`, tag);
+    }
+  }
+  return (KB = out);
+}
+
 export function localAnswer(q: string, mission: MissionId): Faq | null {
-  const qw = new Set(words(q).map(stem));
+  const qw = qWords(q);
   if (!qw.size) return null;
   let best: Faq | null = null;
   let bestScore = 0;
@@ -104,7 +153,17 @@ export function localAnswer(q: string, mission: MissionId): Faq | null {
     if (mission && f.mission === mission) s += 0.15;
     if (s > bestScore) (bestScore = s), (best = f);
   }
-  return bestScore >= 0.7 ? best : null;
+  if (bestScore >= 0.7) return best;
+  // no FAQ answer: the best matching sourced line from the game itself
+  let top: Kb | null = null,
+    topScore = 0;
+  for (const k of kb()) {
+    let hit = 0;
+    for (const w of qw) if (k.w.has(w)) hit++;
+    const sc = hit / Math.max(2.5, qw.size) + (mission && k.mission === mission ? 0.1 : 0);
+    if (sc > topScore) (topScore = sc), (top = k);
+  }
+  return top && topScore >= 0.5 ? { id: "kb", mission: top.mission, keys: [], a: top.text, sourceIds: [] } : null;
 }
 
 // ---------- in-game memory (v7): progress and favourite topics, never names or chat text ----------
@@ -157,6 +216,7 @@ const SESSION = (() => {
  * Ask Nova. `onText` receives streamed text (for live captions and the speech queue).
  * Always resolves (never throws): server → local FAQ → canned line.
  */
+let serverMissing = false;
 export async function ask(raw: string, mission: MissionId, history: Turn[], onText: (t: string) => void, signal?: AbortSignal, onHeard?: (t: string) => void): Promise<Answer> {
   const spoken = !!lastHeard.text && raw.trim() === lastHeard.text.trim() && Date.now() - lastHeard.at < 20000;
   if (isDistress(raw)) return { kind: "safety", text: line("safety").text, lineId: "safety" };
@@ -178,9 +238,16 @@ export async function ask(raw: string, mission: MissionId, history: Turn[], onTe
       return { kind: "local", text: fact.text } as Answer;
     }
     const f = localAnswer(message, mission);
-    return f ? ({ kind: "local", text: f.a } as Answer) : ({ kind: "fallback", text: line("chat-offline").text, lineId: "chat-offline" } as Answer);
+    if (f) return { kind: "local", text: f.a } as Answer;
+    // v8: offline, questions that are not about space get the same kind redirect as online
+    if (!SPACEISH.test(fixSpeech(message))) {
+      const id = REDIRECTS[Math.floor(Math.random() * REDIRECTS.length)];
+      return { kind: "redirect", text: line(id)?.text ?? line("chat-offline").text, lineId: id } as Answer;
+    }
+    return { kind: "fallback", text: line("chat-offline").text, lineId: "chat-offline" } as Answer;
   };
-  if (useStore.getState().settings.askNova === false) return local();
+  // v8: no Nova server here (the static web build): answer from the fact sheet right away
+  if (useStore.getState().settings.askNova === false || serverMissing) return local();
   const ac = new AbortController();
   signal?.addEventListener("abort", () => ac.abort());
   let first = false;
@@ -192,6 +259,12 @@ export async function ask(raw: string, mission: MissionId, history: Turn[], onTe
       body: JSON.stringify({ message, missionId: mission, context: currentContext, memory: explorerMemory(), spoken, history: history.slice(-6).map((h) => ({ role: h.role, text: scrub(h.text) })) }),
       signal: ac.signal,
     });
+    // a missing server (404, or the web host answering with its HTML page) means "offline", not "slow"
+    if (r.status === 404 || r.status === 405 || !/json|ndjson/i.test(r.headers.get("content-type") ?? "")) {
+      serverMissing = true;
+      clearTimeout(timer);
+      return local();
+    }
     if (!r.ok || !r.body) throw new Error(String(r.status));
     const reader = r.body.getReader();
     const dec = new TextDecoder();
@@ -223,7 +296,7 @@ export async function ask(raw: string, mission: MissionId, history: Turn[], onTe
     clearTimeout(timer);
     if (signal?.aborted) return { kind: "fallback", text: "" };
     const l = local();
-    if (l.kind === "fallback" && !first) return { kind: "fallback", text: line("chat-slow").text, lineId: "chat-slow" };
+    if (l.kind === "fallback" && !first && !serverMissing && navigator.onLine !== false) return { kind: "fallback", text: line("chat-slow").text, lineId: "chat-slow" };
     return l;
   }
 }

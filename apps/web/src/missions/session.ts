@@ -59,7 +59,7 @@ export function restoreMission(
   if (
     r.questionIndex > m.challenge.length ||
     r.discoveryIndex >= m.discovery.length ||
-    r.storyStage > 3
+    r.storyStage > 5
   )
     return fresh;
   const ids = new Set(m.artifacts.map((a) => a.id));

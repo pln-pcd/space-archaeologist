@@ -320,3 +320,12 @@
 .reduced-motion .qz-choice.wrong {
   animation: none;
 }
+/* v8: an open hand (5) is never an answer */
+.qz-count.too-many {
+  background: #ffe1e7 !important;
+  border-color: #241d48;
+}
+.qz-count.too-many b {
+  background: #ff7a8a !important;
+  color: #fff !important;
+}

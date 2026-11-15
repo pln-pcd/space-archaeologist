@@ -57,7 +57,7 @@ export function outsideBox(p: { x: number; y: number }, aspect: number, box: num
 type Tracked = { f: HandFeatures; vx: number; vy: number; speed: number; lastT: number; px: number; py: number };
 
 /** finger counting: straight above, curled below; a count must hold this long (ms) */
-export const COUNT_STRAIGHT = 0.6, COUNT_CURLED = 0.42, COUNT_MS = 650, COUNT_SETTLE = 120;
+export const COUNT_STRAIGHT = 0.62, COUNT_CURLED = 0.42, COUNT_MS = 800, COUNT_SETTLE = 160;
 
 export class VerbCore {
   opts: CoreOptions;
@@ -85,7 +85,7 @@ export class VerbCore {
   private frame = { conf: new Conf(), since: 0, cooldownUntil: 0 };
   private thumbs = { conf: new Conf(), since: 0, cooldownUntil: 0 };
   private stamp = { cooldownUntil: 0 };
-  private count = { n: 0, since: 0, fired: 0, lostAt: 0, cand: 0, candAt: 0, up: [false, false, false, false] };
+  private count = { n: 0, since: 0, fired: 0, lostAt: 0, cand: 0, candAt: 0, up: [false, false, false, false], thumb: false, tooManyAt: 0 as number | undefined };
 
   constructor(opts?: Partial<CoreOptions>) {
     this.opts = { calibration: DEFAULT_CALIBRATION, tuning: DEFAULT_TUNING, leftHanded: false, oneHand: false, ...opts };
@@ -172,7 +172,10 @@ export class VerbCore {
     this.scores.pointer = visible ? 1 : 0;
 
     // ---- fist confidence (shared by grab, steer, stamp) ----
-    const fistRaw = pf ? Math.max(clamp01((th.fistOn - pf.f.ext4) / 0.12 + 0.5), pf.f.gesture === "Closed_Fist" ? pf.f.gestureScore : 0) : 0;
+    // v8: a fist needs the INDEX curled too: a pointing hand (index out, three curled) averages a
+    // low ext4 and used to read as a fist (the glove turned into a fist while the kid pointed)
+    const indexCurled = pf ? clamp01((0.5 - pf.f.ext[1]) / 0.2) : 0;
+    const fistRaw = pf && pf.f.pointing < 0.5 ? Math.max(clamp01((th.fistOn - pf.f.ext4) / 0.12 + 0.5) * indexCurled, pf.f.gesture === "Closed_Fist" ? pf.f.gestureScore * indexCurled : 0) : 0;
 
     // ---- PINCH (+ DIAL while pinching) ----
     if (en("pinch") || en("dial")) {
@@ -229,7 +232,7 @@ export class VerbCore {
       const c = g.conf.step(recentlyOpen ? fistRaw : 0, dt, 0.08, 0.15);
       this.scores.grab = c;
       if (!g.on) {
-        if (pf && c > 0.7 && pf.f.ext4 < th.fistOn + 0.05) {
+        if (pf && c > 0.7 && pf.f.ext4 < th.fistOn + 0.05 && pf.f.ext[1] < 0.45 && pf.f.pointing < 0.4) {
           if (!g.since) g.since = t;
           if (t - g.since >= 70) {
             g.on = true;
@@ -238,7 +241,7 @@ export class VerbCore {
           }
         } else g.since = 0;
       } else {
-        const open = pf ? pf.f.ext4 > th.fistOff || (pf.f.gesture === "Open_Palm" && pf.f.gestureScore > 0.6) : lostFor > 300;
+        const open = pf ? pf.f.ext4 > th.fistOff || pf.f.pointing > 0.6 || (pf.f.gesture === "Open_Palm" && pf.f.gestureScore > 0.6) : lostFor > 300;
         if (open) {
           if (!g.offSince) g.offSince = t;
           if (t - g.offSince >= (pf ? 90 : 0)) {
@@ -414,30 +417,49 @@ export class VerbCore {
     // v7.6 finger counting: how many of index, middle, ring and pinky are straight (thumb ignored,
     // so "3" works whether or not the thumb is out). Held for COUNT_MS with the same count = a pick.
     if (en("count")) {
+      // v8 STRICT finger counting: the number of straight digits INCLUDING a thumb that is clearly
+      // held out. Only 1-4 is an answer: an open hand (5) or a fist (0) never picks anything.
+      // Each finger has hysteresis, the count must settle, then be held still for COUNT_MS.
       const g = this.count;
       const f = pf?.f;
       if (!f) {
         if (!g.lostAt) g.lostAt = t;
-        if (t - g.lostAt > 300) (g.n = 0), (g.cand = 0), (g.since = 0), (g.fired = 0);
+        if (t - g.lostAt > 300) (g.n = 0), (g.cand = 0), (g.since = 0), (g.fired = 0), (g.thumb = false);
       } else {
         g.lostAt = 0;
-        // per finger hysteresis: a finger counts as straight above COUNT_STRAIGHT and keeps
-        // counting until it drops below COUNT_CURLED, so tracker noise can't flicker the count
-        g.up = f.ext.slice(1).map((e, i) => (g.up[i] ? e > COUNT_CURLED : e > COUNT_STRAIGHT));
-        const n = g.up.filter(Boolean).length;
-        // debounce: a new count must last COUNT_SETTLE ms before it replaces the old one
+        const cal = this.opts.calibration;
+        g.up = f.ext.slice(1).map((e, i) => {
+          // per-player thresholds from Hand Training when we have them (open vs curled per finger)
+          const o = cal.fingerOpen?.[i + 1], c = cal.fingerCurled?.[i + 1];
+          const on = o !== undefined && c !== undefined && o - c > 0.25 ? c + (o - c) * 0.62 : COUNT_STRAIGHT;
+          const off = o !== undefined && c !== undefined && o - c > 0.25 ? c + (o - c) * 0.42 : COUNT_CURLED;
+          return g.up[i] ? e > off : e > on;
+        });
+        const fingers = g.up.filter(Boolean).length;
+        g.thumb = g.thumb ? f.thumbOut > 0.3 : f.thumbOut > 0.55;
+        // five: four fingers up and the thumb not tucked (lenient), or MediaPipe's open palm label
+        const five = fingers === 4 && (g.thumb || f.thumbAway > 0.4 || (f.gesture === "Open_Palm" && f.gestureScore > 0.55));
+        // pointing fingers move a lot: a count is only read from a fairly still hand
+        const still = (pf?.speed ?? 0) < 2.2;
+        const n = five ? 5 : fingers + (g.thumb && fingers > 0 ? 1 : 0);
         if (n !== g.cand) (g.cand = n), (g.candAt = t);
         if (g.cand !== g.n && t - g.candAt >= COUNT_SETTLE) {
           g.n = g.cand;
           g.since = t;
           if (g.n !== g.fired) g.fired = 0;
         }
-        this.scores.count = g.n > 0 ? Math.min(1, (t - g.since) / COUNT_MS) : 0;
-        if (g.n >= 1 && g.n <= 4) {
+        if (!still) g.since = Math.max(g.since, t - COUNT_MS * 0.5);
+        const valid = g.n >= 1 && g.n <= 4;
+        this.scores.count = valid ? Math.min(1, (t - g.since) / COUNT_MS) : 0;
+        if (valid) {
           const progress = Math.min(1, (t - g.since) / COUNT_MS);
           const done = progress >= 1 && g.fired !== g.n;
           if (done) g.fired = g.n;
           if (!g.fired || done) emit("fingers", { count: g.n, progress, done });
+        } else if (g.n === 5 && t - (g.tooManyAt ?? 0) > 400) {
+          // tell the screen "too many" (never an answer)
+          g.tooManyAt = t;
+          emit("fingers", { count: 5, progress: 0, done: false });
         }
       }
     }

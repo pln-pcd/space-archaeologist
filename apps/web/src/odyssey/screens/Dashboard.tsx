@@ -8,11 +8,9 @@ import { AdaptiveDpr } from "../../fx/AdaptiveDpr";
 import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { MessageCircle, Mic, Lock, Shirt, Gem, BookOpen, Award, X, Hand, Rocket, LogOut } from "lucide-react";
-import HandTraining from "../hands/HandTraining";
+import { MessageCircle, Mic, Lock, Shirt, Gem, BookOpen, Award, X, Rocket, ArrowLeft } from "lucide-react";
 import Passport from "../../missions/Passport";
 import { useWarpReady } from "../fx/Warp";
-import { useInput } from "../../input/store";
 import { useIntentScope } from "../../input/bus";
 import { useStore } from "../../store";
 import { DashboardRoom, boxAnchors, labelAnchors, roomLayout, type MissionTile } from "../scene/Room";
@@ -81,12 +79,9 @@ export default function Dashboard({ onPlay, finished, onWardrobe, onExit }: { on
   });
   const [highlight, setHighlight] = useState<"wall" | "moon" | null>(null);
   const [confirm, setConfirm] = useState<MissionTile | null>(null);
-  const [training, setTraining] = useState(false);
   const [passport, setPassport] = useState(false);
   useWarpReady();
-  const handsOn = useInput((s) => s.mode === "gloves");
-  // with hands on, point and pinch work on the ship too (the glove clicks what it points at)
-  useIntentScope(handsOn ? ["pointer", "pinch", "thumbsUp"] : null, {}, "dashboard-hands");
+  // v8: the ship is mouse, keys and touch only (hands live in the investigation, quiz and games)
   useEffect(() => {
     const k = (e: KeyboardEvent) => e.key === "Escape" && confirm && (setConfirm(null), stopSpeaking());
     addEventListener("keydown", k);
@@ -352,8 +347,8 @@ export default function Dashboard({ onPlay, finished, onWardrobe, onExit }: { on
       )}
 
       {!convo && onExit && (
-        <button type="button" className="g-icon-btn dash-exit" aria-label="Exit to the title screen" disabled={busy} onClick={() => (play("pop", 1.1, 0.5), stopSpeaking(), onExit())}>
-          <LogOut size={24} strokeWidth={2.6} aria-hidden="true" />
+        <button type="button" className="g-icon-btn dash-exit" aria-label="Go back" disabled={busy} onClick={() => (play("pop", 1.1, 0.5), stopSpeaking(), onExit())}>
+          <ArrowLeft size={26} strokeWidth={2.6} aria-hidden="true" />
           <span>Exit</span>
         </button>
       )}
@@ -372,12 +367,6 @@ export default function Dashboard({ onPlay, finished, onWardrobe, onExit }: { on
               <span>{name}</span>
             </button>
           ))}
-          <button type="button" className={`dash-dock-btn lilac ${handsOn ? "on" : ""}`} disabled={busy} onClick={() => (play("pop", 1.1, 0.5), setTraining(true))}>
-            <span className="dash-dock-ico" aria-hidden="true">
-              <Hand size={28} strokeWidth={2.4} />
-            </span>
-            <span>{handsOn ? "Hands on" : "Hands"}</span>
-          </button>
         </nav>
       )}
       {station && <StationMenu station={station} onClose={()=>setStation(null)}/>}
@@ -399,11 +388,12 @@ export default function Dashboard({ onPlay, finished, onWardrobe, onExit }: { on
             <div className="mc-body">
               <span className="mc-tag">{confirm.label}</span>
               <h2>{confirm.kind === "moon" ? "The Moon" : "Mars"}</h2>
-              <p>{confirm.kind === "moon" ? "Watch the story of Apollo 11, then explore what the astronauts left behind." : "Meet the rover Opportunity and help it through a dusty Mars day."}</p>
+              <p>{confirm.kind === "moon" ? "Watch the story of Apollo 11, then explore what the astronauts left behind." : "Fly to Mars with Opportunity, then explore what the brave rover left behind."}</p>
               <ul className="mc-steps">
-                <li>Story film</li>
                 <li>Real NASA video</li>
-                <li>{confirm.kind === "moon" ? "Explore and dig" : "Mini-game"}</li>
+                <li>Launch and story</li>
+                <li>Explore, dig and quiz</li>
+                <li>Hand game</li>
               </ul>
               <div className="mc-row">
                 <button type="button" className="g-btn" onClick={() => (setConfirm(null), stopSpeaking(), nova.feel("happy"))}>
@@ -431,7 +421,6 @@ export default function Dashboard({ onPlay, finished, onWardrobe, onExit }: { on
           </div>
         </div>
       )}
-      {training && <HandTraining onClose={() => setTraining(false)} />}
       {passport && <Passport onClose={() => setPassport(false)} onWardrobe={() => onWardrobe?.()} />}
     </div>
   );

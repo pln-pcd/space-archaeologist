@@ -377,3 +377,118 @@ html body .glove-avatar {
 .reduced-motion .ht-bigstar {
   animation: none;
 }
+
+/* ---------- v8: targets live INSIDE the camera picture (hit with the real fingertip) ---------- */
+.ht-targets {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.ht-star.in,
+.ht-bigstar.in {
+  position: absolute;
+  z-index: 3;
+}
+.ht-star.in {
+  width: clamp(44px, 9%, 64px);
+  height: auto;
+  aspect-ratio: 1;
+}
+.ht-bigstar.in {
+  translate: -50% -50%;
+  width: clamp(96px, 26%, 150px);
+  height: auto;
+  aspect-ratio: 1;
+}
+.ht-bigstar.in span {
+  font-size: 15px;
+}
+.ht-ring {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  place-items: center;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  border: 3px solid #241d48;
+  background:
+    radial-gradient(circle, #fff 58%, transparent 59%),
+    conic-gradient(#5ed3b0 calc(var(--p, 0) * 360deg), rgba(255, 255, 255, 0.35) 0);
+  box-shadow: 0 4px 0 #241d48;
+}
+.ht-ring b {
+  font: 400 22px/1 "Lilita One", sans-serif;
+  color: #241d48;
+}
+.ht-count {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  translate: -50% 0;
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 8px 12px;
+  list-style: none;
+  border: 3px solid #241d48;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 4px 0 #241d48;
+}
+.ht-count li {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid #d9d3f2;
+  font: 400 24px/1 "Lilita One", sans-serif;
+  color: #9a93bd;
+}
+.ht-count li.now {
+  border-color: #241d48;
+  background: #ffd23f;
+  color: #241d48;
+  animation: ht-twinkle 1.2s ease-in-out infinite;
+}
+.ht-count li.got {
+  border-color: #241d48;
+  background: #5ed3b0;
+  color: #241d48;
+}
+.ht-tips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+.ht-tips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 7px;
+  border-radius: 999px;
+  background: #fff6d8;
+  border: 2px solid #f2d27a;
+  font: 600 15px/1.1 "Fredoka", sans-serif;
+  color: #241d48;
+}
+.ht-ask .ht-tips {
+  justify-content: flex-start;
+}
+.ht-tips.compact li {
+  font-size: 13px;
+  padding: 4px 10px 5px;
+}
+.ht-seen[data-on="0"] {
+  background: #fff6d8;
+}
+.reduced-motion .ht-count li.now {
+  animation: none;
+}

@@ -17,7 +17,7 @@ import gsap from "gsap";
 import { Info, Rocket, Settings as Gear, Volume2, VolumeX } from "lucide-react";
 import Nova3D from "../nova/Nova3D";
 import { gaze, nova } from "../nova/state";
-import { ShootingStars, Starship } from "../scene/props";
+import { Starship } from "../scene/props";
 import { Body, type BodyKind } from "../scene/bodies";
 import { Lights } from "../scene/props";
 import { OdysseyPost } from "../Post";
@@ -25,11 +25,14 @@ import { OutlineSync } from "../../fx/outline";
 import { motion } from "../../anim/kit";
 import { play } from "../../audio/sfx";
 import { useStore } from "../../store";
+import { speak, stopSpeaking } from "../nova/voice";
 import "@fontsource/lilita-one/400.css";
 import "../ui/title.css";
 import "./Cover.css";
 
 const CAM_Z = 10;
+/** v8: Nova's spoken welcome (pre-rendered clip "cover-welcome" in content/nova-lines.json) */
+export const WELCOME = "Welcome to Space Archaeologist! I'm Nova. Ready to discover the machines explorers left on the Moon and Mars? Click Start!";
 const FOV = 40;
 const clamp01 = (k: number) => Math.min(1, Math.max(0, k));
 const easeOut = (k: number) => 1 - Math.pow(1 - clamp01(k), 3);
@@ -60,8 +63,9 @@ const TALL: Record<BodyKind, Slot> = {
   neptune: [-0.05, 0.97, -38, 0.85, 0.06, 0.5, 1.1],
 };
 /** Nova: [screen x, screen y, z, scale] */
-const NOVA_WIDE: [number, number, number, number] = [-0.4, -0.66, 2.5, 1.35];
-const NOVA_TALL: [number, number, number, number] = [-0.12, -0.5, 2.5, 1.2];
+// v8: Nova is bigger (she is the host) and stands a little further left of START
+const NOVA_WIDE: [number, number, number, number] = [-0.46, -0.6, 2.5, 1.85];
+const NOVA_TALL: [number, number, number, number] = [-0.12, -0.46, 2.5, 1.5];
 /** the Starship Odyssey cruising through the middle distance: [screen x, screen y, z, scale] */
 const SHIP_WIDE: [number, number, number, number] = [-0.62, 0.3, -6, 0.42];
 const SHIP_TALL: [number, number, number, number] = [-0.5, -0.12, -3, 0.34];
@@ -224,19 +228,15 @@ export function CoverWorld({ leaving = 0, reveal = true }: { leaving?: number; r
       const out = 1 - d;
       g.position.set(x * (1 + out * 0.6), y * (1 + out * 0.6), z - out * 12);
       g.scale.setScalar(0.001 + 0.999 * clamp01((r - delay) / 0.5));
-      // a slow float so the vista breathes (parallax comes from the camera)
-      if (!motion.reduced && kind !== "moon") {
-        g.position.y += Math.sin(t * 0.25 + sx * 3) * 0.12;
-        g.position.x += Math.sin(t * 0.13 + sy * 4) * 0.1;
-      }
+      // v8: the planets hold still (only the gentle camera parallax moves the vista)
     });
     // the ship glides in from the left and bobs
     if (ship.current) {
       const [sx, sy, z, sc] = shipSlot;
       const [x, y] = place(sx, sy, z, aspect);
       const a = easeOut((r - 0.9) / 2.6);
-      ship.current.position.set(x - (1 - a) * 14, y + (motion.reduced ? 0 : Math.sin(t * 0.8) * 0.08), z + lv * 3);
-      ship.current.rotation.set(0.12, -0.35, motion.reduced ? 0.05 : 0.05 + Math.sin(t * 0.7) * 0.03);
+      ship.current.position.set(x - (1 - a) * 14, y, z + lv * 3);
+      ship.current.rotation.set(0.12, -0.35, 0.05);
       ship.current.scale.setScalar(sc);
     }
     // Nova flies in from below right, bobbing on his thrusters
@@ -254,7 +254,8 @@ export function CoverWorld({ leaving = 0, reveal = true }: { leaving?: number; r
       const b = coverDom.bubble;
       if (b) {
         tmp.set(novaRig.current.position.x + 0.5 * sc, novaRig.current.position.y + 0.95 * sc, novaRig.current.position.z).project(camera);
-        b.style.left = `${((tmp.x + 1) / 2) * size.width}px`;
+        // keep the bubble on screen (narrow phones)
+        b.style.left = `${Math.max(8, Math.min(((tmp.x + 1) / 2) * size.width, size.width - b.offsetWidth - 10))}px`;
         b.style.top = `${((1 - tmp.y) / 2) * size.height}px`;
         b.dataset.show = r > 3 && lv < 0.1 ? "1" : "0";
       }
@@ -273,12 +274,11 @@ export function CoverWorld({ leaving = 0, reveal = true }: { leaving?: number; r
         <meshBasicMaterial map={haze()} depthWrite={false} toneMapped={false} />
       </mesh>
       <TwinkleStars />
-      <ShootingStars n={2} />
       {(Object.keys(L) as BodyKind[]).map((kind) => {
         const [, , , radius, spin, tilt] = L[kind];
         return (
           <group key={kind} ref={(g) => void (groups.current[kind] = g)} scale={0.001}>
-            <Body kind={kind} radius={radius} spin={spin} tilt={tilt} segments={kind === "uranus" || kind === "neptune" ? 32 : 64} ringTilt={kind === "saturn" ? 1.2 : undefined} />
+            <Body kind={kind} radius={radius} spin={spin * 0} tilt={tilt} segments={kind === "uranus" || kind === "neptune" ? 32 : 64} ringTilt={kind === "saturn" ? 1.2 : undefined} />
           </group>
         );
       })}
@@ -286,8 +286,6 @@ export function CoverWorld({ leaving = 0, reveal = true }: { leaving?: number; r
       <MoonFinds aspect={aspect} reveal={reveal} />
       <Nebula />
       <Sparkles4 aspect={aspect} />
-      <Satellite aspect={aspect} />
-      <Asteroids />
       <group ref={ship} scale={0.001}>
         <Starship />
       </group>
@@ -517,9 +515,10 @@ function Sparkles4({ aspect }: { aspect: number }) {
   useFrame((s) => {
     const t = motion.reduced ? 1 : s.clock.elapsedTime;
     g.current?.children.forEach((m, i) => {
-      const k = Math.max(0, Math.sin(t * 1.3 + i * 1.7));
-      m.scale.setScalar(0.25 + k * 0.55);
-      m.rotation.z = t * 0.4 + i;
+      // v8: a soft twinkle only (no spinning)
+      const k = Math.max(0, Math.sin(t * 0.9 + i * 1.7));
+      m.scale.setScalar(0.35 + k * 0.3);
+      m.rotation.z = i;
     });
   });
   return (
@@ -590,6 +589,8 @@ function Asteroids() {
 
 export default function Cover({ onStart, onSettings, onCredits }: { onStart: () => void; onSettings: () => void; onCredits: () => void }) {
   const [leaving, setLeaving] = useState(0);
+  const leavingRef = useRef(0);
+  leavingRef.current = leaving;
   const sound = useStore((s) => s.settings.sound !== false);
   const configure = useStore((s) => s.configure);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -597,12 +598,44 @@ export default function Cover({ onStart, onSettings, onCredits }: { onStart: () 
   const toolsRef = useRef<HTMLDivElement>(null);
   const midRef = useRef<HTMLDivElement>(null);
 
-  // Nova waves when he arrives, and again now and then
+  // Nova waves when she arrives, and again now and then
   useEffect(() => {
     nova.feel("excited");
     const a = setTimeout(() => nova.act("wave"), motion.reduced ? 200 : 2500);
-    const iv = setInterval(() => nova.act("wave"), 9000);
+    const iv = setInterval(() => nova.act("wave"), 12000);
     return () => (clearTimeout(a), clearInterval(iv));
+  }, []);
+
+  // v8: Nova welcomes the explorer out loud as the game opens. Browsers only allow sound after a
+  // click or key press, so if the first try is blocked she says it on the first tap/key instead.
+  useEffect(() => {
+    let said = false,
+      stop = () => {};
+    const say = () => {
+      if (said || leavingRef.current) return;
+      said = true;
+      off();
+      nova.act("wave");
+      stop = speak(WELCOME, { clip: "cover-welcome" }).stop;
+    };
+    const tryNow = setTimeout(() => {
+      // AudioContext starts "running" only when the page may already play sound
+      const ctx = new AudioContext();
+      const ok = ctx.state === "running";
+      void ctx.close();
+      if (ok) say();
+    }, motion.reduced ? 400 : 3000);
+    const first = (e: Event) => {
+      if ((e.target as HTMLElement | null)?.closest?.(".od-start")) return off();
+      setTimeout(say, 60);
+    };
+    const off = () => {
+      removeEventListener("pointerdown", first, true);
+      removeEventListener("keydown", first, true);
+    };
+    addEventListener("pointerdown", first, true);
+    addEventListener("keydown", first, true);
+    return () => (clearTimeout(tryNow), off(), stop());
   }, []);
 
   // DOM entrance: title pops, START rises then pulses gently, corner tools fade in
@@ -620,8 +653,7 @@ export default function Cover({ onStart, onSettings, onCredits }: { onStart: () 
     tl.fromTo(title, { opacity: 0, scale: 0.7, y: -20 }, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out(1.8)" }, 0.9)
       .fromTo(mid, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.6)" }, 1.7)
       .fromTo(start, { opacity: 0, y: 40, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(2)" }, 2.2)
-      .fromTo(tools, { opacity: 0 }, { opacity: 1, duration: 0.5 }, 2.4)
-      .to(start.querySelector("span"), { scale: 1.045, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: -1 }, 3.1);
+      .fromTo(tools, { opacity: 0 }, { opacity: 1, duration: 0.5 }, 2.4);
     return () => void tl.kill();
   }, []);
 
@@ -632,6 +664,7 @@ export default function Cover({ onStart, onSettings, onCredits }: { onStart: () 
     nova.feel("excited");
     nova.act("thumbs");
     gsap.killTweensOf(startRef.current);
+    stopSpeaking();
     setLeaving(1);
     setTimeout(onStart, motion.reduced ? 100 : 260);
   };
@@ -678,7 +711,7 @@ export default function Cover({ onStart, onSettings, onCredits }: { onStart: () 
         <p className="od-tagline">Explore the Moon and Mars. Find the brave machines left behind!</p>
       </div>
       <div className="od-nova-says od-free" ref={(el) => void (coverDom.bubble = el)} aria-hidden="true" data-show="0">
-        Hi! I'm Nova. Let's go explore!
+        {WELCOME}
       </div>
       <div ref={toolsRef} className="od-cover-tools" style={{ opacity: 0 }}>
         <button type="button" className="od-round" aria-label={sound ? "Turn sound off" : "Turn sound on"} aria-pressed={sound} onClick={() => (configure({ sound: !sound }), play("tick"))}>

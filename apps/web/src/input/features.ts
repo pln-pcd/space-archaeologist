@@ -26,6 +26,13 @@ export type HandFeatures = {
   thumbUp: number;
   /** L-shape: thumb and index out, others curled, wide angle between them */
   lShape: number;
+  /** v8: the thumb is clearly held OUT, away from the palm (0..1). Strict: a thumb resting on the
+   *  curled fingers or tucked across the palm scores ~0. Used to count fingers (1-4, never 5). */
+  thumbOut: number;
+  /** v8: a pointing hand: index straight, middle/ring/pinky curled (0..1). Never a fist. */
+  pointing: number;
+  /** v8: lenient "the thumb is not tucked" (0..1): with four fingers up this means FIVE */
+  thumbAway: number;
   gesture: string;
   gestureScore: number;
 };
@@ -101,6 +108,18 @@ export function computeFeatures(hand: HandFrame, aspect: number): HandFeatures {
   const curled3 = 1 - (ext[2] + ext[3] + ext[4]) / 3;
   const lShape = clamp01((ext[1] - 0.45) / 0.25) * clamp01((ext[0] - 0.5) / 0.3) * clamp01((curled3 - 0.45) / 0.3) * (lAngle > 0.85 && lAngle < 2.3 ? 1 : 0);
 
+  // v8 strict thumb: the tip must sit well away from the index knuckle AND from the palm centre
+  // (a thumb laid across the palm or on the curled fingers is near one of them), and the thumb
+  // chain itself must be fairly straight
+  const d45 = len(sub(P[4], P[5])) / palmP;
+  const d49 = len(sub(P[4], P[9])) / palmP;
+  const d413 = len(sub(P[4], P[13])) / palmP;
+  const thumbStraight = clamp01(1 - bend(P, [1, 2, 3, 4]) / 1.6);
+  const thumbOutV = clamp01((d45 - 0.42) / 0.28) * clamp01((d49 - 0.62) / 0.3) * clamp01((d413 - 0.7) / 0.3) * clamp01((thumbStraight - 0.35) / 0.35);
+  const thumbAway = clamp01((d45 - 0.36) / 0.22) * clamp01((d49 - 0.5) / 0.25);
+  const rest3 = (ext[2] + ext[3] + ext[4]) / 3;
+  const pointing = clamp01((ext[1] - 0.55) / 0.25) * clamp01((0.5 - rest3) / 0.25);
+
   return {
     handedness: hand.handedness,
     wrist: I[0],
@@ -116,6 +135,9 @@ export function computeFeatures(hand: HandFrame, aspect: number): HandFeatures {
     roll,
     thumbUp,
     lShape,
+    thumbOut: thumbOutV,
+    thumbAway,
+    pointing: Math.max(pointing, hand.gesture === "Pointing_Up" ? hand.gestureScore * 0.9 : 0),
     gesture: hand.gesture,
     gestureScore: hand.gestureScore,
   };

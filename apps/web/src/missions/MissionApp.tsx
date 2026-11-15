@@ -30,17 +30,22 @@ import Archive from "./Archive";
 import MissionFilm from "./MissionFilm";
 const SceneLaunch = lazy(() => import("../story/ch1/SceneLaunch"));
 const RockBox = lazy(() => import("../story/ch1/RockBox"));
+// v8: Mars runs on the same engine: its opening films, then explore → investigate → quiz → Sol Keeper
+const MarsOpening = lazy(() => import("../story/ch2/MarsOpening"));
+const SolKeeper = lazy(() => import("../story/ch2/SolKeeper"));
 /** an old save sitting on a removed story stage: move on */
 function StoryAdvance({ onNext }: { onNext: () => void }) {
   useEffect(() => onNext(), []); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
 }
-export default function MissionApp({ onClose }: { onClose: (done?: boolean) => void }) {
+export default function MissionApp({ onClose, missionId }: { onClose: (done?: boolean) => void; missionId?: string }) {
   const [mission] = useState(
     () =>
+      MISSIONS.get(missionId ?? "") ??
       MISSIONS.get(new URLSearchParams(location.search).get("mission") ?? "") ??
       MOON,
   );
+  const mars = mission.meta.id.startsWith("mars");
   const [ready, setReady] = useState(false);
   // read the deep link once (React dev mode runs effects twice and the URL is tidied after the first)
   const [entry] = useState(() => {
@@ -68,9 +73,21 @@ export default function MissionApp({ onClose }: { onClose: (done?: boolean) => v
   const talkMode = useStore((s) => s.settings.talkMode ?? "chat");
   const next = () => command(mission, { type: "next" });
   const allowed = [5, 6, 7, 8, 10].includes(state.step);
-  // v7.6: while Hands are on, the mission's play steps keep the camera and tracker running
-  // (before, the camera switched off 1.5 s after the hand training card closed)
-  useHandsWanted(gesture && (allowed || (state.step === 5 && field)));
+  // v8: hands (camera + glove) ONLY in the parts made for them: investigating a find, its quiz and
+  // the mini-game. Exploring, films and the ship use mouse, keys and touch.
+  const handsPart = state.step === 6 || state.step === 7 || (state.step === 5 && field);
+  useHandsWanted(gesture && handsPart);
+  // the first time a hands part opens, the hand card pops up by itself (once per device)
+  // (after the game's how-to card, so two cards never stack)
+  useEffect(() => {
+    if (!handsPart || useStore.getState().settings.handsAsked) return;
+    const iv = setInterval(() => {
+      if (document.querySelector(".howto-scrim, .g-scrim")) return;
+      clearInterval(iv);
+      if (!useStore.getState().settings.handsAsked) setCameraChoice(true);
+    }, 400);
+    return () => clearInterval(iv);
+  }, [handsPart]);
   const [leaving, setLeaving] = useState(false);
   useWarpReady(ready);
   // films and the NASA video bring their own sound; the Rock Box gets the bouncy game song
@@ -101,15 +118,23 @@ export default function MissionApp({ onClose }: { onClose: (done?: boolean) => v
       data-step={String(state.step).padStart(2, "0")}
     >
       <div className="g-hud-tl">
-        {state.step === 5 && field ? (
-          <button type="button" className="g-icon-btn labelled" aria-label="Back to exploring" onClick={() => (play("soft", 1, 0.5), setField(false))}>
+        <button type="button" className="g-icon-btn" aria-label="Back to the ship" onClick={() => (play("soft", 1, 0.5), setLeaving(true))}>
+          <Home size={26} strokeWidth={2.6} />
+          <span>Ship</span>
+        </button>
+        {(state.step >= 5 || (state.step === 4 && state.storyStage > 0)) && (
+          <button
+            type="button"
+            className="g-icon-btn"
+            aria-label={state.step === 5 && field ? "Back to exploring" : "Go back"}
+            onClick={() => {
+              play("soft", 1, 0.5);
+              if (state.step === 5 && field) setField(false);
+              else command(mission, { type: "back" });
+            }}
+          >
             <ArrowLeft size={26} strokeWidth={2.8} />
             <span>Back</span>
-          </button>
-        ) : (
-          <button type="button" className="g-icon-btn" aria-label="Back to the ship" onClick={() => (play("soft", 1, 0.5), setLeaving(true))}>
-            <Home size={26} strokeWidth={2.6} />
-            <span>Ship</span>
           </button>
         )}
       </div>
@@ -143,14 +168,15 @@ export default function MissionApp({ onClose }: { onClose: (done?: boolean) => v
       )}
       <Suspense fallback={<GameLoading label="Preparing your discovery…" />}>
         {/* v7.5: Neil Armstrong's NASA footage → the launch lever and the trip → the Moon arrival film */}
-        {state.step === 4 && state.storyStage === 0 && <SceneVideo onDone={next} />}
-        {state.step === 4 && state.storyStage === 1 && (
+        {mars && state.step === 4 && <MarsOpening key={state.storyStage} stage={state.storyStage} onNext={next} />}
+        {!mars && state.step === 4 && state.storyStage === 0 && <SceneVideo onDone={next} />}
+        {!mars && state.step === 4 && state.storyStage === 1 && (
           <SceneLaunch onDone={next} />
         )}
-        {state.step === 4 && state.storyStage === 2 && (
+        {!mars && state.step === 4 && state.storyStage === 2 && (
           <MissionFilm mission={mission} onDone={next} />
         )}
-        {state.step === 4 && state.storyStage > 2 && <StoryAdvance onNext={next} />}
+        {!mars && state.step === 4 && state.storyStage > 2 && <StoryAdvance onNext={next} />}
         {state.step === 5 && !field && (
           <Exploration
             mission={mission}
@@ -158,11 +184,12 @@ export default function MissionApp({ onClose }: { onClose: (done?: boolean) => v
             onFieldActivity={() => setField(true)}
           />
         )}
-        {state.step === 5 && field && (
+        {state.step === 5 && field && !mars && (
           <>
             <RockBox camera={gesture} onDone={() => (command(mission, { type: "fieldDone" }), setField(false))} />
           </>
         )}
+        {state.step === 5 && field && mars && <SolKeeper camera={gesture} onDone={() => (command(mission, { type: "fieldDone" }), setField(false))} />}
         {state.step === 6 && (
           <ArtifactInvestigation
             key={artifact.id}
@@ -188,20 +215,32 @@ export default function MissionApp({ onClose }: { onClose: (done?: boolean) => v
             <div className="m-chapter-done" role="status">
               <span aria-hidden="true">🏅</span>
               <div>
-                <small>Chapter 1 · The Moon</small>
+                <small>{mars ? "Chapter 2 · Mars" : "Chapter 1 · The Moon"}</small>
                 <strong>Chapter complete!</strong>
               </div>
             </div>
-            <Archive mission={mission} state={state} onClose={() => onClose(true)} />
+            <Archive
+              mission={mission}
+              state={state}
+              onClose={() => {
+                // the ship's mission wall reads Mars from the saved progress
+                if (mars) {
+                  const st = useStore.getState();
+                  st.complete("opportunity", "stamp");
+                  st.score("opportunity", Math.max(1, state.stars));
+                }
+                onClose(true);
+              }}
+            />
           </>
         )}
-        {(allowed || state.step === 5) && (
+        {(allowed || state.step >= 5) && (
           <div className="g-hud-tr">
             <button type="button" className="g-icon-btn sky" aria-label="Ask Nova" onClick={() => (play("pop", 1.2, 0.5), setConversation(true))}>
               <MessageCircle size={26} strokeWidth={2.6} />
               <span>Ask Nova</span>
             </button>
-            <button
+            {handsPart && <button
               type="button"
               className={`g-icon-btn ${gesture ? "mint" : ""}`}
               aria-pressed={gesture}
@@ -210,7 +249,7 @@ export default function MissionApp({ onClose }: { onClose: (done?: boolean) => v
             >
               <Hand size={26} strokeWidth={2.6} />
               <span>{gesture ? "Hands on" : "Hands"}</span>
-            </button>
+            </button>}
           </div>
         )}
         {cameraChoice && <HandTraining onClose={() => setCameraChoice(false)} />}
@@ -218,7 +257,7 @@ export default function MissionApp({ onClose }: { onClose: (done?: boolean) => v
         {conversation && (
           <Conversation
             mode={talkMode}
-            mission="eagle"
+            mission={mission.meta.id === "mars-001" ? "opportunity" : "eagle"}
             onClose={() => setConversation(false)}
           />
         )}

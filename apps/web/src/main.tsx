@@ -7,6 +7,7 @@ import { watchNameLeaks } from "./profile/privacy";
 import "./content/check";
 import "@fontsource/lexend/400.css";
 import "@fontsource/lexend/500.css";
+import "@fontsource/lexend/700.css";
 import "@fontsource/opendyslexic/400.css";
 import "@fontsource/stylish/latin-400.css";
 import "@fontsource/ibm-plex-mono/latin-400.css";

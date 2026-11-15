@@ -381,7 +381,7 @@
           "minimum": 1
         },
         "activity": {
-          "enum": ["laser", "seismic", "message", "landing"]
+          "enum": ["laser", "seismic", "message", "landing", "solar", "airbag", "chute"]
         },
         "photo": {
           "type": "object",

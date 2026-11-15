@@ -5,7 +5,10 @@
 //   3 RECORD     enough clues unlock the record card and its mini activity, then the evidence board.
 // A stepper shows where you are; everything fits one screen.
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Brush, Camera, Check, Hand, Play, Search, Sparkles, Volume2, Wind } from "lucide-react";
+import { Brush, Camera, Check, Play, Search, Sparkles, Volume2, Wind } from "lucide-react";
+import { LiveCamera } from "../story/ch1/CameraCheck";
+import HandTracker from "../ui/HandTracker";
+import { GloveArt, type GlovePose } from "../ui/GloveSprite";
 import { useInput } from "../input/store";
 import { useIntent, useIntentScope } from "../input/bus";
 import { InspectionStage, InspectTools } from "./ArtifactModel";
@@ -153,6 +156,55 @@ function Dust({ onClean, blow }: { onClean: (k: number) => void; blow: number })
   );
 }
 
+/** v8: the camera card on the left. Hands on: the live picture with the tracked hand drawn on it
+ *  and the gestures for this step. Hands off: an invitation to turn the camera on (mouse works too). */
+function CameraCard({ on, phase, name }: { on: boolean; phase: number; name: string }) {
+  const tips: [GlovePose, string][] =
+    phase === 0
+      ? [
+          ["point", "Point and sweep over the dust to brush it"],
+          ["open", "Hold an open palm still to blow"],
+        ]
+      : [
+          ["fist", `Make a fist and move it to turn the ${name}`],
+          ["point", "Point at a glowing star"],
+          ["pinch", "Pinch to open that part"],
+        ];
+  return (
+    <aside className={`iv3-camcard g-panel ${on ? "on" : "off"}`} aria-label="Hand camera">
+      {on ? (
+        <>
+          <div className="iv3-campic">
+            <LiveCamera />
+            <HandTracker />
+            <span className="ht-live">
+              <i /> Camera on
+            </span>
+          </div>
+          <ul className="iv3-camtips">
+            {tips.map(([pose, text]) => (
+              <li key={text}>
+                <GloveArt pose={pose} tone="idle" size={40} />
+                <span>{text}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <div className="iv3-camoff">
+          <GloveArt pose="open" tone="idle" size={92} />
+          <h3>Use your hands!</h3>
+          <p>Turn on the camera to brush, turn and open parts with gestures.</p>
+          <button type="button" className="g-btn mint" onClick={() => dispatchEvent(new Event("od-open-hands"))}>
+            <Camera size={20} strokeWidth={2.6} aria-hidden="true" /> Turn on camera
+          </button>
+          <small>Mouse and keys work too.</small>
+        </div>
+      )}
+    </aside>
+  );
+}
+
 export default function ArtifactInvestigation({ mission, artifact, state }: { mission: MissionDefinition; artifact: Artifact; state: MissionState }) {
   const scanned = state.scanned.includes(artifact.id),
     clues = state.clues[artifact.id] ?? [];
@@ -210,7 +262,7 @@ export default function ArtifactInvestigation({ mission, artifact, state }: { mi
           kicker="Game · Dig it up"
           title="Something is buried!"
           goal="Archaeologists brush dust away very gently. Uncover what was left behind, then explore its parts."
-          voice="Something is buried here! Brush the Moon dust away, then open its glowing parts to learn what they do."
+          voice={`Something is buried here! Brush the ${mission.meta.id.startsWith("mars") ? "Mars" : "Moon"} dust away, then open its glowing parts to learn what they do.`}
           steps={[
             { icon: "🖌️", text: "Drag to brush the dust" },
             { icon: "✊", text: "Make a fist to turn it around" },
@@ -233,52 +285,62 @@ export default function ArtifactInvestigation({ mission, artifact, state }: { mi
           ))}
         </ol>
       </header>
-      <div className="iv3-stage">
-        <InspectionStage artifact={artifact} scan={scanned ? 1 : 0} onHotspot={scanned ? openPart : undefined} />
-        {!scanned && !reveal && <Dust onClean={setClean} blow={blow} />}
-        {!scanned && (
-          <div className={`iv-dig-hud ${reveal ? "yay" : ""}`}>
-            {reveal ? (
-              <strong>
-                <Sparkles size={20} /> You found it!
-              </strong>
-            ) : (
-              <>
-                <span className="iv-meter" style={{ ["--k" as string]: Math.min(1, clean / 0.55) }}>
-                  <b />
-                </span>
-                <small>
-                  <Brush size={16} /> Drag to brush · <Wind size={16} /> hold Space to blow
-                </small>
-              </>
-            )}
-          </div>
-        )}
-        {scanned &&
-          (gloves ? (
-            <div className="iv3-cam on" role="status">
-              <Hand size={20} strokeWidth={2.6} aria-hidden="true" /> Make a fist and move it to turn the {artifact.name.text}. Point at a star and pinch to open a part.
+      <div className={`iv3-main phase-${phase}`}>
+        <CameraCard on={gloves} phase={phase} name={artifact.name.text} />
+        <div className="iv3-stage">
+          <InspectionStage artifact={artifact} scan={scanned ? 1 : 0} onHotspot={scanned ? openPart : undefined} />
+          {!scanned && !reveal && <Dust onClean={setClean} blow={blow} />}
+          {!scanned && (
+            <div className={`iv-dig-hud ${reveal ? "yay" : ""}`}>
+              {reveal ? (
+                <strong>
+                  <Sparkles size={20} /> You found it!
+                </strong>
+              ) : (
+                <>
+                  <span className="iv-meter" style={{ ["--k" as string]: Math.min(1, clean / 0.55) }}>
+                    <b />
+                  </span>
+                  <small>
+                    <Brush size={16} /> Drag to brush · <Wind size={16} /> hold Space to blow
+                  </small>
+                </>
+              )}
             </div>
-          ) : (
-            <button type="button" className="iv3-cam" onClick={() => dispatchEvent(new Event("od-open-hands"))}>
-              <Camera size={22} strokeWidth={2.6} aria-hidden="true" /> Open the camera to investigate with your hands
-            </button>
-          ))}
-        {scanned && part && (
-          <aside className="iv3-part" aria-live="polite" aria-label={`Part: ${part.name.text}`}>
-            <small>
-              Part {partIndex + 1} of {artifact.components.length}
-            </small>
-            <h2>{part.name.text}</h2>
-            <p className="iv3-job">
-              <b>Its job:</b> {part.function.text}
-            </p>
-            <p className="iv3-fact">
-              <span className="od-badge true">True story</span> {part.clue.text}
-            </p>
+          )}
+          {scanned && part && phase < 2 && (
+            <aside className="iv3-part" aria-live="polite" aria-label={`Part: ${part.name.text}`}>
+              <small>
+                Part {partIndex + 1} of {artifact.components.length}
+              </small>
+              <h2>{part.name.text}</h2>
+              <p className="iv3-job">
+                <b>Its job:</b> {part.function.text}
+              </p>
+              <p className="iv3-fact">
+                <span className="od-badge true">True story</span> {part.clue.text}
+              </p>
+            </aside>
+          )}
+          {scanned && <InspectTools />}
+        </div>
+        {phase === 2 && (
+          <aside className="iv3-record g-panel" aria-label="Record unlocked">
+            <div className="iv3-record-text">
+              <div className="iv-record-head">
+                <span>Record unlocked</span>
+                <button type="button" className="g-icon-btn sky" aria-label="Hear it again" onClick={() => speak(artifact.summary.text)} style={{ ["--g-icon" as string]: "40px" }}>
+                  <Volume2 size={18} />
+                </button>
+              </div>
+              <p className="iv-record-text">{artifact.summary.text}</p>
+              <p className="iv-record-why">
+                <b>Why it stayed:</b> {artifact.leftBehindReason.fact.text}
+              </p>
+            </div>
+            <Activity mission={mission} artifact={artifact} complete={activityDone} />
           </aside>
         )}
-        {scanned && <InspectTools />}
       </div>
       <div className={`iv3-tray g-panel phase-${phase}`}>
         <Action mission={mission} action={{ type: "explore" }} className="iv3-back">
@@ -291,7 +353,7 @@ export default function ArtifactInvestigation({ mission, artifact, state }: { mi
               <span>{Math.round(Math.min(1, clean / 0.55) * 100)}%</span>
             </div>
             <p>
-              <span aria-hidden="true">💡</span> No wind here, so footprints can stay for a very long time.
+              <span aria-hidden="true">💡</span> {mission.meta.id.startsWith("mars") ? "Dust slowly covered Opportunity's solar panels." : "No wind here, so footprints can stay for a very long time."}
             </p>
           </div>
         )}
@@ -307,23 +369,6 @@ export default function ArtifactInvestigation({ mission, artifact, state }: { mi
                 </button>
               );
             })}
-          </div>
-        )}
-        {phase === 2 && (
-          <div className="iv3-record">
-            <div className="iv3-record-text">
-              <div className="iv-record-head">
-                <span>Record unlocked</span>
-                <button type="button" className="g-icon-btn sky" aria-label="Hear it again" onClick={() => speak(artifact.summary.text)} style={{ ["--g-icon" as string]: "40px" }}>
-                  <Volume2 size={18} />
-                </button>
-              </div>
-              <p className="iv-record-text">{artifact.summary.text}</p>
-              <p className="iv-record-why">
-                <b>Why it stayed:</b> {artifact.leftBehindReason.fact.text}
-              </p>
-            </div>
-            <Activity mission={mission} artifact={artifact} complete={activityDone} />
           </div>
         )}
         {state.feedback && phase > 0 && phase < 2 && (

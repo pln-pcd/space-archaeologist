@@ -9,6 +9,11 @@ import {
   Columbia,
 } from "../story/ch1/props";
 import { AdaptiveDpr } from "../fx/AdaptiveDpr";
+import { MarsGround, Rover } from "../story/ch2/models";
+import { MoonGround, Earth } from "../story/ch1/props";
+import { Stars } from "@react-three/drei";
+const MARS_MODELS = new Set(["rover", "marslander", "chute"]);
+import { EntryHardware, MarsLander } from "./MarsModels";
 import { useOutlines, OutlineSync } from "../fx/outline";
 import { intents, useIntent, useIntentScope } from "../input/bus";
 import { Button } from "../odyssey/ui/kit";
@@ -126,6 +131,10 @@ export function ArtifactModel({
         </group>
       )}
       {modelRef === "plaque" && <PlaqueModel />}
+      {/* v8 Mars finds */}
+      {modelRef === "rover" && <Rover unfold={1} dusty={0.3} />}
+      {modelRef === "marslander" && <MarsLander />}
+      {modelRef === "chute" && <EntryHardware />}
       {modelRef === "columbia" && <Columbia />}
     </group>
   );
@@ -195,17 +204,28 @@ function InspectionRig({
   useIntent("swipe", (e) => {
     if (e.source === "keyboard") angle.current += e.dir === "left" ? -0.2 : 0.2;
   });
-  // v7.3: fit every model to the stage (the plaque was tiny, the lander huge), then spin/zoom
+  // v8: fit every model to the CARD, not just its height: the find's bounding sphere fills ~90 % of
+  // the narrower view (so it is big but never leaves the card while it turns), and the pedestal is
+  // sized to the find's footprint
   const inner = useRef<THREE.Group>(null);
-  const fit = useRef({ k: 0, y: 0, tries: 0 });
+  const base = useRef<THREE.Group>(null);
+  const fit = useRef({ k: 0, y: 0, r: 0, foot: 1, h: 1, tries: 0 });
   const box = useMemo(() => new THREE.Box3(), []);
   const sz = useMemo(() => new THREE.Vector3(), []);
   const ctr = useMemo(() => new THREE.Vector3(), []);
+  const dir = useMemo(() => new THREE.Vector3(3.2, 1.5, 6.2).normalize(), []);
+  const look = useMemo(() => new THREE.Vector3(0, 0.9, 0), []);
+  const { camera, size } = useThree();
   const shown = useRef(0);
   useFrame((_, dt) => {
     if (!root.current) return;
     const f = fit.current;
     if (!f.k && inner.current && f.tries++ < 120) {
+      // measure the find in its own units (the rig's scale/turn would skew the size)
+      root.current.scale.setScalar(1);
+      root.current.position.set(0, 0, 0);
+      root.current.rotation.set(0, 0, 0);
+      root.current.updateMatrixWorld(true);
       box.setFromObject(inner.current);
       if (!box.isEmpty()) {
         box.getSize(sz);
@@ -214,6 +234,11 @@ function InspectionRig({
         if (m > 0.01) {
           f.k = 3.3 / m;
           f.y = -ctr.y * f.k;
+          // rotation-safe radius: the horizontal footprint can swing round, the height stays
+          const horiz = Math.hypot(sz.x, sz.z) / 2;
+          f.r = horiz * f.k;
+          f.foot = Math.max(0.6, horiz * f.k * 0.72 + 0.12);
+          f.h = sz.y * f.k;
         }
       }
     }
@@ -223,12 +248,37 @@ function InspectionRig({
     root.current.rotation.x += (pitch.current - root.current.rotation.x) * Math.min(1, dt * 10);
     root.current.scale.setScalar((f.k || 1) * zoom.current * (0.6 + 0.4 * pop));
     root.current.position.y = 0.9 + (f.k ? f.y * zoom.current : -0.6);
+    if (base.current && f.k) {
+      base.current.scale.set(f.foot / 2.2, 1, f.foot / 2.2);
+      base.current.position.y = 0.9 - (f.h / 2) * zoom.current - 0.1;
+    }
+    // frame the find: the turning footprint must fit the width, the height (plus the footprint seen
+    // from a little above) must fit the height; the nearer half of the footprint is added as depth
+    if (f.r && camera instanceof THREE.PerspectiveCamera) {
+      const vf = THREE.MathUtils.degToRad(camera.fov);
+      const hf = 2 * Math.atan(Math.tan(vf / 2) * (size.width / Math.max(1, size.height)));
+      const elev = Math.asin(dir.y);
+      const hh = Math.max(f.r, f.foot);
+      const hv = (f.h / 2) * Math.cos(elev) + hh * Math.sin(elev) + 0.12;
+      const want = Math.max(hv / Math.tan(vf / 2), hh / Math.tan(hf / 2)) * 1.04 + hh * 0.32;
+      const cur = camera.position.distanceTo(look);
+      const d = cur + (want - cur) * Math.min(1, dt * 6);
+      camera.position.copy(look).addScaledVector(dir, d);
+      camera.lookAt(look);
+    }
   });
   // hands: open-palm sideways swipe spins it
   useIntent("swipe", (e) => {
     if (e.source === "gesture") angle.current += e.dir === "left" ? -0.6 : e.dir === "right" ? 0.6 : 0;
   });
   return (
+    <>
+    <group ref={base} position={[0, -0.05, 0]}>
+      <mesh>
+        <cylinderGeometry args={[2.2, 2.4, 0.18, 48]} />
+        <meshToonMaterial color="#ECE6FF" />
+      </mesh>
+    </group>
     <group ref={root} position={[0, -0.6, 0]}>
       <group ref={inner}>
       <ArtifactModel
@@ -254,6 +304,7 @@ function InspectionRig({
         </mesh>
       )}
     </group>
+    </>
   );
 }
 /** a glowing, gently pulsing star on the model: a clue to tap or pinch */
@@ -281,6 +332,25 @@ function ClueStar({ position, index, onPick }: { position: [number, number, numb
         <sphereGeometry args={[0.35, 8, 6]} />
       </mesh>
     </group>
+  );
+}
+
+/** v8: the find sits in its real world: grey Moon ground under a black starry sky with Earth hanging
+ *  in it, or rusty Mars ground under a dusty butterscotch sky (a 3D stage, not a flat card) */
+function StageWorld({ mars }: { mars: boolean }) {
+  return mars ? (
+    <group position={[0, -0.36, 0]}>
+      <MarsGround />
+    </group>
+  ) : (
+    <>
+      <color attach="background" args={["#100C2A"]} />
+      <Stars radius={70} depth={30} count={900} factor={3} fade speed={0} />
+      <group position={[0, -0.36, 0]}>
+        <MoonGround radius={26} />
+      </group>
+      <Earth radius={1.1} position={[-6.5, 3.6, -16]} />
+    </>
   );
 }
 
@@ -323,13 +393,10 @@ export function InspectionStage({
         onCreated={({ camera }) => camera.lookAt(0, 0.9, 0)}
         aria-label="Rotatable artifact model. Drag to spin, scroll to zoom."
       >
+        <StageWorld mars={MARS_MODELS.has(artifact.modelRef)} />
         <hemisphereLight args={["#FFF6E8", "#8C84C8", 1.3]} />
         <directionalLight position={[4, 7, 5]} intensity={2.2} />
         <directionalLight position={[-4, 3, -3]} intensity={0.8} color="#BFD8FF" />
-        <mesh position={[0, -0.05, 0]}>
-          <cylinderGeometry args={[2.2, 2.4, 0.18, 48]} />
-          <meshToonMaterial color="#ECE6FF" />
-        </mesh>
         <Suspense fallback={null}>
           <InspectionRig
             artifact={artifact}

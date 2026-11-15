@@ -110,6 +110,8 @@ export type Settings = {
   novaTopics?: string[];
   /** the hand-gesture training was finished once */
   handsTrained?: boolean;
+  /** v8: the hand card was offered once (it pops up the first time a hands part opens) */
+  handsAsked?: boolean;
   /** the intro tour was watched once */
   introSeen?: boolean;
   /** the days (YYYY-MM-DD) the explorer played, for the passport streak (this device only) */

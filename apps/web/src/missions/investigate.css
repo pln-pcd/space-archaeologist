@@ -610,3 +610,329 @@ html body .od-app .iv3 {
 .reduced-motion .iv3-part {
   animation: none;
 }
+
+/* ---------- v8 INVESTIGATE: camera card (left, small) · the find (big) · record (right, phase 3) ---------- */
+.iv3-main {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.27fr) minmax(0, 1fr);
+  gap: 16px;
+  min-height: 0;
+}
+.iv3-main.phase-2 {
+  grid-template-columns: minmax(230px, 0.22fr) minmax(0, 1fr) minmax(330px, 0.3fr);
+}
+.iv3-main > .iv3-stage {
+  min-height: 0;
+}
+.iv3-camcard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 14px !important;
+  overflow: hidden;
+}
+.iv3-campic {
+  position: relative;
+  flex: none;
+  aspect-ratio: 4 / 3;
+  border: 3px solid #241d48;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #1b1440;
+}
+.iv3-campic video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+.iv3-campic canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.iv3-camtips {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-height: 0;
+  overflow: auto;
+}
+.iv3-camtips li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px 6px 6px;
+  border-radius: 14px;
+  background: #f4f1ff;
+  font: 600 15px/1.25 "Fredoka", sans-serif;
+  color: #241d48;
+}
+.iv3-camtips li svg {
+  flex: none;
+}
+.iv3-camoff {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 10px;
+  height: 100%;
+  text-align: center;
+  color: #241d48;
+}
+.iv3-camoff h3 {
+  margin: 0;
+  font: 400 26px/1.05 "Lilita One", "Fredoka", sans-serif;
+}
+.iv3-camoff p {
+  margin: 0;
+  font: 500 16px/1.35 "Fredoka", sans-serif;
+}
+.iv3-camoff small {
+  font: 500 13px/1.2 "Fredoka", sans-serif;
+  color: #6b6394;
+}
+/* the record card sits in its own column, so the find keeps its size */
+.iv3-main > .iv3-record {
+  display: flex !important;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px !important;
+  grid-template-columns: none;
+  animation: iv3-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.iv3-main > .iv3-record .iv-record-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font: 400 24px/1 "Lilita One", "Fredoka", sans-serif;
+  color: #241d48;
+}
+.iv3-main > .iv3-record .iv-record-text {
+  font: 600 17px/1.35 "Fredoka", sans-serif;
+}
+.iv3-main > .iv3-record .iv-record-why {
+  font: 500 15px/1.35 "Fredoka", sans-serif;
+}
+.iv3-main > .iv3-record .m-activity {
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: nowrap;
+}
+.iv3-main > .iv3-record .m-activity :is(svg, canvas, .m-beam-stage, .m-seismograph) {
+  max-width: 100%;
+}
+.iv3-main > .iv3-record .m-activity .m-beam-stage,
+.iv3-main > .iv3-record .m-activity .m-beam-stage svg {
+  width: 100% !important;
+  height: auto;
+  max-height: 120px;
+}
+.iv3-main > .iv3-record .m-activity .m-seismograph {
+  width: 100% !important;
+  height: 70px;
+}
+/* the stage's part card stays inside the find's card */
+.iv3-main .iv3-part {
+  width: min(380px, 46%);
+}
+.iv3-tray {
+  min-height: 72px;
+}
+@media (max-height: 760px) {
+  .iv3-camtips li {
+    font-size: 13px;
+  }
+  .iv3-camcard .iv3-campic {
+    aspect-ratio: 16 / 10;
+  }
+}
+.iv3-tray .iv3-parts {
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+@media (max-width: 1600px) {
+  .iv3-tray .iv-status {
+    display: none;
+  }
+  .iv3-tray .iv3-chip {
+    padding: 6px 12px 6px 8px;
+    font-size: 15px;
+    min-height: 44px;
+  }
+  .iv3-tray .iv3-parts > strong {
+    font-size: 16px;
+  }
+}
+/* v8 Mars activities */
+.m-mars-svg {
+  width: 100%;
+  height: auto;
+  max-height: 110px;
+  border-radius: 12px;
+  background: linear-gradient(#e9c4a2, #d9a27e);
+  border: 2px solid #241d48;
+}
+.m-bounce {
+  animation: m-bounce 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+@keyframes m-bounce {
+  40% {
+    transform: translateY(-26px);
+  }
+}
+.m-gust {
+  animation: m-gust 0.7s ease-out both;
+}
+@keyframes m-gust {
+  from {
+    transform: translateX(-60px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(120px);
+    opacity: 0;
+  }
+}
+.m-activity .m-progress {
+  height: 10px;
+  border: 2px solid #241d48;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #f1edff;
+}
+.m-activity .m-progress i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #5ed3b0, #ffd23f);
+  transition: width 0.4s;
+}
+.reduced-motion .m-bounce,
+.reduced-motion .m-gust {
+  animation: none;
+}
+@media (max-height: 820px) {
+  .iv3-main > .iv3-record {
+    gap: 8px;
+    padding: 12px !important;
+  }
+  .iv3-main > .iv3-record .iv-record-text {
+    font-size: 15px;
+  }
+  .iv3-main > .iv3-record .m-activity {
+    gap: 4px;
+    padding: 8px 10px;
+  }
+  .iv3-main > .iv3-record .m-activity p {
+    font-size: 13px;
+  }
+  .iv3-main > .iv3-record .m-mars-svg {
+    max-height: 64px;
+  }
+  .iv3-main > .iv3-record .m-activity .k-tag,
+  .iv3-main > .iv3-record .m-activity > .k-card {
+    font-size: 13px;
+  }
+}
+
+/* ---------- v8.1: a bigger camera card; the record sits BELOW the find (not beside it) ---------- */
+.iv3-main {
+  grid-template-columns: minmax(300px, 0.36fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
+.iv3-main.phase-2 {
+  grid-template-columns: minmax(300px, 0.36fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+.iv3-main.phase-2 > .iv3-camcard {
+  grid-row: 1 / span 2;
+}
+.iv3-main.phase-2 > .iv3-stage {
+  grid-column: 2;
+  grid-row: 1;
+}
+.iv3-main > .iv3-record {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: 16px;
+  max-height: 34vh;
+  animation: iv3-rise 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes iv3-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+.iv3-main > .iv3-record .m-activity {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.iv3-main > .iv3-record .m-activity h3 {
+  flex: 1 0 100%;
+}
+.iv3-main > .iv3-record .m-activity :is(.m-beam-stage, .m-seismograph, .m-mars-svg) {
+  flex: 1 1 180px;
+  width: auto !important;
+  max-width: 260px;
+  max-height: 80px;
+}
+.iv3-main > .iv3-record .m-activity .m-beam-stage svg {
+  max-height: 80px;
+}
+.iv3-main > .iv3-record .m-activity .m-progress {
+  flex: 1 1 100%;
+}
+.iv3-camcard .iv3-campic {
+  aspect-ratio: 4 / 3;
+}
+.iv3-camtips li {
+  font-size: 16px;
+}
+/* v8.1: in the record phase the find shares the column with the record: compact tools on the right */
+.iv3-main.phase-2 .iv3-stage .m-model-tools {
+  flex-direction: column;
+  gap: 6px !important;
+  right: 10px !important;
+  bottom: 10px !important;
+}
+.iv3-main.phase-2 .iv3-stage .m-model-tools button {
+  min-height: 38px !important;
+  padding: 4px 12px !important;
+  font-size: 14px !important;
+}
+@media (max-height: 860px) {
+  .iv3-main > .iv3-record .m-activity > p:not(.k-card) {
+    display: none;
+  }
+  .iv3-main > .iv3-record .m-activity :is(.m-beam-stage, .m-seismograph, .m-mars-svg),
+  .iv3-main > .iv3-record .m-activity .m-beam-stage svg {
+    max-height: 54px !important;
+  }
+  .iv3-main > .iv3-record {
+    max-height: 40vh;
+    padding: 10px 14px !important;
+  }
+  .iv3-main > .iv3-record .m-activity h3 {
+    font-size: 18px;
+  }
+}
+@media (max-height: 860px) {
+  .iv3-main.phase-2 .iv3-stage .m-model-tools {
+    display: grid !important;
+    grid-template-columns: auto auto;
+  }
+}

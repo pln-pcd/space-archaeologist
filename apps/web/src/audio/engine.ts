@@ -26,6 +26,13 @@ class AudioEngine {
     if (this.ready) return Promise.resolve();
     if (this.starting) return this.starting;
     this.starting = (async () => {
+      // v8: a "balanced" output buffer and a little more look-ahead, so the music never crackles or
+      // stutters while the 3D scenes and the hand tracker keep the main thread busy
+      try {
+        Tone.setContext(new Tone.Context({ latencyHint: "balanced", lookAhead: 0.12 }));
+      } catch {
+        /* keep the default context */
+      }
       await Tone.start();
       this.limiter = new Tone.Limiter(-1.5).toDestination();
       // a gain stage that fades: start silent, rise with a ~1 s time constant (bible §14)

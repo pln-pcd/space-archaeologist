@@ -5,6 +5,7 @@ answers (the game marks name lines private), off by default."""
 from __future__ import annotations
 
 import io
+import json
 import threading
 import wave
 
@@ -66,14 +67,30 @@ def _sentences(text: str) -> list[str]:
 
 
 def _style(sentence: str, base_speed: float, base_lift: float) -> tuple[float, float]:
-    """v7.3 expressive delivery: excited lines faster and brighter, questions lifted, the rest calm"""
+    """v8 lively delivery: excited lines quicker and brighter, questions lifted, the rest still bouncy"""
     s = sentence.strip()
     low = s.lower()
-    if s.endswith("!") or low.startswith(("ooh", "wow", "yay", "hooray", "great", "awesome")):
-        return base_speed * 1.07, base_lift * 1.045
+    if s.endswith("!") or low.startswith(("ooh", "wow", "yay", "hooray", "great", "awesome", "amazing", "hi", "hello", "welcome")):
+        return base_speed * 1.06, base_lift * 1.05
     if s.endswith("?"):
-        return base_speed * 1.02, base_lift * 1.03
+        return base_speed * 1.02, base_lift * 1.04
     return base_speed, base_lift
+
+
+_blend_cache: dict = {}
+
+
+def _voice_style(m, v: dict):
+    """v8: Nova's voice can be a blend of Kokoro voices (content/nova-voice.json "blend"): a warm, natural
+    base with a brighter, more energetic voice mixed in sounds livelier than pitching one voice up"""
+    blend = v.get("blend") or {}
+    if not blend:
+        return v["voice"]
+    key = json.dumps(blend, sort_keys=True)
+    if key not in _blend_cache:
+        total = sum(blend.values()) or 1.0
+        _blend_cache[key] = sum(m.get_voice_style(name) * (w / total) for name, w in blend.items())
+    return _blend_cache[key]
 
 
 def speak(text: str, voice: str | None = None, speed: float | None = None, pitch: float | None = None) -> bytes | None:
@@ -96,14 +113,14 @@ def speak(text: str, voice: str | None = None, speed: float | None = None, pitch
     for i, part in enumerate(parts):
         sp, lift = _style(part, base_speed, base_lift) if own and pitch is None else (base_speed, base_lift)
         with _lock:  # one synthesis at a time (onnxruntime session)
-            samples, rate = m.create(part, voice=voice or v["voice"], speed=sp, lang="en-us")
+            samples, rate = m.create(part, voice=voice or _voice_style(m, v), speed=sp, lang="en-us")
         w = _wav(samples, rate)
         if lift != 1.0:
             w = _pitch(w, lift)
         r = wave.open(io.BytesIO(w))
         chunks.append(np.frombuffer(r.readframes(r.getnframes()), dtype="<i2").astype(np.float32) / 32768)
         if i < len(parts) - 1:
-            chunks.append(np.zeros(int(rate * (0.16 if part.endswith((",", ";")) else 0.24)), dtype=np.float32))
+            chunks.append(np.zeros(int(rate * (0.12 if part.endswith((",", ";")) else 0.2)), dtype=np.float32))
     # 60 ms of silence at the start so the first syllable is never clipped
     out = np.concatenate([np.zeros(int(rate * 0.06), dtype=np.float32), *chunks])
     return _wav(out, rate)

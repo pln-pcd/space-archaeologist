@@ -6,7 +6,7 @@
 //   3 BINDERS        ring-binder cards with a clip strip on top: Moon finds (real NASA photos once
 //                    found), Badges, and Missions; each slot shows what it is or a "?" until earned
 import { useMemo, useState } from "react";
-import { Award, Check, ChevronRight, Copy, Gem, Lock, Rocket, Shirt, Star, X } from "lucide-react";
+import { Award, Check, Copy, Gem, Lock, Rocket, Shirt, Star, X } from "lucide-react";
 import { useStore } from "../store";
 import { useAvatar, DEFAULT_AVATAR, chibiLook } from "./avatar";
 import { explorerPortrait } from "../characters/chibiThumbs";
@@ -179,7 +179,6 @@ export default function Passport({ onClose, onWardrobe }: { onClose: () => void;
               </h3>
               <p>{days >= 3 ? "Your streak is shining. Keep going!" : "Come back tomorrow to grow your streak!"}</p>
             </div>
-            <ChevronRight size={24} aria-hidden="true" />
           </article>
         </div>
         {/* 3 binders */}

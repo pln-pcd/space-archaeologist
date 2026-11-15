@@ -56,9 +56,13 @@ export default function Activity({
     if (e.artifactId !== artifact.id) return;
     if (e.action === "fire") fire();
     if (e.action === "tap") {
-      setWiggle((n) => n + 1);
-      play("landThud", 0.8, 0.3);
-      done();
+      // v8 Mars activities take three taps; the Moon ones finish on the first
+      const mars = artifact.activity === "solar" || artifact.activity === "airbag" || artifact.activity === "chute";
+      setWiggle((n) => {
+        if (!mars || n + 1 >= 3) done();
+        return n + 1;
+      });
+      play(artifact.activity === "airbag" ? "landThud" : artifact.activity === "solar" ? "whoosh" : "soft", artifact.activity === "airbag" ? 1.1 : 0.9, 0.35);
     }
   });
   useIntent("pinchStart", (e) => {
@@ -116,6 +120,51 @@ export default function Activity({
         )}
       </div>
     );
+  // v8 MARS: three tiny "do it yourself" moments, each with its sourced fact
+  if (artifact.activity === "solar" || artifact.activity === "airbag" || artifact.activity === "chute") {
+    const n = Math.min(3, wiggle);
+    const k = n / 3;
+    const T = { solar: ["Wipe the dust", "Be the wind: blow the dust off the panel.", "Blow the wind"], airbag: ["Bounce the airbags", "Help the lander bounce safely onto Mars.", "Bounce!"], chute: ["Open the parachute", "Slow the lander down before it lands.", n ? "Slow down more" : "Open the parachute"] }[artifact.activity];
+    return (
+      <div className="m-activity m-mars-act">
+        <h3>{T[0]}</h3>
+        {artifact.activityFact && <FactText line={artifact.activityFact} />}
+        <p>{T[1]}</p>
+        <svg className="m-mars-svg" viewBox="0 0 300 110" aria-hidden="true">
+          <rect x="0" y="86" width="300" height="24" fill="#C9875E" />
+          {artifact.activity === "solar" && (
+            <g>
+              <rect x="60" y="30" width="180" height="50" rx="6" fill="#2E4BA8" stroke="#241D48" strokeWidth="3" />
+              {[0, 1, 2, 3, 4].map((i) => (
+                <line key={i} x1={60 + i * 36} y1="30" x2={60 + i * 36} y2="80" stroke="#7FA0FF" strokeWidth="1.5" />
+              ))}
+              <rect x="60" y="30" width="180" height="50" rx="6" fill="#B07C55" opacity={0.85 * (1 - k)} style={{ transition: "opacity .5s" }} />
+              {n > 0 && n < 3 && <path key={n} className="m-gust" d="M20 40 q40 -14 80 0 t80 0" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" />}
+            </g>
+          )}
+          {artifact.activity === "airbag" && (
+            <g key={n} className={n ? "m-bounce" : ""}>
+              <circle cx={60 + k * 170} cy="62" r="22" fill="#EFE7D8" stroke="#241D48" strokeWidth="3" />
+              <circle cx={50 + k * 170} cy="56" r="7" fill="#fff" opacity="0.7" />
+            </g>
+          )}
+          {artifact.activity === "chute" && (
+            <g style={{ transform: `translateY(${k * 34}px)`, transition: "transform .6s" }}>
+              {n > 0 && <path d={`M${150 - 22 - n * 8} 26 Q150 ${-6 - n * 4} ${150 + 22 + n * 8} 26 Z`} fill="#F4F0FF" stroke="#241D48" strokeWidth="3" />}
+              {n > 0 && <path d="M130 26 L150 44 L170 26" fill="none" stroke="#241D48" strokeWidth="1.5" />}
+              <ellipse cx="150" cy="50" rx="16" ry="9" fill="#5B4A7A" stroke="#241D48" strokeWidth="3" />
+            </g>
+          )}
+        </svg>
+        <div className="m-progress">
+          <i style={{ width: `${k * 100}%` }} />
+        </div>
+        <Button onClick={() => emit("tap")} variant="secondary" disabled={complete}>
+          {complete ? "Discovery recorded!" : `${T[2]} (${n}/3)`}
+        </Button>
+      </div>
+    );
+  }
   if (artifact.activity === "seismic")
     return (
       <div className="m-activity">

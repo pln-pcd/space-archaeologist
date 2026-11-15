@@ -186,3 +186,39 @@ for (const v of Object.keys(DISCRETE)) {
 console.log(`  total      ${falseTotal}  (${(falseTotal / idleMinutes).toFixed(2)}/min)  target < 1/min per verb`);
 console.log(allOk ? "\nAll verbs ≥ 95% on synthetic data." : "\nSome verbs below 95% on synthetic data.");
 console.log(`Real recordings found: ${clips.filter((c) => c.source !== "synthetic").length} (record more with F9 → Record).`);
+
+// ---- v8: pointing must never be a fist; finger counting is strict (1-4 only, never 5) ----
+{
+  const POINT: Pose = { curl: [0.85, 0.02, 0.95, 0.95, 0.95] };
+  const tuck = (up: number): Pose => ({ curl: [0.85, ...[0, 1, 2, 3].map((i) => (i < up ? 0.02 : 0.95))] as Pose["curl"] });
+  const FIVE: Pose = { curl: [0, 0.02, 0.02, 0.03, 0.04], lThumb: true };
+  const THREE_T: Pose = { curl: [0, 0.02, 0.02, 0.95, 0.95], lThumb: true };
+  let pointGrabs = 0, pointRuns = 0;
+  const countRows: Record<string, { ok: number; n: number }> = {};
+  for (let i = 0; i < 20; i++) {
+    reseed(5000 + i);
+    const x = jit(0.5, 0.1), y = jit(0.5, 0.1), s = jit(0.2, 0.04), r = jit(0, 0.12);
+    const R = (keys: Key[], ms: number) => render([{ hand: "Right", keys }], ms, { dropout: 0.03 });
+    // open hand → pointing, moving around: no grab may fire
+    pointRuns++;
+    const pr = run({ label: "idle", source: "synthetic", frames: R([k(0, OPEN, at(x, y, s, r)), k(300, OPEN, at(x, y, s, r)), k(500, POINT, at(x, y, s, r), "Pointing_Up"), k(1200, POINT, at(x + 0.12, y - 0.05, s, r), "Pointing_Up"), k(1900, POINT, at(x - 0.1, y + 0.06, s, r), "Pointing_Up")], 1900) }, ["grab", "pinch", "pointer"]);
+    if ((pr.counts.grab ?? 0) > 0) pointGrabs++;
+    const cases: [string, Pose, number, string?][] = [["1", tuck(1), 1], ["2", tuck(2), 2], ["3", tuck(3), 3], ["4", tuck(4), 4], ["thumb+2", THREE_T, 3], ["5 (open)", FIVE, 0, "Open_Palm"]];
+    for (const [name, pose, want, label] of cases) {
+      const core = new VerbCore();
+      core.setEnabled(["count"]);
+      const sm = new HandSmoother();
+      let picked = 0;
+      for (const f of R([k(0, RELAXED, at(x, y, s, r)), k(250, pose, at(x, y, s, r), label), k(1800, pose, at(x, y, s, r), label)], 1800)) {
+        const feats = sm.apply(f.hands, f.t).map((h) => computeFeatures(h, f.aspect));
+        for (const o of core.step(f.t, feats, { x: 0, y: 0, visible: true })) if (o.name === "fingers" && (o.payload as { done: boolean }).done) picked = (o.payload as { count: number }).count;
+      }
+      const row = (countRows[name] ??= { ok: 0, n: 0 });
+      row.n++;
+      if (picked === want) row.ok++;
+    }
+  }
+  console.log(`\nv8 pointing → grab false triggers: ${pointGrabs}/${pointRuns} (want 0)`);
+  console.log("v8 finger counting (want = picked):");
+  for (const [name, r] of Object.entries(countRows)) console.log(`  ${name.padEnd(10)} ${r.ok}/${r.n}`);
+}

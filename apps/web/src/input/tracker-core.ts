@@ -12,10 +12,11 @@ export async function createRecognizer(delegate: "GPU" | "CPU", numHands: number
     baseOptions: { modelAssetPath: origin + GESTURE_MODEL, delegate },
     runningMode: "VIDEO",
     numHands,
-    // kids' hands in ordinary rooms: slightly lenient detection, steady tracking
-    minHandDetectionConfidence: 0.5,
-    minHandPresenceConfidence: 0.5,
-    minTrackingConfidence: 0.5,
+    // v8: stricter than MediaPipe's defaults so faces, sleeves and shadows are not read as hands;
+    // the game asks for good light and one person in the frame (Hand Training)
+    minHandDetectionConfidence: 0.62,
+    minHandPresenceConfidence: 0.6,
+    minTrackingConfidence: 0.55,
   });
 }
 

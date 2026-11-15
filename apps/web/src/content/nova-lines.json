@@ -2,6 +2,11 @@
   "_about": "Nova's scripted lines (new-flow prompt §5, §7, §8c). Every line is spoken AND shown. 'lead' parts contain {name} and are voiced live by our LOCAL server only (never pre-rendered, never sent to a third party); the rest is pre-rendered to /audio/nova/<id>.mp3 by scripts/nova-voices.mjs. type: imagine = Nova's own words, fact = must cite sourceIds.",
   "lines": [
     {
+      "id": "cover-welcome",
+      "text": "Welcome to Space Archaeologist! I'm Nova. Ready to discover the machines explorers left on the Moon and Mars? Click Start!",
+      "type": "imagine"
+    },
+    {
       "id": "greet-hi",
       "lead": "Hi, {name}!",
       "text": "I'm Nova, your space guide on Starship Odyssey!",

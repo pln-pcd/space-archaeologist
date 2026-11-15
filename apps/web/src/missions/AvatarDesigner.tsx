@@ -106,7 +106,7 @@ function Stage({ config, bounce, helmetOn, driver }: { config: AvatarConfig; bou
   );
 }
 
-export default function AvatarDesigner({ onDone, playground = false }: { onDone: () => void; playground?: boolean }) {
+export default function AvatarDesigner({ onDone, onBack, playground = false }: { onDone: () => void; onBack?: () => void; playground?: boolean }) {
   const stored = useAvatar((s) => s.config);
   const profile = useStore((s) => s.profile);
   const [draft, setDraft] = useState<AvatarConfig>(stored ?? DEFAULT_AVATAR);
@@ -203,7 +203,7 @@ export default function AvatarDesigner({ onDone, playground = false }: { onDone:
       </div>
       <header className="dz-top">
         {stored && !playground ? (
-          <button type="button" className="g-icon-btn" aria-label="Back to the ship without changes" onClick={() => (play("soft", 1, 0.5), onDone())}>
+          <button type="button" className="g-icon-btn" aria-label="Go back without changes" onClick={() => (play("soft", 1, 0.5), (onBack ?? onDone)())}>
             <ArrowLeft size={26} strokeWidth={2.6} />
           </button>
         ) : (

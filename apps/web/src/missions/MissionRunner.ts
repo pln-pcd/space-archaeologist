@@ -7,6 +7,9 @@ import type {
 } from "./types";
 
 const add = <T>(xs: T[], x: T): T[] => (xs.includes(x) ? xs : [...xs, x]);
+/** v8: the opening films per mission. Moon: NASA footage → launch → arrival film (0..2).
+ *  Mars: NASA's plan animation → night launch → cruise + landing → rolling off → the story (0..4). */
+export const lastStoryStage = (m: { meta: { id: string } }) => (m.meta.id.startsWith("mars") ? 4 : 2);
 export const LOOP = [
   "Welcome",
   "Your explorer",
@@ -119,6 +122,14 @@ export function reduceMission(
     };
   if (c.type === "explore" && (s.step === 6 || s.step === 7))
     return stepTo(s, 5);
+  // v8 BACK: return to where the explorer just was (quiz → its find → exploring; story films step back)
+  if (c.type === "back") {
+    if (s.step === 7) return { ...s, step: 6, feedback: "", hintLevel: 0 };
+    if (s.step === 6 || s.step === 11 || s.step === 12) return { ...s, step: 5, feedback: "", hintLevel: 0 };
+    if (s.step === 4 && s.storyStage > 0) return { ...s, storyStage: s.storyStage - 1 };
+    if (s.step === 5) return { ...s, step: 4, storyStage: lastStoryStage(m), feedback: "" };
+    return s;
+  }
   if (c.type === "match" && s.step === 7 && a) {
     if (c.card.startsWith("part:")) {
       const id = c.card.slice(5);
@@ -258,7 +269,7 @@ export function reduceMission(
   // v7.1 story: 0 = the story film (HyperFrames scene), 1 = the real NASA footage (Armstrong's
   // first steps), 2 = "your turn" launch lever, then explore
   if (s.step === 4)
-    return s.storyStage < 2
+    return s.storyStage < lastStoryStage(m)
       ? { ...s, storyStage: s.storyStage + 1 }
       : stepTo(s, 5);
   if (s.step === 5 && s.records.length === m.artifacts.length && s.fieldDone)

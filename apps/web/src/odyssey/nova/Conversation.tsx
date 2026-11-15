@@ -8,7 +8,7 @@
 // History is this session only (talk.ts `log`, memory only). Close with X or Esc.
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { Keyboard, Mic, Send, X } from "lucide-react";
+import { Keyboard, Send, X } from "lucide-react";
 import { useStore } from "../../store";
 import { closeChat, openChat, pickChip, submitText, useTalk } from "./talk";
 import { useEars } from "./ears";
@@ -183,15 +183,12 @@ export default function Conversation({ mode, onClose, mission = null }: { mode: 
               send();
             }}
           >
-            <input ref={field} className="k-input od-free" type="text" value={draft} maxLength={MAX_CHARS} placeholder="Type your question…" aria-label="Type your question for Nova" onChange={(e) => setDraft(e.target.value)} autoFocus={!matchMedia("(pointer: coarse)").matches} />
+            <input ref={field} className="k-input od-free" type="text" value={draft} maxLength={MAX_CHARS} placeholder="Type, or tap the mic and ask…" aria-label="Type your question for Nova" onChange={(e) => setDraft(e.target.value)} autoFocus={!matchMedia("(pointer: coarse)").matches} />
             <Button type="submit" size="sm" variant="primary" disabled={!draft.trim()} icon={<Send size={22} aria-hidden="true" />}>
               Send
             </Button>
-            {useStore.getState().settings.mic !== false && useStore.getState().settings.talkMode === "voice" && (
-              <Button round size="sm" variant="sky" onClick={() => setMode("voice")} aria-label="Talk with my voice" quiet>
-                <Mic size={26} />
-              </Button>
-            )}
+            {/* v8: the mic is always here: speak your question any time (speech-to-text on this computer) */}
+            {useStore.getState().settings.mic !== false && <MicButton onText={(t) => send(t)} />}
           </form>
           <p className="k-small cv-note">Nova is an AI helper and can make mistakes.</p>
         </Card>

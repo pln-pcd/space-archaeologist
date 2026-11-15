@@ -26,7 +26,7 @@ export type Artifact = {
   summary: Fact;
   components: Component[];
   cluesRequired: number;
-  activity: "laser" | "seismic" | "message" | "landing";
+  activity: "laser" | "seismic" | "message" | "landing" | "solar" | "airbag" | "chute";
   activityFact?: Fact;
   photo: {
     src: string;
@@ -107,7 +107,7 @@ export type MissionState = {
 };
 export type MissionCommand =
   | {
-      type: "next" | "explore" | "assemble" | "hint" | "stamp" | "replay-reset" | "fieldDone";
+      type: "next" | "back" | "explore" | "assemble" | "hint" | "stamp" | "replay-reset" | "fieldDone";
     }
   | {
       type:

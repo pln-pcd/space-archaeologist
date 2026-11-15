@@ -13,7 +13,7 @@ type Phase = "off" | "in" | "wait" | "out";
 type Warp = { phase: Phase; label: string; sub: string; id: number };
 const useWarp = create<Warp>(() => ({ phase: "off", label: "", sub: "", id: 0 }));
 const SWAP_AT = 0.75;
-const MIN_HOLD = 1.5;
+const MIN_HOLD = 1.7;
 let readyAt = 0;
 let startedAt = 0;
 
@@ -55,7 +55,7 @@ export function warpTo(label: string, sub: string, swap: () => void) {
     const ok = (readyAt > 0 && t > (reduced ? 0.5 : MIN_HOLD)) || t > 4;
     if (ok) {
       useWarp.setState({ phase: "out" });
-      setTimeout(() => useWarp.getState().id === id && useWarp.setState({ phase: "off" }), reduced ? 200 : 600);
+      setTimeout(() => useWarp.getState().id === id && useWarp.setState({ phase: "off" }), reduced ? 200 : 780);
     } else setTimeout(check, 80);
   };
   setTimeout(check, 400);
@@ -77,6 +77,85 @@ const LOOKS: Record<Dest, { lit: string; base: string; spot: string; glow: strin
   home: { lit: "#FFD3EC", base: "#B66BFF", spot: "rgba(255, 255, 255, 0.35)", glow: "rgba(255, 150, 220, 0.75)" },
 };
 const backOut = (k: number) => 1 + 2.70158 * Math.pow(k - 1, 3) + 1.70158 * Math.pow(k - 1, 2);
+const easeInOut = (k: number) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const bez = (a: number, b: number, c: number, d: number, k: number) => {
+  const m = 1 - k;
+  return m * m * m * a + 3 * m * m * k * b + 3 * m * k * k * c + k * k * k * d;
+};
+const INK = "#241D48";
+/** v8: a chubby cartoon rocket drawn on the canvas (nose along +y before rotation) */
+function drawRocket(x: CanvasRenderingContext2D, px: number, py: number, ang: number, sc: number, t: number) {
+  x.save();
+  x.translate(px, py);
+  x.rotate(ang);
+  x.scale(sc, sc);
+  x.lineJoin = "round";
+  x.lineCap = "round";
+  // flame: three flickering layers
+  const fl = 1 + Math.sin(t * 38) * 0.12 + Math.sin(t * 23) * 0.08;
+  const flame = (len: number, w: number, col: string) => {
+    x.fillStyle = col;
+    x.beginPath();
+    x.moveTo(-w, 34);
+    x.quadraticCurveTo(-w * 0.6, 34 + len * 0.6 * fl, 0, 34 + len * fl);
+    x.quadraticCurveTo(w * 0.6, 34 + len * 0.6 * fl, w, 34);
+    x.closePath();
+    x.fill();
+  };
+  flame(54, 15, "rgba(255, 120, 80, 0.9)");
+  flame(40, 11, "#FFB23F");
+  flame(24, 7, "#FFF4B0");
+  // fins
+  x.lineWidth = 5;
+  x.strokeStyle = INK;
+  x.fillStyle = "#FF6FA8";
+  for (const s of [-1, 1]) {
+    x.beginPath();
+    x.moveTo(s * 18, 6);
+    x.quadraticCurveTo(s * 40, 18, s * 36, 40);
+    x.lineTo(s * 16, 30);
+    x.closePath();
+    x.fill();
+    x.stroke();
+  }
+  // body
+  const g = x.createLinearGradient(-22, 0, 22, 0);
+  g.addColorStop(0, "#FFFFFF");
+  g.addColorStop(0.7, "#F1ECFF");
+  g.addColorStop(1, "#C9BEF2");
+  x.fillStyle = g;
+  x.beginPath();
+  x.moveTo(0, -52);
+  x.bezierCurveTo(26, -38, 26, 10, 18, 34);
+  x.lineTo(-18, 34);
+  x.bezierCurveTo(-26, 10, -26, -38, 0, -52);
+  x.closePath();
+  x.fill();
+  x.stroke();
+  // nose cap + belly stripe
+  x.fillStyle = "#FF6FA8";
+  x.beginPath();
+  x.moveTo(0, -52);
+  x.bezierCurveTo(13, -45, 18, -36, 19, -28);
+  x.quadraticCurveTo(0, -22, -19, -28);
+  x.bezierCurveTo(-18, -36, -13, -45, 0, -52);
+  x.fill();
+  x.stroke();
+  x.fillStyle = "#FFD23F";
+  x.fillRect(-19, 20, 38, 8);
+  x.strokeRect(-19, 20, 38, 8);
+  // round window with a shine
+  x.fillStyle = "#5BB8FF";
+  x.beginPath();
+  x.arc(0, -6, 11, 0, Math.PI * 2);
+  x.fill();
+  x.stroke();
+  x.fillStyle = "rgba(255,255,255,0.85)";
+  x.beginPath();
+  x.arc(-4, -10, 3.5, 0, Math.PI * 2);
+  x.fill();
+  x.restore();
+}
 
 function Streaks({ phase, dest }: { phase: Phase; dest: Dest }) {
   const cv = useRef<HTMLCanvasElement>(null);
@@ -98,6 +177,7 @@ function Streaks({ phase, dest }: { phase: Phase; dest: Dest }) {
     const stars = Array.from({ length: N }, () => ({ a: r() * Math.PI * 2, d: r(), c: cols[Math.floor(r() * cols.length)], w: 0.6 + r() * 1.8 }));
     let speed = 0.15;
     let raf = 0;
+    const puffs: { x: number; y: number; vx: number; vy: number; life: number; c: string; r: number }[] = [];
     let last = performance.now();
     const t0 = last;
     const tick = (now: number) => {
@@ -202,6 +282,46 @@ function Streaks({ phase, dest }: { phase: Phase; dest: Dest }) {
           x.stroke();
         }
       }
+      // v8: the rocket swoops in from the lower left on a smooth curve, banks, and dives into the
+      // destination world (smaller = further away), leaving a trail of candy sparkles
+      const fk = Math.min(1, tt / 1.5);
+      if (fk < 1 && ph.current !== "out") {
+        const e = easeInOut(fk);
+        const P = [
+          [W * 0.04, H * 1.02],
+          [W * 0.2, H * 0.32],
+          [W * 0.86, H * 0.18],
+          [cx, cy - H * 0.07],
+        ];
+        const rx = bez(P[0][0], P[1][0], P[2][0], P[3][0], e),
+          ry = bez(P[0][1], P[1][1], P[2][1], P[3][1], e);
+        const e2 = easeInOut(Math.min(1, fk + 0.01));
+        const nx = bez(P[0][0], P[1][0], P[2][0], P[3][0], e2),
+          ny = bez(P[0][1], P[1][1], P[2][1], P[3][1], e2);
+        const ang = Math.atan2(ny - ry, nx - rx) + Math.PI / 2;
+        const sc = dpr * Math.max(0.05, 1.5 - e * 1.42) * Math.min(1, fk * 6);
+        for (let i = 0; i < 3; i++) {
+          const back = ang + Math.PI / 2;
+          puffs.push({ x: rx - Math.cos(back) * 40 * sc + (Math.random() - 0.5) * 10 * sc, y: ry - Math.sin(back) * 40 * sc + (Math.random() - 0.5) * 10 * sc, vx: -Math.cos(back) * 60 * dpr * Math.random(), vy: -Math.sin(back) * 60 * dpr * Math.random(), life: 1, c: cols[Math.floor(Math.random() * cols.length)], r: (3 + Math.random() * 5) * sc });
+        }
+        drawRocket(x, rx, ry, ang, sc, tt);
+      }
+      for (let i = puffs.length - 1; i >= 0; i--) {
+        const q = puffs[i];
+        q.life -= dt * 1.4;
+        if (q.life <= 0) {
+          puffs.splice(i, 1);
+          continue;
+        }
+        q.x += q.vx * dt;
+        q.y += q.vy * dt;
+        x.globalAlpha = q.life * 0.9;
+        x.fillStyle = q.c;
+        x.beginPath();
+        x.arc(q.x, q.y, Math.max(0.5, q.r * (0.4 + q.life * 0.6)), 0, Math.PI * 2);
+        x.fill();
+      }
+      x.globalAlpha = 1;
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -216,14 +336,6 @@ export default function WarpLayer() {
   return (
     <div key={id} className={`warp ${phase} ${motion.reduced ? "calm" : ""}`} aria-hidden="true">
       {!motion.reduced && <Streaks phase={phase} dest={destOf(label)} />}
-      {!motion.reduced && (
-        <svg className="warp-rocket" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M32 4c10 7 14 18 14 30l-7 10H25l-7-10C18 22 22 11 32 4z" fill="#fff" stroke="#241D48" strokeWidth="3" strokeLinejoin="round" />
-          <circle cx="32" cy="26" r="7" fill="#5BB8FF" stroke="#241D48" strokeWidth="3" />
-          <path d="M18 34l-8 11 9 2M46 34l8 11-9 2" fill="#FF6FA8" stroke="#241D48" strokeWidth="3" strokeLinejoin="round" />
-          <path d="M26 46c0 8 6 14 6 14s6-6 6-14" fill="#FFD23F" stroke="#241D48" strokeWidth="3" strokeLinejoin="round" />
-        </svg>
-      )}
       {label && (
         <div className="warp-card">
           <small>{sub}</small>

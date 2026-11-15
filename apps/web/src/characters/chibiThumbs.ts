@@ -39,6 +39,24 @@ function shoot(obj: THREE.Object3D, focus: [number, number, number], dist: numbe
   return r.domElement.toDataURL("image/png");
 }
 
+/** v8: frame any object automatically: its box (or a slice of it) fills the tile with a margin, so
+ *  no head or hat is ever cut off, whatever the part's size */
+function shootFit(obj: THREE.Object3D, opts: { yaw?: number; from?: number; to?: number; pad?: number } = {}): string {
+  obj.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(obj);
+  const size = box.getSize(new THREE.Vector3());
+  const lo = box.min.y + size.y * (opts.from ?? 0),
+    hi = box.min.y + size.y * (opts.to ?? 1);
+  const h = hi - lo;
+  const w = Math.max(size.x, size.z);
+  const pad = opts.pad ?? 1.16;
+  const half = (Math.max(h, w) / 2) * pad;
+  const dist = half / Math.tan(THREE.MathUtils.degToRad(15)) + w / 2;
+  const cx = (box.min.x + box.max.x) / 2,
+    cz = (box.min.z + box.max.z) / 2;
+  return shoot(obj, [cx, (lo + hi) / 2, cz], dist, opts.yaw ?? 0.45);
+}
+
 export type ThumbKind = "suit" | "helmet" | "visor" | "hair" | "hairColor" | "skin" | "accessory";
 
 /** one preview image; `look` is the explorer being designed (other parts follow it) */
@@ -54,30 +72,31 @@ export function partThumb(kind: ThumbKind, value: string | number, look: ChibiLo
   };
   if (kind === "suit") {
     const { body } = buildSuit(String(value));
-    url = shoot(body, [0, 0.36, 0], 2.0, 0.5);
+    url = shootFit(body, { yaw: 0.5 });
   } else if (kind === "skin") {
     const g = head();
     g.children[0] = buildHead(String(value)).head;
     g.add(buildHair(look.hair as HairStyle, look.hairColor));
-    url = shoot(g, [0, 0.0, 0], 1.6, 0.3);
+    url = shootFit(g, { yaw: 0.3, pad: 1.08 });
   } else if (kind === "hair" || kind === "hairColor") {
     const g = head();
     g.add(buildHair((kind === "hair" ? value : look.hair) as HairStyle, kind === "hairColor" ? String(value) : look.hairColor));
-    url = shoot(g, [0, 0.02, 0], 1.75, kind === "hair" ? 0.75 : 0.45);
+    url = shootFit(g, { yaw: kind === "hair" ? 0.75 : 0.45, pad: 1.08 });
   } else if (kind === "helmet" || kind === "visor") {
     const g = head();
     g.add(buildHair(look.hair as HairStyle, look.hairColor));
     g.add(buildHelmet(kind === "helmet" ? Number(value) : look.helmet, kind === "visor" ? String(value) : look.visor, look.suit));
-    url = shoot(g, [0, 0.0, 0], 2.25, 0.45);
+    url = shootFit(g, { yaw: 0.45, pad: 1.08 });
   } else if (kind === "accessory") {
     const idx = Number(value);
     if (idx === 7) {
       url = "";
     } else {
       const rig = buildChibi({ ...look, accessory: idx, helmetOn: false });
-      const focus: [number, number, number] = idx === 5 || idx === 6 ? [0, 0.88, 0] : idx === 3 ? [0.1, 0.32, 0] : idx === 4 ? [0.15, 0.32, 0] : [0, 0.48, 0];
       if (idx === 4) rig.armR.rotation.x = -0.6;
-      url = shoot(rig.root, focus, idx === 5 || idx === 6 ? 1.6 : 1.25, idx === 3 ? 0.9 : 0.25);
+      // head things (bow, headphones): the head; chest things: head and body; pouch/notebook: all
+      const region = idx === 5 || idx === 6 ? { from: 0.5, to: 1 } : idx === 3 || idx === 4 ? { from: 0.08, to: 1 } : { from: 0.3, to: 1 };
+      url = shootFit(rig.root, { ...region, yaw: idx === 3 ? 0.7 : idx === 4 ? 0.45 : 0.25, pad: 1.0 });
       rig.dispose();
     }
   }

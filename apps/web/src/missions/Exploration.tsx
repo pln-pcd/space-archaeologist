@@ -9,8 +9,9 @@ import { Stars } from "@react-three/drei";
 import * as THREE from "three";
 import { Compass, Radar, Package, Search, HelpCircle, X, Award, Play, ArrowUpFromDot, Gem } from "lucide-react";
 import { MoonGround, Earth, bootPrintTexture, Puffs } from "../story/ch1/props";
+import { MarsGround } from "../story/ch2/models";
 import { intents, useIntent, useIntentScope, useLastSource } from "../input/bus";
-import { useGloveCam, useInput } from "../input/store";
+
 import { OutlineSync } from "../fx/outline";
 import { AdaptiveDpr } from "../fx/AdaptiveDpr";
 import { motion } from "../anim/kit";
@@ -44,9 +45,12 @@ const live: {
 
 /** v7.5: sparkly Moon samples scattered around the site, picked up by walking over them */
 const SAMPLES: [number, number][] = [[-6, 5.5], [5.8, 6.2], [-2.5, -3.2], [3.2, -3.4], [-6.2, -1.2], [6.4, 0.2], [1.8, 7.8], [-3.6, 8.2]];
-const picked = new Set<number>();
-function SampleRocks({ onPick }: { onPick: (n: number) => void }) {
+const pickedBy = new Map<string, Set<number>>();
+/** v8: the Moon has sparkly samples; Mars has grey "blueberries" (tiny round hematite pebbles) */
+function SampleRocks({ onPick, mars = false, id = "moon" }: { onPick: (n: number) => void; mars?: boolean; id?: string }) {
   const g = useRef<THREE.Group>(null);
+  if (!pickedBy.has(id)) pickedBy.set(id, new Set());
+  const picked = pickedBy.get(id)!;
   useFrame((st) => {
     const t = st.clock.elapsedTime;
     g.current?.children.forEach((c, i) => {
@@ -64,10 +68,17 @@ function SampleRocks({ onPick }: { onPick: (n: number) => void }) {
     <group ref={g}>
       {SAMPLES.map(([x, z], i) => (
         <group key={i} position={[x, 0.35, z]}>
-          <mesh>
-            <dodecahedronGeometry args={[0.18, 0]} />
-            <meshToonMaterial color={i % 2 ? "#C9B8FF" : "#9FE8FF"} emissive={i % 2 ? "#5B3FB0" : "#1E7A9C"} emissiveIntensity={0.6} />
-          </mesh>
+          {mars ? (
+            <mesh>
+              <sphereGeometry args={[0.15, 14, 10]} />
+              <meshToonMaterial color="#8E95A6" emissive="#3D4A6A" emissiveIntensity={0.45} />
+            </mesh>
+          ) : (
+            <mesh>
+              <dodecahedronGeometry args={[0.18, 0]} />
+              <meshToonMaterial color={i % 2 ? "#C9B8FF" : "#9FE8FF"} emissive={i % 2 ? "#5B3FB0" : "#1E7A9C"} emissiveIntensity={0.6} />
+            </mesh>
+          )}
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.33, 0]} userData={{ noOutline: true }}>
             <ringGeometry args={[0.3, 0.42, 24]} />
             <meshBasicMaterial color="#C9F3FF" transparent opacity={0.5} depthWrite={false} toneMapped={false} />
@@ -330,16 +341,29 @@ function WalkWorld({ mission, state, pulse, target, onNear, onReady, onSample }:
     // the explorer steps out of the way of briefing close-ups (never a big head in the shot)
     if (root.current) root.current.visible = !(sh && camPos.current.distanceTo(p) < 4.2);
   });
+  const mars = mission.meta.id.startsWith("mars");
   return (
     <>
-      <color attach="background" args={["#0B0E22"]} />
-      <fog attach="fog" args={["#1A1838", 22, 46]} />
-      <hemisphereLight args={["#CFD8FF", "#4A4560", 0.9]} />
-      <directionalLight position={[8, 9, 5]} intensity={2.6} color="#FFF2DE" />
-      <directionalLight position={[-6, 3, -6]} intensity={0.7} color="#9EB8FF" />
-      <Stars radius={90} depth={25} count={900} factor={3} fade speed={motion.reduced ? 0 : 0.4} />
-      <MoonGround radius={30} />
-      <Earth radius={1.4} position={[-6, 6.5, -22]} />
+      {mars ? (
+        <>
+          {/* v8 Mars: a dusty butterscotch sky, warm light, rusty ground (no Earth in the sky) */}
+          <hemisphereLight args={["#FFE3C8", "#7A4A3A", 1.0]} />
+          <directionalLight position={[8, 9, 5]} intensity={2.4} color="#FFE6CC" />
+          <directionalLight position={[-6, 3, -6]} intensity={0.6} color="#B9C8FF" />
+          <MarsGround />
+        </>
+      ) : (
+        <>
+          <color attach="background" args={["#0B0E22"]} />
+          <fog attach="fog" args={["#1A1838", 22, 46]} />
+          <hemisphereLight args={["#CFD8FF", "#4A4560", 0.9]} />
+          <directionalLight position={[8, 9, 5]} intensity={2.6} color="#FFF2DE" />
+          <directionalLight position={[-6, 3, -6]} intensity={0.7} color="#9EB8FF" />
+          <Stars radius={90} depth={25} count={900} factor={3} fade speed={motion.reduced ? 0 : 0.4} />
+          <MoonGround radius={30} />
+          <Earth radius={1.4} position={[-6, 6.5, -22]} />
+        </>
+      )}
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, 0.025, 2.5]}
@@ -366,7 +390,7 @@ function WalkWorld({ mission, state, pulse, target, onNear, onReady, onSample }:
             onPointerOut={() => (document.body.style.cursor = "auto")}
           >
             {a.modelRef !== "plaque" && (
-              <group scale={a.modelRef === "descent" ? 0.62 : 0.58}>
+              <group scale={a.modelRef === "descent" ? 0.62 : a.modelRef === "rover" ? 0.72 : a.modelRef === "marslander" || a.modelRef === "chute" ? 0.8 : 0.58}>
                 <ArtifactModel modelRef={a.modelRef} hologram={!state.scanned.includes(a.id)} />
               </group>
             )}
@@ -375,7 +399,7 @@ function WalkWorld({ mission, state, pulse, target, onNear, onReady, onSample }:
         );
       })}
       <PulseRing />
-      <SampleRocks onPick={onSample} />
+      <SampleRocks onPick={onSample} mars={mars} id={mission.meta.id} />
       <Pointer target={target} />
       <group ref={root}>
         <group scale={1.25}>
@@ -385,7 +409,7 @@ function WalkWorld({ mission, state, pulse, target, onNear, onReady, onSample }:
           <planeGeometry args={[1.1, 1.1]} />
           <meshBasicMaterial map={blobTexture()} transparent depthWrite={false} opacity={0.55} />
         </mesh>
-        <Puffs count={6} spread={0.4} size={0.16} opacity={0.22} amount={dust} color="#C9CCD8" />
+        <Puffs count={6} spread={0.4} size={0.16} opacity={0.22} amount={dust} color={mars ? "#C9875E" : "#C9CCD8"} />
       </group>
       <BootTrails prints={prints} />
       <AdaptiveDpr />
@@ -399,13 +423,17 @@ let briefedThisVisit = false;
 type Shot = { kind: "wide" | "find" | "you"; tag: string; text: string; fact: boolean; at?: [number, number]; id?: string };
 
 export default function Exploration({ mission, state, onFieldActivity }: { mission: MissionDefinition; state: MissionState; onFieldActivity: () => void }) {
+  const mars = mission.meta.id.startsWith("mars");
+  const place = mars ? "Meridiani Planum" : "Tranquility Base";
+  const sampleName = mars ? "blueberries" : "Moon samples";
+  const gameName = mars ? "Sol Keeper" : "Rock Box";
   // v7.4: the mission briefing is a little film, not a pop-up. Letterbox bars slide in, the HUD steps
   // away, and the camera flies over Tranquility Base, then visits each mystery find while Nova reads
   // its clue (the sourced landing line first, the discovery hints, then the job). Lines advance on
   // their own when Nova finishes; Next jumps ahead, Skip ends it. Once per visit.
   const shots = useMemo<Shot[]>(
     () => [
-      ...(mission.storyShots[0]?.lines.slice(0, 1) ?? []).map((l) => ({ kind: "wide" as const, tag: "Tranquility Base", text: l.text, fact: l.kind === "fact" })),
+      ...(mission.storyShots[0]?.lines.slice(0, 1) ?? []).map((l) => ({ kind: "wide" as const, tag: place, text: l.text, fact: l.kind === "fact" })),
       ...mission.artifacts.map((a, i) => ({
         kind: "find" as const,
         tag: `Mystery find ${i + 1} of ${mission.artifacts.length}`,
@@ -475,8 +503,8 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
   }, [ready, brief]);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const source = useLastSource();
-  useGloveCam();
-  const handsMode = useInput((s) => s.mode === "gloves");
+  // v8: exploration is mouse, keys and touch only (hands live in the investigation, quiz and games)
+  const handsMode = false;
   useIntentScope(["pointer", "pinch", "palmHold", "thumbsUp", "wave"], { walk: true }, "moon-exploration");
   const nextUp = mission.artifacts.find((a) => !state.records.includes(a.id)) ?? null;
   const target: [number, number] | null = nextUp ? [nextUp.spawnPosition[0], nextUp.spawnPosition[2]] : null;
@@ -522,12 +550,12 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
   const done = state.records.length;
   // v7.7 mission path: study every find (each with its quiz) → Rock Box → badge
   const stage = done < total ? 0 : !state.fieldDone ? 1 : 2;
-  const [samples, setSamples] = useState(picked.size);
+  const [samples, setSamples] = useState(() => pickedBy.get(mission.meta.id)?.size ?? 0);
   const onSample = (n: number) => {
     setSamples(n);
     cute.sparkle();
     play("pop", 1.4, 0.4);
-    if (n === SAMPLES.length) speak("You found every Moon sample! Great exploring!");
+    if (n === SAMPLES.length) speak(mars ? "You found every blueberry! Great exploring!" : "You found every Moon sample! Great exploring!");
   };
   const hop = () => {
     if (briefing || performance.now() - live.hopAt < 1400) return;
@@ -543,12 +571,12 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
   useEffect(() => {
     if (briefing || stage === spokeStage.current) return;
     spokeStage.current = stage;
-    if (stage === 1) speak("Amazing! You studied every find. Next game: fill the Rock Box!");
-    if (stage === 2) speak("Rock Box done! Let's go get your badge!");
+    if (stage === 1) speak(mars ? "Amazing! You studied every find. Next game: keep the rover's panels clean!" : "Amazing! You studied every find. Next game: fill the Rock Box!");
+    if (stage === 2) speak(`${gameName} done! Let's go get your badge!`);
   }, [stage, briefing]);
   const hands = source === "gesture" || handsMode;
   return (
-    <section className={`ex od-free ${briefing ? "briefing" : "playing"}`} aria-label="Explore Tranquility Base">
+    <section className={`ex od-free ${briefing ? "briefing" : "playing"}`} aria-label={`Explore ${place}`}>
       <Canvas dpr={[1, 1.5]} camera={{ position: [0, 4, 12], fov: 46 }} gl={{ toneMapping: THREE.NoToneMapping }}>
         <Suspense fallback={null}>
           <PulseClock n={pulseN} />
@@ -591,7 +619,7 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
       <nav className="ex-path" aria-label="Mission path">
         {([
           [Search, `Finds ${done}/${total}`],
-          [Package, "Rock Box"],
+          [Package, gameName],
           [Award, "Badge"],
         ] as const).map(([Icon, label], i) => (
           <span key={i} className={`ex-step ${i < stage ? "done" : i === stage ? "now" : ""}`} aria-current={i === stage ? "step" : undefined}>
@@ -600,7 +628,7 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
           </span>
         ))}
       </nav>
-      <div className="ex-samples g-chip" aria-label={`${samples} of ${SAMPLES.length} Moon samples`}>
+      <div className="ex-samples g-chip" aria-label={`${samples} of ${SAMPLES.length} ${sampleName}`}>
         <Gem size={18} strokeWidth={2.8} aria-hidden="true" /> {samples}/{SAMPLES.length}
       </div>
 
@@ -651,9 +679,9 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
             </span>
             <div className="ex-near-text">
               <small>{stage === 1 ? "Next game" : "Next step"}</small>
-              <strong>{stage === 1 ? "Fill the Rock Box" : "Get your badge"}</strong>
+              <strong>{stage === 1 ? (mars ? "Keep the panels clean" : "Fill the Rock Box") : "Get your badge"}</strong>
             </div>
-            <button type="button" className="g-btn primary big" aria-label={stage === 1 ? "Play Fill the Rock Box" : "Go get your badge"} onClick={() => (cute.jingle(), stage === 1 ? onFieldActivity() : command(mission, { type: "next" }))}>
+            <button type="button" className="g-btn primary big" aria-label={stage === 1 ? `Play ${gameName}` : "Go get your badge"} onClick={() => (cute.jingle(), stage === 1 ? onFieldActivity() : command(mission, { type: "next" }))}>
               <Play size={22} strokeWidth={3} aria-hidden="true" /> {stage === 1 ? "Play" : "Go"}
             </button>
           </div>
@@ -688,7 +716,7 @@ export default function Exploration({ mission, state, onFieldActivity }: { missi
           <Compass size={30} strokeWidth={2.4} aria-hidden="true" />
           <span>Next</span>
         </button>
-        <button type="button" className="ex-act pink" onClick={hop} aria-label="Moon hop">
+        <button type="button" className="ex-act pink" onClick={hop} aria-label={mars ? "Hop" : "Moon hop"}>
           <ArrowUpFromDot size={30} strokeWidth={2.4} aria-hidden="true" />
           <span>Hop</span>
           <kbd>J</kbd>

@@ -2233,3 +2233,49 @@ html body .od-dash .od-dash-talk.bubble .k-dialogue > .k-dhead .k-speaker,
 html body .od-dash .od-dash-talk.bubble .k-dialogue > .k-dhead > :first-child {
   align-self: flex-start;
 }
+
+/* ---------- v8 EASY FONT: Lexend (made for reading ease), a touch more air, same layout ---------- */
+html.easy-font body .od-app :where(*:not(svg, svg *, .mono, .mono *, code)) {
+  font-family: "Lexend", "Fredoka", sans-serif !important;
+  letter-spacing: 0.012em !important;
+  word-spacing: 0.08em;
+}
+html.easy-font body .od-app :is(h1, h2, h3, .g-title, strong, b) {
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+html.easy-font body .od-app :is(p, li, label, .qz-q, .qz-choice span, .iv-record-text) {
+  line-height: 1.42;
+}
+
+/* ---------- v8 warp: the next screen opens through a growing circle (an iris), not a flat fade ---------- */
+@property --warp-hole {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+html body .warp.out {
+  animation: warp-iris 0.75s cubic-bezier(0.55, 0, 0.35, 1) both;
+  -webkit-mask: radial-gradient(circle at 50% 43%, transparent var(--warp-hole), #000 calc(var(--warp-hole) + 6%));
+  mask: radial-gradient(circle at 50% 43%, transparent var(--warp-hole), #000 calc(var(--warp-hole) + 6%));
+}
+@keyframes warp-iris {
+  from {
+    --warp-hole: 0%;
+    opacity: 1;
+  }
+  to {
+    --warp-hole: 120%;
+    opacity: 1;
+  }
+}
+html body .warp.calm.out {
+  animation: warp-fade 0.3s ease-in both;
+  -webkit-mask: none;
+  mask: none;
+}
+
+/* v8: the mission's Home / Back buttons stay on top of films and mini-games (every screen has a way back) */
+html body .od-app .m-runner > .g-hud-tl {
+  z-index: 85;
+}

@@ -366,6 +366,78 @@
       "publisher": "NASA History",
       "retrieved": "2026-11-15",
       "status": "verified"
+    },
+    {
+      "id": "K_LAUNCH",
+      "title": "KSC-03pd2090: the Delta II Heavy carrying the rover Opportunity launches from Complex 17-B, 7 July 2003, 11:18:15 p.m. EDT",
+      "url": "https://images.nasa.gov/details/KSC-03pd2090",
+      "publisher": "NASA Kennedy Space Center",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "K_AIRBAGS",
+      "title": "KSC-03pd1577: Mars Exploration Rover 1 (MER-B, Opportunity) lander after airbag installation, Payload Hazardous Servicing Facility, May 2003",
+      "url": "https://images.nasa.gov/details/KSC-03pd1577",
+      "publisher": "NASA Kennedy Space Center",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "K_SHIELD",
+      "title": "KSC-03pd1605: workers move the heat shield toward the backshell with Mars Exploration Rover 1 (MER-B, Opportunity), May 2003",
+      "url": "https://images.nasa.gov/details/KSC-03pd1605",
+      "publisher": "NASA Kennedy Space Center",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "K_MERB",
+      "title": "PIA04854 / KSC-03pd1934: Mars Exploration Rover 1 is MER-B; PIA05251: MER-B is Opportunity",
+      "url": "https://images.nasa.gov/details/PIA04854",
+      "publisher": "NASA/JPL",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "N_ABOUT",
+      "title": "About NASA: the National Aeronautics and Space Administration opened for business on October 1, 1958",
+      "url": "https://www.nasa.gov/about/",
+      "publisher": "NASA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "N_JUPITER",
+      "title": "Jupiter Facts: the largest planet in our solar system; about 1,000 Earths could fit inside",
+      "url": "https://science.nasa.gov/jupiter/facts/",
+      "publisher": "NASA Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "N_PLANETS",
+      "title": "Planets of our solar system: the 8 planets (plus dwarf planet Pluto)",
+      "url": "https://science.nasa.gov/solar-system/planets/",
+      "publisher": "NASA Science",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "N_ISS",
+      "title": "International Space Station: November 2, 2025 marked 25 years of continuous human presence aboard",
+      "url": "https://www.nasa.gov/international-space-station/",
+      "publisher": "NASA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
+    },
+    {
+      "id": "N_ARTEMIS",
+      "title": "Moon to Mars: NASA's Artemis program",
+      "url": "https://www.nasa.gov/humans-in-space/artemis/",
+      "publisher": "NASA",
+      "retrieved": "2026-11-15",
+      "status": "verified"
     }
   ]
 }

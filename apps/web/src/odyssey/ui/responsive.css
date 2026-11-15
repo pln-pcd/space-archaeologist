@@ -1,0 +1,472 @@
+/* v8 RESPONSIVE: the same game on phones and tablets, in any browser, with touch or a mouse.
+   Desktop layouts are untouched (every rule sits behind a size query). Loaded last.
+     A  portrait screens up to tablet width: stack two-column game screens (find above camera, quiz
+        question above camera)
+     B  phones in portrait (≤ 760 px wide): tighter padding, smaller type, one-column cards
+     C  phones in landscape (≤ 520 px tall): compact headers, hide decorative extras */
+
+/* ---------- A: portrait tablets and phones ---------- */
+@media (orientation: portrait) and (max-width: 1100px) {
+  /* investigation: the find on top (big), the camera card below as a compact strip */
+  html body .od-app .iv3-main,
+  html body .od-app .iv3-main.phase-2 {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) auto !important;
+  }
+  html body .od-app .iv3-main.phase-2 {
+    grid-template-rows: minmax(0, 1fr) auto auto !important;
+  }
+  html body .od-app .iv3-main > .iv3-stage {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    min-height: 34vh;
+  }
+  html body .od-app .iv3-main > .iv3-camcard {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    flex-direction: row;
+    align-items: stretch;
+    max-height: 190px;
+  }
+  html body .od-app .iv3-main.phase-2 > .iv3-record {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+    grid-template-columns: minmax(0, 1fr);
+    max-height: 30vh;
+    overflow: auto;
+  }
+  .iv3-camcard .iv3-campic {
+    flex: 0 0 auto;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+  }
+  .iv3-camcard .iv3-camoff {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    column-gap: 14px;
+    justify-items: start;
+    text-align: left;
+  }
+  .iv3-camcard .iv3-camoff > svg {
+    grid-row: 1 / span 3;
+    width: 64px;
+    height: 64px;
+  }
+  .iv3-camcard .iv3-camoff p {
+    display: none;
+  }
+  .iv3-camcard .iv3-camoff h3 {
+    font-size: 22px;
+  }
+  /* quiz: the question card on top, the camera below */
+  html body .od-app .qz-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) minmax(150px, 0.4fr);
+    gap: 14px;
+  }
+  html body .od-app .qz-card {
+    order: -1;
+  }
+  .qz-cam .qz-cam-off {
+    gap: 6px;
+  }
+  .qz-cam .qz-cam-off svg {
+    width: 40px;
+    height: 40px;
+  }
+  .qz-cam .qz-cam-off p,
+  .qz-cam .qz-cam-off small {
+    display: none;
+  }
+  /* the designer: the explorer on top, the parts panel below */
+  html body .od-app .dz {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto minmax(0, 0.8fr) minmax(0, 1.2fr) !important;
+  }
+  html body .od-app .dz-panel {
+    grid-column: 1 !important;
+    min-width: 0 !important;
+    width: auto !important;
+  }
+  html body .od-app .dz-grid {
+    overflow: auto;
+  }
+}
+
+/* ---------- B: phones in portrait ---------- */
+@media (max-width: 760px) {
+  :root {
+    --g-edge: 14px;
+    --g-icon: 48px;
+  }
+  /* cover: the title clears the corner buttons; Nova's welcome stays on screen */
+  html body .od-cover .od-cover-title {
+    top: 84px !important;
+  }
+  html body .od-cover .od-nova-says {
+    max-width: min(56vw, 260px) !important;
+    font-size: 14px !important;
+    padding: 8px 12px 9px;
+  }
+  /* name card: one column, Nova smaller, the ID becomes a little badge row */
+  .nc-wrap {
+    padding-top: 150px !important;
+  }
+  .nc-peek {
+    width: 260px !important;
+    height: 200px !important;
+  }
+  .nc-card {
+    padding: 18px 18px 16px !important;
+  }
+  .nc-card h2 {
+    font-size: 26px !important;
+  }
+  .nc-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .nc-id {
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-items: start;
+    rotate: 0deg;
+    padding: 8px 12px;
+  }
+  .nc-id small,
+  .nc-id em {
+    display: none;
+  }
+  .nc-id-photo {
+    width: 40px;
+    height: 40px;
+  }
+  .nc-buttons {
+    flex-wrap: wrap;
+  }
+  .nc-buttons .od-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  /* investigation */
+  html body .od-app .iv3 {
+    padding: 78px 12px 12px !important;
+    gap: 10px;
+  }
+  .iv3 .iv-head {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .iv3 .iv-head .g-title {
+    font-size: 26px !important;
+    line-height: 1.05;
+  }
+  .iv3 .iv-steps {
+    font-size: 12px;
+  }
+  html body .od-app .iv3-main > .iv3-camcard {
+    max-height: 132px;
+    padding: 10px !important;
+  }
+  .iv3-camtips {
+    display: none !important;
+  }
+  .iv3-stage .m-model-tools {
+    right: 8px !important;
+    bottom: 8px !important;
+    flex-direction: column;
+    gap: 6px !important;
+  }
+  .iv3-stage .m-model-tools button {
+    min-height: 40px !important;
+    padding: 4px 12px !important;
+    font-size: 14px !important;
+  }
+  .iv3-main .iv3-part {
+    left: 8px;
+    bottom: 8px;
+    width: min(240px, 62%);
+    padding: 10px 12px 12px;
+  }
+  .iv3-main .iv3-part h2 {
+    font-size: 20px;
+  }
+  .iv3-main .iv3-part p {
+    font-size: 13px;
+  }
+  .iv3-tray {
+    flex-wrap: wrap;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    min-height: 0 !important;
+  }
+  .iv3-tray .iv3-msg p,
+  .iv3-tray .iv3-parts > strong,
+  .iv3-tray .iv-status {
+    display: none !important;
+  }
+  .iv3-tray .iv3-msg .iv-meter-big {
+    width: 140px;
+  }
+  .iv3-tray .iv3-chip {
+    font-size: 13px !important;
+    min-height: 40px !important;
+    padding: 4px 10px 4px 6px !important;
+  }
+  .iv3-tray .iv3-parts {
+    flex-wrap: wrap !important;
+    gap: 6px;
+  }
+  .iv3-dig-hud small {
+    font-size: 12px;
+  }
+  /* quiz */
+  html body .od-app .qz {
+    padding: 78px 12px 12px !important;
+    gap: 10px;
+  }
+  .qz-head h1 {
+    font-size: 24px !important;
+  }
+  html body .od-app .qz-card {
+    padding: 14px 14px 12px !important;
+    gap: 8px;
+  }
+  .qz-q {
+    font-size: 21px !important;
+    line-height: 1.15 !important;
+  }
+  .qz-choice {
+    min-height: 0 !important;
+    padding: 8px 10px !important;
+    gap: 10px !important;
+  }
+  .qz-choice span {
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+  }
+  .qz-choice b {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 18px !important;
+  }
+  .qz-say {
+    font-size: 13px !important;
+  }
+  .qz-legend {
+    transform: scale(0.8);
+    transform-origin: bottom center;
+  }
+  /* designer */
+  html body .od-app .dz {
+    padding: 72px 12px 12px !important;
+    gap: 10px !important;
+  }
+  .dz-top .g-title {
+    font-size: 24px !important;
+  }
+  .dz-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    scrollbar-width: none;
+  }
+  .dz-tab {
+    flex: 0 0 auto;
+  }
+  html body .od-app .dz-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+  .dz-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .dz-actions .g-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  /* exploration briefing: the caption clears the corner buttons */
+  .ex-cap-title {
+    top: 76px !important;
+    font-size: 16px !important;
+  }
+  /* chat with Nova: full-width panel */
+  html body .cv-root .cv-panel {
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  html body .cv-root .cv-bust {
+    display: none !important;
+  }
+  .k-ask-row {
+    flex-wrap: wrap;
+  }
+  .k-ask-row .k-input {
+    flex: 1 1 100%;
+  }
+  /* hand card */
+  .ht-step {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .ht-ask {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .ht-ask .ht-hero {
+    display: none !important;
+  }
+  .ht-card {
+    max-height: calc(100dvh - 24px);
+    overflow: auto;
+  }
+  /* how-to cards */
+  .howto {
+    max-height: calc(100dvh - 24px);
+    overflow: auto;
+  }
+}
+
+/* ---------- C: phones in landscape (short screens) ---------- */
+@media (max-height: 520px) {
+  :root {
+    --g-edge: 10px;
+    --g-icon: 44px;
+  }
+  html body .od-cover .od-nova-says {
+    display: none !important;
+  }
+  .nc-peek,
+  .nc-sky .nc-planet {
+    display: none !important;
+  }
+  .nc-wrap {
+    padding-top: 0 !important;
+  }
+  .nc-card h2 {
+    font-size: 24px !important;
+    margin-bottom: 8px;
+  }
+  .nc-id {
+    display: none !important;
+  }
+  .nc-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  html body .od-app .iv3 {
+    padding: 62px 10px 8px !important;
+    gap: 6px;
+  }
+  .iv3 .iv-head .g-title {
+    font-size: 22px !important;
+  }
+  html body .od-app .iv3-main {
+    grid-template-columns: minmax(180px, 0.3fr) minmax(0, 1fr) !important;
+  }
+  .iv3-camtips {
+    display: none !important;
+  }
+  .iv3-tray {
+    min-height: 0 !important;
+    padding: 6px 10px !important;
+  }
+  .iv3-tray .iv3-msg p {
+    display: none;
+  }
+  html body .od-app .qz {
+    padding: 62px 10px 8px !important;
+    gap: 6px;
+  }
+  .qz-head h1 {
+    font-size: 22px !important;
+  }
+  .qz-q {
+    font-size: 19px !important;
+  }
+  .qz-choice {
+    min-height: 0 !important;
+    padding: 6px 10px !important;
+  }
+  .qz-choice span {
+    font-size: 14px !important;
+  }
+  html body .od-app .dz-grid {
+    overflow: auto;
+    grid-auto-rows: 92px !important;
+  }
+  .dz-tile {
+    max-height: 92px !important;
+  }
+  .ex-cap-title {
+    top: 64px !important;
+  }
+  .howto,
+  .ht-card {
+    max-height: calc(100dvh - 16px);
+    overflow: auto;
+  }
+}
+
+/* ---------- v8 fine-tuning after device screenshots ---------- */
+@media (max-width: 760px) {
+  html body .od-cover .od-cover-title {
+    font-size: clamp(44px, 13vw, 76px) !important;
+  }
+  html body .od-cover .od-cover-mid {
+    top: calc(84px + clamp(44px, 13vw, 76px) * 2.2) !important;
+  }
+  html body .od-app .qz-grid {
+    grid-template-rows: minmax(0, 1fr) minmax(120px, 0.28fr) !important;
+  }
+  .qz-cam .qz-cam-off h2,
+  .qz-cam .qz-cam-off > svg {
+    display: none !important;
+  }
+}
+@media (max-height: 520px) {
+  /* the bubble stays on screen: never higher than the top edge */
+  html body .od-dash:not(.portrait) .od-dash-talk.bubble {
+    bottom: min(calc(100vh - var(--nova-top, 420px) + 18px), calc(100vh - 150px)) !important;
+    width: min(320px, 40vw) !important;
+  }
+  html body .od-dash .od-dash-talk.bubble .k-line {
+    font-size: 14px !important;
+  }
+  html body .od-app .qz-grid {
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr) !important;
+    gap: 10px;
+  }
+  .qz-cam .qz-cam-off h2,
+  .qz-cam .qz-cam-off p,
+  .qz-cam .qz-cam-off small,
+  .qz-legend {
+    display: none !important;
+  }
+  html body .od-app .qz-card {
+    overflow: auto !important;
+    padding: 10px 12px !important;
+    gap: 6px;
+  }
+  .qz-choices {
+    gap: 6px !important;
+  }
+  .iv3-camcard .iv3-camoff p,
+  .iv3-camcard .iv3-camoff small {
+    display: none;
+  }
+  .iv3-camcard .iv3-camoff h3 {
+    font-size: 18px;
+  }
+}
+@media (max-height: 520px) {
+  html body .od-app .dash-dock {
+    top: 66px !important;
+    transform: scale(0.82);
+    transform-origin: top right;
+  }
+  .qz-cam .g-btn {
+    font-size: 15px !important;
+    padding: 8px 14px !important;
+    min-height: 44px !important;
+  }
+}

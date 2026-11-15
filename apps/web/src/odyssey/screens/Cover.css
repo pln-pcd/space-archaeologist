@@ -450,3 +450,12 @@
   height: 14px;
   clip-path: polygon(100% 0, 100% 100%, 0 50%);
 }
+/* v8: Nova's welcome wraps into a cosy speech bubble */
+.od-nova-says {
+  white-space: normal;
+  width: max-content;
+  max-width: min(440px, 34vw);
+  font-size: clamp(17px, 1.25vw, 21px);
+  line-height: 1.28;
+}
+.od-cover[data-leaving="1"] .od-nova-says { display: none; }

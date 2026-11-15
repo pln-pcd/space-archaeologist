@@ -108,12 +108,15 @@ class Themes {
     this.nodes = [];
     this.out = null;
     this.playing = null;
-    if (out) out.gain.rampTo(0, 0.6);
+    // v8: stop scheduling notes at once (the old song never plays on at the new song's tempo),
+    // let the last notes ring out under a gentle fade, then free everything
+    loop?.stop();
+    if (out) out.gain.rampTo(0, 0.7);
     setTimeout(() => {
       loop?.dispose();
       nodes.forEach((n) => n.dispose());
       out?.dispose();
-    }, 900);
+    }, 1800);
   }
   private start(name: ThemeName) {
     const song = SONGS[name];
@@ -148,14 +151,14 @@ class Themes {
     kick.volume.value = song.beat === "bouncy" ? -18 : -24;
     const hp = new Tone.Filter(5200, "highpass").connect(out);
     const shaker = new Tone.NoiseSynth({ noise: { type: "white" }, envelope: { attack: 0.001, decay: 0.05, sustain: 0 } }).connect(hp);
-    shaker.volume.value = song.beat === "bouncy" ? -28 : -34;
+    shaker.volume.value = song.beat === "bouncy" ? -30 : -38;
     const clapF = new Tone.Filter(1400, "bandpass").connect(out);
     const clap = new Tone.NoiseSynth({ noise: { type: "pink" }, envelope: { attack: 0.002, decay: 0.12, sustain: 0 } }).connect(clapF);
     clap.volume.value = -16;
     nodes.push(kick, hp, shaker, clapF, clap);
     // ukulele: three plucked strings strummed a few ms apart
     const strings = song.strum ? [0, 1, 2].map(() => new Tone.PluckSynth({ attackNoise: 1.2, dampening: 3800, resonance: 0.92 }).connect(out)) : [];
-    strings.forEach((p) => ((p.volume.value = -7), nodes.push(p)));
+    strings.forEach((p) => ((p.volume.value = -12), nodes.push(p)));
     // sparkles: a high bell run
     const bells = song.sparkle ? new Tone.PolySynth(Tone.FMSynth, { harmonicity: 8, modulationIndex: 1.2, envelope: { attack: 0.001, decay: 0.5, sustain: 0, release: 0.5 }, modulationEnvelope: { attack: 0.001, decay: 0.1, sustain: 0, release: 0.1 } }) : null;
     if (bells) (bells.volume.value = -20), bells.connect(echo), bells.connect(reverbSend), nodes.push(bells);
@@ -172,8 +175,13 @@ class Themes {
       const bar = Math.floor(step / 8) % song.chords.length;
       const e = step % 8;
       const chord = song.chords[bar];
+      // v8: every other pass is a calmer "B" section: the tune plays only every other bar (call and
+      // response with the pad), so a long session never feels like the same jingle over and over
+      const pass = Math.floor(step / (8 * song.chords.length));
+      const rest = pass % 2 === 1 && bar % 2 === 1;
       const n = tune[bar % tune.length][e];
-      if (n && n !== ".") lead.triggerAttackRelease(n, song.lead === "chip" ? "16n" : "8n", time, 0.6 + Math.random() * 0.15);
+      const human = (Math.random() - 0.5) * 0.012;
+      if (n && n !== "." && !rest) lead.triggerAttackRelease(n, song.lead === "chip" ? "16n" : "8n", time + Math.max(0, human), 0.5 + Math.random() * 0.12);
       if (e === 0) {
         bass.triggerAttackRelease(song.bass[bar], "4n", time, 0.8);
         pad?.triggerAttackRelease(chord, "1m", time, 0.35);
@@ -191,13 +199,16 @@ class Themes {
       }
       step++;
     }, "8n");
-    this.loop.start(0);
-    if (T.state !== "started") T.start("+0.05");
+    // start on the next beat of the running transport (or a fresh one), never in the past
+    if (T.state !== "started") {
+      this.loop.start(0);
+      T.start("+0.1");
+    } else this.loop.start("@4n");
   }
   private makeLead(kind: Song["lead"]) {
     if (kind === "glock") {
       const s = new Tone.PolySynth(Tone.FMSynth, { harmonicity: 5.07, modulationIndex: 2.2, oscillator: { type: "sine" }, modulation: { type: "sine" }, envelope: { attack: 0.001, decay: 0.9, sustain: 0, release: 0.9 }, modulationEnvelope: { attack: 0.001, decay: 0.2, sustain: 0, release: 0.2 } });
-      s.volume.value = -13;
+      s.volume.value = -15;
       return s;
     }
     if (kind === "marimba") {
@@ -212,7 +223,7 @@ class Themes {
     }
     // music box: a bright FM pluck
     const s = new Tone.PolySynth(Tone.FMSynth, { harmonicity: 7.01, modulationIndex: 1.4, oscillator: { type: "sine" }, modulation: { type: "triangle" }, envelope: { attack: 0.001, decay: 1.3, sustain: 0, release: 1.3 }, modulationEnvelope: { attack: 0.001, decay: 0.3, sustain: 0, release: 0.3 } });
-    s.volume.value = -12;
+    s.volume.value = -14;
     return s;
   }
 }

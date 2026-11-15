@@ -3,7 +3,7 @@
 //   NOVA CHECK-IN → MINI-GAME → RESULTS + STAMP → DASHBOARD
 // Deep links: ?screen=cover|name|dashboard, ?chapter=1|2&scene=A…G (add &checkin=1 for the check-in),
 // ?judge=1 (Judge Mode strip). ?nocover=1 skips the cover in automated runs.
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Settings as Gear } from "lucide-react";
 import { useStore, type Profile } from "../store";
 import { motion as motionPrefs } from "../anim/kit";
@@ -35,10 +35,9 @@ import "./fx/juice.css";
 import "./ui/game.css";
 import "./hands/hands.css";
 import "./ui/settings.css";
+import "./ui/responsive.css";
 import { installJuice } from "./fx/juice";
 import WarpLayer, { warpTo } from "./fx/Warp";
-import { HandsOn } from "../story/ch1/CameraCheck";
-import { useInput } from "../input/store";
 import { AVATAR_SAVE_KEY, GAME_TITLE } from "../missions/constants";
 import { useAvatar } from "../missions/avatar";
 import { resetMissions } from "../missions/session";
@@ -82,11 +81,12 @@ export default function OdysseyApp() {
   const settings = useStore((s) => s.settings);
   const [{ screen, mission }, setState] = useState(initial);
   const [finished, setFinished] = useState<string | null>(null);
+  // v8: which mission the archaeologist runner plays (Moon or Mars); deep links keep ?mission=
+  const [arch, setArch] = useState<string | undefined>(undefined);
   const [panel, setPanel] = useState<"settings" | "credits" | null>(null);
   const [fade, setFade] = useState(false);
   const [device, setDevice] = useState(() => deviceClass(settings.device));
   const judge = useJudge((j) => j.on);
-  const handsOn = useInput((s) => s.mode === "gloves" && s.consented);
   useEffect(()=>{document.title=GAME_TITLE;},[]);
 
   // a profile is needed beyond the cover; deep links get a test explorer
@@ -98,7 +98,9 @@ export default function OdysseyApp() {
     const h = document.documentElement;
     const reduced = !!settings.reducedMotion || matchMedia("(prefers-reduced-motion: reduce)").matches || new URLSearchParams(location.search).get("reduceMotion") === "1";
     h.classList.toggle("reduced-motion", reduced);
-    h.classList.toggle("reading-font", !!settings.dyslexia);
+    // v8: "Easy font" = Lexend with calm spacing (OpenDyslexic's very wide letters broke every layout)
+    h.classList.toggle("reading-font", false);
+    h.classList.toggle("easy-font", !!settings.dyslexia);
     h.classList.toggle("easy-read", !!settings.easyRead);
     h.dataset.textSize = settings.textSize ?? "normal";
     motionPrefs.reduced = reduced;
@@ -124,8 +126,13 @@ export default function OdysseyApp() {
 
   /** an iris / warp wipe between screens: a starry circle closes, the screen changes, it opens again
    *  (a plain fade in reduced motion) */
-  const go = (next: Screen, m: string | null = null, warp?: [string, string]) => {
+  // v8: where the explorer has been, so every Back button returns to the previous screen
+  const trail = useRef<Screen[]>([]);
+  const here = useRef<Screen>(screen);
+  here.current = screen;
+  const go = (next: Screen, m: string | null = null, warp?: [string, string], isBack = false) => {
     stopSpeaking();
+    if (!isBack && next !== here.current) trail.current = [...trail.current, here.current].slice(-12);
     if (warp) {
       warpTo(warp[0], warp[1], () => {
         resetTalk();
@@ -147,6 +154,15 @@ export default function OdysseyApp() {
     );
   };
 
+  /** go back to the previous screen (the title screen when there is none) */
+  const back = (fallback: Screen = "cover") => {
+    const t = [...trail.current];
+    let prev = t.pop();
+    while (prev && (prev === here.current || prev === "mission" || prev === "archaeologist")) prev = t.pop();
+    trail.current = t;
+    go(prev ?? fallback, null, undefined, true);
+  };
+
   const createProfile = (name: string, patch: string, test = false) => {
     const p: Profile = { nickname: name, suit: "Commander", code: `device-${Date.now().toString(36)}`, mode: "device", playerName: name, playerPatch: patch, introDone: true, createdAt: new Date().toISOString(), greeted: test };
     useStore.getState().enter(p, useStore.getState().progress);
@@ -166,7 +182,7 @@ export default function OdysseyApp() {
     <main className="od-app" aria-label={GAME_TITLE}>
       {screen === "cover" && <Cover onStart={() => go(!useStore.getState().settings.introSeen ? "intro" : profile ? avatar ? "dashboard" : "avatar" : "name", null, ["Blast off!", profile ? "Welcome back, explorer" : "A new explorer joins the crew"])} onSettings={() => setPanel("settings")} onCredits={() => setPanel("credits")} />}
       {(screen === "name" || screen === "intro") && (
-        <button type="button" className="g-icon-btn dash-exit" aria-label="Back to the title screen" onClick={() => go("cover")}>
+        <button type="button" className="g-icon-btn dash-exit" aria-label="Go back" onClick={() => back("cover")}>
           <ArrowLeft size={26} strokeWidth={2.6} aria-hidden="true" />
           <span>Back</span>
         </button>
@@ -179,7 +195,7 @@ export default function OdysseyApp() {
           }}
         />
       )}
-      {screen === "avatar" && <Suspense fallback={<GameLoading />}><AvatarDesigner onDone={() => go("dashboard", null, ["Your ship", "Mission control"])} /></Suspense>}
+      {screen === "avatar" && <Suspense fallback={<GameLoading />}><AvatarDesigner onBack={() => (trail.current.length ? back("dashboard") : go("dashboard"))} onDone={() => go("dashboard", null, ["Your ship", "Mission control"])} /></Suspense>}
       {screen === "intro" && (
         <Suspense fallback={<GameLoading />}>
           <Intro
@@ -193,7 +209,7 @@ export default function OdysseyApp() {
       )}
       {screen === "archaeologist" && (
         <Suspense fallback={<GameLoading />}>
-          <MissionApp onClose={(done) => (setFinished(done ? "eagle" : null), go("dashboard", null, done ? ["Your ship", "Chapter 1 complete!"] : undefined))} />
+          <MissionApp key={arch ?? "url"} missionId={arch} onClose={(done) => (setFinished(done ? (arch === "mars-001" ? "opportunity" : "eagle") : null), go("dashboard", null, done ? ["Your ship", arch === "mars-001" ? "Chapter 2 complete!" : "Chapter 1 complete!"] : undefined))} />
         </Suspense>
       )}
       {screen === "dashboard" && (
@@ -202,10 +218,12 @@ export default function OdysseyApp() {
             key={finished ?? "home"}
             finished={finished}
             onWardrobe={() => go("avatar")}
-            onExit={() => go("cover")}
+            onExit={() => back("cover")}
             onPlay={(id) => {
               setFinished(null);
-              go(id === "eagle" ? "archaeologist" : "mission", id === "eagle" ? null : id, id === "eagle" ? ["The Moon", "Chapter 1 · Apollo 11 · 1969"] : ["Mars", "Chapter 2 · Opportunity · 2004"]);
+              // v8: both chapters run on the mission engine (films → explore → investigate → quiz → hand game)
+              setArch(id === "eagle" ? "moon-001" : "mars-001");
+              go("archaeologist", null, id === "eagle" ? ["The Moon", "Chapter 1 · Apollo 11 · 1969"] : ["Mars", "Chapter 2 · Opportunity · 2004"]);
             }}
           />
         </Suspense>
@@ -240,7 +258,6 @@ export default function OdysseyApp() {
       )}
       <div className={`od-iris ${fade ? "on" : ""}`} aria-hidden="true" />
       <WarpLayer />
-      {handsOn && screen !== "cover" && <HandsOn />}
       <AudioDirector scene={screen === "mission" ? (mission === "opportunity" ? "mars" : "chapter") : "base"} theme={screen === "cover" || screen === "intro" ? "title" : screen === "archaeologist" ? "explore" : screen === "mission" ? (mission === "opportunity" ? "explore" : null) : "ship"} />
       <GlovesLayer />
     </main>

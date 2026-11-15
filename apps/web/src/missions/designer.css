@@ -282,3 +282,26 @@
 .reduced-motion .dz-spin {
   animation: none;
 }
+/* v8: the picture always sits inside its tile, above the label (never under it, never cropped) */
+.dz-thumb {
+  position: relative;
+  align-self: stretch;
+  overflow: hidden;
+}
+.dz-thumb img {
+  position: absolute;
+  inset: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+}
+.dz-label {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -140,7 +140,11 @@ class GloveEngine {
     this.setFilter(inp.tuning.cursorMinCutoff, inp.tuning.cursorBeta);
 
     // ---- cursor: interaction box → screen px → 1€ filter → aim assist ----
-    const primary = feats.length ? (feats.find((f) => f.handedness === (inp.leftHanded ? "Left" : "Right")) ?? feats[0]) : null;
+    // v8: the dominant hand, unless the other hand is much nearer the camera (a second person's
+    // hand far behind the player never steals the glove)
+    const dom = feats.find((f) => f.handedness === (inp.leftHanded ? "Left" : "Right"));
+    const near = feats.reduce<HandFeatures | null>((b, f) => (!b || f.palmScale > b.palmScale ? f : b), null);
+    const primary = dom && near && near !== dom && near.palmScale > dom.palmScale * 1.6 ? near : (dom ?? near);
     if (primary) {
       const s = inp.backdrop > 0 ? coverScreen(primary.anchor, frame.aspect, innerWidth, innerHeight) : toScreen(primary.anchor, frame.aspect, inp.tuning.boxSize);
       const ts = t / 1000;

@@ -167,9 +167,11 @@ export const GloveArt = memo(function GloveArt({ pose, tone, size, className = "
 });
 
 /** Which drawn pose best matches the tracked hand (features from input/features.ts). */
-export function poseFor(f: { ext: number[]; ext4: number; thumbUp: number; lShape: number }, st: { pinching: boolean; grabbing: boolean }): GlovePose {
+export function poseFor(f: { ext: number[]; ext4: number; thumbUp: number; lShape: number; pointing?: number }, st: { pinching: boolean; grabbing: boolean }): GlovePose {
   if (st.grabbing) return "fist";
   if (st.pinching) return "pinch";
+  // v8: pointing wins over a low average extension (it used to draw a fist while the kid pointed)
+  if ((f.pointing ?? 0) > 0.5) return "point";
   if (f.thumbUp > 0.6) return "thumbs";
   if (f.lShape > 0.6) return "frame";
   const rest = (f.ext[2] + f.ext[3] + f.ext[4]) / 3;

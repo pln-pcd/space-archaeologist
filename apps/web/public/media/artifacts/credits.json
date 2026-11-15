@@ -26,5 +26,29 @@
     "credit": "NASA",
     "sha256": "350a838186fe1810b2abfcf295039b2e90a9934ed5b0904d9181af456e606b3a",
     "retrieved": "2026-11-15"
+  },
+  {
+    "file": "rover.jpg",
+    "url": "https://images-assets.nasa.gov/image/KSC-03pd2090/KSC-03pd2090~medium.jpg",
+    "credit": "NASA",
+    "note": "KSC-03pd2090, cropped 4:3 around the rocket",
+    "sha256": "a636cc7652a9a415a33f82c744a5771f0b80856e042c94c41f88297599e28378",
+    "retrieved": "2026-11-15"
+  },
+  {
+    "file": "mars-lander.jpg",
+    "url": "https://images-assets.nasa.gov/image/KSC-03pd1577/KSC-03pd1577~medium.jpg",
+    "credit": "NASA",
+    "note": "KSC-03pd1577, cropped to the lander (no wall patches)",
+    "sha256": "5e96dc4a49d38ac3e8a912173bcc909203def6ab97196709669cc9f382e12ab7",
+    "retrieved": "2026-11-15"
+  },
+  {
+    "file": "entry.jpg",
+    "url": "https://images-assets.nasa.gov/image/KSC-03pd1605/KSC-03pd1605~medium.jpg",
+    "credit": "NASA",
+    "note": "KSC-03pd1605, full frame",
+    "sha256": "0f82c5ed668ff82fcd86bf68258e74a7de65f565c767a1f57e97d8e896546f15",
+    "retrieved": "2026-11-15"
   }
 ]

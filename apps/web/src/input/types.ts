@@ -141,6 +141,10 @@ export type Calibration = {
   /** thumb–index distance / palm size, pinching */
   pinchClosed: number;
   samples: number;
+  /** v8 Hand Training: each digit's extension (thumb..pinky) with the hand open and with a fist,
+   *  so finger counting uses this player's own hand instead of fixed thresholds */
+  fingerOpen?: number[];
+  fingerCurled?: number[];
 };
 export const DEFAULT_CALIBRATION: Calibration = { openExt: 0.9, fistExt: 0.15, pinchOpen: 0.9, pinchClosed: 0.12, samples: 0 };
 

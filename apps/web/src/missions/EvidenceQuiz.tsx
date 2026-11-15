@@ -16,6 +16,7 @@ import { Action } from "./ui";
 import HowTo, { howToSeen } from "./HowTo";
 import { speak } from "../odyssey/nova/voice";
 import { cute } from "../audio/cute";
+import { burst } from "../odyssey/ui/kit";
 import type { Artifact, MissionCommand, MissionDefinition, MissionState } from "./types";
 import "./quiz.css";
 
@@ -53,7 +54,7 @@ export function quizFor(mission: MissionDefinition, a: Artifact): Question[] {
   if (why)
     qs.push({
       id: "why",
-      prompt: "Why did it stay on the Moon?",
+      prompt: mission.meta.id.startsWith("mars") ? "Why did it stay on Mars?" : "Why did it stay on the Moon?",
       answer: why.id,
       choices: arrange({ id: why.id, text: why.fact.text }, others.map((o) => card(o, "reason")).filter(Boolean).map((c) => ({ id: c!.id, text: c!.fact.text })), a.id + "why"),
       done: (p) => p.includes(why.id),
@@ -120,6 +121,9 @@ export default function EvidenceQuiz({ mission, artifact, state }: { mission: Mi
       lock.current = true;
       setRight(c.id);
       cute.fanfare();
+      // a little star burst from the right answer
+      const r = document.querySelectorAll(".qz-choice")[i]?.getBoundingClientRect();
+      if (r) for (let k = 0; k < 3; k++) setTimeout(() => burst(r.left + r.width * (0.2 + k * 0.3), r.top + r.height / 2, 9), k * 110);
       for (const r of q.reward) command(mission, r);
       setTimeout(() => setQi((n) => n + 1), 1300);
     } else {
@@ -129,7 +133,8 @@ export default function EvidenceQuiz({ mission, artifact, state }: { mission: Mi
   };
   useIntent("fingers", (e) => {
     setFingers({ count: e.count, progress: e.progress });
-    if (e.done) pick(e.count - 1);
+    // v8: strictly 1-4 (the gesture engine never sends a pick for 5; this is a second lock)
+    if (e.done && e.count >= 1 && e.count <= 4) pick(e.count - 1);
   });
   useIntent("choose", (e) => pick(e.index));
   useEffect(() => {
@@ -152,6 +157,7 @@ export default function EvidenceQuiz({ mission, artifact, state }: { mission: Mi
             { icon: "📷", text: "Open the camera" },
             { icon: "✌️", text: "Hold up 1, 2, 3 or 4 fingers" },
             { icon: "⭐", text: "Keep it still to answer" },
+            { icon: "💡", text: "Good light, only you in the camera" },
           ]}
           cta="Start the quiz"
           onStart={() => setHow(false)}
@@ -181,7 +187,13 @@ export default function EvidenceQuiz({ mission, artifact, state }: { mission: Mi
               <span className="qz-live">
                 <i /> {camera === "on" ? "Camera on" : "Hands on"}
               </span>
-              {fingers.count > 0 && !finished && (
+              {fingers.count === 5 && !finished && (
+                <div className="qz-count too-many" role="status">
+                  <b>5</b>
+                  <span>Too many! Show 1, 2, 3 or 4</span>
+                </div>
+              )}
+              {fingers.count > 0 && fingers.count <= 4 && !finished && (
                 <div className="qz-count" style={{ ["--p" as string]: fingers.progress }}>
                   <b>{LETTERS[fingers.count - 1]}</b>
                   <span>

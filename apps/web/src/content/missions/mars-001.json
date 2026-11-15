@@ -1,0 +1,765 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "id": "mars-001",
+    "title": "The Brave Rover of Mars",
+    "location": {
+      "kind": "fact",
+      "text": "Meridiani Planum · Eagle crater",
+      "sourceId": "F22"
+    },
+    "difficulty": "Beginner",
+    "framing": [
+      {
+        "kind": "imagine",
+        "text": "Your Space Archaeologist adventure continues on Mars."
+      },
+      {
+        "kind": "imagine",
+        "text": "Find what Opportunity left behind."
+      }
+    ],
+    "briefing": [
+      {
+        "kind": "imagine",
+        "text": "Every object has a story."
+      },
+      {
+        "kind": "imagine",
+        "text": "Your job is to discover it."
+      }
+    ],
+    "estimatedMinutes": [
+      15,
+      20
+    ]
+  },
+  "storyShots": [
+    {
+      "id": "meridiani",
+      "cameraRef": "landed",
+      "lines": [
+        {
+          "kind": "fact",
+          "text": "Opportunity woke up inside a small crater on a plain called Meridiani.",
+          "sourceId": "F22"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "opportunity-rover",
+      "name": {
+        "kind": "fact",
+        "text": "Opportunity Rover",
+        "sourceId": "F4"
+      },
+      "modelRef": "rover",
+      "spawnPosition": [
+        4.4,
+        0,
+        2.6
+      ],
+      "discoveryHint": {
+        "kind": "imagine",
+        "text": "Wheel tracks lead toward something big, to the east."
+      },
+      "leftBehindReason": {
+        "category": "operation",
+        "fact": {
+          "kind": "fact",
+          "text": "A giant dust storm blocked the sunlight, and it went quiet.",
+          "sourceId": "F5"
+        }
+      },
+      "originalMission": {
+        "kind": "fact",
+        "text": "Mars Exploration Rover · 2004",
+        "sourceId": "F4"
+      },
+      "purpose": {
+        "kind": "fact",
+        "text": "Explore Mars and look for clues of past water.",
+        "sourceId": "F14"
+      },
+      "significance": {
+        "kind": "fact",
+        "text": "Clues showed its landing place was once the shore of a salty sea.",
+        "sourceId": "F14"
+      },
+      "summary": {
+        "kind": "fact",
+        "text": "Planned for 90 Martian days, it worked about 60 times longer.",
+        "sourceId": "F5"
+      },
+      "components": [
+        {
+          "id": "solar-panels",
+          "name": {
+            "kind": "fact",
+            "text": "Solar panels",
+            "sourceId": "M_EDL"
+          },
+          "hotspotPosition": [
+            -0.95,
+            0.95,
+            0.35
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Martian winds sometimes blew the dust off its panels.",
+            "sourceId": "F15"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Make power from sunlight.",
+            "sourceId": "F15"
+          }
+        },
+        {
+          "id": "wheels",
+          "name": {
+            "kind": "fact",
+            "text": "Wheels",
+            "sourceId": "F24"
+          },
+          "hotspotPosition": [
+            0.95,
+            0.3,
+            0.72
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Its top speed on flat ground was 5 centimetres a second.",
+            "sourceId": "F24"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Drive across Mars, crater after crater.",
+            "sourceId": "F4"
+          }
+        },
+        {
+          "id": "camera-mast",
+          "name": {
+            "kind": "fact",
+            "text": "Camera mast",
+            "sourceId": "M_EDL"
+          },
+          "hotspotPosition": [
+            0.35,
+            1.95,
+            -0.15
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "It unfolded its camera mast after it landed.",
+            "sourceId": "M_EDL"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Hold up the rover's cameras.",
+            "sourceId": "M_EDL"
+          }
+        }
+      ],
+      "cluesRequired": 3,
+      "activity": "solar",
+      "activityFact": {
+        "kind": "fact",
+        "text": "Martian winds really cleaned rover panels!",
+        "sourceId": "F15"
+      },
+      "photo": {
+        "src": "/media/artifacts/rover.jpg",
+        "caption": {
+          "kind": "fact",
+          "text": "The rocket carrying Opportunity lifts off at night, July 2003.",
+          "sourceId": "K_LAUNCH"
+        },
+        "credit": {
+          "kind": "fact",
+          "text": "NASA",
+          "sourceId": "K_LAUNCH"
+        },
+        "sourceId": "K_LAUNCH",
+        "license": "public-domain"
+      },
+      "evidence": [
+        {
+          "id": "opportunity-rover-part",
+          "slot": "component",
+          "fact": {
+            "kind": "fact",
+            "text": "Solar panels",
+            "sourceId": "M_EDL"
+          }
+        },
+        {
+          "id": "opportunity-rover-mission",
+          "slot": "mission",
+          "fact": {
+            "kind": "fact",
+            "text": "Mars Exploration Rover · 2004",
+            "sourceId": "F4"
+          }
+        },
+        {
+          "id": "opportunity-rover-photo",
+          "slot": "photo",
+          "fact": {
+            "kind": "fact",
+            "text": "The rocket carrying Opportunity lifts off at night, July 2003.",
+            "sourceId": "K_LAUNCH"
+          }
+        },
+        {
+          "id": "opportunity-rover-function",
+          "slot": "function",
+          "fact": {
+            "kind": "fact",
+            "text": "Explore Mars and look for clues of past water.",
+            "sourceId": "F14"
+          }
+        },
+        {
+          "id": "opportunity-rover-reason",
+          "slot": "reason",
+          "fact": {
+            "kind": "fact",
+            "text": "A giant dust storm blocked the sunlight, and it went quiet.",
+            "sourceId": "F5"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mars-lander",
+      "name": {
+        "kind": "fact",
+        "text": "Lander and airbags",
+        "sourceId": "M_EDL"
+      },
+      "modelRef": "marslander",
+      "spawnPosition": [
+        -4.6,
+        0,
+        3.4
+      ],
+      "discoveryHint": {
+        "kind": "imagine",
+        "text": "Something shiny rests in a small crater, to the west."
+      },
+      "leftBehindReason": {
+        "category": "operation",
+        "fact": {
+          "kind": "fact",
+          "text": "The rover drove away; its landing hardware stayed in Eagle crater.",
+          "sourceId": "F22"
+        }
+      },
+      "originalMission": {
+        "kind": "fact",
+        "text": "Mars Exploration Rover · 2004",
+        "sourceId": "F4"
+      },
+      "purpose": {
+        "kind": "fact",
+        "text": "Carry the rover safely down to the ground.",
+        "sourceId": "M_EDL"
+      },
+      "significance": {
+        "kind": "fact",
+        "text": "It rolled into a small crater: a hole-in-one!",
+        "sourceId": "F17"
+      },
+      "summary": {
+        "kind": "fact",
+        "text": "Airbags let it bounce 26 times before it rolled into a crater.",
+        "sourceId": "F17"
+      },
+      "components": [
+        {
+          "id": "airbags",
+          "name": {
+            "kind": "fact",
+            "text": "Airbags",
+            "sourceId": "M_EDL"
+          },
+          "hotspotPosition": [
+            0.9,
+            0.35,
+            0.55
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "The lander bounced 26 times before it stopped.",
+            "sourceId": "F17"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Cushion the bouncy landing.",
+            "sourceId": "M_EDL"
+          }
+        },
+        {
+          "id": "petals",
+          "name": {
+            "kind": "fact",
+            "text": "Petals",
+            "sourceId": "M_EDL"
+          },
+          "hotspotPosition": [
+            -0.15,
+            0.2,
+            -0.85
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "The lander opened its petals like a flower.",
+            "sourceId": "M_EDL"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Open up so the rover could drive out.",
+            "sourceId": "M_EDL"
+          }
+        },
+        {
+          "id": "bridle",
+          "name": {
+            "kind": "fact",
+            "text": "Bridle rope",
+            "sourceId": "M_EDL"
+          },
+          "hotspotPosition": [
+            0.0,
+            0.55,
+            0.0
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "The lander hung on a rope below the backshell.",
+            "sourceId": "M_EDL"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Lower the lander before the drop.",
+            "sourceId": "M_EDL"
+          }
+        }
+      ],
+      "cluesRequired": 3,
+      "activity": "airbag",
+      "activityFact": {
+        "kind": "fact",
+        "text": "It bounced 26 times before rolling into a small crater.",
+        "sourceId": "F17"
+      },
+      "photo": {
+        "src": "/media/artifacts/mars-lander.jpg",
+        "caption": {
+          "kind": "fact",
+          "text": "Airbags fitted on Opportunity's lander at Kennedy Space Center, 2003.",
+          "sourceId": "K_AIRBAGS"
+        },
+        "credit": {
+          "kind": "fact",
+          "text": "NASA",
+          "sourceId": "K_AIRBAGS"
+        },
+        "sourceId": "K_AIRBAGS",
+        "license": "public-domain"
+      },
+      "evidence": [
+        {
+          "id": "mars-lander-part",
+          "slot": "component",
+          "fact": {
+            "kind": "fact",
+            "text": "Airbags",
+            "sourceId": "M_EDL"
+          }
+        },
+        {
+          "id": "mars-lander-mission",
+          "slot": "mission",
+          "fact": {
+            "kind": "fact",
+            "text": "Mars Exploration Rover · 2004",
+            "sourceId": "F4"
+          }
+        },
+        {
+          "id": "mars-lander-photo",
+          "slot": "photo",
+          "fact": {
+            "kind": "fact",
+            "text": "Airbags fitted on Opportunity's lander at Kennedy Space Center, 2003.",
+            "sourceId": "K_AIRBAGS"
+          }
+        },
+        {
+          "id": "mars-lander-function",
+          "slot": "function",
+          "fact": {
+            "kind": "fact",
+            "text": "Carry the rover safely down to the ground.",
+            "sourceId": "M_EDL"
+          }
+        },
+        {
+          "id": "mars-lander-reason",
+          "slot": "reason",
+          "fact": {
+            "kind": "fact",
+            "text": "The rover drove away; its landing hardware stayed in Eagle crater.",
+            "sourceId": "F22"
+          }
+        }
+      ]
+    },
+    {
+      "id": "entry-hardware",
+      "name": {
+        "kind": "fact",
+        "text": "Heat shield and parachute",
+        "sourceId": "M_EDL"
+      },
+      "modelRef": "chute",
+      "spawnPosition": [
+        0.8,
+        0,
+        -3.4
+      ],
+      "discoveryHint": {
+        "kind": "imagine",
+        "text": "Something round and dark lies to the north."
+      },
+      "leftBehindReason": {
+        "category": "operation",
+        "fact": {
+          "kind": "fact",
+          "text": "The heat shield fell away during the landing.",
+          "sourceId": "M_EDL"
+        }
+      },
+      "originalMission": {
+        "kind": "fact",
+        "text": "Mars Exploration Rover · 2004",
+        "sourceId": "F4"
+      },
+      "purpose": {
+        "kind": "fact",
+        "text": "Slow Opportunity down as it fell toward Mars.",
+        "sourceId": "M_EDL"
+      },
+      "significance": {
+        "kind": "fact",
+        "text": "The heat shield protected Opportunity in the thin Martian air.",
+        "sourceId": "M_EDL"
+      },
+      "summary": {
+        "kind": "fact",
+        "text": "A heat shield, a parachute and rockets slowed Opportunity's fall.",
+        "sourceId": "M_EDL"
+      },
+      "components": [
+        {
+          "id": "heat-shield",
+          "name": {
+            "kind": "fact",
+            "text": "Heat shield",
+            "sourceId": "M_EDL"
+          },
+          "hotspotPosition": [
+            -0.7,
+            0.45,
+            0.45
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "It protected Opportunity as it entered the thin Martian air.",
+            "sourceId": "M_EDL"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Protect the lander while it enters the air.",
+            "sourceId": "M_EDL"
+          }
+        },
+        {
+          "id": "parachute",
+          "name": {
+            "kind": "fact",
+            "text": "Parachute",
+            "sourceId": "M_EDL"
+          },
+          "hotspotPosition": [
+            0.85,
+            0.25,
+            0.3
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "A parachute opened to slow the fall.",
+            "sourceId": "M_EDL"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Slow the fall.",
+            "sourceId": "M_EDL"
+          }
+        },
+        {
+          "id": "rockets",
+          "name": {
+            "kind": "fact",
+            "text": "Backshell rockets",
+            "sourceId": "M_EDL"
+          },
+          "hotspotPosition": [
+            0.15,
+            0.85,
+            -0.3
+          ],
+          "clue": {
+            "kind": "fact",
+            "text": "Rockets on the backshell slowed the fall almost to a stop.",
+            "sourceId": "M_EDL"
+          },
+          "function": {
+            "kind": "fact",
+            "text": "Brake just before the drop.",
+            "sourceId": "M_EDL"
+          }
+        }
+      ],
+      "cluesRequired": 3,
+      "activity": "chute",
+      "activityFact": {
+        "kind": "fact",
+        "text": "A parachute opened to slow the fall.",
+        "sourceId": "M_EDL"
+      },
+      "photo": {
+        "src": "/media/artifacts/entry.jpg",
+        "caption": {
+          "kind": "fact",
+          "text": "Opportunity's heat shield and backshell at Kennedy Space Center, 2003.",
+          "sourceId": "K_SHIELD"
+        },
+        "credit": {
+          "kind": "fact",
+          "text": "NASA",
+          "sourceId": "K_SHIELD"
+        },
+        "sourceId": "K_SHIELD",
+        "license": "public-domain"
+      },
+      "evidence": [
+        {
+          "id": "entry-hardware-part",
+          "slot": "component",
+          "fact": {
+            "kind": "fact",
+            "text": "Heat shield",
+            "sourceId": "M_EDL"
+          }
+        },
+        {
+          "id": "entry-hardware-mission",
+          "slot": "mission",
+          "fact": {
+            "kind": "fact",
+            "text": "Mars Exploration Rover · 2004",
+            "sourceId": "F4"
+          }
+        },
+        {
+          "id": "entry-hardware-photo",
+          "slot": "photo",
+          "fact": {
+            "kind": "fact",
+            "text": "Opportunity's heat shield and backshell at Kennedy Space Center, 2003.",
+            "sourceId": "K_SHIELD"
+          }
+        },
+        {
+          "id": "entry-hardware-function",
+          "slot": "function",
+          "fact": {
+            "kind": "fact",
+            "text": "Slow Opportunity down as it fell toward Mars.",
+            "sourceId": "M_EDL"
+          }
+        },
+        {
+          "id": "entry-hardware-reason",
+          "slot": "reason",
+          "fact": {
+            "kind": "fact",
+            "text": "The heat shield fell away during the landing.",
+            "sourceId": "M_EDL"
+          }
+        }
+      ]
+    }
+  ],
+  "evidenceSlots": [
+    {
+      "id": "component",
+      "label": "Component"
+    },
+    {
+      "id": "mission",
+      "label": "Mission"
+    },
+    {
+      "id": "photo",
+      "label": "Historical photo"
+    },
+    {
+      "id": "function",
+      "label": "Function"
+    },
+    {
+      "id": "reason",
+      "label": "Why it stayed"
+    }
+  ],
+  "reconstruction": {
+    "prompt": "How did Opportunity land?",
+    "modelRef": "marslander",
+    "stages": [
+      {
+        "id": "entry",
+        "name": {
+          "kind": "fact",
+          "text": "Heat shield",
+          "sourceId": "M_EDL"
+        },
+        "function": {
+          "kind": "fact",
+          "text": "Protect the lander while it enters the air.",
+          "sourceId": "M_EDL"
+        }
+      },
+      {
+        "id": "airbags",
+        "name": {
+          "kind": "fact",
+          "text": "Airbags",
+          "sourceId": "M_EDL"
+        },
+        "function": {
+          "kind": "fact",
+          "text": "Cushion the bouncy landing.",
+          "sourceId": "M_EDL"
+        }
+      }
+    ],
+    "timeline": [
+      {
+        "id": "chute",
+        "fact": {
+          "kind": "fact",
+          "text": "A parachute opened to slow the fall.",
+          "sourceId": "M_EDL"
+        }
+      },
+      {
+        "id": "bags",
+        "fact": {
+          "kind": "fact",
+          "text": "Giant airbags inflated around the lander.",
+          "sourceId": "M_EDL"
+        }
+      },
+      {
+        "id": "roll",
+        "fact": {
+          "kind": "fact",
+          "text": "It rolled into a small crater. A hole-in-one!",
+          "sourceId": "F14"
+        }
+      }
+    ],
+    "hints": [
+      {
+        "kind": "imagine",
+        "text": "What slowed the fall first?"
+      },
+      {
+        "kind": "fact",
+        "text": "A parachute opened to slow the fall.",
+        "sourceId": "M_EDL"
+      }
+    ],
+    "summary": {
+      "kind": "fact",
+      "text": "A heat shield, a parachute and rockets slowed Opportunity's fall.",
+      "sourceId": "M_EDL"
+    }
+  },
+  "discovery": [
+    {
+      "kind": "fact",
+      "text": "Opportunity ran on sunlight. Dust slowly covered its solar panels.",
+      "sourceId": "F15"
+    },
+    {
+      "kind": "fact",
+      "text": "Tiny round pebbles called blueberries formed in water long ago.",
+      "sourceId": "F14"
+    },
+    {
+      "kind": "fact",
+      "text": "It became the first robot to drive farther than a marathon on another world.",
+      "sourceId": "F4"
+    }
+  ],
+  "challenge": [
+    {
+      "id": "stayed",
+      "format": "pick",
+      "prompt": {
+        "kind": "fact",
+        "text": "Where did Opportunity's landing hardware stay?",
+        "sourceId": "F22"
+      },
+      "options": [
+        {
+          "id": "eagle",
+          "label": {
+            "kind": "fact",
+            "text": "Eagle crater",
+            "sourceId": "F22"
+          }
+        },
+        {
+          "id": "endeavour",
+          "label": {
+            "kind": "fact",
+            "text": "Endeavour crater",
+            "sourceId": "F4"
+          }
+        }
+      ],
+      "answer": [
+        "eagle"
+      ],
+      "explanation": {
+        "kind": "fact",
+        "text": "The rover drove away; its landing hardware stayed in Eagle crater.",
+        "sourceId": "F22"
+      }
+    }
+  ],
+  "rewards": {
+    "badge": "Meridiani Storykeeper",
+    "points": 400,
+    "rank": "Space Archaeologist"
+  }
+}

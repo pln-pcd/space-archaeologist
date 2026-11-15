@@ -491,6 +491,96 @@
       "sourceIds": [
         "F37"
       ]
+    },
+    {
+      "id": "nasa-what",
+      "mission": null,
+      "keys": [
+        "what is nasa",
+        "nasa",
+        "who is nasa",
+        "what does nasa do",
+        "about nasa",
+        "nasa stands for",
+        "nasa mean",
+        "stand for",
+        "full name nasa"
+      ],
+      "a": "NASA stands for the National Aeronautics and Space Administration. It's the United States space agency, and it opened on October 1, 1958!",
+      "sourceIds": [
+        "N_ABOUT"
+      ]
+    },
+    {
+      "id": "nasa-when",
+      "mission": null,
+      "keys": [
+        "when nasa start",
+        "when was nasa made",
+        "how old is nasa",
+        "nasa born",
+        "nasa founded"
+      ],
+      "a": "NASA opened for business on October 1, 1958. Since then it has sent people to the Moon and robots all over the solar system!",
+      "sourceIds": [
+        "N_ABOUT"
+      ]
+    },
+    {
+      "id": "planets-count",
+      "mission": null,
+      "keys": [
+        "how many planets",
+        "planets solar system",
+        "name the planets",
+        "eight planets"
+      ],
+      "a": "Our solar system has 8 planets. Pluto is called a dwarf planet.",
+      "sourceIds": [
+        "N_PLANETS"
+      ]
+    },
+    {
+      "id": "jupiter-big",
+      "mission": null,
+      "keys": [
+        "biggest planet",
+        "largest planet",
+        "jupiter big",
+        "how big is jupiter"
+      ],
+      "a": "Jupiter is the biggest planet in our solar system. About 1,000 Earths could fit inside it!",
+      "sourceIds": [
+        "N_JUPITER"
+      ]
+    },
+    {
+      "id": "iss",
+      "mission": null,
+      "keys": [
+        "space station",
+        "iss",
+        "international space station",
+        "astronauts live space"
+      ],
+      "a": "The International Space Station is a home in orbit. People have lived on it without a break for more than 25 years!",
+      "sourceIds": [
+        "N_ISS"
+      ]
+    },
+    {
+      "id": "artemis",
+      "mission": null,
+      "keys": [
+        "artemis",
+        "back to the moon",
+        "go back moon",
+        "moon to mars"
+      ],
+      "a": "Artemis is NASA's program to explore the Moon again, as a step toward sending people to Mars!",
+      "sourceIds": [
+        "N_ARTEMIS"
+      ]
     }
   ],
   "chips": {
